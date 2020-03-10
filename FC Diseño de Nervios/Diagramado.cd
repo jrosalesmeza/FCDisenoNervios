@@ -1,38 +1,102 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="FC_Diseño_de_Nervios.cStation">
-    <Position X="1.25" Y="9.5" Width="1.5" />
+  <Class Name="FC_Diseño_de_Nervios.cLine">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <AssociationLine Name="cSeccion" Type="FC_Diseño_de_Nervios.cSeccion" FixedFromPoint="true">
+      <Path>
+        <Point X="4.5" Y="1.188" />
+        <Point X="5.5" Y="1.188" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgCBAAgAAAAAAAAAAAAAgAAAAAABA=</HashCode>
-      <FileName>cStation.cs</FileName>
+      <HashCode>MAAAAAAAAAEAAAAQAAAAgABQAgACAAAAAQAAAAQAAAA=</HashCode>
+      <FileName>cLine.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Envolvente" />
+      <Property Name="cConfig_Planta" />
+      <Property Name="cConfig_Longi" />
+      <Property Name="cSeccion" />
+      <Property Name="eType" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="FC_Diseño_de_Nervios.cCombo">
-    <Position X="9" Y="9.25" Width="1.5" />
+  <Class Name="FC_Diseño_de_Nervios.cSeccion">
+    <Position X="5.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAIAAAAAAAAAAAAAhCAAAAAAAAAAAAAAAABEAAA=</HashCode>
-      <FileName>cCombo.cs</FileName>
+      <HashCode>AEAAAAAAAAAAAIAAAAAAgAAQAAAAAAAAAAAAAEEAAAA=</HashCode>
+      <FileName>cSeccion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="cMaterial" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cPoint">
+    <Position X="8.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
+      <FileName>cPoint.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FC_Diseño_de_Nervios.cEnvolvente">
-    <Position X="4.75" Y="9.25" Width="1.5" />
+  <Class Name="FC_Diseño_de_Nervios.cMaterial">
+    <Position X="8" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAIAAAAAAAAAAAAAhCAAAAAAAAAAAAAAAABEAAA=</HashCode>
-      <FileName>cEnvolvente.cs</FileName>
+      <HashCode>AAAAgAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cMaterial.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FC_Diseño_de_Nervios.cSolicitacion_Areas">
-    <Position X="7.25" Y="9.25" Width="1.5" />
+  <Class Name="FC_Diseño_de_Nervios.cConfig_Planta">
+    <Position X="3" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAIAAAAAAAACEAAAIAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>cSolicitacion_Areas.cs</FileName>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>cConfigPlanta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cConfig_Longi">
+    <Position X="0.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>cConfigPlanta.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cNervio">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAABAAAAAEAAAAAAA=</HashCode>
+      <FileName>cNervio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cProyecto">
+    <Position X="12" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAIAAAAAAgAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>cProyecto.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="cDatosEtabs" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cEdificio">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>cEdificio.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cDatosEtabs">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>cDatosEtabs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cPiso">
+    <Position X="6.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cPiso.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Enum Name="FC_Diseño_de_Nervios.eType">
-    <Position X="11.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAgAAABAAAAAQAAAAAQAAAAAAAAAAAA=</HashCode>
       <FileName>eType.cs</FileName>

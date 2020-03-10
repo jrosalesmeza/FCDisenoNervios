@@ -46,10 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cCombo.cs" />
-    <Compile Include="cEnvolvente.cs" />
-    <Compile Include="cSolicitacion_Areas.cs" />
-    <Compile Include="cStation.cs" />
+    <Compile Include="cConfigPlanta.cs" />
+    <Compile Include="cDatosEtabs.cs" />
+    <Compile Include="cEdificio.cs" />
+    <Compile Include="cLine.cs" />
+    <Compile Include="cMaterial.cs" />
+    <Compile Include="cNervio.cs" />
+    <Compile Include="cPiso.cs" />
+    <Compile Include="cPoint.cs" />
+    <Compile Include="cProyecto.cs" />
+    <Compile Include="cSeccion.cs" />
     <Compile Include="eType.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
