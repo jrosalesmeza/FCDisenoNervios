@@ -5,9 +5,10 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cProyecto
+    public class cConfigEtabs
     {
-        public string Nombre
+
+        public bool Select
         {
             get => default;
             set
@@ -15,7 +16,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public string Ruta
+        public cPoint Point1P
         {
             get => default;
             set
@@ -23,15 +24,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cDatosEtabs DatosEtabs
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cEdificio Edificio
+        public cPoint Point2P
         {
             get => default;
             set

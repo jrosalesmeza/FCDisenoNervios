@@ -1,0 +1,4 @@
+C:\Users\svargas\Desktop\Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csprojAssemblyReference.cache
+C:\Users\svargas\Desktop\Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Form1.resources
+C:\Users\svargas\Desktop\Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Properties.Resources.resources
+C:\Users\svargas\Desktop\Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.GenerateResource.cache

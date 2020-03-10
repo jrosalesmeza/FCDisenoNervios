@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cProyecto
+    public class cEstacion
     {
         public string Nombre
         {
@@ -15,7 +15,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public string Ruta
+        public float Localizacion
         {
             get => default;
             set
@@ -23,15 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cDatosEtabs DatosEtabs
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cEdificio Edificio
+        public List<cSolicitaciones> Combos
         {
             get => default;
             set

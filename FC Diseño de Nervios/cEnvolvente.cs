@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cProyecto
+    public class cEnvolvente
     {
         public string Nombre
         {
@@ -15,7 +15,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public string Ruta
+        public float[] P
         {
             get => default;
             set
@@ -23,7 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cDatosEtabs DatosEtabs
+        public float[] M2
         {
             get => default;
             set
@@ -31,7 +31,31 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cEdificio Edificio
+        public float[] M3
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public float[] T
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public float[] V3
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public float[] V2
         {
             get => default;
             set

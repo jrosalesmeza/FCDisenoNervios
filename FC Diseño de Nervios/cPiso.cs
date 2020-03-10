@@ -15,7 +15,31 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public List lista_Nervios
+        public List<cNervio> Nervios
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public cNervio NervioSelect
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public List<cViga> Vigas
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public int VigaSelect
         {
             get => default;
             set

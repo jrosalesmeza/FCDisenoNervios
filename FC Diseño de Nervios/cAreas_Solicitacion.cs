@@ -5,9 +5,9 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cProyecto
+    public class cAreas_Solicitacion
     {
-        public string Nombre
+        public float[] AvR
         {
             get => default;
             set
@@ -15,7 +15,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public string Ruta
+        public float[] AmR
         {
             get => default;
             set
@@ -23,7 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cDatosEtabs DatosEtabs
+        public float[] AvS
         {
             get => default;
             set
@@ -31,7 +31,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cEdificio Edificio
+        public float[] AmS
         {
             get => default;
             set

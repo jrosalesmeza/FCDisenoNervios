@@ -5,9 +5,9 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cProyecto
+    public class cEstribo
     {
-        public string Nombre
+        public cSeccion Seccion
         {
             get => default;
             set
@@ -15,7 +15,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public string Ruta
+        public int Ramas
         {
             get => default;
             set
@@ -23,15 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cDatosEtabs DatosEtabs
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cEdificio Edificio
+        public cConfig_Longitud Config_Longi
         {
             get => default;
             set

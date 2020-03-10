@@ -5,8 +5,16 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cProyecto
+    public class cViga
     {
+        public List<cTramo> Lista_Tramos
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public string Nombre
         {
             get => default;
@@ -15,23 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public string Ruta
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cDatosEtabs DatosEtabs
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cEdificio Edificio
+        public string Prefijo
         {
             get => default;
             set
