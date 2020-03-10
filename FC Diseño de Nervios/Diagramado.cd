@@ -1,7 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FC_Diseño_de_Nervios.cStation">
+    <Position X="1.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgCBAAgAAAAAAAAAAAAAgAAAAAABA=</HashCode>
+      <FileName>cStation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Envolvente" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cCombo">
+    <Position X="9" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIAAAAAAAAAAAAAhCAAAAAAAAAAAAAAAABEAAA=</HashCode>
+      <FileName>cCombo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cEnvolvente">
+    <Position X="4.75" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAIAAAAAAAAAAAAAhCAAAAAAAAAAAAAAAABEAAA=</HashCode>
+      <FileName>cEnvolvente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FC_Diseño_de_Nervios.cSolicitacion_Areas">
+    <Position X="7.25" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAACEAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cSolicitacion_Areas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="FC_Diseño_de_Nervios.eType">
-    <Position X="5.5" Y="0.5" Width="1.5" />
+    <Position X="11.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAgAAABAAAAAQAAAAAQAAAAAAAAAAAA=</HashCode>
       <FileName>eType.cs</FileName>

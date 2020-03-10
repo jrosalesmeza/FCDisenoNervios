@@ -46,6 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="cCombo.cs" />
+    <Compile Include="cEnvolvente.cs" />
+    <Compile Include="cSolicitacion_Areas.cs" />
+    <Compile Include="cStation.cs" />
     <Compile Include="eType.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
