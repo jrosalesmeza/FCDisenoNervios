@@ -30,5 +30,13 @@ namespace FC_Diseño_de_Nervios
             {
             }
         }
+
+        public cTramo TramoSelect
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

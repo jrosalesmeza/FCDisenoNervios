@@ -23,7 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cConfig_Longitud Config_Longi
+        public cConfig_Longitudinal Config_Longi
         {
             get => default;
             set

@@ -30,21 +30,5 @@ namespace FC_Diseño_de_Nervios
             {
             }
         }
-
-        public List<cViga> Vigas
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int VigaSelect
-        {
-            get => default;
-            set
-            {
-            }
-        }
     }
 }

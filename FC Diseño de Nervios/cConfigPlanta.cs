@@ -25,7 +25,7 @@ namespace FC_Diseño_de_Nervios
         }
     }
 
-    public class cConfig_Longitud
+    public class cConfig_Longitudinal
     {
 
         public List<cPoint> ListPunto

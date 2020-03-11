@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cSolicitaciones
+    public class cSolicitacion
     {
         public string Nombre
         {

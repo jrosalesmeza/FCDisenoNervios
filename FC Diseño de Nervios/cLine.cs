@@ -15,7 +15,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public List Estaciones
+        public List<cEstacion> Estaciones
         {
             get => default;
             set
@@ -47,7 +47,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public eTipoSoporte Apoyo
+        public eTipoSoporte Soporte
         {
             get => default;
             set
@@ -55,7 +55,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cConfig_Longitud Config_Longi
+        public cConfig_Longitudinal Config_Longi
         {
             get => default;
             set
@@ -71,7 +71,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cCalculos Calculos
+        public cConfigEtabs ConfigEtabs
         {
             get => default;
             set

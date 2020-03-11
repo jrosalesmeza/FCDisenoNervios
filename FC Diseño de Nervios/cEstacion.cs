@@ -23,7 +23,39 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public List<cSolicitaciones> Combos
+        public List<cSolicitacion> Combos
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public cConfig_Longitudinal Config_Longitudinal
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public cCalculos Calculos
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public List<cSolicitacion> Lista_Solicitaciones
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public bool isVisible
         {
             get => default;
             set

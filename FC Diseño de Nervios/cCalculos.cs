@@ -14,5 +14,13 @@ namespace FC_Diseño_de_Nervios
             {
             }
         }
+
+        public cEnvolvente Envolvente
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }
