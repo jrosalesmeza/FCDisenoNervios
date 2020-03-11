@@ -2,31 +2,40 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="FC_Diseño_de_Nervios.cLine">
     <Position X="3" Y="0.5" Width="1.5" />
-    <AssociationLine Name="cSeccion" Type="FC_Diseño_de_Nervios.cSeccion" FixedFromPoint="true">
+    <AssociationLine Name="Seccion" Type="FC_Diseño_de_Nervios.cSeccion" FixedFromPoint="true">
       <Path>
-        <Point X="4.5" Y="1.188" />
-        <Point X="5.5" Y="1.188" />
+        <Point X="4.5" Y="1.129" />
+        <Point X="5.75" Y="1.129" />
       </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.235" Y="0.06" />
+      </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>MAAAAAAAAAEAAAAQAAAAgABQAgACAAAAAQAAAAQAAAA=</HashCode>
+      <HashCode>MAAAAAAAAAEAAAAQAAAAgAAQAAACAAEAAQAAAAQAAAA=</HashCode>
       <FileName>cLine.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="cConfig_Planta" />
+      <Property Name="Config_Planta" />
       <Property Name="cConfig_Longi" />
-      <Property Name="cSeccion" />
+      <Property Name="Seccion" />
       <Property Name="eType" />
     </ShowAsAssociation>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cSeccion">
-    <Position X="5.5" Y="0.5" Width="1.5" />
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Type" Type="FC_Diseño_de_Nervios.eType">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.131" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AEAAAAAAAAAAAIAAAAAAgAAQAAAAAAAAAAAAAEEAAAA=</HashCode>
+      <HashCode>AEAAAAAAAAAAAIAAAAAAgAAQAAAAAAAAAQAAAEEAAAA=</HashCode>
       <FileName>cSeccion.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="cMaterial" />
+      <Property Name="Type" />
     </ShowAsAssociation>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cPoint">
@@ -37,23 +46,23 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cMaterial">
-    <Position X="8" Y="0.5" Width="1.5" />
+    <Position X="8.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cMaterial.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cConfig_Planta">
-    <Position X="3" Y="3.25" Width="1.5" />
+    <Position X="3.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>cConfigPlanta.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cConfig_Longi">
     <Position X="0.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>cConfigPlanta.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -89,9 +98,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cPiso">
-    <Position X="6.5" Y="5.75" Width="1.5" />
+    <Position X="6.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>cPiso.cs</FileName>
     </TypeIdentifier>
   </Class>

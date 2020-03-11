@@ -54,5 +54,13 @@ namespace FC_Diseño_de_Nervios
             {
             }
         }
+
+        public eType Type
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+
 
 namespace FC_Diseño_de_Nervios
 {
@@ -9,18 +11,14 @@ namespace FC_Diseño_de_Nervios
     {
         public string Nombre
         {
+            
             get => default;
             set
             {
             }
         }
 
-        public List lista_Nervios
-        {
-            get => default;
-            set
-            {
-            }
-        }
+
+     
     }
 }

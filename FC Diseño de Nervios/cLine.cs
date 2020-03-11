@@ -15,14 +15,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public int Seccion
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public string Type
         {
             get => default;
@@ -63,7 +55,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cConfig_Planta cConfig_Planta
+        public cConfig_Planta Config_Planta
         {
             get => default;
             set
@@ -79,7 +71,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cSeccion cSeccion
+        public cSeccion Seccion
         {
             get => default;
             set
