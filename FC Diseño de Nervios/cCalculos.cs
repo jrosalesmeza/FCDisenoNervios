@@ -5,17 +5,9 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cEdificio
+    public class cCalculos
     {
-        public List<cPiso> Lista_Pisos
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cPiso PisoSelect
+        public float Phi_Vc
         {
             get => default;
             set

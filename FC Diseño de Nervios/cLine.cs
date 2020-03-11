@@ -15,39 +15,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public string Type
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public List Estaciones
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int ConfigLongi
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int ConfigPlanta
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public System.Type Apoyo
         {
             get => default;
             set
@@ -63,14 +31,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cConfig_Longi cConfig_Longi
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public cSeccion Seccion
         {
             get => default;
@@ -79,7 +39,39 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public eType eType
+        public eType Type
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public eTipoSoporte Apoyo
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public cConfig_Longitud Config_Longi
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public cLine ObjDerecha
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public cCalculos Calculos
         {
             get => default;
             set

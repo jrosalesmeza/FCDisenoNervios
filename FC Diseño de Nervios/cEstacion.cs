@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cStation
+    public class cEstacion
     {
         public string Nombre
         {
@@ -23,31 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public List<cCombo> Combos
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cEnvolvente Envolvente
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public bool isVisible
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public List<cSolicitacion_Areas> Solicitaciones
+        public List<cSolicitaciones> Combos
         {
             get => default;
             set

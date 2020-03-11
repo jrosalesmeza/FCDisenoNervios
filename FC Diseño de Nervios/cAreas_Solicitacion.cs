@@ -5,9 +5,9 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cSolicitacion_Areas
+    public class cAreas_Solicitacion
     {
-        public float[] Acrotante
+        public float[] AvR
         {
             get => default;
             set
@@ -15,7 +15,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public float[] Aflexion
+        public float[] AmR
         {
             get => default;
             set
@@ -23,7 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public float[] Acortsuministrada
+        public float[] AvS
         {
             get => default;
             set
@@ -31,7 +31,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public float[] Aflexionsuministrada
+        public float[] AmS
         {
             get => default;
             set

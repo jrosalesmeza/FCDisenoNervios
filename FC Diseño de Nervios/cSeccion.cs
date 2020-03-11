@@ -7,23 +7,7 @@ namespace FC_Diseño_de_Nervios
 {
     public class cSeccion
     {
-        public int Nombre
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public System.Type eType
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int Material
+        public string Nombre
         {
             get => default;
             set
@@ -47,7 +31,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cMaterial cMaterial
+        public cMaterial Material
         {
             get => default;
             set

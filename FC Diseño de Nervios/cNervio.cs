@@ -23,7 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public List Lista_Tramos
+        public List<cTramo> Lista_Tramos
         {
             get => default;
             set

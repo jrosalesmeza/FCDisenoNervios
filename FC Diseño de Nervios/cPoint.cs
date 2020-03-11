@@ -7,7 +7,7 @@ namespace FC_Diseño_de_Nervios
 {
     public class cPoint
     {
-        public int Nombre
+        public string Nombre
         {
             get => default;
             set

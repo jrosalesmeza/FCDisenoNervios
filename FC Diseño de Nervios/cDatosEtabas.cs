@@ -5,9 +5,9 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cProyecto
+    public class cDatosEtabs
     {
-        public string Nombre
+        public List<cLine> List_line
         {
             get => default;
             set
@@ -15,7 +15,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public string Ruta
+        public List<cPoint> Lista_Points
         {
             get => default;
             set
@@ -23,15 +23,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cDatosEtabs DatosEtabs
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cEdificio Edificio
+        public List<cSeccion> Lista_Secciones
         {
             get => default;
             set

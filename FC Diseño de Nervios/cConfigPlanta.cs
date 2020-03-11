@@ -8,7 +8,7 @@ namespace FC_Diseño_de_Nervios
     public class cConfig_Planta
     {
 
-        public list ListPunto
+        public List<cPoint> ListPunto
         {
             get => default;
             set
@@ -25,10 +25,10 @@ namespace FC_Diseño_de_Nervios
         }
     }
 
-    public class cConfig_Longi
+    public class cConfig_Longitud
     {
 
-        public list ListPunto
+        public List<cPoint> ListPunto
         {
             get => default;
             set

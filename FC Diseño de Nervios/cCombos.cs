@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cCombo
+    public class cSolicitaciones
     {
         public string Nombre
         {
@@ -16,6 +16,22 @@ namespace FC_Diseño_de_Nervios
         }
 
         public float P
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public float V2
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public float V3
         {
             get => default;
             set
@@ -40,22 +56,6 @@ namespace FC_Diseño_de_Nervios
         }
 
         public float T
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public float V2
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public float V3
         {
             get => default;
             set

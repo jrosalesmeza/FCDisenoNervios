@@ -47,7 +47,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public float[] V2
+        public float[] V3
         {
             get => default;
             set
@@ -55,7 +55,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public float[] V3
+        public float[] V2
         {
             get => default;
             set
