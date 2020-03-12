@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cEstribo
+    public class cEstribo:cObjetoCoordenadas
     {
         public cSeccion Seccion
         {
@@ -16,14 +16,6 @@ namespace FC_Diseño_de_Nervios
         }
 
         public int Ramas
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public cConfig_Longitudinal Config_Longi
         {
             get => default;
             set

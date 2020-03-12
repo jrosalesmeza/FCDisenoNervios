@@ -38,5 +38,21 @@ namespace FC_Diseño_de_Nervios
             {
             }
         }
+
+        public int ID
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public List<cBarra> ListaBarras
+        {
+            get => default;
+            set
+            {
+            }
+        }
     }
 }

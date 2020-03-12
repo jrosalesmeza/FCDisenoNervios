@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cLine
+    public class cLine:cObjetoCoordenadas
     {
         public string Nombre
         {
@@ -22,15 +22,6 @@ namespace FC_Diseño_de_Nervios
             {
             }
         }
-
-        public cConfig_Planta Config_Planta
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public cSeccion Seccion
         {
             get => default;
@@ -55,14 +46,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cConfig_Longitudinal Config_Longi
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public cLine ObjDerecha
         {
             get => default;
@@ -72,6 +55,14 @@ namespace FC_Diseño_de_Nervios
         }
 
         public cConfigEtabs ConfigEtabs
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public string Story
         {
             get => default;
             set

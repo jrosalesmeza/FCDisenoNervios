@@ -2,3 +2,16 @@ C:\Users\svargas\Desktop\Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug
 C:\Users\svargas\Desktop\Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Form1.resources
 C:\Users\svargas\Desktop\Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Properties.Resources.resources
 C:\Users\svargas\Desktop\Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.GenerateResource.cache
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.exe.config
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.exe
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csprojAssemblyReference.cache
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Properties.Resources.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.GenerateResource.cache
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.exe
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_Base.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_NuevoProyecto.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.CopyComplete
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\System.Windows.Forms.Ribbon35.dll

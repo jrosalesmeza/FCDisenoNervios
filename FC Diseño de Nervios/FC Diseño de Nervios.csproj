@@ -35,6 +35,10 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Windows.Forms.Ribbon35">
+      <HintPath>..\..\..\Downloads\System.Windows.Forms.Ribbon35.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,39 +48,57 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking">
+      <HintPath>..\Bibliotecas para Nervios\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="cAreas_Solicitacion.cs" />
+    <Compile Include="cBarra.cs" />
     <Compile Include="cCalculos.cs" />
     <Compile Include="cCombos.cs" />
     <Compile Include="cConfigEtabs.cs" />
-    <Compile Include="cConfigPlanta.cs" />
     <Compile Include="cDatosEtabs.cs" />
+    <Compile Include="cDrawing.cs" />
     <Compile Include="cEdificio.cs" />
     <Compile Include="cEnvolvente.cs" />
     <Compile Include="cEstacion.cs" />
     <Compile Include="cEstribo.cs" />
+    <Compile Include="cHerramientas.cs" />
     <Compile Include="cLine.cs" />
     <Compile Include="cMaterial.cs" />
     <Compile Include="cNervio.cs" />
+    <Compile Include="CObjetoCoordenadas.cs" />
     <Compile Include="cPiso.cs" />
     <Compile Include="cPoint.cs" />
     <Compile Include="cProyecto.cs" />
+    <Compile Include="cPrueba1.cs" />
     <Compile Include="cSeccion.cs" />
     <Compile Include="cTramo.cs" />
     <Compile Include="cViga.cs" />
+    <Compile Include="eTipoGancho.cs" />
     <Compile Include="eTipoSoporte.cs" />
     <Compile Include="eType.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="eUbicacionRefuerzo.cs" />
+    <Compile Include="Fase Inicial\F_Base.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Fase Inicial\F_Base.Designer.cs">
+      <DependentUpon>F_Base.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fase Inicial\F_NuevoProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fase Inicial\F_NuevoProyecto.Designer.cs">
+      <DependentUpon>F_NuevoProyecto.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Fase Inicial\F_Base.resx">
+      <DependentUpon>F_Base.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fase Inicial\F_NuevoProyecto.resx">
+      <DependentUpon>F_NuevoProyecto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -86,6 +108,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Diagramado.cd" />
     <None Include="Properties\Settings.settings">
@@ -100,6 +123,33 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DiseñoEfeCe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon cerrar2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\x16Blanca.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Maximizar14X11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Minimizex16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Restaurar14x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Restaurar14x11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\redo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

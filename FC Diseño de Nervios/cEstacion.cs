@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
-    public class cEstacion
+    public class cEstacion: cObjetoCoordenadas
     {
         public string Nombre
         {
@@ -31,14 +31,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cConfig_Longitudinal Config_Longitudinal
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
         public cCalculos Calculos
         {
             get => default;
@@ -56,6 +48,14 @@ namespace FC_Diseño_de_Nervios
         }
 
         public bool isVisible
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        public cAreas_Solicitacion Areas_Solicitacion
         {
             get => default;
             set
