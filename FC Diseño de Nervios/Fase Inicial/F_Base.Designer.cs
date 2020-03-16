@@ -52,28 +52,28 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gurdarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ST_Base = new System.Windows.Forms.StatusStrip();
             this.LB_Notificador = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.DP_ContenedorPrincipal = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.TS_Barra1 = new System.Windows.Forms.ToolStrip();
-            this.TS_S1 = new System.Windows.Forms.ToolStripSeparator();
-            this.P_Menu = new System.Windows.Forms.Panel();
-            this.P_Menu2 = new System.Windows.Forms.Panel();
-            this.LB_NombreProyecto = new System.Windows.Forms.Label();
-            this.T_Timer = new System.Windows.Forms.Timer(this.components);
             this.TSB_Nuevo = new System.Windows.Forms.ToolStripButton();
             this.TSB_Abrir = new System.Windows.Forms.ToolStripButton();
             this.TSB_Guardar = new System.Windows.Forms.ToolStripButton();
             this.TSB_GuardarComo = new System.Windows.Forms.ToolStripButton();
+            this.TS_S1 = new System.Windows.Forms.ToolStripSeparator();
             this.TSB_Undo = new System.Windows.Forms.ToolStripButton();
             this.TSB_Redo = new System.Windows.Forms.ToolStripButton();
+            this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
             this.BT_MaxRest = new System.Windows.Forms.Button();
             this.BT_Cerrar = new System.Windows.Forms.Button();
-            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.P_Menu2 = new System.Windows.Forms.Panel();
+            this.LB_NombreProyecto = new System.Windows.Forms.Label();
             this.PB_LogoPrincipal = new System.Windows.Forms.PictureBox();
+            this.T_Timer = new System.Windows.Forms.Timer(this.components);
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
             this.TS_Barra1.SuspendLayout();
@@ -151,6 +151,24 @@
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.editarToolStripMenuItem.Text = "Editar";
+            // 
+            // deshacerToolStripMenuItem
+            // 
+            this.deshacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.deshacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
+            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
+            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.deshacerToolStripMenuItem.Text = "Deshacer";
+            // 
+            // rehacerToolStripMenuItem
+            // 
+            this.rehacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.rehacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
+            this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
+            this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.rehacerToolStripMenuItem.Text = "Rehacer";
             // 
             // ST_Base
             // 
@@ -247,51 +265,6 @@
             this.TS_Barra1.TabIndex = 9;
             this.TS_Barra1.Text = "toolStrip2";
             // 
-            // TS_S1
-            // 
-            this.TS_S1.Name = "TS_S1";
-            this.TS_S1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // P_Menu
-            // 
-            this.P_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(152)))), ((int)(((byte)(41)))));
-            this.P_Menu.Controls.Add(this.BT_Minimize);
-            this.P_Menu.Controls.Add(this.BT_MaxRest);
-            this.P_Menu.Controls.Add(this.BT_Cerrar);
-            this.P_Menu.Controls.Add(this.P_Menu2);
-            this.P_Menu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.P_Menu.Location = new System.Drawing.Point(0, 0);
-            this.P_Menu.Name = "P_Menu";
-            this.P_Menu.Size = new System.Drawing.Size(1061, 24);
-            this.P_Menu.TabIndex = 12;
-            this.P_Menu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Menu_MouseDown);
-            // 
-            // P_Menu2
-            // 
-            this.P_Menu2.Controls.Add(this.LB_NombreProyecto);
-            this.P_Menu2.Controls.Add(this.MS_BarraPrincipal);
-            this.P_Menu2.Controls.Add(this.PB_LogoPrincipal);
-            this.P_Menu2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.P_Menu2.Location = new System.Drawing.Point(0, 0);
-            this.P_Menu2.Name = "P_Menu2";
-            this.P_Menu2.Size = new System.Drawing.Size(558, 24);
-            this.P_Menu2.TabIndex = 1;
-            // 
-            // LB_NombreProyecto
-            // 
-            this.LB_NombreProyecto.AutoSize = true;
-            this.LB_NombreProyecto.BackColor = System.Drawing.Color.SandyBrown;
-            this.LB_NombreProyecto.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LB_NombreProyecto.Location = new System.Drawing.Point(418, 6);
-            this.LB_NombreProyecto.Name = "LB_NombreProyecto";
-            this.LB_NombreProyecto.Size = new System.Drawing.Size(0, 14);
-            this.LB_NombreProyecto.TabIndex = 2;
-            // 
-            // T_Timer
-            // 
-            this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
-            // 
             // TSB_Nuevo
             // 
             this.TSB_Nuevo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -300,7 +273,7 @@
             this.TSB_Nuevo.Name = "TSB_Nuevo";
             this.TSB_Nuevo.Size = new System.Drawing.Size(23, 22);
             this.TSB_Nuevo.Text = "Nuevo (Ctrl + N)";
-            this.TSB_Nuevo.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.TSB_Nuevo.Click += new System.EventHandler(this.TSB_Nuevo_Click);
             // 
             // TSB_Abrir
             // 
@@ -329,6 +302,11 @@
             this.TSB_GuardarComo.Size = new System.Drawing.Size(23, 22);
             this.TSB_GuardarComo.Text = "Guardar como (Ctrl  + Mayús + S)";
             // 
+            // TS_S1
+            // 
+            this.TS_S1.Name = "TS_S1";
+            this.TS_S1.Size = new System.Drawing.Size(6, 25);
+            // 
             // TSB_Undo
             // 
             this.TSB_Undo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -346,6 +324,20 @@
             this.TSB_Redo.Name = "TSB_Redo";
             this.TSB_Redo.Size = new System.Drawing.Size(23, 22);
             this.TSB_Redo.Text = "Rehacer (Ctrl + Y)";
+            // 
+            // P_Menu
+            // 
+            this.P_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(152)))), ((int)(((byte)(41)))));
+            this.P_Menu.Controls.Add(this.BT_Minimize);
+            this.P_Menu.Controls.Add(this.BT_MaxRest);
+            this.P_Menu.Controls.Add(this.BT_Cerrar);
+            this.P_Menu.Controls.Add(this.P_Menu2);
+            this.P_Menu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.P_Menu.Location = new System.Drawing.Point(0, 0);
+            this.P_Menu.Name = "P_Menu";
+            this.P_Menu.Size = new System.Drawing.Size(1061, 24);
+            this.P_Menu.TabIndex = 12;
+            this.P_Menu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Menu_MouseDown);
             // 
             // BT_Minimize
             // 
@@ -401,23 +393,27 @@
             this.BT_Cerrar.UseVisualStyleBackColor = true;
             this.BT_Cerrar.Click += new System.EventHandler(this.BT_Cerrar_Click);
             // 
-            // deshacerToolStripMenuItem
+            // P_Menu2
             // 
-            this.deshacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.deshacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
-            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
-            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.deshacerToolStripMenuItem.Text = "Deshacer";
+            this.P_Menu2.Controls.Add(this.LB_NombreProyecto);
+            this.P_Menu2.Controls.Add(this.MS_BarraPrincipal);
+            this.P_Menu2.Controls.Add(this.PB_LogoPrincipal);
+            this.P_Menu2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.P_Menu2.Location = new System.Drawing.Point(0, 0);
+            this.P_Menu2.Name = "P_Menu2";
+            this.P_Menu2.Size = new System.Drawing.Size(558, 24);
+            this.P_Menu2.TabIndex = 1;
             // 
-            // rehacerToolStripMenuItem
+            // LB_NombreProyecto
             // 
-            this.rehacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.rehacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
-            this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
-            this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
-            this.rehacerToolStripMenuItem.Text = "Rehacer";
+            this.LB_NombreProyecto.AutoSize = true;
+            this.LB_NombreProyecto.BackColor = System.Drawing.Color.SandyBrown;
+            this.LB_NombreProyecto.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.LB_NombreProyecto.Location = new System.Drawing.Point(418, 6);
+            this.LB_NombreProyecto.Name = "LB_NombreProyecto";
+            this.LB_NombreProyecto.Size = new System.Drawing.Size(0, 14);
+            this.LB_NombreProyecto.TabIndex = 2;
             // 
             // PB_LogoPrincipal
             // 
@@ -429,6 +425,10 @@
             this.PB_LogoPrincipal.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PB_LogoPrincipal.TabIndex = 1;
             this.PB_LogoPrincipal.TabStop = false;
+            // 
+            // T_Timer
+            // 
+            this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
             // 
             // F_Base
             // 

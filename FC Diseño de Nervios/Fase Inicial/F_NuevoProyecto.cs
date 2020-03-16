@@ -18,8 +18,41 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+        private void BT_CargarE2K_Click(object sender, EventArgs e)
+        {
+            CrearObejtosETABS();
+
+        }
 
 
 
+        private void B_CargarCSV_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+        private void CrearObejtosETABS()
+        {
+            Tuple<string, List<string>> Cargar = cFunctionsProgram.CagarArchivoTextoPlano("Archivo ETABS |*.e2k; *.$et", "Archivo de e2K, $et");
+            if (Cargar != null)
+            {
+                TB_Ruta1.Text = Cargar.Item1;
+                cFunctionsProgram.CrearObjetosEtabs(Cargar.Item2);
+            }
+        }
+
+
+
+        #region Eventos Principales Ventana
+        private void P_Title_MouseDown(object sender, MouseEventArgs e)
+        {
+            cHerramientas.Movimiento(Handle);
+
+        }
+        #endregion
+
+     
     }
 }

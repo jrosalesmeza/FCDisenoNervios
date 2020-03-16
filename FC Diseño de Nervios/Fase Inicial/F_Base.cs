@@ -17,13 +17,17 @@ namespace FC_Diseño_de_Nervios
 
 
 
-        #region Ventanas Acopladas
+        #region Ventanas Emergentes
 
-        public static F_NuevoProyecto F_NuevoProyecto;
-
+        private F_NuevoProyecto F_NuevoProyecto = new F_NuevoProyecto();
         #endregion
 
 
+        #region Ventanas Acopladas
+
+
+
+        #endregion
 
 
         #region Proyecto
@@ -31,6 +35,22 @@ namespace FC_Diseño_de_Nervios
 
 
         #endregion
+
+        #region Funciones Basicas
+
+
+
+        private void NuevoProyecto_Function()
+        {
+            F_NuevoProyecto.ShowDialog();
+        }
+
+        #endregion
+
+
+
+
+
 
 
 
@@ -59,6 +79,9 @@ namespace FC_Diseño_de_Nervios
 
 
 
+
+
+        
 
 
 
@@ -183,11 +206,12 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+
         #endregion
 
-        private void toolStripButton2_Click(object sender, EventArgs e)
+        private void TSB_Nuevo_Click(object sender, EventArgs e)
         {
-            cFunctionsProgram.NuevoProyecto();
+            NuevoProyecto_Function();
         }
     }
 }
