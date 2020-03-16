@@ -5,6 +5,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
+    [Serializable]
     public class cEstacion: cObjetoCoordenadas
     {
         public string Nombre

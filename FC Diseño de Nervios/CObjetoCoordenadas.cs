@@ -6,9 +6,10 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
+    [Serializable]
     public class cObjetoCoordenadas
     {
-        public System.Collections.Generic.List<PointF> Longitudinal_Real
+        public List<PointF> Longitudinal_Real
         {
             get => default;
             set
@@ -16,7 +17,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public System.Collections.Generic.List<PointF> Longitudinal_Escalado
+        public List<PointF> Longitudinal_Escalado
         {
             get => default;
             set
@@ -24,7 +25,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public System.Collections.Generic.List<PointF> Planta_Escalado
+        public List<PointF> Planta_Escalado
         {
             get => default;
             set
@@ -32,7 +33,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public System.Collections.Generic.List<PointF> Planta_Real
+        public List<PointF> Planta_Real
         {
             get => default;
             set

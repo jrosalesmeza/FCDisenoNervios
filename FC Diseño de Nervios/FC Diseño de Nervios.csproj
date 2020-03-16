@@ -64,6 +64,7 @@
     <Compile Include="cEnvolvente.cs" />
     <Compile Include="cEstacion.cs" />
     <Compile Include="cEstribo.cs" />
+    <Compile Include="cFunctionsProgram.cs" />
     <Compile Include="cHerramientas.cs" />
     <Compile Include="cLine.cs" />
     <Compile Include="cMaterial.cs" />
@@ -72,7 +73,6 @@
     <Compile Include="cPiso.cs" />
     <Compile Include="cPoint.cs" />
     <Compile Include="cProyecto.cs" />
-    <Compile Include="cPrueba1.cs" />
     <Compile Include="cSeccion.cs" />
     <Compile Include="cTramo.cs" />
     <Compile Include="cViga.cs" />
@@ -150,6 +150,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\redo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SaveX13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Openx16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\redo1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\undo1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\redo2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Loading.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

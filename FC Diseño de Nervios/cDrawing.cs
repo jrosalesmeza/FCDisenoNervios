@@ -6,6 +6,7 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
+    [Serializable]
     public class cDrawing
     {
         public List<PointF> ListaPuntos

@@ -93,6 +93,16 @@ namespace FC_Diseño_de_Nervios.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Openx16 {
+            get {
+                object obj = ResourceManager.GetObject("Openx16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap redo {
             get {
                 object obj = ResourceManager.GetObject("redo", resourceCulture);
@@ -116,6 +126,16 @@ namespace FC_Diseño_de_Nervios.Properties {
         internal static System.Drawing.Bitmap undo {
             get {
                 object obj = ResourceManager.GetObject("undo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap undo1 {
+            get {
+                object obj = ResourceManager.GetObject("undo1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

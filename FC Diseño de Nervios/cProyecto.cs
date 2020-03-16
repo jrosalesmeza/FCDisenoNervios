@@ -5,38 +5,39 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
+    [Serializable]
     public class cProyecto
     {
-        public string Nombre
+        public string Nombre { get; set; }
+        public string Ruta { get; set; }
+        public cDatosEtabs DatosEtabs { get; set; }
+        public cEdificio Edificio { get; set; }
+
+        #region Funciones Proyecto
+
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
+
+
+        public override string ToString()
         {
-            get => default;
-            set
-            {
-            }
+            return $"{Nombre}";
         }
 
-        public string Ruta
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public cDatosEtabs DatosEtabs
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public cEdificio Edificio
-        {
-            get => default;
-            set
-            {
-            }
-        }
+
+
     }
 }

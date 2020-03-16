@@ -12,35 +12,67 @@ namespace FC_Diseño_de_Nervios
 {
     public partial class F_Base : Form
     {
+
+        public static Form F_Base_;
+
+
+
+        #region Ventanas Acopladas
+
+        public static F_NuevoProyecto F_NuevoProyecto;
+
+        #endregion
+
+
+
+
+        #region Proyecto
+        public static cProyecto Proyecto;
+
+
+        #endregion
+
+
+
         public F_Base()
         {
             InitializeComponent();
             T_Timer.Start();
             SetStyle(ControlStyles.ResizeRedraw, true);
             ST_Base.SizingGrip = false;
+            cFunctionsProgram.Notificador += CFunctionsProgram_Notificador;
+
+
+            F_Base_ = this;
         }
 
-
-        private void MS_BarraPrincipal_MouseDown(object sender, MouseEventArgs e)
+        private void CFunctionsProgram_Notificador(string Alert)
         {
-            cHerramientas.Movimiento(Handle);
-            if(e.Button==MouseButtons.Left && e.Clicks == 2)
-            {
-                DobleClickMaximaze(e);
-            }
+            LB_Notificador.Text = Alert;
+            LB_Notificador.Invalidate();
         }
 
-        private void P_Menu_MouseDown(object sender, MouseEventArgs e)
+        private void T_Timer_Tick(object sender, EventArgs e)
         {
-           cHerramientas.Movimiento(Handle);
-            if (e.Button == MouseButtons.Left && e.Clicks == 2)
-            {
-                DobleClickMaximaze(e);
-            }
+            CambiosTimer_1();
         }
 
 
-#region Dimensionar Formulario
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        #region Dimensionar Formulario
 
         private int tolerance = 16;
         private int tolerance2W = 2;
@@ -71,7 +103,7 @@ namespace FC_Diseño_de_Nervios
         protected override void OnSizeChanged(EventArgs e)
         {
             base.OnSizeChanged(e);
-            var region  = new Region(new Rectangle(0, 0, ClientRectangle.Width- tolerance2W, this.ClientRectangle.Height- tolerance2H));
+            var region = new Region(new Rectangle(0, 0, ClientRectangle.Width - tolerance2W, this.ClientRectangle.Height - tolerance2H));
             sizeGripRectangle = new Rectangle(this.ClientRectangle.Width - tolerance, this.ClientRectangle.Height - tolerance, tolerance, tolerance);
             region.Exclude(sizeGripRectangle);
             this.ST_Base.Region = region;
@@ -84,7 +116,9 @@ namespace FC_Diseño_de_Nervios
             ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
         }
         #endregion
-       private void BT_Cerrar_Click(object sender, EventArgs e)
+
+        #region Mover ,Maximizar, Cerrar y Restaurar Ventana - Eventos Clicks
+        private void BT_Cerrar_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -117,10 +151,6 @@ namespace FC_Diseño_de_Nervios
           
             }
         }
-        private void T_Timer_Tick(object sender, EventArgs e)
-        {
-            CambiosTimer_1();
-        }
         private void DobleClickMaximaze(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -135,7 +165,29 @@ namespace FC_Diseño_de_Nervios
                 }
             }
         }
+        private void MS_BarraPrincipal_MouseDown(object sender, MouseEventArgs e)
+        {
+            cHerramientas.Movimiento(Handle);
+            if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            {
+                DobleClickMaximaze(e);
+            }
+        }
 
+        private void P_Menu_MouseDown(object sender, MouseEventArgs e)
+        {
+            cHerramientas.Movimiento(Handle);
+            if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            {
+                DobleClickMaximaze(e);
+            }
+        }
 
+        #endregion
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            cFunctionsProgram.NuevoProyecto();
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace FC_Diseño_de_Nervios
         public F_NuevoProyecto()
         {
             InitializeComponent();
+
         }
 
 
