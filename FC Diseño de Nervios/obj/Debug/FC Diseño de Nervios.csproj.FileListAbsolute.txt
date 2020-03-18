@@ -27,3 +27,16 @@ C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.CopyComplete
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.exe
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.pdb
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.exe.config
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.exe
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.pdb
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csprojAssemblyReference.cache
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_Base.resources
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_NuevoProyecto.resources
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Properties.Resources.resources
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.GenerateResource.cache
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.CoreCompileInputs.cache
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.CopyComplete
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.exe
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.pdb

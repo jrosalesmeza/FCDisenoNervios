@@ -8,36 +8,16 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cAreas_Solicitacion
     {
-        public float[] AvR
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public float[] AvR { get; set; }
 
-        public float[] AmR
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public float[] AvS
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public float[] AmR { get; set; }
 
-        public float[] AmS
-        {
-            get => default;
-            set
-            {
-            }
-        }
+
+        public float[] AvS { get; set; }
+
+
+        public float[] AmS { get; set; }
+
     }
 }

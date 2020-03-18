@@ -8,7 +8,8 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public enum eType
     {
-        Colum,
+        None,
+        Column,
         Beam,
         Floor,
         Wall

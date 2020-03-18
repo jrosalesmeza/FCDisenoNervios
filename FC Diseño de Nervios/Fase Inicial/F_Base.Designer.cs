@@ -114,7 +114,7 @@
             this.nuevoToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
             this.nuevoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             // 
             // abrirToolStripMenuItem
@@ -122,7 +122,7 @@
             this.abrirToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
             this.abrirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             // 
             // guardarToolStripMenuItem
@@ -130,7 +130,7 @@
             this.guardarToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
             this.guardarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
             // 
             // gurdarComoToolStripMenuItem
@@ -139,7 +139,7 @@
             this.gurdarComoToolStripMenuItem.Name = "gurdarComoToolStripMenuItem";
             this.gurdarComoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.gurdarComoToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.gurdarComoToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.gurdarComoToolStripMenuItem.Text = "Gurdar como...";
             // 
             // editarToolStripMenuItem
@@ -149,7 +149,7 @@
             this.rehacerToolStripMenuItem});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
-            this.editarToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
+            this.editarToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.editarToolStripMenuItem.Text = "Editar";
             // 
             // deshacerToolStripMenuItem
@@ -158,7 +158,7 @@
             this.deshacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
             this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
             this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.deshacerToolStripMenuItem.Text = "Deshacer";
             // 
             // rehacerToolStripMenuItem
@@ -167,7 +167,7 @@
             this.rehacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
             this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
             this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.rehacerToolStripMenuItem.Text = "Rehacer";
             // 
             // ST_Base
