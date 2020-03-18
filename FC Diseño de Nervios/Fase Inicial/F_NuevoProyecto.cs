@@ -20,7 +20,7 @@ namespace FC_Diseño_de_Nervios
 
         private void BT_CargarE2K_Click(object sender, EventArgs e)
         {
-            CrearObejtosETABS();
+            CrearObjetosETABS();
 
         }
 
@@ -33,7 +33,7 @@ namespace FC_Diseño_de_Nervios
 
 
 
-        private void CrearObejtosETABS()
+        private void CrearObjetosETABS()
         {
             Tuple<string, List<string>> Cargar = cFunctionsProgram.CagarArchivoTextoPlano("Archivo ETABS |*.e2k; *.$et", "Archivo de e2K, $et");
             if (Cargar != null)
