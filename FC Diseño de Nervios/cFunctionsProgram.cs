@@ -64,6 +64,7 @@ namespace FC_Diseño_de_Nervios
             cDatosEtabs DatosEtabs = new cDatosEtabs();
             DatosEtabs.Lista_Points = DeepClone(CreacionPuntosEtabsV2009(ArchivoE2K));
             DatosEtabs.Lista_Materiales = CreacionMaterialesV2009(ArchivoE2K);
+            DatosEtabs.Lista_Secciones = CreacionSeccionesV2009(ArchivoE2K);
         }
 
         public static List<cPoint> CreacionPuntosEtabsV2009(List<string> ArchivoE2K)
@@ -103,6 +104,29 @@ namespace FC_Diseño_de_Nervios
             return Lista_Materiales;
         }
 
+        public static List<cSeccion> CreacionSeccionesV2009(List<string> ArchivoE2K, List<cMaterial> ListaMateriales)
+        {
+
+            int IndiceInicio_FRAME_SECTIONS = ArchivoE2K.FindIndex(x => x.Contains("$ FRAME SECTIONS")) + 1;
+            int IndiceFin_FRAME_SECTIONS = Find_FinalIndice(ArchivoE2K, IndiceInicio_FRAME_SECTIONS);
+            
+            List<string> ArchivoSecciones = RangoDeDatos(IndiceInicio_FRAME_SECTIONS, IndiceFin_FRAME_SECTIONS, ArchivoE2K);
+            List<cSeccion> Lista_Secciones = new List<cSeccion>();
+
+            for (int i = 0; i < ArchivoSecciones.Count; i++)
+            {
+                string[] Seccion_Separada = ArchivoSecciones[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
+
+                if (Seccion_Separada.Contains("Rectangular"))
+                {
+                    cSeccion Seccion = new cSeccion (Seccion_Separada[1], Convert.ToSingle(Seccion_Separada[9])*cConversiones.Dimension_m_to_cm, Convert.ToSingle(Seccion_Separada[7])*cConversiones.Dimension_m_to_cm);
+                    Lista_Secciones.Add(Seccion);
+                }
+
+            }
+
+            return Lista_Secciones;
+        }
 
 
 
