@@ -15,5 +15,7 @@ namespace FC_Diseño_de_Nervios
         public List<cSeccion> Lista_Secciones { get; set; }
 
         public List<cMaterial> Lista_Materiales { get; set; }
+
+        
     }
 }
