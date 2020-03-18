@@ -8,28 +8,21 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cPoint
     {
-        public string Nombre
+        public cPoint(string Nombre,float X, float Y)
         {
-            get => default;
-            set
-            {
-            }
+            this.Nombre = Nombre;
+            this.X = X;
+            this.Y = Y;
         }
 
-        public float X
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Nombre { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
 
-        public float Y
+
+        public override string ToString()
         {
-            get => default;
-            set
-            {
-            }
+            return $"{Nombre} ({X},{Y})";
         }
     }
 }

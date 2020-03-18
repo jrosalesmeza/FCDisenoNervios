@@ -8,28 +8,19 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cMaterial
     {
-        public string Nombre
+        public cMaterial(string Nombre, float fc, float fy)
         {
-            get => default;
-            set
-            {
-            }
+            this.Nombre = Nombre;
+            this.fc = fc;
+            this.fy = fy;
         }
+        public string Nombre { get; set; }
+        public float fc { get; set; }
+        public float fy { get; set; }
 
-        public float fc
+        public override string ToString()
         {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public float fy
-        {
-            get => default;
-            set
-            {
-            }
+            return $"{Nombre} Fc= {fc}kgf/cm² Fy={fy}kgf/cm²";
         }
     }
 }

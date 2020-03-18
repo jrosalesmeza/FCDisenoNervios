@@ -5,13 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace FC_Diseño_de_Nervios
 {
+
     public delegate void DelegateNotificadorProgram(string Alert);
     public static class cFunctionsProgram
     {
+        private static string[] Separadores = { "  ", " ", @"""" };
         public static event DelegateNotificadorProgram Notificador;
+
+
 
         public static cProyecto NuevoProyecto()
         {
@@ -56,22 +61,47 @@ namespace FC_Diseño_de_Nervios
 
         public static void CrearObjetosEtabs(List<string> ArchivoE2K)
         {
-            CreacionPuntosEtabsV2009(ArchivoE2K);
+            cDatosEtabs DatosEtabs = new cDatosEtabs();
+            DatosEtabs.Lista_Points = DeepClone(CreacionPuntosEtabsV2009(ArchivoE2K));
+            DatosEtabs.Lista_Materiales = CreacionMaterialesV2009(ArchivoE2K);
         }
 
-        public static void CreacionPuntosEtabsV2009(List<string> ArchivoE2K)
+        public static List<cPoint> CreacionPuntosEtabsV2009(List<string> ArchivoE2K)
         {
             int IndiceInicio_POINT_COORDINATES = ArchivoE2K.FindIndex(x => x.Contains("$ POINT COORDINATES")) + 1;
             int IndiceFin_POINT_COORDINATES = Find_FinalIndice(ArchivoE2K, IndiceInicio_POINT_COORDINATES);
-
             List<string> ArchivoPuntos =RangoDeDatos(IndiceInicio_POINT_COORDINATES, IndiceFin_POINT_COORDINATES, ArchivoE2K);
+            List<cPoint> ListaPuntos = new List<cPoint>();
 
-
-
+            for(int i=0; i < ArchivoPuntos.Count; i++)
+            {
+                string[] Point_Separado = ArchivoPuntos[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
+                cPoint point = new cPoint(Point_Separado[1],(float)Math.Round(Convert.ToSingle(Point_Separado[2]),2), (float)Math.Round(Convert.ToSingle(Point_Separado[3]), 2));
+                ListaPuntos.Add(point);
+            }
+            return ListaPuntos;
         }
 
 
+        public static List<cMaterial> CreacionMaterialesV2009(List<string> ArchivoE2K)
+        {
+            int IndiceInicio_MATERIAL_PROPERTIES = ArchivoE2K.FindIndex(x => x.Contains("$ MATERIAL PROPERTIES")) + 1;
+            int IndiceFin_MATERIAL_PROPERTIES = Find_FinalIndice(ArchivoE2K, IndiceInicio_MATERIAL_PROPERTIES);
+            List<string> ArchivoMateriales = RangoDeDatos(IndiceInicio_MATERIAL_PROPERTIES, IndiceFin_MATERIAL_PROPERTIES, ArchivoE2K);
+            List<cMaterial> Lista_Materiales = new List<cMaterial>();
+            for (int i = 0; i < ArchivoMateriales.Count; i++)
+            {
+                string[] Material_Separado = ArchivoMateriales[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
+               
+                if (Material_Separado.Length == 10)
+                {
+                    cMaterial material = new cMaterial(Material_Separado[1], Convert.ToSingle(Material_Separado[7])*cConversiones.Esfuerzo_Ton_m___kfg_cm, Convert.ToSingle(Material_Separado[5])* cConversiones.Esfuerzo_Ton_m___kfg_cm);
+                    Lista_Materiales.Add(material);
+                }
 
+            }
+            return Lista_Materiales;
+        }
 
 
 
@@ -79,7 +109,7 @@ namespace FC_Diseño_de_Nervios
         public static int Find_FinalIndice(List<string> ArchivoE2K,int IndiceInicio)
         {
             int IndiceFin=-1;
-            for (int i = IndiceInicio; i <= ArchivoE2K.Count; i++) { if (ArchivoE2K[i] == "") { IndiceFin = i-1; break; } }
+            for (int i = IndiceInicio; i <= ArchivoE2K.Count; i++) { if (ArchivoE2K[i] == "") { IndiceFin = i; break; } }
             return IndiceFin;
         }
         public static List<string> RangoDeDatos(int IndiceInical, int IndiceFinal,List<string> Archivo)
@@ -101,7 +131,17 @@ namespace FC_Diseño_de_Nervios
 
 
 
+        public static T DeepClone<T>(T obj)
+        {
+            using (var ms = new MemoryStream())
+            {
+                var formatter = new BinaryFormatter();
+                formatter.Serialize(ms, obj);
+                ms.Position = 0;
 
+                return (T)formatter.Deserialize(ms);
+            }
+        }
 
 
 

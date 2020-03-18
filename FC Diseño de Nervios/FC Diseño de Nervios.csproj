@@ -58,6 +58,7 @@
     <Compile Include="cCalculos.cs" />
     <Compile Include="cCombos.cs" />
     <Compile Include="cConfigEtabs.cs" />
+    <Compile Include="cConversiones.cs" />
     <Compile Include="cDatosEtabs.cs" />
     <Compile Include="cDrawing.cs" />
     <Compile Include="cEdificio.cs" />
