@@ -9,20 +9,10 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cDrawing
     {
-        public List<PointF> ListaPuntos
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public List<PointF> ListaPuntos { get; set; }
 
-        public bool Select
-        {
-            get => default;
-            set
-            {
-            }
-        }
+
+        public bool Select { get; set; }
+
     }
 }

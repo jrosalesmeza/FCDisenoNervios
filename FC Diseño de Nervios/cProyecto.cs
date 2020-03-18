@@ -25,11 +25,6 @@ namespace FC_Diseño_de_Nervios
 
 
 
-
-
-
-
-
         public override string ToString()
         {
             return $"{Nombre}";

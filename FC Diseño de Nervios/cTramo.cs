@@ -8,36 +8,15 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cTramo
     {
-        public List<cLine> Lineas
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public List<cLine> Lineas { get; set; }
 
-        public string Nombre
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public float Longitud
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Nombre { get; set; }
 
-        public List<cEstribo> Estribo
-        {
-            get => default;
-            set
-            {
-            }
-        }
+
+        public float Longitud { get; set; }
+
+
+        public List<cEstribo> Estribo { get; set; }
     }
 }

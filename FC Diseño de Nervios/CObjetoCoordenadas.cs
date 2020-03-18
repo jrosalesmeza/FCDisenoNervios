@@ -9,44 +9,19 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cObjetoCoordenadas
     {
-        public List<PointF> Longitudinal_Real
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public List<PointF> Longitudinal_Real { get; set; }
 
-        public List<PointF> Longitudinal_Escalado
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public List<PointF> Planta_Escalado
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public List<PointF> Longitudinal_Escalado { get; set; }
 
-        public List<PointF> Planta_Real
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public bool Select
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public List<PointF> Planta_Escalado { get; set; }
+
+
+        public List<PointF> Planta_Real { get; set; }
+
+
+        public bool Select { get; set; }
+
     }
 }

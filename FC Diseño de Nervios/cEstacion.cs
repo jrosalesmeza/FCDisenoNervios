@@ -8,60 +8,25 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cEstacion: cObjetoCoordenadas
     {
-        public string Nombre
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Nombre { get; set; }
 
-        public float Localizacion
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public List<cSolicitacion> Combos
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public float Localizacion { get; set; }
 
-        public cCalculos Calculos
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public List<cSolicitacion> Lista_Solicitaciones
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public List<cSolicitacion> Combos { get; set; }
 
-        public bool isVisible
-        {
-            get => default;
-            set
-            {
-            }
-        }
 
-        public cAreas_Solicitacion Areas_Solicitacion
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public cCalculos Calculos { get; set; }
+
+
+        public List<cSolicitacion> Lista_Solicitaciones { get; set; }
+
+
+        public bool isVisible { get; set; }
+
+
+        public cAreas_Solicitacion Areas_Solicitacion { get; set; }
+
     }
 }

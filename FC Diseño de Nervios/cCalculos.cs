@@ -8,20 +8,10 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cCalculos
     {
-        public float Phi_Vc
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public float Phi_Vc { get; set; }
 
-        public cEnvolvente Envolvente
-        {
-            get => default;
-            set
-            {
-            }
-        }
+
+        public cEnvolvente Envolvente { get; set; }
+
     }
 }
