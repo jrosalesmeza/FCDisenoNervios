@@ -8,28 +8,15 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cPiso
     {
-        public string Nombre
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Nombre { get; set; }
 
-        public List<cNervio> Nervios
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public float H { get; set; }
+        public float Hacum { get; set; }
 
-        public cNervio NervioSelect
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public List<cNervio> Nervios { get; set; }
+
+        public cNervio NervioSelect { get; set; }
+
+        
     }
 }
