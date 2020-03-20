@@ -7,19 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using UndoRendoPrueba;
 namespace FC_Diseño_de_Nervios
 {
     public partial class F_Base : Form
     {
 
         public static Form F_Base_;
+        public static Caretaker<cProyecto> Caretaker = new Caretaker<cProyecto>(); 
 
 
 
         #region Ventanas Emergentes
 
         private F_NuevoProyecto F_NuevoProyecto = new F_NuevoProyecto();
+        public static F_EnumeracionPortico F_EnumeracionPortico;
         #endregion
 
 
@@ -37,20 +39,34 @@ namespace FC_Diseño_de_Nervios
         #endregion
 
         #region Funciones Basicas
-
-
-
         private void NuevoProyecto_Function()
         {
             F_NuevoProyecto.ShowDialog();
         }
+        private void AbrirProyecto_Function() 
+        { 
+        }
+        private void GuardarProyecto_Function()
+        {
+
+
+        }
+        private void GuardarComoProyecto_Function()
+        {
+
+
+        }
+        private void Deshacer_Function()
+        {
+
+        }
+        private void Rehacer_Function()
+        {
+
+        }
+
 
         #endregion
-
-
-
-
-
 
 
 
@@ -61,7 +77,7 @@ namespace FC_Diseño_de_Nervios
             SetStyle(ControlStyles.ResizeRedraw, true);
             ST_Base.SizingGrip = false;
             cFunctionsProgram.Notificador += CFunctionsProgram_Notificador;
-
+            
 
             F_Base_ = this;
         }
@@ -75,6 +91,7 @@ namespace FC_Diseño_de_Nervios
         private void T_Timer_Tick(object sender, EventArgs e)
         {
             CambiosTimer_1();
+            CambiosTimer_2_Proyecto();
         }
 
 
@@ -85,7 +102,40 @@ namespace FC_Diseño_de_Nervios
 
 
 
+        private void CambiosTimer_2_Proyecto()
+        {
 
+            if (Proyecto != null)
+            {
+                LB_NombreProyecto.Text = Proyecto.Nombre;
+                BloqueoDesbloqueoBotones(true);
+                
+            }
+            else
+            {
+
+                BloqueoDesbloqueoBotones(false);
+            }
+
+
+        }
+
+
+        private void BloqueoDesbloqueoBotones(bool Bloqueo_Desbloqueo)
+        {
+            guardarToolStripMenuItem.Enabled = Bloqueo_Desbloqueo;
+            gurdarComoToolStripMenuItem.Enabled = Bloqueo_Desbloqueo;
+            TSB_Guardar.Enabled = Bloqueo_Desbloqueo;
+            TSB_GuardarComo.Enabled = Bloqueo_Desbloqueo;
+            enumeraciónDeElementosToolStripMenuItem.Enabled = Bloqueo_Desbloqueo ;
+
+        }
+
+
+        private void VentanaEnumeracionElementos()
+        {
+            F_EnumeracionPortico.ShowDialog();
+        }
 
 
 
@@ -209,9 +259,72 @@ namespace FC_Diseño_de_Nervios
 
         #endregion
 
+        #region Eventos de MenuStrip y ToolStrip
         private void TSB_Nuevo_Click(object sender, EventArgs e)
         {
             NuevoProyecto_Function();
+        }
+
+        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NuevoProyecto_Function();
+        }
+
+        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirProyecto_Function();
+        }
+
+        private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GuardarProyecto_Function();
+        }
+
+        private void gurdarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GuardarComoProyecto_Function();
+        }
+
+        private void TSB_Abrir_Click(object sender, EventArgs e)
+        {
+            AbrirProyecto_Function();
+        }
+
+        private void TSB_Guardar_Click(object sender, EventArgs e)
+        {
+            GuardarProyecto_Function();
+        }
+
+        private void TSB_GuardarComo_Click(object sender, EventArgs e)
+        {
+            GuardarComoProyecto_Function();
+        }
+
+        private void TSB_Undo_Click(object sender, EventArgs e)
+        {
+            Deshacer_Function();
+        }
+
+        private void TSB_Redo_Click(object sender, EventArgs e)
+        {
+            Rehacer_Function();
+        }
+
+        private void deshacerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Deshacer_Function();
+        }
+
+        private void rehacerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Rehacer_Function();
+        }
+
+        #endregion
+
+        private void enumeraciónDeElementosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VentanaEnumeracionElementos();
         }
     }
 }

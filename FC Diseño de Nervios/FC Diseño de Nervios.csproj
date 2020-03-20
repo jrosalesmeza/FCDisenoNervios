@@ -48,6 +48,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UndoRendoPrueba">
+      <HintPath>..\..\B_UndoRendoPrueba\UndoRendoPrueba\bin\Debug\UndoRendoPrueba.dll</HintPath>
+    </Reference>
     <Reference Include="WeifenLuo.WinFormsUI.Docking">
       <HintPath>..\Bibliotecas para Nervios\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
@@ -70,7 +73,7 @@
     <Compile Include="cLine.cs" />
     <Compile Include="cMaterial.cs" />
     <Compile Include="cNervio.cs" />
-    <Compile Include="CObjetoCoordenadas.cs" />
+    <Compile Include="cObjetoCoordenadas.cs" />
     <Compile Include="cPiso.cs" />
     <Compile Include="cPoint.cs" />
     <Compile Include="cProyecto.cs" />
@@ -87,19 +90,37 @@
     <Compile Include="Fase Inicial\F_Base.Designer.cs">
       <DependentUpon>F_Base.cs</DependentUpon>
     </Compile>
-    <Compile Include="Fase Inicial\F_NuevoProyecto.cs">
+    <Compile Include="Fase Inicial\Nuevo Proyecto\F_NuevoProyecto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fase Inicial\F_NuevoProyecto.Designer.cs">
+    <Compile Include="Fase Inicial\Nuevo Proyecto\F_NuevoProyecto.Designer.cs">
       <DependentUpon>F_NuevoProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fase Inicial\Nuevo Proyecto\F_Pisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fase Inicial\Nuevo Proyecto\F_Pisos.Designer.cs">
+      <DependentUpon>F_Pisos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\F_EnumeracionPortico.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\F_EnumeracionPortico.Designer.cs">
+      <DependentUpon>F_EnumeracionPortico.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Fase Inicial\F_Base.resx">
       <DependentUpon>F_Base.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fase Inicial\F_NuevoProyecto.resx">
+    <EmbeddedResource Include="Fase Inicial\Nuevo Proyecto\F_NuevoProyecto.resx">
       <DependentUpon>F_NuevoProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fase Inicial\Nuevo Proyecto\F_Pisos.resx">
+      <DependentUpon>F_Pisos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\F_EnumeracionPortico.resx">
+      <DependentUpon>F_EnumeracionPortico.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -170,5 +191,6 @@
   <ItemGroup>
     <None Include="Resources\Loading.gif" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

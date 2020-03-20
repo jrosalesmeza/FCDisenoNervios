@@ -22,6 +22,12 @@ namespace FC_Diseño_de_Nervios
 
 
         public bool Select { get; set; }
+        public void CrearPuntosPlantaRealEtabsLine(cPoint Point1, cPoint Point2)
+        {
+            Longitudinal_Real = new List<PointF>();
+            Longitudinal_Real.Add(new PointF(Point1.X,Point1.Y));
+            Longitudinal_Real.Add(new PointF(Point2.X, Point2.Y));
+        }
 
     }
 }

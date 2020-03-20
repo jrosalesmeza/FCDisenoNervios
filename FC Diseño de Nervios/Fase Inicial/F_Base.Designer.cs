@@ -52,28 +52,29 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gurdarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ST_Base = new System.Windows.Forms.StatusStrip();
             this.LB_Notificador = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.DP_ContenedorPrincipal = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.TS_Barra1 = new System.Windows.Forms.ToolStrip();
+            this.TS_S1 = new System.Windows.Forms.ToolStripSeparator();
+            this.P_Menu = new System.Windows.Forms.Panel();
+            this.P_Menu2 = new System.Windows.Forms.Panel();
+            this.LB_NombreProyecto = new System.Windows.Forms.Label();
+            this.T_Timer = new System.Windows.Forms.Timer(this.components);
             this.TSB_Nuevo = new System.Windows.Forms.ToolStripButton();
             this.TSB_Abrir = new System.Windows.Forms.ToolStripButton();
             this.TSB_Guardar = new System.Windows.Forms.ToolStripButton();
             this.TSB_GuardarComo = new System.Windows.Forms.ToolStripButton();
-            this.TS_S1 = new System.Windows.Forms.ToolStripSeparator();
             this.TSB_Undo = new System.Windows.Forms.ToolStripButton();
             this.TSB_Redo = new System.Windows.Forms.ToolStripButton();
-            this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
             this.BT_MaxRest = new System.Windows.Forms.Button();
             this.BT_Cerrar = new System.Windows.Forms.Button();
-            this.P_Menu2 = new System.Windows.Forms.Panel();
-            this.LB_NombreProyecto = new System.Windows.Forms.Label();
+            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.PB_LogoPrincipal = new System.Windows.Forms.PictureBox();
-            this.T_Timer = new System.Windows.Forms.Timer(this.components);
+            this.enumeraciónDeElementosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
             this.TS_Barra1.SuspendLayout();
@@ -116,6 +117,7 @@
             this.nuevoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
+            this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
@@ -124,6 +126,7 @@
             this.abrirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.abrirToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
+            this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
             // guardarToolStripMenuItem
             // 
@@ -132,6 +135,7 @@
             this.guardarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.guardarToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
+            this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
             // gurdarComoToolStripMenuItem
             // 
@@ -141,34 +145,18 @@
             | System.Windows.Forms.Keys.S)));
             this.gurdarComoToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.gurdarComoToolStripMenuItem.Text = "Gurdar como...";
+            this.gurdarComoToolStripMenuItem.Click += new System.EventHandler(this.gurdarComoToolStripMenuItem_Click);
             // 
             // editarToolStripMenuItem
             // 
             this.editarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.deshacerToolStripMenuItem,
-            this.rehacerToolStripMenuItem});
+            this.rehacerToolStripMenuItem,
+            this.enumeraciónDeElementosToolStripMenuItem});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.editarToolStripMenuItem.Text = "Editar";
-            // 
-            // deshacerToolStripMenuItem
-            // 
-            this.deshacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.deshacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
-            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
-            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.deshacerToolStripMenuItem.Text = "Deshacer";
-            // 
-            // rehacerToolStripMenuItem
-            // 
-            this.rehacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.rehacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
-            this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
-            this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.rehacerToolStripMenuItem.Text = "Rehacer";
             // 
             // ST_Base
             // 
@@ -265,6 +253,51 @@
             this.TS_Barra1.TabIndex = 9;
             this.TS_Barra1.Text = "toolStrip2";
             // 
+            // TS_S1
+            // 
+            this.TS_S1.Name = "TS_S1";
+            this.TS_S1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // P_Menu
+            // 
+            this.P_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(152)))), ((int)(((byte)(41)))));
+            this.P_Menu.Controls.Add(this.BT_Minimize);
+            this.P_Menu.Controls.Add(this.BT_MaxRest);
+            this.P_Menu.Controls.Add(this.BT_Cerrar);
+            this.P_Menu.Controls.Add(this.P_Menu2);
+            this.P_Menu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.P_Menu.Location = new System.Drawing.Point(0, 0);
+            this.P_Menu.Name = "P_Menu";
+            this.P_Menu.Size = new System.Drawing.Size(1061, 24);
+            this.P_Menu.TabIndex = 12;
+            this.P_Menu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Menu_MouseDown);
+            // 
+            // P_Menu2
+            // 
+            this.P_Menu2.Controls.Add(this.LB_NombreProyecto);
+            this.P_Menu2.Controls.Add(this.MS_BarraPrincipal);
+            this.P_Menu2.Controls.Add(this.PB_LogoPrincipal);
+            this.P_Menu2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.P_Menu2.Location = new System.Drawing.Point(0, 0);
+            this.P_Menu2.Name = "P_Menu2";
+            this.P_Menu2.Size = new System.Drawing.Size(558, 24);
+            this.P_Menu2.TabIndex = 1;
+            // 
+            // LB_NombreProyecto
+            // 
+            this.LB_NombreProyecto.AutoSize = true;
+            this.LB_NombreProyecto.BackColor = System.Drawing.Color.SandyBrown;
+            this.LB_NombreProyecto.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.LB_NombreProyecto.Location = new System.Drawing.Point(418, 6);
+            this.LB_NombreProyecto.Name = "LB_NombreProyecto";
+            this.LB_NombreProyecto.Size = new System.Drawing.Size(0, 14);
+            this.LB_NombreProyecto.TabIndex = 2;
+            // 
+            // T_Timer
+            // 
+            this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
+            // 
             // TSB_Nuevo
             // 
             this.TSB_Nuevo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -283,6 +316,7 @@
             this.TSB_Abrir.Name = "TSB_Abrir";
             this.TSB_Abrir.Size = new System.Drawing.Size(23, 22);
             this.TSB_Abrir.Text = "Abrir (Ctrl + O)";
+            this.TSB_Abrir.Click += new System.EventHandler(this.TSB_Abrir_Click);
             // 
             // TSB_Guardar
             // 
@@ -292,6 +326,7 @@
             this.TSB_Guardar.Name = "TSB_Guardar";
             this.TSB_Guardar.Size = new System.Drawing.Size(23, 22);
             this.TSB_Guardar.Text = "Guerdar (Ctrl + S)";
+            this.TSB_Guardar.Click += new System.EventHandler(this.TSB_Guardar_Click);
             // 
             // TSB_GuardarComo
             // 
@@ -301,43 +336,29 @@
             this.TSB_GuardarComo.Name = "TSB_GuardarComo";
             this.TSB_GuardarComo.Size = new System.Drawing.Size(23, 22);
             this.TSB_GuardarComo.Text = "Guardar como (Ctrl  + Mayús + S)";
-            // 
-            // TS_S1
-            // 
-            this.TS_S1.Name = "TS_S1";
-            this.TS_S1.Size = new System.Drawing.Size(6, 25);
+            this.TSB_GuardarComo.Click += new System.EventHandler(this.TSB_GuardarComo_Click);
             // 
             // TSB_Undo
             // 
             this.TSB_Undo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_Undo.Enabled = false;
             this.TSB_Undo.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
             this.TSB_Undo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TSB_Undo.Name = "TSB_Undo";
             this.TSB_Undo.Size = new System.Drawing.Size(23, 22);
             this.TSB_Undo.Text = "Deshacer (Ctrl + Z)";
+            this.TSB_Undo.Click += new System.EventHandler(this.TSB_Undo_Click);
             // 
             // TSB_Redo
             // 
             this.TSB_Redo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_Redo.Enabled = false;
             this.TSB_Redo.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
             this.TSB_Redo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TSB_Redo.Name = "TSB_Redo";
             this.TSB_Redo.Size = new System.Drawing.Size(23, 22);
             this.TSB_Redo.Text = "Rehacer (Ctrl + Y)";
-            // 
-            // P_Menu
-            // 
-            this.P_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(152)))), ((int)(((byte)(41)))));
-            this.P_Menu.Controls.Add(this.BT_Minimize);
-            this.P_Menu.Controls.Add(this.BT_MaxRest);
-            this.P_Menu.Controls.Add(this.BT_Cerrar);
-            this.P_Menu.Controls.Add(this.P_Menu2);
-            this.P_Menu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.P_Menu.Location = new System.Drawing.Point(0, 0);
-            this.P_Menu.Name = "P_Menu";
-            this.P_Menu.Size = new System.Drawing.Size(1061, 24);
-            this.P_Menu.TabIndex = 12;
-            this.P_Menu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Menu_MouseDown);
+            this.TSB_Redo.Click += new System.EventHandler(this.TSB_Redo_Click);
             // 
             // BT_Minimize
             // 
@@ -393,27 +414,27 @@
             this.BT_Cerrar.UseVisualStyleBackColor = true;
             this.BT_Cerrar.Click += new System.EventHandler(this.BT_Cerrar_Click);
             // 
-            // P_Menu2
+            // deshacerToolStripMenuItem
             // 
-            this.P_Menu2.Controls.Add(this.LB_NombreProyecto);
-            this.P_Menu2.Controls.Add(this.MS_BarraPrincipal);
-            this.P_Menu2.Controls.Add(this.PB_LogoPrincipal);
-            this.P_Menu2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.P_Menu2.Location = new System.Drawing.Point(0, 0);
-            this.P_Menu2.Name = "P_Menu2";
-            this.P_Menu2.Size = new System.Drawing.Size(558, 24);
-            this.P_Menu2.TabIndex = 1;
+            this.deshacerToolStripMenuItem.Enabled = false;
+            this.deshacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.deshacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
+            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
+            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.deshacerToolStripMenuItem.Text = "Deshacer";
+            this.deshacerToolStripMenuItem.Click += new System.EventHandler(this.deshacerToolStripMenuItem_Click);
             // 
-            // LB_NombreProyecto
+            // rehacerToolStripMenuItem
             // 
-            this.LB_NombreProyecto.AutoSize = true;
-            this.LB_NombreProyecto.BackColor = System.Drawing.Color.SandyBrown;
-            this.LB_NombreProyecto.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LB_NombreProyecto.Location = new System.Drawing.Point(418, 6);
-            this.LB_NombreProyecto.Name = "LB_NombreProyecto";
-            this.LB_NombreProyecto.Size = new System.Drawing.Size(0, 14);
-            this.LB_NombreProyecto.TabIndex = 2;
+            this.rehacerToolStripMenuItem.Enabled = false;
+            this.rehacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.rehacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
+            this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
+            this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.rehacerToolStripMenuItem.Text = "Rehacer";
+            this.rehacerToolStripMenuItem.Click += new System.EventHandler(this.rehacerToolStripMenuItem_Click);
             // 
             // PB_LogoPrincipal
             // 
@@ -426,9 +447,14 @@
             this.PB_LogoPrincipal.TabIndex = 1;
             this.PB_LogoPrincipal.TabStop = false;
             // 
-            // T_Timer
+            // enumeraciónDeElementosToolStripMenuItem
             // 
-            this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
+            this.enumeraciónDeElementosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.enumeraciónDeElementosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("enumeraciónDeElementosToolStripMenuItem.Image")));
+            this.enumeraciónDeElementosToolStripMenuItem.Name = "enumeraciónDeElementosToolStripMenuItem";
+            this.enumeraciónDeElementosToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.enumeraciónDeElementosToolStripMenuItem.Text = "Enumeración de Elementos";
+            this.enumeraciónDeElementosToolStripMenuItem.Click += new System.EventHandler(this.enumeraciónDeElementosToolStripMenuItem_Click);
             // 
             // F_Base
             // 
@@ -446,6 +472,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.MS_BarraPrincipal;
+            this.MinimumSize = new System.Drawing.Size(1061, 608);
             this.Name = "F_Base";
             this.Text = "Despiece de Nervios";
             this.MS_BarraPrincipal.ResumeLayout(false);
@@ -494,5 +521,6 @@
         private System.Windows.Forms.ToolStripMenuItem deshacerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rehacerToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripMenuItem enumeraciónDeElementosToolStripMenuItem;
     }
 }

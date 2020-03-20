@@ -8,6 +8,10 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cProyecto
     {
+        public cProyecto(string Nombre)
+        {
+            this.Nombre = Nombre;
+        }
         public string Nombre { get; set; }
         public string Ruta { get; set; }
         public cDatosEtabs DatosEtabs { get; set; }
@@ -19,10 +23,6 @@ namespace FC_Diseño_de_Nervios
 
 
         #endregion
-
-
-
-
 
 
         public override string ToString()

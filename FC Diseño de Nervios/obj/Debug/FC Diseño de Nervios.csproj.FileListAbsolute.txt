@@ -40,3 +40,7 @@ C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\F
 C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.CopyComplete
 C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.exe
 C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.pdb
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\UndoRendoPrueba.dll
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\UndoRendoPrueba.pdb
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_Pisos.resources
+C:\Users\JoseLuis\Desktop\F´C\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_EnumeracionPortico.resources
