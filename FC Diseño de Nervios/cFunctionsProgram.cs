@@ -88,12 +88,6 @@ namespace FC_Diseño_de_Nervios
         }
 
 
-
-
-
-
-
-
         public static cDatosEtabs CrearObjetosEtabs(List<string> ArchivoE2K)
         {
             cDatosEtabs DatosEtabs = new cDatosEtabs();
@@ -242,7 +236,6 @@ namespace FC_Diseño_de_Nervios
 
         }
 
-
         public static List<cPiso> CreacionListaPisosV2009(List<string> ArchivoE2K)
         {
 
@@ -265,14 +258,6 @@ namespace FC_Diseño_de_Nervios
 
 
         }
-
-
-
-        
-
-
-
-
 
 
         public static eType ConvertirStringtoeType(string StringType)
@@ -311,6 +296,60 @@ namespace FC_Diseño_de_Nervios
                 return (T)formatter.Deserialize(ms);
             }
         }
+
+
+
+
+        //Funciones de Selección
+        public static void SeleccionInteligente(cLine LineMadre, List<cLine> Lista_Lines)
+        {
+            foreach (cLine LineaHija in Lista_Lines)
+            {
+
+                if (LineMadre.Nombre != LineaHija.Nombre && LineaHija.Select != true && LineaHija.ConfigEtabs.Direccion == LineMadre.ConfigEtabs.Direccion)
+                {
+                    if (LineMadre.ConfigEtabs.Point1P.X == LineaHija.ConfigEtabs.Point1P.X && LineMadre.ConfigEtabs.Point1P.Y == LineaHija.ConfigEtabs.Point1P.Y)
+                    {
+                        LineaHija.Select = true;
+                        SeleccionInteligente(LineaHija, Lista_Lines);
+                    }
+                    if (LineMadre.ConfigEtabs.Point1P.X == LineaHija.ConfigEtabs.Point2P.X && LineMadre.ConfigEtabs.Point1P.Y == LineaHija.ConfigEtabs.Point2P.Y)
+                    {
+                        LineaHija.Select = true;
+                        SeleccionInteligente(LineaHija, Lista_Lines);
+                    }
+                    if (LineMadre.ConfigEtabs.Point2P.X == LineaHija.ConfigEtabs.Point1P.X && LineMadre.ConfigEtabs.Point2P.Y == LineaHija.ConfigEtabs.Point1P.Y)
+                    {
+                        LineaHija.Select = true;
+                        SeleccionInteligente(LineaHija, Lista_Lines);
+                    }
+                    if (LineMadre.ConfigEtabs.Point2P.X == LineaHija.ConfigEtabs.Point2P.X && LineMadre.ConfigEtabs.Point2P.Y == LineaHija.ConfigEtabs.Point2P.Y)
+                    {
+                        LineaHija.Select = true;
+                        SeleccionInteligente(LineaHija, Lista_Lines);
+                    }
+                }
+
+
+            }
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

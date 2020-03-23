@@ -61,6 +61,26 @@ namespace FC_Diseño_de_Nervios.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon Arrastre16x16 {
+            get {
+                object obj = ResourceManager.GetObject("Arrastre16x16", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
+        /// </summary>
+        internal static System.Drawing.Icon DefaultCursor2x16 {
+            get {
+                object obj = ResourceManager.GetObject("DefaultCursor2x16", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap DiseñoEfeCe {
