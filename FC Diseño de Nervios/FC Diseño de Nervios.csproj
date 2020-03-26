@@ -12,6 +12,21 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +48,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="B_EscalaCoordenadas">
+      <HintPath>..\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\bin\Debug\B_EscalaCoordenadas.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -48,9 +66,6 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="UndoRendoPrueba">
-      <HintPath>..\..\B_UndoRendoPrueba\UndoRendoPrueba\bin\Debug\UndoRendoPrueba.dll</HintPath>
-    </Reference>
     <Reference Include="WeifenLuo.WinFormsUI.Docking">
       <HintPath>..\Bibliotecas para Nervios\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
     </Reference>
@@ -79,7 +94,9 @@
     <Compile Include="cProyecto.cs" />
     <Compile Include="cSeccion.cs" />
     <Compile Include="cTramo.cs" />
+    <Compile Include="cUndoRedo.cs" />
     <Compile Include="cViga.cs" />
+    <Compile Include="eDireccion.cs" />
     <Compile Include="eTipoGancho.cs" />
     <Compile Include="eTipoSoporte.cs" />
     <Compile Include="eType.cs" />
@@ -150,7 +167,7 @@
     <None Include="Resources\DiseñoEfeCe.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icon cerrar2.png" />
+    <None Include="Resources\IconoCerrar2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\x16Blanca.png" />
@@ -191,6 +208,23 @@
   <ItemGroup>
     <None Include="Resources\Loading.gif" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Arrastre16x16.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DefaultCursor2x16.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

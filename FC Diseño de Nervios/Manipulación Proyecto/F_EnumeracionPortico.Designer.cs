@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_EnumeracionPortico));
             this.P_Title = new System.Windows.Forms.Panel();
             this.BT_Cerrar = new System.Windows.Forms.Button();
@@ -35,19 +36,31 @@
             this.LB_Title = new System.Windows.Forms.Label();
             this.LV_Stories = new System.Windows.Forms.ListView();
             this.GB_1 = new System.Windows.Forms.GroupBox();
+            this.GB_3 = new System.Windows.Forms.GroupBox();
+            this.PB_ElementosEnumerados = new System.Windows.Forms.PictureBox();
+            this.GB_2 = new System.Windows.Forms.GroupBox();
+            this.PB_ElementosNoEnumerados = new System.Windows.Forms.PictureBox();
+            this.LB_Pisos = new System.Windows.Forms.Label();
             this.GB_Controles = new System.Windows.Forms.GroupBox();
             this.LB_Nombrar = new System.Windows.Forms.Label();
             this.TB_Nombramiento = new System.Windows.Forms.TextBox();
             this.CKB_SeleccionInteligente = new System.Windows.Forms.CheckBox();
             this.BT_Enumerar = new System.Windows.Forms.Button();
-            this.PB_ElementosEnumerados = new System.Windows.Forms.PictureBox();
-            this.PB_ElementosNoEnumerados = new System.Windows.Forms.PictureBox();
+            this.T_Timer2 = new System.Windows.Forms.Timer(this.components);
+            this.PB_InfoElementosNoEnumerados = new System.Windows.Forms.PictureBox();
+            this.CMS_1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mostrarSecciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.limpirarSeleccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.P_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
             this.GB_1.SuspendLayout();
-            this.GB_Controles.SuspendLayout();
+            this.GB_3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).BeginInit();
+            this.GB_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosNoEnumerados)).BeginInit();
+            this.GB_Controles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementosNoEnumerados)).BeginInit();
+            this.CMS_1.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_Title
@@ -61,7 +74,7 @@
             this.P_Title.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.P_Title.Location = new System.Drawing.Point(0, 0);
             this.P_Title.Name = "P_Title";
-            this.P_Title.Size = new System.Drawing.Size(974, 32);
+            this.P_Title.Size = new System.Drawing.Size(1182, 23);
             this.P_Title.TabIndex = 1;
             this.P_Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Title_MouseDown);
             // 
@@ -75,9 +88,9 @@
             this.BT_Cerrar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Cerrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Cerrar.Image = global::FC_Diseño_de_Nervios.Properties.Resources.x16Blanca;
-            this.BT_Cerrar.Location = new System.Drawing.Point(934, 0);
+            this.BT_Cerrar.Location = new System.Drawing.Point(1142, 0);
             this.BT_Cerrar.Name = "BT_Cerrar";
-            this.BT_Cerrar.Size = new System.Drawing.Size(40, 32);
+            this.BT_Cerrar.Size = new System.Drawing.Size(40, 23);
             this.BT_Cerrar.TabIndex = 28;
             this.BT_Cerrar.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BT_Cerrar.UseVisualStyleBackColor = true;
@@ -86,7 +99,7 @@
             // PB_EnumeracionElementos
             // 
             this.PB_EnumeracionElementos.Image = ((System.Drawing.Image)(resources.GetObject("PB_EnumeracionElementos.Image")));
-            this.PB_EnumeracionElementos.Location = new System.Drawing.Point(10, 8);
+            this.PB_EnumeracionElementos.Location = new System.Drawing.Point(10, 4);
             this.PB_EnumeracionElementos.Name = "PB_EnumeracionElementos";
             this.PB_EnumeracionElementos.Size = new System.Drawing.Size(16, 17);
             this.PB_EnumeracionElementos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -97,7 +110,7 @@
             // LB_Title
             // 
             this.LB_Title.AutoSize = true;
-            this.LB_Title.Location = new System.Drawing.Point(30, 9);
+            this.LB_Title.Location = new System.Drawing.Point(30, 5);
             this.LB_Title.Name = "LB_Title";
             this.LB_Title.Size = new System.Drawing.Size(193, 14);
             this.LB_Title.TabIndex = 0;
@@ -106,35 +119,102 @@
             // 
             // LV_Stories
             // 
-            this.LV_Stories.Location = new System.Drawing.Point(6, 15);
+            this.LV_Stories.HideSelection = false;
+            this.LV_Stories.Location = new System.Drawing.Point(6, 30);
             this.LV_Stories.MultiSelect = false;
             this.LV_Stories.Name = "LV_Stories";
-            this.LV_Stories.Size = new System.Drawing.Size(128, 247);
+            this.LV_Stories.Size = new System.Drawing.Size(141, 252);
             this.LV_Stories.TabIndex = 2;
             this.LV_Stories.UseCompatibleStateImageBehavior = false;
+            this.LV_Stories.View = System.Windows.Forms.View.List;
             this.LV_Stories.SelectedIndexChanged += new System.EventHandler(this.LV_Stories_SelectedIndexChanged);
             // 
             // GB_1
             // 
+            this.GB_1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GB_1.Controls.Add(this.GB_3);
+            this.GB_1.Controls.Add(this.GB_2);
+            this.GB_1.Controls.Add(this.LB_Pisos);
             this.GB_1.Controls.Add(this.GB_Controles);
-            this.GB_1.Controls.Add(this.PB_ElementosEnumerados);
-            this.GB_1.Controls.Add(this.PB_ElementosNoEnumerados);
             this.GB_1.Controls.Add(this.LV_Stories);
-            this.GB_1.Location = new System.Drawing.Point(10, 31);
+            this.GB_1.Location = new System.Drawing.Point(10, 24);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(957, 475);
+            this.GB_1.Size = new System.Drawing.Size(1165, 592);
             this.GB_1.TabIndex = 3;
             this.GB_1.TabStop = false;
             // 
+            // GB_3
+            // 
+            this.GB_3.Controls.Add(this.PB_ElementosEnumerados);
+            this.GB_3.Location = new System.Drawing.Point(659, 13);
+            this.GB_3.Name = "GB_3";
+            this.GB_3.Size = new System.Drawing.Size(500, 570);
+            this.GB_3.TabIndex = 8;
+            this.GB_3.TabStop = false;
+            this.GB_3.Text = "Elementos Enumerados";
+            // 
+            // PB_ElementosEnumerados
+            // 
+            this.PB_ElementosEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.PB_ElementosEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PB_ElementosEnumerados.Location = new System.Drawing.Point(6, 15);
+            this.PB_ElementosEnumerados.Name = "PB_ElementosEnumerados";
+            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(491, 547);
+            this.PB_ElementosEnumerados.TabIndex = 4;
+            this.PB_ElementosEnumerados.TabStop = false;
+            // 
+            // GB_2
+            // 
+            this.GB_2.Controls.Add(this.PB_InfoElementosNoEnumerados);
+            this.GB_2.Controls.Add(this.PB_ElementosNoEnumerados);
+            this.GB_2.Location = new System.Drawing.Point(153, 13);
+            this.GB_2.Name = "GB_2";
+            this.GB_2.Size = new System.Drawing.Size(500, 570);
+            this.GB_2.TabIndex = 7;
+            this.GB_2.TabStop = false;
+            this.GB_2.Text = "Elementos sin Enumerar";
+            // 
+            // PB_ElementosNoEnumerados
+            // 
+            this.PB_ElementosNoEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.PB_ElementosNoEnumerados.BackColor = System.Drawing.SystemColors.Window;
+            this.PB_ElementosNoEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PB_ElementosNoEnumerados.ContextMenuStrip = this.CMS_1;
+            this.PB_ElementosNoEnumerados.Location = new System.Drawing.Point(3, 17);
+            this.PB_ElementosNoEnumerados.Name = "PB_ElementosNoEnumerados";
+            this.PB_ElementosNoEnumerados.Size = new System.Drawing.Size(491, 547);
+            this.PB_ElementosNoEnumerados.TabIndex = 3;
+            this.PB_ElementosNoEnumerados.TabStop = false;
+            this.PB_ElementosNoEnumerados.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_ElementosNoEnumerados_Paint);
+            this.PB_ElementosNoEnumerados.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosNoEnumerados_MouseDown);
+            this.PB_ElementosNoEnumerados.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosNoEnumerados_MouseMove);
+            this.PB_ElementosNoEnumerados.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosNoEnumerados_MouseWheel);
+            // 
+            // LB_Pisos
+            // 
+            this.LB_Pisos.AutoSize = true;
+            this.LB_Pisos.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Pisos.Location = new System.Drawing.Point(6, 13);
+            this.LB_Pisos.Name = "LB_Pisos";
+            this.LB_Pisos.Size = new System.Drawing.Size(32, 14);
+            this.LB_Pisos.TabIndex = 6;
+            this.LB_Pisos.Text = "Pisos";
+            // 
             // GB_Controles
             // 
+            this.GB_Controles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.GB_Controles.Controls.Add(this.LB_Nombrar);
             this.GB_Controles.Controls.Add(this.TB_Nombramiento);
             this.GB_Controles.Controls.Add(this.CKB_SeleccionInteligente);
             this.GB_Controles.Controls.Add(this.BT_Enumerar);
-            this.GB_Controles.Location = new System.Drawing.Point(6, 268);
+            this.GB_Controles.Location = new System.Drawing.Point(6, 288);
             this.GB_Controles.Name = "GB_Controles";
-            this.GB_Controles.Size = new System.Drawing.Size(128, 201);
+            this.GB_Controles.Size = new System.Drawing.Size(141, 296);
             this.GB_Controles.TabIndex = 5;
             this.GB_Controles.TabStop = false;
             this.GB_Controles.Text = "Controles";
@@ -165,42 +245,61 @@
             this.CKB_SeleccionInteligente.Text = " Selección\r\n  Inteligente";
             this.CKB_SeleccionInteligente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CKB_SeleccionInteligente.UseVisualStyleBackColor = true;
+            this.CKB_SeleccionInteligente.CheckedChanged += new System.EventHandler(this.CKB_SeleccionInteligente_CheckedChanged);
             // 
             // BT_Enumerar
             // 
             this.BT_Enumerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BT_Enumerar.Location = new System.Drawing.Point(6, 167);
+            this.BT_Enumerar.Location = new System.Drawing.Point(10, 151);
             this.BT_Enumerar.Name = "BT_Enumerar";
             this.BT_Enumerar.Size = new System.Drawing.Size(116, 28);
             this.BT_Enumerar.TabIndex = 0;
             this.BT_Enumerar.Text = "Enumerar";
             this.BT_Enumerar.UseVisualStyleBackColor = true;
             // 
-            // PB_ElementosEnumerados
+            // T_Timer2
             // 
-            this.PB_ElementosEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_ElementosEnumerados.Location = new System.Drawing.Point(546, 15);
-            this.PB_ElementosEnumerados.Name = "PB_ElementosEnumerados";
-            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(400, 454);
-            this.PB_ElementosEnumerados.TabIndex = 4;
-            this.PB_ElementosEnumerados.TabStop = false;
+            this.T_Timer2.Tick += new System.EventHandler(this.T_Timer2_Tick);
             // 
-            // PB_ElementosNoEnumerados
+            // PB_InfoElementosNoEnumerados
             // 
-            this.PB_ElementosNoEnumerados.BackColor = System.Drawing.SystemColors.Window;
-            this.PB_ElementosNoEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_ElementosNoEnumerados.Location = new System.Drawing.Point(140, 15);
-            this.PB_ElementosNoEnumerados.Name = "PB_ElementosNoEnumerados";
-            this.PB_ElementosNoEnumerados.Size = new System.Drawing.Size(400, 454);
-            this.PB_ElementosNoEnumerados.TabIndex = 3;
-            this.PB_ElementosNoEnumerados.TabStop = false;
+            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(6, 532);
+            this.PB_InfoElementosNoEnumerados.Name = "PB_InfoElementosNoEnumerados";
+            this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(76, 27);
+            this.PB_InfoElementosNoEnumerados.TabIndex = 4;
+            this.PB_InfoElementosNoEnumerados.TabStop = false;
+            this.PB_InfoElementosNoEnumerados.Visible = false;
+            this.PB_InfoElementosNoEnumerados.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_InfoElementosNoEnumerados_Paint);
+            // 
+            // CMS_1
+            // 
+            this.CMS_1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mostrarSecciónToolStripMenuItem,
+            this.limpirarSeleccionToolStripMenuItem});
+            this.CMS_1.Name = "CMS_1";
+            this.CMS_1.Size = new System.Drawing.Size(168, 48);
+            // 
+            // mostrarSecciónToolStripMenuItem
+            // 
+            this.mostrarSecciónToolStripMenuItem.CheckOnClick = true;
+            this.mostrarSecciónToolStripMenuItem.Name = "mostrarSecciónToolStripMenuItem";
+            this.mostrarSecciónToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mostrarSecciónToolStripMenuItem.Text = "Mostrar Sección";
+            this.mostrarSecciónToolStripMenuItem.Click += new System.EventHandler(this.mostrarSecciónToolStripMenuItem_Click);
+            // 
+            // limpirarSeleccionToolStripMenuItem
+            // 
+            this.limpirarSeleccionToolStripMenuItem.Name = "limpirarSeleccionToolStripMenuItem";
+            this.limpirarSeleccionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.limpirarSeleccionToolStripMenuItem.Text = "Limpiar Selección";
+            this.limpirarSeleccionToolStripMenuItem.Click += new System.EventHandler(this.limpirarSeleccionToolStripMenuItem_Click);
             // 
             // F_EnumeracionPortico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(974, 510);
+            this.ClientSize = new System.Drawing.Size(1182, 619);
             this.Controls.Add(this.GB_1);
             this.Controls.Add(this.P_Title);
             this.Font = new System.Drawing.Font("Calibri", 9F);
@@ -209,17 +308,24 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nuevo Proyecto";
             this.Load += new System.EventHandler(this.F_EnumeracionPortico_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.F_EnumeracionPortico_Paint);
             this.P_Title.ResumeLayout(false);
             this.P_Title.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).EndInit();
             this.GB_1.ResumeLayout(false);
+            this.GB_1.PerformLayout();
+            this.GB_3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).EndInit();
+            this.GB_2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosNoEnumerados)).EndInit();
             this.GB_Controles.ResumeLayout(false);
             this.GB_Controles.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosNoEnumerados)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementosNoEnumerados)).EndInit();
+            this.CMS_1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
+
 
         #endregion
 
@@ -236,5 +342,13 @@
         private System.Windows.Forms.CheckBox CKB_SeleccionInteligente;
         private System.Windows.Forms.Label LB_Nombrar;
         private System.Windows.Forms.TextBox TB_Nombramiento;
+        private System.Windows.Forms.Label LB_Pisos;
+        private System.Windows.Forms.Timer T_Timer2;
+        private System.Windows.Forms.GroupBox GB_3;
+        private System.Windows.Forms.GroupBox GB_2;
+        private System.Windows.Forms.PictureBox PB_InfoElementosNoEnumerados;
+        private System.Windows.Forms.ContextMenuStrip CMS_1;
+        private System.Windows.Forms.ToolStripMenuItem mostrarSecciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem limpirarSeleccionToolStripMenuItem;
     }
 }

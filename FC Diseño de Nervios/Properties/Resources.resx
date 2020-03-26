@@ -145,4 +145,10 @@
   <data name="Openx16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Openx16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Arrastre16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Arrastre16x16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultCursor2x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DefaultCursor2x16.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

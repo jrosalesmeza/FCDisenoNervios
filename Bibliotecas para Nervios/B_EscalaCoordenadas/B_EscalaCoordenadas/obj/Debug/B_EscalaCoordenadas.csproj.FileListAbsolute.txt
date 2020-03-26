@@ -1,0 +1,6 @@
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\bin\Debug\B_EscalaCoordenadas.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\bin\Debug\B_EscalaCoordenadas.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\bin\Debug\B_EscalaCoordenadas.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\obj\Debug\B_EscalaCoordenadas.csprojAssemblyReference.cache
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\obj\Debug\B_EscalaCoordenadas.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\obj\Debug\B_EscalaCoordenadas.pdb

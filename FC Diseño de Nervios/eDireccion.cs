@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace B_EscalaCoordenadas
+namespace FC_Diseño_de_Nervios
 {
-    public static class EscalaCoordenadas
+    [Serializable]
+    public enum eDireccion
     {
-
-
+        Horizontal,
+        Vertical
     }
 }

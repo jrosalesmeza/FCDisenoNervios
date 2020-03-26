@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using UndoRendoPrueba;
+
 namespace FC_Diseño_de_Nervios
 {
     public partial class F_Base : Form
     {
 
+        public static cUndoRedo<cProyecto> cUndoRedo = new cUndoRedo<cProyecto>();
         public static Form F_Base_;
-        public static Caretaker<cProyecto> Caretaker = new Caretaker<cProyecto>(); 
+
 
 
 
@@ -58,11 +59,13 @@ namespace FC_Diseño_de_Nervios
         }
         private void Deshacer_Function()
         {
-
+            Proyecto= cUndoRedo.Deshacer();
+            F_EnumeracionPortico.Invalidate();
         }
         private void Rehacer_Function()
         {
-
+            Proyecto = cUndoRedo.Rehacer();
+            F_EnumeracionPortico.Invalidate();
         }
 
 
@@ -108,12 +111,15 @@ namespace FC_Diseño_de_Nervios
             if (Proyecto != null)
             {
                 LB_NombreProyecto.Text = Proyecto.Nombre;
+                TSB_Undo.Enabled = cUndoRedo.Bool_CtrlZ;
+                TSB_Redo.Enabled = cUndoRedo.Bool_CtrlY;
                 BloqueoDesbloqueoBotones(true);
                 
             }
             else
             {
-
+                TSB_Undo.Enabled = false;
+                TSB_Redo.Enabled = false;
                 BloqueoDesbloqueoBotones(false);
             }
 
@@ -134,7 +140,14 @@ namespace FC_Diseño_de_Nervios
 
         private void VentanaEnumeracionElementos()
         {
-            F_EnumeracionPortico.ShowDialog();
+            if (F_EnumeracionPortico != null)
+            {
+                F_EnumeracionPortico.Show();
+            }
+            else{
+                F_EnumeracionPortico = new F_EnumeracionPortico();
+                F_EnumeracionPortico.Show();
+            }
         }
 
 
