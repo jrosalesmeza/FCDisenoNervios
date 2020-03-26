@@ -78,12 +78,10 @@ namespace FC_Diseño_de_Nervios
 
                 //Crear Puntos de La Planta del Piso y Crear Edificio para Manipulacion
                 F_Base.Proyecto.Edificio = new cEdificio();
-                F_Base.Proyecto.Edificio.Lista_Pisos = cFunctionsProgram.DeepClone(F_Base.Proyecto.DatosEtabs.Lista_Pisos);
-                F_Base.Proyecto.Edificio.Lista_Pisos.ForEach(x => x.Lista_Lines.Clear());
-
                 F_Base.Proyecto.DatosEtabs.Lista_Pisos.ForEach(x => x.Lista_Lines.ForEach(y => y.CrearPuntosPlantaRealEtabsLine(y.ConfigLinea.Point1P, y.ConfigLinea.Point2P)));
+                F_Base.Proyecto.Edificio.Lista_Pisos = cFunctionsProgram.DeepClone(F_Base.Proyecto.DatosEtabs.Lista_Pisos);
                 F_Base.F_EnumeracionPortico = new F_EnumeracionPortico();
-                F_Base.F_EnumeracionPortico.Show();
+                F_Base.F_EnumeracionPortico.ShowDialog();
                 Close();
             }
         }

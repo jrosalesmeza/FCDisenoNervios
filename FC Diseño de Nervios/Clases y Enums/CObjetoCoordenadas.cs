@@ -16,7 +16,12 @@ namespace FC_Diseño_de_Nervios
         public List<PointF> Planta_Escalado { get; set; }
         public List<PointF> Planta_Real { get; set; }
         public bool Select { get; set; }
-        public bool isVisible { get; set; } = true;
+        public bool isSelect { get; set; } = true;
+
+
+
+
+
         public int IndexSelect { get; set; } = 0;
         public void CrearPuntosPlantaRealEtabsLine(cPoint Point1, cPoint Point2)
         {
@@ -30,20 +35,24 @@ namespace FC_Diseño_de_Nervios
             Planta_Escalado=cEscalaCoordenadas.EscalarPuntos(PuntosTodosObjetos, Planta_Real, WidthWindow, HeigthWindow,Zoom,Dx,Dy);
         }
 
-        public void PaintPlantaEscaladaEtabsLine(Graphics e) 
+        public void PaintPlantaEscaladaEtabsLine(Graphics e)
         {
-            if (isVisible)
+            Pen PenElementSinSeleccionar = new Pen(Color.FromArgb(0, 104, 149), 2);
+            Pen PenElementSeleccionar = new Pen(Color.FromArgb(220, 136, 21), 2);
+            Pen PenElementisSelectFalse = new Pen(Color.FromArgb(227, 227, 227), 2);
+            if (Select)
             {
-                Pen PenElementSinSeleccionar = new Pen(Color.FromArgb(0, 104, 149), 2);
-                Pen PenElementSeleccionar = new Pen(Color.FromArgb(220, 136, 21), 2);
-
-                if (Select)
+                e.DrawLines(PenElementSeleccionar, Planta_Escalado.ToArray());
+            }
+            else
+            {
+                if (isSelect)
                 {
-                    e.DrawLines(PenElementSeleccionar, Planta_Escalado.ToArray());
+                    e.DrawLines(PenElementSinSeleccionar, Planta_Escalado.ToArray());
                 }
                 else
                 {
-                    e.DrawLines(PenElementSinSeleccionar, Planta_Escalado.ToArray());
+                    e.DrawLines(PenElementisSelectFalse, Planta_Escalado.ToArray());
                 }
             }
 
@@ -51,7 +60,7 @@ namespace FC_Diseño_de_Nervios
 
         public void MouseDownSelectLineEtabs(MouseEventArgs e, int EnteroFinal)
         {
-            if (isVisible)
+            if (isSelect)
             {
                 if (MouseInLineEtabs(e.Location))
                 {
@@ -62,7 +71,7 @@ namespace FC_Diseño_de_Nervios
                     }
                     else
                     {
-                        F_Base.UndoRedo.EnviarEstado(F_Base.Proyecto);
+                     
                         Select = true;
                         IndexSelect = EnteroFinal + 1;
                     }
@@ -71,22 +80,30 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
- 
+
 
         public bool MouseInLineEtabs(Point Point)
         {
 
-            GraphicsPath graphicsPath = new GraphicsPath();
-            float Espesor = 5;
-            graphicsPath.AddLine(Planta_Escalado[0].X - Espesor, Planta_Escalado[0].Y - Espesor, Planta_Escalado[1].X - Espesor, Planta_Escalado[1].Y - Espesor);
-            graphicsPath.AddLine(Planta_Escalado[1].X + Espesor, Planta_Escalado[1].Y + Espesor, Planta_Escalado[0].X + Espesor, Planta_Escalado[0].Y + Espesor);
-
-            if (graphicsPath.IsVisible(Point))
+            if (Planta_Escalado != null)
             {
-                return true;
+
+                GraphicsPath graphicsPath = new GraphicsPath();
+                float Espesor = 5;
+                graphicsPath.AddLine(Planta_Escalado[0].X - Espesor, Planta_Escalado[0].Y - Espesor, Planta_Escalado[1].X - Espesor, Planta_Escalado[1].Y - Espesor);
+                graphicsPath.AddLine(Planta_Escalado[1].X + Espesor, Planta_Escalado[1].Y + Espesor, Planta_Escalado[0].X + Espesor, Planta_Escalado[0].Y + Espesor);
+
+                if (graphicsPath.IsVisible(Point))
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
             else
+            {
                 return false;
+            }
         }
 
 

@@ -13,28 +13,13 @@ namespace FC_Diseño_de_Nervios
         public List<PointF> Coordenadas_Perfil { get; set; }
         public List<PointF> Coordenadas_Planta { get; set; }
 
-        public eCambioenAltura CambioenAltura { get; set; }
-        public eCambioenAncho CambioenAncho { get; set; }
-
 
 
 
     }
+
 
     [Serializable]
-    public enum eCambioenAltura
-    {
-        Superior,
-        Inferior
-    }
-    [Serializable]
-    public enum eCambioenAncho
-    {
-        Central,    
-        Superior,  //Izquierda
-        Inferior  //Derecha
-    }
-
     public enum eSoporte
     {
         Vano,

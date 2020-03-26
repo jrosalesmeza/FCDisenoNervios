@@ -14,7 +14,7 @@ namespace FC_Diseño_de_Nervios
     public delegate void DelegateNotificadorProgram(string Alert);
     public static class cFunctionsProgram
     {
-        private static string[] Separadores = { "  ", " ", @"""" };
+        private static string[] Separadores = { "  "," ", @"""" };
         public static List<eType> eTypes = new List<eType>(){eType.Beam,eType.Column,eType.Floor,eType.Wall,eType.None };
         public static event DelegateNotificadorProgram Notificador;
 
@@ -109,7 +109,7 @@ namespace FC_Diseño_de_Nervios
 
             for(int i=0; i < ArchivoPuntos.Count; i++)
             {
-                string[] Point_Separado = ArchivoPuntos[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
+                string[] Point_Separado = ArchivoPuntos[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries); ;
                 cPoint point = new cPoint(Point_Separado[1],(float)Math.Round(Convert.ToSingle(Point_Separado[2]),2), (float)Math.Round(Convert.ToSingle(Point_Separado[3]), 2));
                 ListaPuntos.Add(point);
             }
@@ -214,15 +214,26 @@ namespace FC_Diseño_de_Nervios
             {
                 if (Elemento.Length > 12)
                 {
-                    string NombrePiso = Elemento[2];
+                    string NombrePiso;
+                    int IndiceAMayor=0;
+
+                    if (Elemento[3] == "SECTION")
+                    {
+                        NombrePiso = Elemento[2];
+                    }
+                    else
+                    {
+                        NombrePiso = Elemento[2]+" "+ Elemento[3];
+                        IndiceAMayor = 1;
+                    }
                     string NombreElemento = Elemento[1];
-                    string NombreSeccion = Elemento[4];
+                    string NombreSeccion = Elemento[4 + IndiceAMayor];
                     cPiso PisoEncontrado= Lista_Pisos.Find(x => x.Nombre == NombrePiso);
                     float OffSetI = 0;float OffSetJ = 0;
                     if (Elemento.Contains("LENGTHOFFI"))
                     {
-                        OffSetI = Convert.ToSingle(Elemento[10]);
-                        OffSetJ = Convert.ToSingle(Elemento[12]);
+                        OffSetI = Convert.ToSingle(Elemento[10+ IndiceAMayor]);
+                        OffSetJ = Convert.ToSingle(Elemento[12+ IndiceAMayor]);
                     }
                
                     cLine ElementoEncontrado = DeepClone(Lista_Line.Find(x =>x.Nombre== NombreElemento));
@@ -259,7 +270,18 @@ namespace FC_Diseño_de_Nervios
             for (int i = 0; i < ArchivoPisos.Count; i++)
             {
                 string[] Pisos_Separados = ArchivoPisos[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
-                cPiso piso = new cPiso(Pisos_Separados[1], Convert.ToSingle(Pisos_Separados[3]));
+                string NamePiso; float HPiso;
+                if (Pisos_Separados.Length == 4)
+                {
+                    NamePiso = Pisos_Separados[1];
+                    HPiso = Convert.ToSingle(Pisos_Separados[3]);
+                }
+                else
+                {
+                    NamePiso = Pisos_Separados[1]+" "+ Pisos_Separados[2];
+                    HPiso = Convert.ToSingle(Pisos_Separados[4]);
+                }
+                cPiso piso = new cPiso(NamePiso, HPiso);
                 Pisos.Add(piso);
             }
 
@@ -310,32 +332,32 @@ namespace FC_Diseño_de_Nervios
 
 
         //Funciones de Selección
-        public static void SeleccionInteligente(cLine LineMadre, List<cLine> Lista_Lines,int IndiceSeleccion)
+        public static void SeleccionInteligente(cLine LineMadre, List<cLine> Lista_Lines,int IndiceSeleccion,bool CondicionSelect)
         {
             foreach (cLine LineaHija in Lista_Lines)
             {
 
-                if (LineMadre.Nombre != LineaHija.Nombre && LineaHija.Select != true && LineaHija.ConfigLinea.Direccion == LineMadre.ConfigLinea.Direccion)
+                if (LineMadre.Nombre != LineaHija.Nombre && LineaHija.Select != CondicionSelect && LineaHija.ConfigLinea.Direccion == LineMadre.ConfigLinea.Direccion)
                 {
                     if (LineMadre.ConfigLinea.Point1P.X == LineaHija.ConfigLinea.Point1P.X && LineMadre.ConfigLinea.Point1P.Y == LineaHija.ConfigLinea.Point1P.Y)
                     {
-                        LineaHija.Select = true;LineaHija.IndexSelect = IndiceSeleccion;
-                        SeleccionInteligente(LineaHija, Lista_Lines,IndiceSeleccion);
+                        LineaHija.Select = CondicionSelect; LineaHija.IndexSelect = IndiceSeleccion;
+                        SeleccionInteligente(LineaHija, Lista_Lines,IndiceSeleccion, CondicionSelect);
                     }
                     if (LineMadre.ConfigLinea.Point1P.X == LineaHija.ConfigLinea.Point2P.X && LineMadre.ConfigLinea.Point1P.Y == LineaHija.ConfigLinea.Point2P.Y)
                     {
-                        LineaHija.Select = true; LineaHija.IndexSelect = IndiceSeleccion;
-                        SeleccionInteligente(LineaHija, Lista_Lines, IndiceSeleccion);
+                        LineaHija.Select = CondicionSelect; LineaHija.IndexSelect = IndiceSeleccion;
+                        SeleccionInteligente(LineaHija, Lista_Lines, IndiceSeleccion, CondicionSelect);
                     }
                     if (LineMadre.ConfigLinea.Point2P.X == LineaHija.ConfigLinea.Point1P.X && LineMadre.ConfigLinea.Point2P.Y == LineaHija.ConfigLinea.Point1P.Y)
                     {
-                        LineaHija.Select = true; LineaHija.IndexSelect = IndiceSeleccion;
-                        SeleccionInteligente(LineaHija, Lista_Lines, IndiceSeleccion);
+                        LineaHija.Select = CondicionSelect; LineaHija.IndexSelect = IndiceSeleccion;
+                        SeleccionInteligente(LineaHija, Lista_Lines, IndiceSeleccion, CondicionSelect);
                     }
                     if (LineMadre.ConfigLinea.Point2P.X == LineaHija.ConfigLinea.Point2P.X && LineMadre.ConfigLinea.Point2P.Y == LineaHija.ConfigLinea.Point2P.Y)
                     {
-                        LineaHija.Select = true; LineaHija.IndexSelect = IndiceSeleccion;
-                        SeleccionInteligente(LineaHija, Lista_Lines, IndiceSeleccion);
+                        LineaHija.Select = CondicionSelect; LineaHija.IndexSelect = IndiceSeleccion;
+                        SeleccionInteligente(LineaHija, Lista_Lines, IndiceSeleccion, CondicionSelect);
                     }
                 }
 
@@ -516,12 +538,12 @@ namespace FC_Diseño_de_Nervios
 
 
 
-        public static cNervio CrearNervio(string Prefijo,int ID,List<cLine> LineasQComponenAlNervio, List<cLine> TodasLasLineas)
+        public static cNervio CrearNervio(string Prefijo, int ID, List<cLine> LineasQComponenAlNervio, List<cLine> TodasLasLineas,float WidthWindow, float HeightWindow)
         {
             eDireccion DireccionNervio = LineasQComponenAlNervio.First().ConfigLinea.Direccion;
             List<cLine> ListaObjetosOrganizada;
 
-            if(DireccionNervio == eDireccion.Horizontal)
+            if (DireccionNervio == eDireccion.Horizontal)
             {
                 ListaObjetosOrganizada = LineasQComponenAlNervio.OrderBy(x => x.Planta_Real.Min(y => y.X)).ToList();
             }
@@ -534,38 +556,38 @@ namespace FC_Diseño_de_Nervios
             {
                 cLine Objeto = ListaObjetosOrganizada[Indice];
 
-                    if (Objeto.ConfigLinea.OffSetI != 0)
+                if (Objeto.ConfigLinea.OffSetI != 0)
+                {
+                    foreach (cLine Line in TodasLasLineas)
                     {
-                        foreach (cLine Line in TodasLasLineas)
+                        cLine LineApoyo = FindApoyo(Objeto, TodasLasLineas, 0);
+                        if (LineApoyo != null && ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) == false && LineApoyo.Type != eType.Column && LineApoyo.ConfigLinea.Direccion != DireccionNervio)
                         {
-                            cLine LineApoyo = FindApoyo(Objeto, TodasLasLineas, 0);
-                            if (LineApoyo != null && ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) == false && LineApoyo.Type != eType.Column)
-                            {
-                                AsignarApoyosALista(Objeto, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
-                                break;
-                            }
+                            AsignarApoyosALista(Objeto, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
+                            break;
                         }
-
                     }
-                    if (Objeto.ConfigLinea.OffSetJ != 0)
-                    {
-                        foreach (cLine Line in TodasLasLineas)
-                        {
-                            cLine LineApoyo = FindApoyo(Objeto, TodasLasLineas, 1);
-                            if (LineApoyo != null && ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) == false && LineApoyo.Type != eType.Column)
-                            {
-                                AsignarApoyosALista(Objeto, LineApoyo, ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
-                                break;
-                            }
-                        }
 
-                    }              
-                
+                }
+                if (Objeto.ConfigLinea.OffSetJ != 0)
+                {
+                    foreach (cLine Line in TodasLasLineas)
+                    {
+                        cLine LineApoyo = FindApoyo(Objeto, TodasLasLineas, 1);
+                        if (LineApoyo != null && ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) == false && LineApoyo.Type != eType.Column && LineApoyo.ConfigLinea.Direccion != DireccionNervio)
+                        {
+                            AsignarApoyosALista(Objeto, LineApoyo, ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
+                            break;
+                        }
+                    }
+
+                }
+
             }
 
             List<cObjeto> ListaObjetosFinal = new List<cObjeto>();
 
-            foreach(cLine LineObjetosACrear in ListaObjetosOrganizada)
+            foreach (cLine LineObjetosACrear in ListaObjetosOrganizada)
             {
                 eSoporte Soporte = eSoporte.Vano;
                 if (LineObjetosACrear.ConfigLinea.Direccion != DireccionNervio)
@@ -576,7 +598,9 @@ namespace FC_Diseño_de_Nervios
                 ListaObjetosFinal.Add(Objeto);
             }
 
-            ListaObjetosFinal.ForEach(x=>TodasLasLineas.FindAll(y=>y.Nombre== x.Line.Nombre && x.Soporte == eSoporte.Vano).ForEach(z=>z.isVisible =false));
+            List<PointF> PuntosSinEscalar= new List<PointF>(); TodasLasLineas.ForEach(y => { if (y.Type == eType.Beam) { PuntosSinEscalar.AddRange(y.Planta_Real); } });
+
+            ListaObjetosFinal.ForEach(x => { TodasLasLineas.FindAll(y => y.Nombre == x.Line.Nombre && x.Soporte == eSoporte.Vano).ForEach(z => { z.isSelect = false; z.Select = false; z.IndexSelect = 0; });x.Line.CrearPuntosPlantaEscaladaEtabsLine(PuntosSinEscalar, WidthWindow, HeightWindow, 0, 0, 1); });
 
 
             return new cNervio(ID, Prefijo, ListaObjetosFinal, DireccionNervio);

@@ -36,7 +36,7 @@ namespace FC_Diseño_de_Nervios
         private bool SelectMouseMove = false;
         public void PaintMouseMove(Graphics e, float HeigthWindow, float WidthWindow)
         {
-            if (SelectMouseMove && isVisible)
+            if (SelectMouseMove && isSelect)
             {
                 Font Font1 = new Font("Calibri", 9, FontStyle.Bold);
                 PointF PointString = new PointF(WidthWindow/2 -e.MeasureString(Seccion.Nombre,Font1).Width/2 , HeigthWindow / 2 - Font1.Height / 2);
@@ -46,7 +46,7 @@ namespace FC_Diseño_de_Nervios
         }
         public void MouseMoveElementoSinEnumerar(Point Point)
         {
-            if (isVisible)
+            if (isSelect)
             {
                 SelectMouseMove = (MouseInLineEtabs(Point));
             }     

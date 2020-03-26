@@ -13,7 +13,7 @@ namespace FC_Diseño_de_Nervios
     public partial class F_Base : Form
     {
 
-        public static cUndoRedo<cProyecto> UndoRedo = new cUndoRedo<cProyecto>();
+        private static cUndoRedo<cProyecto> UndoRedo = new cUndoRedo<cProyecto>();
         public static Form F_Base_;
 
 
@@ -60,13 +60,33 @@ namespace FC_Diseño_de_Nervios
         public static void Deshacer_Function()
         {
             Proyecto= UndoRedo.Deshacer();
-            F_EnumeracionPortico.Invalidate();
+            ActualizarTodosLasVentanas();
+
+
         }
         public static void Rehacer_Function()
         {
             Proyecto = UndoRedo.Rehacer();
+            ActualizarTodosLasVentanas();
+
+
+        }
+        public static void EnviarEstado(cProyecto Proyecto)
+        {
+            UndoRedo.EnviarEstado(Proyecto);
+        }
+
+
+        private static void ActualizarTodosLasVentanas()
+        {
             F_EnumeracionPortico.Invalidate();
         }
+
+
+
+
+
+
 
 
         #endregion
@@ -147,11 +167,11 @@ namespace FC_Diseño_de_Nervios
         {
             if (F_EnumeracionPortico != null)
             {
-                F_EnumeracionPortico.Show();
+                F_EnumeracionPortico.ShowDialog();
             }
             else{
                 F_EnumeracionPortico = new F_EnumeracionPortico();
-                F_EnumeracionPortico.Show();
+                F_EnumeracionPortico.ShowDialog();
             }
         }
 
