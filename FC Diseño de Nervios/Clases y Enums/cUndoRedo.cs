@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FC_Diseño_de_Nervios
 {
-    [Serializable]
     public class cUndoRedo<T>
     {
-        public Stack<T> Lista_CtrlZ { get; set; } = new Stack<T>();
-        public Stack<T> Lista_CtrlY { get; set; } = new Stack<T>();
+        private Stack<T> Lista_CtrlZ { get; set; } = new Stack<T>();
+        private Stack<T> Lista_CtrlY { get; set; } = new Stack<T>();
 
-        public bool Bool_CtrlZ { get; set; }
-        public bool Bool_CtrlY { get; set; }
+        private bool Bool_CtrlZ { get; set; }
+        private bool Bool_CtrlY { get; set; }
 
+        public bool ObtenerEstadoCtrlZ()
+        {
+            return Bool_CtrlZ;
+        }
+
+        public bool ObtenerEstadoCtrlY()
+        {
+            return Bool_CtrlY;
+        }
 
         public void EnviarEstado(T Estado)
         {
@@ -29,7 +33,7 @@ namespace FC_Diseño_de_Nervios
         {
             if (Bool_CtrlZ)
             {
-                T ObjetoQueQuite = Lista_CtrlZ.Pop();
+                T ObjetoQueQuite = DeepClone(Lista_CtrlZ.Pop());
                 Lista_CtrlY.Push(ObjetoQueQuite);
                 SaberCuandoSeHabilitaCrtlY();
                 SaberCuandoSeHabilitaCrtlZ();
@@ -37,11 +41,12 @@ namespace FC_Diseño_de_Nervios
             }
             return default;
         }
+
         public T Rehacer()
         {
             if (Bool_CtrlY)
             {
-                T ObjetoQueQuite = Lista_CtrlY.Pop();
+                T ObjetoQueQuite = DeepClone(Lista_CtrlY.Pop());
                 Lista_CtrlZ.Push(ObjetoQueQuite);
                 SaberCuandoSeHabilitaCrtlY();
                 SaberCuandoSeHabilitaCrtlZ();
@@ -49,7 +54,6 @@ namespace FC_Diseño_de_Nervios
             }
             return default;
         }
-
 
         private void SaberCuandoSeHabilitaCrtlZ()
         {
@@ -75,8 +79,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-
-
         private T DeepClone(T obj)
         {
             using (var ms = new MemoryStream())
@@ -88,6 +90,5 @@ namespace FC_Diseño_de_Nervios
                 return (T)formatter.Deserialize(ms);
             }
         }
-
     }
 }

@@ -28,7 +28,7 @@ namespace FC_Diseño_de_Nervios
             InitializeComponent();
             PB_ElementosNoEnumerados.MouseDown += PB_ElementosNoEnumerados_MouseDown2;
             PB_ElementosNoEnumerados.MouseMove += PB_ElementosNoEnumerados_MouseMove2;
-            T_Timer2.Start();
+       
         }
 
         private void CargarListView()
@@ -54,16 +54,27 @@ namespace FC_Diseño_de_Nervios
         }
         private void F_EnumPort_Load()
         {
+            T_Timer2.Start();
             CargarListView();
         }
 
         private void CambiosTimer()
         {
-
+           cLine ElementSelect= F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.Find(x => x.Select == true);
+            if (ElementSelect != null)
+            {
+                TB_Nombramiento.Enabled = true;
+                BT_Enumerar.Enabled = true;
+            }
+            else
+            {
+                TB_Nombramiento.Enabled = false;
+                BT_Enumerar.Enabled = false;
+            }
         }
         private void F_EnumeracionPortico_Load(object sender, EventArgs e)
         {
-            F_EnumPort_Load();
+      
 
         }
 
@@ -91,6 +102,7 @@ namespace FC_Diseño_de_Nervios
         }
         private void BT_Cerrar_Click(object sender, EventArgs e)
         {
+            T_Timer2.Stop();
             Visible = false;
         }
 
@@ -104,8 +116,8 @@ namespace FC_Diseño_de_Nervios
             float Width = PB_ElementosNoEnumerados.Width-XI*3;
             float Height = PB_ElementosNoEnumerados.Height-YI*3;
             List<PointF> PointsSinEscalar= new List<PointF>();
-            F_Base.Proyecto.DatosEtabs.Lista_Pisos.ForEach(x => x.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) { PointsSinEscalar.AddRange(y.Planta_Real); } }));
-            F_Base.Proyecto.DatosEtabs.Lista_Pisos.ForEach(x => x.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, Width, Height, Dx, Dy, Zoom)));
+            F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) { PointsSinEscalar.AddRange(y.Planta_Real); } });
+            F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, Width, Height, Dx, Dy, Zoom));
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) y.PaintPlantaEscaladaEtabsLine(e.Graphics);});
             
 
@@ -184,13 +196,11 @@ namespace FC_Diseño_de_Nervios
                 int IndiceMaximo=F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.Max(x => x.IndexSelect);
                 F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) y.MouseDownSelectLineEtabs(e, IndiceMaximo);});
                 int MaximoIndice = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.Max(x => x.IndexSelect);
-                cLine LineSelectIntel = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.Find(x => x.IndexSelect == MaximoIndice);
+                cLine LineSelectIntel = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.Find(x => x.IndexSelect == MaximoIndice && x.IndexSelect!=0);
 
                 if (SeleccionInteligente && LineSelectIntel != null)
                 {
-                    
-                    cFunctionsProgram.SeleccionInteligente(LineSelectIntel, F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(x => x.Type == eType.Beam).ToList());
-                  
+                    cFunctionsProgram.SeleccionInteligente(LineSelectIntel, F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(x => x.Type == eType.Beam).ToList(),IndiceMaximo);
                 }
             
             }
@@ -225,6 +235,7 @@ namespace FC_Diseño_de_Nervios
         private void limpirarSeleccionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => x.Select =false);
+            F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => x.IndexSelect = 0);
             PB_ElementosNoEnumerados.Invalidate();
         }
 
@@ -233,5 +244,46 @@ namespace FC_Diseño_de_Nervios
             PB_ElementosNoEnumerados.Invalidate();
    
         }
+
+        private void deshacerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_Base.Deshacer_Function();
+        }
+
+        private void rehacerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_Base.Rehacer_Function();
+        }
+
+        private void F_EnumeracionPortico_VisibleChanged(object sender, EventArgs e)
+        {
+            F_EnumPort_Load();
+        }
+
+        private void BT_Enumerar_Click(object sender, EventArgs e)
+        {
+
+            F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => x.IndiceConjuntoSeleccion = 0);
+            CrearNervio(TB_Nombramiento.Text);
+        }
+
+
+
+        private void CrearNervio(string Prefijo) 
+        {
+            List<cLine> LineasSeleccionadas = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(x => x.Select == true).ToList();
+            var LineasParaCrearNervios = cFunctionsProgram.LineasParaCrearNervios(LineasSeleccionadas);
+            cFunctionsProgram.CrearNervio(Prefijo, 1, LineasParaCrearNervios[0], F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines);
+
+
+
+            PB_ElementosNoEnumerados.Invalidate();
+
+
+        }
+
+
+
+
     }
 }

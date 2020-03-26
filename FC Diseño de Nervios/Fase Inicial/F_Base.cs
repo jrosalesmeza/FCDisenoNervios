@@ -13,7 +13,7 @@ namespace FC_Diseño_de_Nervios
     public partial class F_Base : Form
     {
 
-        public static cUndoRedo<cProyecto> cUndoRedo = new cUndoRedo<cProyecto>();
+        public static cUndoRedo<cProyecto> UndoRedo = new cUndoRedo<cProyecto>();
         public static Form F_Base_;
 
 
@@ -57,21 +57,19 @@ namespace FC_Diseño_de_Nervios
 
 
         }
-        private void Deshacer_Function()
+        public static void Deshacer_Function()
         {
-            Proyecto= cUndoRedo.Deshacer();
+            Proyecto= UndoRedo.Deshacer();
             F_EnumeracionPortico.Invalidate();
         }
-        private void Rehacer_Function()
+        public static void Rehacer_Function()
         {
-            Proyecto = cUndoRedo.Rehacer();
+            Proyecto = UndoRedo.Rehacer();
             F_EnumeracionPortico.Invalidate();
         }
 
 
         #endregion
-
-
 
         public F_Base()
         {
@@ -99,20 +97,16 @@ namespace FC_Diseño_de_Nervios
 
 
 
-
-
-        
-
-
-
         private void CambiosTimer_2_Proyecto()
         {
-
             if (Proyecto != null)
             {
                 LB_NombreProyecto.Text = Proyecto.Nombre;
-                TSB_Undo.Enabled = cUndoRedo.Bool_CtrlZ;
-                TSB_Redo.Enabled = cUndoRedo.Bool_CtrlY;
+                TSB_Undo.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
+                TSB_Redo.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+                deshacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
+                rehacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+                CambiosTimer_3_F_EnumeracionPortico_Proyecto();
                 BloqueoDesbloqueoBotones(true);
                 
             }
@@ -120,10 +114,21 @@ namespace FC_Diseño_de_Nervios
             {
                 TSB_Undo.Enabled = false;
                 TSB_Redo.Enabled = false;
+                deshacerToolStripMenuItem.Enabled = false;
+                rehacerToolStripMenuItem.Enabled = false;
                 BloqueoDesbloqueoBotones(false);
             }
 
 
+        }
+
+        private void CambiosTimer_3_F_EnumeracionPortico_Proyecto()
+        {
+            if (F_EnumeracionPortico != null)
+            {
+                F_EnumeracionPortico.deshacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
+                F_EnumeracionPortico.rehacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+            }
         }
 
 
@@ -149,8 +154,6 @@ namespace FC_Diseño_de_Nervios
                 F_EnumeracionPortico.Show();
             }
         }
-
-
 
 
 
