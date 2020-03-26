@@ -37,6 +37,7 @@
             this.LV_Stories = new System.Windows.Forms.ListView();
             this.GB_1 = new System.Windows.Forms.GroupBox();
             this.GB_3 = new System.Windows.Forms.GroupBox();
+            this.PB_InfoElementos_Enumerados = new System.Windows.Forms.PictureBox();
             this.PB_ElementosEnumerados = new System.Windows.Forms.PictureBox();
             this.GB_2 = new System.Windows.Forms.GroupBox();
             this.PB_InfoElementosNoEnumerados = new System.Windows.Forms.PictureBox();
@@ -59,6 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
             this.GB_1.SuspendLayout();
             this.GB_3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementos_Enumerados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).BeginInit();
             this.GB_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementosNoEnumerados)).BeginInit();
@@ -152,6 +154,7 @@
             // 
             // GB_3
             // 
+            this.GB_3.Controls.Add(this.PB_InfoElementos_Enumerados);
             this.GB_3.Controls.Add(this.PB_ElementosEnumerados);
             this.GB_3.Location = new System.Drawing.Point(659, 13);
             this.GB_3.Name = "GB_3";
@@ -159,6 +162,15 @@
             this.GB_3.TabIndex = 8;
             this.GB_3.TabStop = false;
             this.GB_3.Text = "Elementos Enumerados";
+            // 
+            // PB_InfoElementos_Enumerados
+            // 
+            this.PB_InfoElementos_Enumerados.Location = new System.Drawing.Point(9, 532);
+            this.PB_InfoElementos_Enumerados.Name = "PB_InfoElementos_Enumerados";
+            this.PB_InfoElementos_Enumerados.Size = new System.Drawing.Size(76, 27);
+            this.PB_InfoElementos_Enumerados.TabIndex = 5;
+            this.PB_InfoElementos_Enumerados.TabStop = false;
+            this.PB_InfoElementos_Enumerados.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_InfoElementos_Enumerados_Paint);
             // 
             // PB_ElementosEnumerados
             // 
@@ -170,6 +182,7 @@
             this.PB_ElementosEnumerados.Size = new System.Drawing.Size(491, 547);
             this.PB_ElementosEnumerados.TabIndex = 4;
             this.PB_ElementosEnumerados.TabStop = false;
+            this.PB_ElementosEnumerados.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosEnumerados_MouseMove);
             // 
             // GB_2
             // 
@@ -353,6 +366,7 @@
             this.GB_1.ResumeLayout(false);
             this.GB_1.PerformLayout();
             this.GB_3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementos_Enumerados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).EndInit();
             this.GB_2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementosNoEnumerados)).EndInit();
@@ -393,5 +407,6 @@
         internal System.Windows.Forms.ToolStripMenuItem deshacerToolStripMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem rehacerToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.PictureBox PB_InfoElementos_Enumerados;
     }
 }

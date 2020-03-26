@@ -230,10 +230,10 @@ namespace FC_Diseño_de_Nervios
                 if (y.Type == eType.Beam) 
                     y.PaintMouseMove(e.Graphics,PB_InfoElementosNoEnumerados.Height, PB_InfoElementosNoEnumerados.Width);
             });
-
-     
-
         }
+
+
+
 
         private void mostrarSecciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -330,6 +330,24 @@ namespace FC_Diseño_de_Nervios
             {
                 F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.Paint_Planta_ElementosEnumerados(e.Graphics));
             }
+        }
+
+        private void PB_InfoElementos_Enumerados_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.Clear(Color.White);
+            if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.PaintNombreElementosEnumerados_MouseMove(e.Graphics, PB_InfoElementos_Enumerados.Height, PB_InfoElementos_Enumerados.Width));
+            }
+        }
+
+        private void PB_ElementosEnumerados_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.MouseMoveNervioPlantaEtabs(e.Location));
+            }
+            PB_InfoElementos_Enumerados.Invalidate();
         }
     }
 }
