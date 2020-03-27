@@ -39,7 +39,11 @@
             this.GB_3 = new System.Windows.Forms.GroupBox();
             this.PB_ElementosEnumerados = new System.Windows.Forms.PictureBox();
             this.GB_2 = new System.Windows.Forms.GroupBox();
+            this.PB_InfoElementosNoEnumerados = new System.Windows.Forms.PictureBox();
             this.PB_ElementosNoEnumerados = new System.Windows.Forms.PictureBox();
+            this.CMS_1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mostrarSecciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.limpirarSeleccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LB_Pisos = new System.Windows.Forms.Label();
             this.GB_Controles = new System.Windows.Forms.GroupBox();
             this.LB_Nombrar = new System.Windows.Forms.Label();
@@ -47,20 +51,21 @@
             this.CKB_SeleccionInteligente = new System.Windows.Forms.CheckBox();
             this.BT_Enumerar = new System.Windows.Forms.Button();
             this.T_Timer2 = new System.Windows.Forms.Timer(this.components);
-            this.PB_InfoElementosNoEnumerados = new System.Windows.Forms.PictureBox();
-            this.CMS_1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.mostrarSecciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.limpirarSeleccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CMS_Undo_Redo = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.P_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
             this.GB_1.SuspendLayout();
             this.GB_3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).BeginInit();
             this.GB_2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosNoEnumerados)).BeginInit();
-            this.GB_Controles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementosNoEnumerados)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosNoEnumerados)).BeginInit();
             this.CMS_1.SuspendLayout();
+            this.GB_Controles.SuspendLayout();
+            this.CMS_Undo_Redo.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_Title
@@ -177,6 +182,16 @@
             this.GB_2.TabStop = false;
             this.GB_2.Text = "Elementos sin Enumerar";
             // 
+            // PB_InfoElementosNoEnumerados
+            // 
+            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(6, 532);
+            this.PB_InfoElementosNoEnumerados.Name = "PB_InfoElementosNoEnumerados";
+            this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(76, 27);
+            this.PB_InfoElementosNoEnumerados.TabIndex = 4;
+            this.PB_InfoElementosNoEnumerados.TabStop = false;
+            this.PB_InfoElementosNoEnumerados.Visible = false;
+            this.PB_InfoElementosNoEnumerados.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_InfoElementosNoEnumerados_Paint);
+            // 
             // PB_ElementosNoEnumerados
             // 
             this.PB_ElementosNoEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -193,6 +208,29 @@
             this.PB_ElementosNoEnumerados.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosNoEnumerados_MouseDown);
             this.PB_ElementosNoEnumerados.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosNoEnumerados_MouseMove);
             this.PB_ElementosNoEnumerados.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosNoEnumerados_MouseWheel);
+            // 
+            // CMS_1
+            // 
+            this.CMS_1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mostrarSecciónToolStripMenuItem,
+            this.limpirarSeleccionToolStripMenuItem});
+            this.CMS_1.Name = "CMS_1";
+            this.CMS_1.Size = new System.Drawing.Size(168, 48);
+            // 
+            // mostrarSecciónToolStripMenuItem
+            // 
+            this.mostrarSecciónToolStripMenuItem.CheckOnClick = true;
+            this.mostrarSecciónToolStripMenuItem.Name = "mostrarSecciónToolStripMenuItem";
+            this.mostrarSecciónToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.mostrarSecciónToolStripMenuItem.Text = "Mostrar Sección";
+            this.mostrarSecciónToolStripMenuItem.Click += new System.EventHandler(this.mostrarSecciónToolStripMenuItem_Click);
+            // 
+            // limpirarSeleccionToolStripMenuItem
+            // 
+            this.limpirarSeleccionToolStripMenuItem.Name = "limpirarSeleccionToolStripMenuItem";
+            this.limpirarSeleccionToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.limpirarSeleccionToolStripMenuItem.Text = "Limpiar Selección";
+            this.limpirarSeleccionToolStripMenuItem.Click += new System.EventHandler(this.limpirarSeleccionToolStripMenuItem_Click);
             // 
             // LB_Pisos
             // 
@@ -222,17 +260,18 @@
             // LB_Nombrar
             // 
             this.LB_Nombrar.AutoSize = true;
-            this.LB_Nombrar.Location = new System.Drawing.Point(7, 66);
+            this.LB_Nombrar.Location = new System.Drawing.Point(7, 68);
             this.LB_Nombrar.Name = "LB_Nombrar";
-            this.LB_Nombrar.Size = new System.Drawing.Size(113, 14);
+            this.LB_Nombrar.Size = new System.Drawing.Size(43, 14);
             this.LB_Nombrar.TabIndex = 3;
-            this.LB_Nombrar.Text = "Nombrar elemento:";
+            this.LB_Nombrar.Text = "Prefijo:";
             // 
             // TB_Nombramiento
             // 
-            this.TB_Nombramiento.Location = new System.Drawing.Point(10, 83);
+            this.TB_Nombramiento.Enabled = false;
+            this.TB_Nombramiento.Location = new System.Drawing.Point(56, 63);
             this.TB_Nombramiento.Name = "TB_Nombramiento";
-            this.TB_Nombramiento.Size = new System.Drawing.Size(109, 22);
+            this.TB_Nombramiento.Size = new System.Drawing.Size(72, 22);
             this.TB_Nombramiento.TabIndex = 2;
             // 
             // CKB_SeleccionInteligente
@@ -250,49 +289,46 @@
             // BT_Enumerar
             // 
             this.BT_Enumerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BT_Enumerar.Location = new System.Drawing.Point(10, 151);
+            this.BT_Enumerar.Location = new System.Drawing.Point(12, 100);
             this.BT_Enumerar.Name = "BT_Enumerar";
             this.BT_Enumerar.Size = new System.Drawing.Size(116, 28);
             this.BT_Enumerar.TabIndex = 0;
             this.BT_Enumerar.Text = "Enumerar";
             this.BT_Enumerar.UseVisualStyleBackColor = true;
+            this.BT_Enumerar.Click += new System.EventHandler(this.BT_Enumerar_Click);
             // 
             // T_Timer2
             // 
             this.T_Timer2.Tick += new System.EventHandler(this.T_Timer2_Tick);
             // 
-            // PB_InfoElementosNoEnumerados
+            // CMS_Undo_Redo
             // 
-            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(6, 532);
-            this.PB_InfoElementosNoEnumerados.Name = "PB_InfoElementosNoEnumerados";
-            this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(76, 27);
-            this.PB_InfoElementosNoEnumerados.TabIndex = 4;
-            this.PB_InfoElementosNoEnumerados.TabStop = false;
-            this.PB_InfoElementosNoEnumerados.Visible = false;
-            this.PB_InfoElementosNoEnumerados.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_InfoElementosNoEnumerados_Paint);
+            this.CMS_Undo_Redo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deshacerToolStripMenuItem,
+            this.rehacerToolStripMenuItem});
+            this.CMS_Undo_Redo.Name = "CMS_Undo_Redo";
+            this.CMS_Undo_Redo.Size = new System.Drawing.Size(164, 48);
             // 
-            // CMS_1
+            // deshacerToolStripMenuItem
             // 
-            this.CMS_1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mostrarSecciónToolStripMenuItem,
-            this.limpirarSeleccionToolStripMenuItem});
-            this.CMS_1.Name = "CMS_1";
-            this.CMS_1.Size = new System.Drawing.Size(168, 48);
+            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
+            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.deshacerToolStripMenuItem.Text = "Deshacer";
+            this.deshacerToolStripMenuItem.Click += new System.EventHandler(this.deshacerToolStripMenuItem_Click);
             // 
-            // mostrarSecciónToolStripMenuItem
+            // rehacerToolStripMenuItem
             // 
-            this.mostrarSecciónToolStripMenuItem.CheckOnClick = true;
-            this.mostrarSecciónToolStripMenuItem.Name = "mostrarSecciónToolStripMenuItem";
-            this.mostrarSecciónToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mostrarSecciónToolStripMenuItem.Text = "Mostrar Sección";
-            this.mostrarSecciónToolStripMenuItem.Click += new System.EventHandler(this.mostrarSecciónToolStripMenuItem_Click);
+            this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
+            this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.rehacerToolStripMenuItem.Text = "Rehacer";
+            this.rehacerToolStripMenuItem.Click += new System.EventHandler(this.rehacerToolStripMenuItem_Click);
             // 
-            // limpirarSeleccionToolStripMenuItem
+            // contextMenuStrip1
             // 
-            this.limpirarSeleccionToolStripMenuItem.Name = "limpirarSeleccionToolStripMenuItem";
-            this.limpirarSeleccionToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.limpirarSeleccionToolStripMenuItem.Text = "Limpiar Selección";
-            this.limpirarSeleccionToolStripMenuItem.Click += new System.EventHandler(this.limpirarSeleccionToolStripMenuItem_Click);
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // F_EnumeracionPortico
             // 
@@ -300,6 +336,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ClientSize = new System.Drawing.Size(1182, 619);
+            this.ContextMenuStrip = this.CMS_Undo_Redo;
             this.Controls.Add(this.GB_1);
             this.Controls.Add(this.P_Title);
             this.Font = new System.Drawing.Font("Calibri", 9F);
@@ -308,6 +345,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nuevo Proyecto";
             this.Load += new System.EventHandler(this.F_EnumeracionPortico_Load);
+            this.VisibleChanged += new System.EventHandler(this.F_EnumeracionPortico_VisibleChanged);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.F_EnumeracionPortico_Paint);
             this.P_Title.ResumeLayout(false);
             this.P_Title.PerformLayout();
@@ -317,11 +355,12 @@
             this.GB_3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).EndInit();
             this.GB_2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementosNoEnumerados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosNoEnumerados)).EndInit();
+            this.CMS_1.ResumeLayout(false);
             this.GB_Controles.ResumeLayout(false);
             this.GB_Controles.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementosNoEnumerados)).EndInit();
-            this.CMS_1.ResumeLayout(false);
+            this.CMS_Undo_Redo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -350,5 +389,9 @@
         private System.Windows.Forms.ContextMenuStrip CMS_1;
         private System.Windows.Forms.ToolStripMenuItem mostrarSecciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem limpirarSeleccionToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip CMS_Undo_Redo;
+        internal System.Windows.Forms.ToolStripMenuItem deshacerToolStripMenuItem;
+        internal System.Windows.Forms.ToolStripMenuItem rehacerToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

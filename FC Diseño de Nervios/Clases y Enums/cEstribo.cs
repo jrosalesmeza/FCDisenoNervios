@@ -6,10 +6,10 @@ using System.Text;
 namespace FC_Diseño_de_Nervios
 {
     [Serializable]
-    public enum eTipoSoporte
+    public class cEstribo:cObjetoCoordenadas
     {
-        Viga,
-        Nervio,
-        Vano
+        public cSeccion Seccion { get; set; }
+        public int Ramas { get; set; }
+
     }
 }

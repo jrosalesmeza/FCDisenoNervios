@@ -20,26 +20,23 @@ namespace FC_Diseño_de_Nervios
 
         public cSeccion Seccion { get; set; }
 
-
         public eType Type { get; set; }
 
-
-        public eTipoSoporte Soporte { get; set; }
+        
 
 
         public cLine ObjDerecha { get; set; }
-
-
-        public cConfigEtabs ConfigEtabs { get; set; }
+        public cConfigLinea ConfigLinea { get; set; }
         public string Story { get; set; }
 
+        public int IndiceConjuntoSeleccion { get; set; }
 
 
-
+        #region Para Datos de Etabs
         private bool SelectMouseMove = false;
         public void PaintMouseMove(Graphics e, float HeigthWindow, float WidthWindow)
         {
-            if (SelectMouseMove)
+            if (SelectMouseMove && isSelect)
             {
                 Font Font1 = new Font("Calibri", 9, FontStyle.Bold);
                 PointF PointString = new PointF(WidthWindow/2 -e.MeasureString(Seccion.Nombre,Font1).Width/2 , HeigthWindow / 2 - Font1.Height / 2);
@@ -49,9 +46,13 @@ namespace FC_Diseño_de_Nervios
         }
         public void MouseMoveElementoSinEnumerar(Point Point)
         {
-            SelectMouseMove = (MouseInLineEtabs(Point));            
+            if (isSelect)
+            {
+                SelectMouseMove = (MouseInLineEtabs(Point));
+            }     
         }
 
+        #endregion
 
 
 
