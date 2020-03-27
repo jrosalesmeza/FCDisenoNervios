@@ -271,7 +271,7 @@ namespace FC_Diseño_de_Nervios
             {
                 string[] Pisos_Separados = ArchivoPisos[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
                 string NamePiso; float HPiso;
-                if (Pisos_Separados.Length == 4)
+                if (Pisos_Separados.Length == 4 | Pisos_Separados.Length == 6)
                 {
                     NamePiso = Pisos_Separados[1];
                     HPiso = Convert.ToSingle(Pisos_Separados[3]);

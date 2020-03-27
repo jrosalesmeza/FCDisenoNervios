@@ -82,6 +82,58 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+        private bool ElementoEnumerado_MouseMove = false;
+
+
+        public void PaintNombreElementosEnumerados_MouseMove(Graphics e, float HeigthWindow, float WidthWindow)
+        {
+            if (ElementoEnumerado_MouseMove)
+            {
+                Font Font1 = new Font("Calibri", 9, FontStyle.Bold);
+                PointF PointString = new PointF(WidthWindow / 2 - e.MeasureString(Nombre, Font1).Width / 2, HeigthWindow / 2 - Font1.Height / 2);
+                e.DrawString(Nombre.ToString(), Font1, Brushes.Black, PointString);
+
+
+            }
+
+        }
+
+        public void MouseMoveNervioPlantaEtabs(Point Point)
+        {
+
+            foreach(cTramo Tramo in Lista_Tramos)
+            {
+                foreach (cObjeto Objeto in Tramo.Lista_Objetos)
+                {
+                    ElementoEnumerado_MouseMove= Objeto.Line.MouseInLineEtabs(Point);
+                    if (ElementoEnumerado_MouseMove)
+                    {
+                        break; 
+                    }
+                    else
+                    {
+                        ElementoEnumerado_MouseMove = false;
+                    }
+                }
+                if (ElementoEnumerado_MouseMove)
+                {
+                    break;
+                }
+                else
+                {
+                    ElementoEnumerado_MouseMove = false;
+                }
+            }
+
+          
+
+        }
+
+
+
+
+
+
 
 
 
