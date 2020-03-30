@@ -13,7 +13,6 @@ namespace FC_Diseño_de_Nervios
 
         public int ID { get; set; }
         public cLine Line { get; set; }
-        public bool Select { get; set; }
         public float Longitud { get; set; }
         public cVistas Vistas { get; set; }
         public eSoporte Soporte { get; set; }

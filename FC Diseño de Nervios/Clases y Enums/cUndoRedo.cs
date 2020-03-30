@@ -8,10 +8,24 @@ namespace FC_Diseño_de_Nervios
     {
         private Stack<T> Lista_CtrlZ { get; set; } = new Stack<T>();
         private Stack<T> Lista_CtrlY { get; set; } = new Stack<T>();
+        private Stack<int> Lista_Estados { get; set; } = new Stack<int>();
 
         private bool Bool_CtrlZ { get; set; }
         private bool Bool_CtrlY { get; set; }
+        private bool Bool_EstadosActivos { get; set; }
+        public void LimpiarEstadosCtrlZyCtrlY()
+        {
+            Lista_CtrlY.Clear();
+            Lista_CtrlZ.Clear();
+            SaberCuandoSeHabilitaCrtlZ();
+            SaberCuandoSeHabilitaCrtlY();
+        }
 
+        public void LimpiarEstados()
+        {
+            Lista_Estados.Clear();
+            SaberCuandoSeHabilitaEstados();
+        }
         public bool ObtenerEstadoCtrlZ()
         {
             return Bool_CtrlZ;
@@ -21,12 +35,18 @@ namespace FC_Diseño_de_Nervios
         {
             return Bool_CtrlY;
         }
+        public bool ObtenerEstadoEstados()
+        {
+           return Bool_EstadosActivos;
+        }
 
         public void EnviarEstado(T Estado)
         {
             Lista_CtrlZ.Push(DeepClone(Estado));
+            Lista_Estados.Push(0);
             SaberCuandoSeHabilitaCrtlZ();
             SaberCuandoSeHabilitaCrtlY();
+            SaberCuandoSeHabilitaEstados();
         }
 
         public T Deshacer()
@@ -35,8 +55,10 @@ namespace FC_Diseño_de_Nervios
             {
                 T ObjetoQueQuite = DeepClone(Lista_CtrlZ.Pop());
                 Lista_CtrlY.Push(ObjetoQueQuite);
+                Lista_Estados.Push(0);
                 SaberCuandoSeHabilitaCrtlY();
                 SaberCuandoSeHabilitaCrtlZ();
+                SaberCuandoSeHabilitaEstados();
                 return ObjetoQueQuite;
             }
             return default;
@@ -48,8 +70,10 @@ namespace FC_Diseño_de_Nervios
             {
                 T ObjetoQueQuite = DeepClone(Lista_CtrlY.Pop());
                 Lista_CtrlZ.Push(ObjetoQueQuite);
+                Lista_Estados.Push(0);
                 SaberCuandoSeHabilitaCrtlY();
                 SaberCuandoSeHabilitaCrtlZ();
+                SaberCuandoSeHabilitaEstados();
                 return ObjetoQueQuite;
             }
             return default;
@@ -67,6 +91,17 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+        private void SaberCuandoSeHabilitaEstados()
+        {
+            if (Lista_Estados.Count > 0)
+            {
+                Bool_EstadosActivos = true;
+            }
+            else
+            {
+                Bool_EstadosActivos = false;
+            }
+        }
         private void SaberCuandoSeHabilitaCrtlY()
         {
             if (Lista_CtrlY.Count > 0)

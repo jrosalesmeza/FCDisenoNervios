@@ -12,23 +12,26 @@ namespace FC_Diseño_de_Nervios
 {
 
     public delegate void DelegateNotificadorProgram(string Alert);
+    public delegate void DelegateVentanasEmergentes(string Alert, MessageBoxIcon Icono);
     public static class cFunctionsProgram
     {
-        private static string[] Separadores = { "  "," ", @"""" };
-        public static List<eType> eTypes = new List<eType>(){eType.Beam,eType.Column,eType.Floor,eType.Wall,eType.None };
+        private static string[] Separadores = { "  ", " ", @"""" };
+        public static List<eType> eTypes = new List<eType>() { eType.Beam, eType.Column, eType.Floor, eType.Wall, eType.None };
         public static event DelegateNotificadorProgram Notificador;
+        public static event DelegateVentanasEmergentes EventoVentanaEmergente;
 
-        public static string Empresa = "efe Prima Ce";
 
-
+        public const string Empresa = "efe Prima Ce";
+        public const string Ext = ".nrv";
+        public const string NombrePrograma = "FC-JOISTS";
 
         /// <summary>
         /// Tuple(string, List(String))
         /// </summary>
         /// <param name="FilterTitle">Ejemplo: "Archivo | *.e2k;.$et"</param>
-        public static Tuple<string,List<string>> CagarArchivoTextoPlano(string FilterTitle,string TitleText)
+        public static Tuple<string, List<string>> CagarArchivoTextoPlano(string FilterTitle, string TitleText)
         {
-            OpenFileDialog OpenFileDialog = new OpenFileDialog() { Filter = FilterTitle,Title=TitleText};
+            OpenFileDialog OpenFileDialog = new OpenFileDialog() { Filter = FilterTitle, Title = TitleText };
             OpenFileDialog.ShowDialog();
             string Ruta = OpenFileDialog.FileName;
             if (Ruta != "")
@@ -39,8 +42,8 @@ namespace FC_Diseño_de_Nervios
                 string colLineReader;
                 do
                 {
-                   colLineReader = colReader.ReadLine();
-                   Archivo.Add(colLineReader);
+                    colLineReader = colReader.ReadLine();
+                    Archivo.Add(colLineReader);
                 } while (!(colLineReader == null));
                 colReader.Close();
                 //Control de Errores
@@ -80,7 +83,7 @@ namespace FC_Diseño_de_Nervios
 
 
             string[] Line_Separate2 = ArchivoControls[0].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
-            if (Line_Separate2[1].Contains("TON")==false || Line_Separate2[2].Contains("M") == false)
+            if (Line_Separate2[1].Contains("TON") == false || Line_Separate2[2].Contains("M") == false)
             {
                 Errores.Add("Asignar unidades en Ton-m");
             }
@@ -94,9 +97,9 @@ namespace FC_Diseño_de_Nervios
             cDatosEtabs DatosEtabs = new cDatosEtabs();
             DatosEtabs.Lista_Points = DeepClone(CreacionPuntosEtabsV2009(ArchivoE2K));
             DatosEtabs.Lista_Materiales = CreacionMaterialesV2009(ArchivoE2K);
-            DatosEtabs.Lista_Secciones = CreacionSeccionesV2009(ArchivoE2K,DatosEtabs.Lista_Materiales);
+            DatosEtabs.Lista_Secciones = CreacionSeccionesV2009(ArchivoE2K, DatosEtabs.Lista_Materiales);
             DatosEtabs.Lista_Pisos = CreacionListaPisosV2009(ArchivoE2K);
-            CreacionLinesV2009(ArchivoE2K, DatosEtabs.Lista_Pisos,DatosEtabs.Lista_Points,DatosEtabs.Lista_Secciones);
+            CreacionLinesV2009(ArchivoE2K, DatosEtabs.Lista_Pisos, DatosEtabs.Lista_Points, DatosEtabs.Lista_Secciones);
             return DatosEtabs;
         }
 
@@ -104,13 +107,13 @@ namespace FC_Diseño_de_Nervios
         {
             int IndiceInicio_POINT_COORDINATES = ArchivoE2K.FindIndex(x => x.Contains("$ POINT COORDINATES")) + 1;
             int IndiceFin_POINT_COORDINATES = Find_FinalIndice(ArchivoE2K, IndiceInicio_POINT_COORDINATES);
-            List<string> ArchivoPuntos =RangoDeDatosArchivoTextoPlano(IndiceInicio_POINT_COORDINATES, IndiceFin_POINT_COORDINATES, ArchivoE2K);
+            List<string> ArchivoPuntos = RangoDeDatosArchivoTextoPlano(IndiceInicio_POINT_COORDINATES, IndiceFin_POINT_COORDINATES, ArchivoE2K);
             List<cPoint> ListaPuntos = new List<cPoint>();
 
-            for(int i=0; i < ArchivoPuntos.Count; i++)
+            for (int i = 0; i < ArchivoPuntos.Count; i++)
             {
                 string[] Point_Separado = ArchivoPuntos[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries); ;
-                cPoint point = new cPoint(Point_Separado[1],(float)Math.Round(Convert.ToSingle(Point_Separado[2]),2), (float)Math.Round(Convert.ToSingle(Point_Separado[3]), 2));
+                cPoint point = new cPoint(Point_Separado[1], (float)Math.Round(Convert.ToSingle(Point_Separado[2]), 2), (float)Math.Round(Convert.ToSingle(Point_Separado[3]), 2));
                 ListaPuntos.Add(point);
             }
             return ListaPuntos;
@@ -126,10 +129,10 @@ namespace FC_Diseño_de_Nervios
             for (int i = 0; i < ArchivoMateriales.Count; i++)
             {
                 string[] Material_Separado = ArchivoMateriales[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
-               
+
                 if (Material_Separado.Length == 10)
                 {
-                    cMaterial material = new cMaterial(Material_Separado[1], Convert.ToSingle(Material_Separado[7])*cConversiones.Esfuerzo_Ton_m_to_kfg_cm, Convert.ToSingle(Material_Separado[5])* cConversiones.Esfuerzo_Ton_m_to_kfg_cm);
+                    cMaterial material = new cMaterial(Material_Separado[1], Convert.ToSingle(Material_Separado[7]) * cConversiones.Esfuerzo_Ton_m_to_kfg_cm, Convert.ToSingle(Material_Separado[5]) * cConversiones.Esfuerzo_Ton_m_to_kfg_cm);
                     Lista_Materiales.Add(material);
                 }
 
@@ -149,27 +152,27 @@ namespace FC_Diseño_de_Nervios
             int IndiceFin_CONCRETE_SECTIONS = Find_FinalIndice(ArchivoE2K, IndiceInicio_CONCRETE_SECTIONS);
             List<string> ArchivoConcreteSeccions = RangoDeDatosArchivoTextoPlano(IndiceInicio_CONCRETE_SECTIONS, IndiceFin_CONCRETE_SECTIONS, ArchivoE2K);
             List<string[]> ConcreteSeccionsSeparate = new List<string[]>();
-            foreach(string Line in ArchivoConcreteSeccions) { ConcreteSeccionsSeparate.Add(Line.Split(Separadores, StringSplitOptions.RemoveEmptyEntries)); }
+            foreach (string Line in ArchivoConcreteSeccions) { ConcreteSeccionsSeparate.Add(Line.Split(Separadores, StringSplitOptions.RemoveEmptyEntries)); }
 
             for (int i = 0; i < ArchivoSecciones.Count; i++)
             {
                 string[] Seccion_Separada = ArchivoSecciones[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
 
-                int IndiceNe= ConcreteSeccionsSeparate.FindIndex(x => x[1] == Seccion_Separada[1]);
+                int IndiceNe = ConcreteSeccionsSeparate.FindIndex(x => x[1] == Seccion_Separada[1]);
 
                 if (Seccion_Separada.Contains("Rectangular"))
                 {
                     cMaterial material = ListaMateriales.Find(x => x.Nombre == Seccion_Separada[3]);
-                    cSeccion Seccion = new cSeccion(Seccion_Separada[1],(float)Math.Round(Convert.ToSingle(Seccion_Separada[9]) * cConversiones.Dimension_m_to_cm,2), (float)Math.Round(Convert.ToSingle(Seccion_Separada[7]) * cConversiones.Dimension_m_to_cm,2));
+                    cSeccion Seccion = new cSeccion(Seccion_Separada[1], (float)Math.Round(Convert.ToSingle(Seccion_Separada[9]) * cConversiones.Dimension_m_to_cm, 2), (float)Math.Round(Convert.ToSingle(Seccion_Separada[7]) * cConversiones.Dimension_m_to_cm, 2));
                     Seccion.Material = material;
-                
+
                     if (IndiceNe != -1)
                     {
-                        Seccion.Type =  ConvertirStringtoeType(ConcreteSeccionsSeparate[IndiceNe][3]);
+                        Seccion.Type = ConvertirStringtoeType(ConcreteSeccionsSeparate[IndiceNe][3]);
                         if (Seccion.Type == eType.Beam)
                         {
-                            Seccion.R_Top =Convert.ToSingle(ConcreteSeccionsSeparate[IndiceNe][5]) * cConversiones.Dimension_m_to_cm;
-                            Seccion.R_Bottom = Convert.ToSingle(ConcreteSeccionsSeparate[IndiceNe][7])*cConversiones.Dimension_m_to_cm;
+                            Seccion.R_Top = Convert.ToSingle(ConcreteSeccionsSeparate[IndiceNe][5]) * cConversiones.Dimension_m_to_cm;
+                            Seccion.R_Bottom = Convert.ToSingle(ConcreteSeccionsSeparate[IndiceNe][7]) * cConversiones.Dimension_m_to_cm;
                         }
                     }
                     Lista_Secciones.Add(Seccion);
@@ -181,15 +184,15 @@ namespace FC_Diseño_de_Nervios
             return Lista_Secciones;
         }
 
-        public static void CreacionLinesV2009(List<string> ArchivoE2K,List<cPiso> Lista_Pisos,List<cPoint> Lista_Puntos,List<cSeccion> Lista_Secciones)
+        public static void CreacionLinesV2009(List<string> ArchivoE2K, List<cPiso> Lista_Pisos, List<cPoint> Lista_Puntos, List<cSeccion> Lista_Secciones)
         {
 
             List<cLine> Lista_Line = new List<cLine>();
             int IndiceInicio_LINE_CONNECTIVITIES = ArchivoE2K.FindIndex(x => x.Contains("$ LINE CONNECTIVITIES")) + 1;
             int IndiceFin_LINE_CONNECTIVITIES = Find_FinalIndice(ArchivoE2K, IndiceInicio_LINE_CONNECTIVITIES);
             List<string> ArchivoLineConnectivities = RangoDeDatosArchivoTextoPlano(IndiceInicio_LINE_CONNECTIVITIES, IndiceFin_LINE_CONNECTIVITIES, ArchivoE2K);
-           
-            
+
+
             //LINE ASSIGNS
             int IndiceInicio_LINE_ASSIGNS = ArchivoE2K.FindIndex(x => x.Contains("$ LINE ASSIGNS")) + 1;
             int IndiceFin_LINE_ASSIGNS = Find_FinalIndice(ArchivoE2K, IndiceInicio_LINE_ASSIGNS);
@@ -203,19 +206,19 @@ namespace FC_Diseño_de_Nervios
             {
                 string[] LineConectivitieSeparate = ArchivoLineConnectivities[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
                 string NombreLine = LineConectivitieSeparate[1];
-                cPoint Point1 = Lista_Puntos.Find(x=>x.Nombre== LineConectivitieSeparate[3]);
+                cPoint Point1 = Lista_Puntos.Find(x => x.Nombre == LineConectivitieSeparate[3]);
                 cPoint Point2 = Lista_Puntos.Find(x => x.Nombre == LineConectivitieSeparate[4]);
                 cLine Line = new cLine(NombreLine, ConvertirStringtoeType(LineConectivitieSeparate[2]));
                 Line.ConfigLinea = new cConfigLinea(Point1, Point2);
                 Lista_Line.Add(Line);
             }
 
-            foreach(string[] Elemento in LineAssignsSeparate)
+            foreach (string[] Elemento in LineAssignsSeparate)
             {
                 if (Elemento.Length > 12)
                 {
                     string NombrePiso;
-                    int IndiceAMayor=0;
+                    int IndiceAMayor = 0;
 
                     if (Elemento[3] == "SECTION")
                     {
@@ -223,20 +226,20 @@ namespace FC_Diseño_de_Nervios
                     }
                     else
                     {
-                        NombrePiso = Elemento[2]+" "+ Elemento[3];
+                        NombrePiso = Elemento[2] + " " + Elemento[3];
                         IndiceAMayor = 1;
                     }
                     string NombreElemento = Elemento[1];
                     string NombreSeccion = Elemento[4 + IndiceAMayor];
-                    cPiso PisoEncontrado= Lista_Pisos.Find(x => x.Nombre == NombrePiso);
-                    float OffSetI = 0;float OffSetJ = 0;
+                    cPiso PisoEncontrado = Lista_Pisos.Find(x => x.Nombre == NombrePiso);
+                    float OffSetI = 0; float OffSetJ = 0;
                     if (Elemento.Contains("LENGTHOFFI"))
                     {
-                        OffSetI = Convert.ToSingle(Elemento[10+ IndiceAMayor]);
-                        OffSetJ = Convert.ToSingle(Elemento[12+ IndiceAMayor]);
+                        OffSetI = Convert.ToSingle(Elemento[10 + IndiceAMayor]);
+                        OffSetJ = Convert.ToSingle(Elemento[12 + IndiceAMayor]);
                     }
-               
-                    cLine ElementoEncontrado = DeepClone(Lista_Line.Find(x =>x.Nombre== NombreElemento));
+
+                    cLine ElementoEncontrado = DeepClone(Lista_Line.Find(x => x.Nombre == NombreElemento));
                     ElementoEncontrado.Seccion = Lista_Secciones.Find(x => x.Nombre == NombreSeccion);
                     ElementoEncontrado.Story = NombrePiso;
                     ElementoEncontrado.ConfigLinea.OffSetI = OffSetI;
@@ -246,8 +249,8 @@ namespace FC_Diseño_de_Nervios
                 }
 
             }
-   
-    
+
+
 
 
 
@@ -278,7 +281,7 @@ namespace FC_Diseño_de_Nervios
                 }
                 else
                 {
-                    NamePiso = Pisos_Separados[1]+" "+ Pisos_Separados[2];
+                    NamePiso = Pisos_Separados[1] + " " + Pisos_Separados[2];
                     HPiso = Convert.ToSingle(Pisos_Separados[4]);
                 }
                 cPiso piso = new cPiso(NamePiso, HPiso);
@@ -299,16 +302,16 @@ namespace FC_Diseño_de_Nervios
         {
             return type.ToString();
         }
-        public static int Find_FinalIndice(List<string> ArchivoE2K,int IndiceInicio)
+        public static int Find_FinalIndice(List<string> ArchivoE2K, int IndiceInicio)
         {
-            int IndiceFin=-1;
+            int IndiceFin = -1;
             for (int i = IndiceInicio; i <= ArchivoE2K.Count; i++) { if (ArchivoE2K[i] == "") { IndiceFin = i; break; } }
             return IndiceFin;
         }
-        public static List<string> RangoDeDatosArchivoTextoPlano(int IndiceInical, int IndiceFinal,List<string> Archivo)
+        public static List<string> RangoDeDatosArchivoTextoPlano(int IndiceInical, int IndiceFinal, List<string> Archivo)
         {
             List<string> ArchivoStrings = new List<string>();
-            for(int i = IndiceInical; i< IndiceFinal; i++)
+            for (int i = IndiceInical; i < IndiceFinal; i++)
             {
                 ArchivoStrings.Add(Archivo[i]);
 
@@ -332,17 +335,17 @@ namespace FC_Diseño_de_Nervios
 
 
         //Funciones de Selección
-        public static void SeleccionInteligente(cLine LineMadre, List<cLine> Lista_Lines,int IndiceSeleccion,bool CondicionSelect)
+        public static void SeleccionInteligente(cLine LineMadre, List<cLine> Lista_Lines, int IndiceSeleccion, bool CondicionSelect)
         {
             foreach (cLine LineaHija in Lista_Lines)
             {
 
-                if (LineMadre.Nombre != LineaHija.Nombre && LineaHija.Select != CondicionSelect && LineaHija.ConfigLinea.Direccion == LineMadre.ConfigLinea.Direccion)
+                if (LineMadre.Nombre != LineaHija.Nombre && LineaHija.Select != CondicionSelect && LineaHija.ConfigLinea.Direccion == LineMadre.ConfigLinea.Direccion && LineaHija.isSelect == true && LineMadre.isSelect == true)
                 {
                     if (LineMadre.ConfigLinea.Point1P.X == LineaHija.ConfigLinea.Point1P.X && LineMadre.ConfigLinea.Point1P.Y == LineaHija.ConfigLinea.Point1P.Y)
                     {
                         LineaHija.Select = CondicionSelect; LineaHija.IndexSelect = IndiceSeleccion;
-                        SeleccionInteligente(LineaHija, Lista_Lines,IndiceSeleccion, CondicionSelect);
+                        SeleccionInteligente(LineaHija, Lista_Lines, IndiceSeleccion, CondicionSelect);
                     }
                     if (LineMadre.ConfigLinea.Point1P.X == LineaHija.ConfigLinea.Point2P.X && LineMadre.ConfigLinea.Point1P.Y == LineaHija.ConfigLinea.Point2P.Y)
                     {
@@ -365,7 +368,7 @@ namespace FC_Diseño_de_Nervios
             }
 
         }
-   
+
         public static void SeleccionInteligente_2(List<cLine> Lineas)
         {
             int Contador1 = 0;
@@ -374,11 +377,11 @@ namespace FC_Diseño_de_Nervios
                 if (Linea.IndiceConjuntoSeleccion == 0)
                 {
                     Contador1 += 1;
-                  Linea.IndiceConjuntoSeleccion = Contador1;
+                    Linea.IndiceConjuntoSeleccion = Contador1;
                 }
-                AsignarContadorALineaSucesiva(Linea,Lineas, Contador1);
+                AsignarContadorALineaSucesiva(Linea, Lineas, Contador1);
             }
-            void AsignarContadorALineaSucesiva(cLine LineMadre,List<cLine> Lista_Lines, int Contador)
+            void AsignarContadorALineaSucesiva(cLine LineMadre, List<cLine> Lista_Lines, int Contador)
             {
                 foreach (cLine LineaHija in Lista_Lines)
                 {
@@ -387,7 +390,7 @@ namespace FC_Diseño_de_Nervios
                         if (LineMadre.ConfigLinea.Point1P.X == LineaHija.ConfigLinea.Point1P.X && LineMadre.ConfigLinea.Point1P.Y == LineaHija.ConfigLinea.Point1P.Y)
                         {
                             LineaHija.IndiceConjuntoSeleccion = LineMadre.IndiceConjuntoSeleccion;
-                            AsignarContadorALineaSucesiva(LineaHija, Lista_Lines,Contador);
+                            AsignarContadorALineaSucesiva(LineaHija, Lista_Lines, Contador);
                         }
                         else if (LineMadre.ConfigLinea.Point1P.X == LineaHija.ConfigLinea.Point2P.X && LineMadre.ConfigLinea.Point1P.Y == LineaHija.ConfigLinea.Point2P.Y)
                         {
@@ -413,7 +416,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-    
         public static List<List<cLine>> LineasParaCrearNervios(List<cLine> Lista_LineasSeleccionadas)
         {
             List<List<cLine>> Lista_Lista_Lineas = new List<List<cLine>>();
@@ -421,18 +423,16 @@ namespace FC_Diseño_de_Nervios
             SeleccionInteligente_2(Lista_LineasSeleccionadas);
 
             var GrupoBeams = from Beam in Lista_LineasSeleccionadas
-                           group Beam by Beam.IndiceConjuntoSeleccion into ListaBeams
-                           select new { IndiceConjuntoSeleccion = ListaBeams.Key, ListaBeams = ListaBeams.ToList() };
+                             group Beam by Beam.IndiceConjuntoSeleccion into ListaBeams
+                             select new { IndiceConjuntoSeleccion = ListaBeams.Key, ListaBeams = ListaBeams.ToList() };
 
-            foreach(var LineGrupoBeams in GrupoBeams)
+            foreach (var LineGrupoBeams in GrupoBeams)
             {
                 Lista_Lista_Lineas.Add((List<cLine>)DeepClone(LineGrupoBeams.ListaBeams));
             }
 
             return Lista_Lista_Lineas;
         }
-
-
         private static cLine FindApoyo(cLine LineaMadre, List<cLine> Lineas, int InicioIFinJ)
         {
             foreach (cLine LineaHija in Lineas)
@@ -504,9 +504,7 @@ namespace FC_Diseño_de_Nervios
             }
             return null;
         }
-
-
-        private static void AsignarApoyosALista(cLine Objeto,cLine LineApoyo, List<cLine> ListaObjetosOrganizada,int Indice, ref List<cLine> ListaObjetosOrganizadaDefinitiva)
+        private static void AsignarApoyosALista(cLine Objeto, cLine LineApoyo, List<cLine> ListaObjetosOrganizada, int Indice, ref List<cLine> ListaObjetosOrganizadaDefinitiva)
         {
             if (Indice + 1 > ListaObjetosOrganizada.Count)
             {
@@ -533,12 +531,7 @@ namespace FC_Diseño_de_Nervios
 
             }
         }
-
-
-
-
-
-        public static cNervio CrearNervio(string Prefijo, int ID, List<cLine> LineasQComponenAlNervio, List<cLine> TodasLasLineas,float WidthWindow, float HeightWindow)
+        public static cNervio CrearNervio(string Prefijo, int ID, List<cLine> LineasQComponenAlNervio, List<cLine> TodasLasLineas, float WidthWindow, float HeightWindow)
         {
             eDireccion DireccionNervio = LineasQComponenAlNervio.First().ConfigLinea.Direccion;
             List<cLine> ListaObjetosOrganizada;
@@ -598,9 +591,9 @@ namespace FC_Diseño_de_Nervios
                 ListaObjetosFinal.Add(Objeto);
             }
 
-            List<PointF> PuntosSinEscalar= new List<PointF>(); TodasLasLineas.ForEach(y => { if (y.Type == eType.Beam) { PuntosSinEscalar.AddRange(y.Planta_Real); } });
+            List<PointF> PuntosSinEscalar = new List<PointF>(); TodasLasLineas.ForEach(y => { if (y.Type == eType.Beam) { PuntosSinEscalar.AddRange(y.Planta_Real); } });
 
-            ListaObjetosFinal.ForEach(x => { TodasLasLineas.FindAll(y => y.Nombre == x.Line.Nombre && x.Soporte == eSoporte.Vano).ForEach(z => { z.isSelect = false; z.Select = false; z.IndexSelect = 0; });x.Line.CrearPuntosPlantaEscaladaEtabsLine(PuntosSinEscalar, WidthWindow, HeightWindow, 0, 0, 1); });
+            ListaObjetosFinal.ForEach(x => { TodasLasLineas.FindAll(y => y.Nombre == x.Line.Nombre && x.Soporte == eSoporte.Vano).ForEach(z => { z.isSelect = false; z.Select = false; z.IndexSelect = 0; }); x.Line.CrearPuntosPlantaEscaladaEtabsLine(PuntosSinEscalar, WidthWindow, HeightWindow, 0, 0, 1); });
 
 
             return new cNervio(ID, Prefijo, ListaObjetosFinal, DireccionNervio);
@@ -608,10 +601,36 @@ namespace FC_Diseño_de_Nervios
 
 
 
+        //Serializar y Deserializar
 
-
-
-
+        public static void Serializar(string Ruta, object Objeto)
+        {
+            Notificador("Guardando...");
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                Stream stream = new FileStream(Ruta, FileMode.Create, FileAccess.Write, FileShare.None);
+                formatter.Serialize(stream, Objeto);
+                stream.Close();
+          
+            }
+            catch (Exception ex){ EventoVentanaEmergente(ex.Message,MessageBoxIcon.Exclamation); }
+            Notificador("Listo");
+        }
+        public static void Deserealizar<T>(string Ruta, ref T Objeto)
+        {
+            Notificador("Cargando...");
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                Stream streamReader = new FileStream(Ruta, FileMode.Open, FileAccess.Read, FileShare.None);
+                var proyectoDeserializado = (T)formatter.Deserialize(streamReader);
+                Objeto = proyectoDeserializado;
+                streamReader.Close();
+            }
+            catch (Exception ex) { EventoVentanaEmergente(ex.Message, MessageBoxIcon.Exclamation); }
+            Notificador("Listo");
+        }
 
 
 

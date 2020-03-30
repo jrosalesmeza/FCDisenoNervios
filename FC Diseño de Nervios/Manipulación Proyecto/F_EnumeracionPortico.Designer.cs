@@ -47,6 +47,8 @@
             this.limpirarSeleccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LB_Pisos = new System.Windows.Forms.Label();
             this.GB_Controles = new System.Windows.Forms.GroupBox();
+            this.BT_CrtierioFC = new System.Windows.Forms.Button();
+            this.BT_Regresar = new System.Windows.Forms.Button();
             this.LB_Nombrar = new System.Windows.Forms.Label();
             this.TB_Nombramiento = new System.Windows.Forms.TextBox();
             this.CKB_SeleccionInteligente = new System.Windows.Forms.CheckBox();
@@ -55,7 +57,8 @@
             this.CMS_Undo_Redo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.P_Contenedor = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.P_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
             this.GB_1.SuspendLayout();
@@ -68,6 +71,7 @@
             this.CMS_1.SuspendLayout();
             this.GB_Controles.SuspendLayout();
             this.CMS_Undo_Redo.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_Title
@@ -156,6 +160,8 @@
             // 
             this.GB_3.Controls.Add(this.PB_InfoElementos_Enumerados);
             this.GB_3.Controls.Add(this.PB_ElementosEnumerados);
+            this.GB_3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_3.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_3.Location = new System.Drawing.Point(659, 13);
             this.GB_3.Name = "GB_3";
             this.GB_3.Size = new System.Drawing.Size(500, 570);
@@ -182,12 +188,15 @@
             this.PB_ElementosEnumerados.Size = new System.Drawing.Size(491, 547);
             this.PB_ElementosEnumerados.TabIndex = 4;
             this.PB_ElementosEnumerados.TabStop = false;
+            this.PB_ElementosEnumerados.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosEnumerados_MouseDown);
             this.PB_ElementosEnumerados.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosEnumerados_MouseMove);
             // 
             // GB_2
             // 
             this.GB_2.Controls.Add(this.PB_InfoElementosNoEnumerados);
             this.GB_2.Controls.Add(this.PB_ElementosNoEnumerados);
+            this.GB_2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_2.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_2.Location = new System.Drawing.Point(153, 13);
             this.GB_2.Name = "GB_2";
             this.GB_2.Size = new System.Drawing.Size(500, 570);
@@ -197,7 +206,7 @@
             // 
             // PB_InfoElementosNoEnumerados
             // 
-            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(6, 532);
+            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(7, 534);
             this.PB_InfoElementosNoEnumerados.Name = "PB_InfoElementosNoEnumerados";
             this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(76, 27);
             this.PB_InfoElementosNoEnumerados.TabIndex = 4;
@@ -212,7 +221,7 @@
             this.PB_ElementosNoEnumerados.BackColor = System.Drawing.SystemColors.Window;
             this.PB_ElementosNoEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PB_ElementosNoEnumerados.ContextMenuStrip = this.CMS_1;
-            this.PB_ElementosNoEnumerados.Location = new System.Drawing.Point(3, 17);
+            this.PB_ElementosNoEnumerados.Location = new System.Drawing.Point(4, 17);
             this.PB_ElementosNoEnumerados.Name = "PB_ElementosNoEnumerados";
             this.PB_ElementosNoEnumerados.Size = new System.Drawing.Size(491, 547);
             this.PB_ElementosNoEnumerados.TabIndex = 3;
@@ -249,6 +258,7 @@
             // 
             this.LB_Pisos.AutoSize = true;
             this.LB_Pisos.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Pisos.ForeColor = System.Drawing.Color.DarkRed;
             this.LB_Pisos.Location = new System.Drawing.Point(6, 13);
             this.LB_Pisos.Name = "LB_Pisos";
             this.LB_Pisos.Size = new System.Drawing.Size(32, 14);
@@ -259,21 +269,53 @@
             // 
             this.GB_Controles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.GB_Controles.Controls.Add(this.groupBox1);
             this.GB_Controles.Controls.Add(this.LB_Nombrar);
             this.GB_Controles.Controls.Add(this.TB_Nombramiento);
             this.GB_Controles.Controls.Add(this.CKB_SeleccionInteligente);
-            this.GB_Controles.Controls.Add(this.BT_Enumerar);
+            this.GB_Controles.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_Controles.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_Controles.Location = new System.Drawing.Point(6, 288);
             this.GB_Controles.Name = "GB_Controles";
-            this.GB_Controles.Size = new System.Drawing.Size(141, 296);
+            this.GB_Controles.Size = new System.Drawing.Size(141, 295);
             this.GB_Controles.TabIndex = 5;
             this.GB_Controles.TabStop = false;
             this.GB_Controles.Text = "Controles";
             // 
+            // BT_CrtierioFC
+            // 
+            this.BT_CrtierioFC.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.BT_CrtierioFC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_CrtierioFC.Font = new System.Drawing.Font("Calibri", 9F);
+            this.BT_CrtierioFC.ForeColor = System.Drawing.Color.Black;
+            this.BT_CrtierioFC.Image = ((System.Drawing.Image)(resources.GetObject("BT_CrtierioFC.Image")));
+            this.BT_CrtierioFC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BT_CrtierioFC.Location = new System.Drawing.Point(6, 56);
+            this.BT_CrtierioFC.Name = "BT_CrtierioFC";
+            this.BT_CrtierioFC.Size = new System.Drawing.Size(120, 35);
+            this.BT_CrtierioFC.TabIndex = 5;
+            this.BT_CrtierioFC.Text = "       Criterios F\'C\r\n";
+            this.BT_CrtierioFC.UseVisualStyleBackColor = true;
+            this.BT_CrtierioFC.Click += new System.EventHandler(this.BT_CrtierioFC_Click);
+            // 
+            // BT_Regresar
+            // 
+            this.BT_Regresar.FlatAppearance.BorderSize = 0;
+            this.BT_Regresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_Regresar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Regresar.Image")));
+            this.BT_Regresar.Location = new System.Drawing.Point(19, 20);
+            this.BT_Regresar.Name = "BT_Regresar";
+            this.BT_Regresar.Size = new System.Drawing.Size(35, 28);
+            this.BT_Regresar.TabIndex = 4;
+            this.BT_Regresar.UseVisualStyleBackColor = true;
+            this.BT_Regresar.Click += new System.EventHandler(this.BT_Regresar_Click);
+            // 
             // LB_Nombrar
             // 
             this.LB_Nombrar.AutoSize = true;
-            this.LB_Nombrar.Location = new System.Drawing.Point(7, 68);
+            this.LB_Nombrar.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_Nombrar.ForeColor = System.Drawing.Color.Black;
+            this.LB_Nombrar.Location = new System.Drawing.Point(12, 67);
             this.LB_Nombrar.Name = "LB_Nombrar";
             this.LB_Nombrar.Size = new System.Drawing.Size(43, 14);
             this.LB_Nombrar.TabIndex = 3;
@@ -282,15 +324,17 @@
             // TB_Nombramiento
             // 
             this.TB_Nombramiento.Enabled = false;
-            this.TB_Nombramiento.Location = new System.Drawing.Point(56, 63);
+            this.TB_Nombramiento.Location = new System.Drawing.Point(61, 62);
             this.TB_Nombramiento.Name = "TB_Nombramiento";
-            this.TB_Nombramiento.Size = new System.Drawing.Size(72, 22);
+            this.TB_Nombramiento.Size = new System.Drawing.Size(61, 22);
             this.TB_Nombramiento.TabIndex = 2;
             // 
             // CKB_SeleccionInteligente
             // 
             this.CKB_SeleccionInteligente.AutoSize = true;
-            this.CKB_SeleccionInteligente.Location = new System.Drawing.Point(17, 21);
+            this.CKB_SeleccionInteligente.Font = new System.Drawing.Font("Calibri", 9F);
+            this.CKB_SeleccionInteligente.ForeColor = System.Drawing.Color.Black;
+            this.CKB_SeleccionInteligente.Location = new System.Drawing.Point(22, 20);
             this.CKB_SeleccionInteligente.Name = "CKB_SeleccionInteligente";
             this.CKB_SeleccionInteligente.Size = new System.Drawing.Size(93, 32);
             this.CKB_SeleccionInteligente.TabIndex = 1;
@@ -301,12 +345,13 @@
             // 
             // BT_Enumerar
             // 
+            this.BT_Enumerar.FlatAppearance.BorderSize = 0;
             this.BT_Enumerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BT_Enumerar.Location = new System.Drawing.Point(12, 100);
+            this.BT_Enumerar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Enumerar.Image")));
+            this.BT_Enumerar.Location = new System.Drawing.Point(72, 19);
             this.BT_Enumerar.Name = "BT_Enumerar";
-            this.BT_Enumerar.Size = new System.Drawing.Size(116, 28);
+            this.BT_Enumerar.Size = new System.Drawing.Size(38, 28);
             this.BT_Enumerar.TabIndex = 0;
-            this.BT_Enumerar.Text = "Enumerar";
             this.BT_Enumerar.UseVisualStyleBackColor = true;
             this.BT_Enumerar.Click += new System.EventHandler(this.BT_Enumerar_Click);
             // 
@@ -338,10 +383,29 @@
             this.rehacerToolStripMenuItem.Text = "Rehacer";
             this.rehacerToolStripMenuItem.Click += new System.EventHandler(this.rehacerToolStripMenuItem_Click);
             // 
-            // contextMenuStrip1
+            // P_Contenedor
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.P_Contenedor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.P_Contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.P_Contenedor.Location = new System.Drawing.Point(0, 0);
+            this.P_Contenedor.Name = "P_Contenedor";
+            this.P_Contenedor.Size = new System.Drawing.Size(1182, 619);
+            this.P_Contenedor.TabIndex = 4;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.groupBox1.Controls.Add(this.BT_Regresar);
+            this.groupBox1.Controls.Add(this.BT_Enumerar);
+            this.groupBox1.Controls.Add(this.BT_CrtierioFC);
+            this.groupBox1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.ForeColor = System.Drawing.Color.DarkRed;
+            this.groupBox1.Location = new System.Drawing.Point(3, 96);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(132, 109);
+            this.groupBox1.TabIndex = 9;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Enumerar";
             // 
             // F_EnumeracionPortico
             // 
@@ -352,6 +416,7 @@
             this.ContextMenuStrip = this.CMS_Undo_Redo;
             this.Controls.Add(this.GB_1);
             this.Controls.Add(this.P_Title);
+            this.Controls.Add(this.P_Contenedor);
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "F_EnumeracionPortico";
@@ -375,6 +440,7 @@
             this.GB_Controles.ResumeLayout(false);
             this.GB_Controles.PerformLayout();
             this.CMS_Undo_Redo.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -406,7 +472,10 @@
         private System.Windows.Forms.ContextMenuStrip CMS_Undo_Redo;
         internal System.Windows.Forms.ToolStripMenuItem deshacerToolStripMenuItem;
         internal System.Windows.Forms.ToolStripMenuItem rehacerToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.PictureBox PB_InfoElementos_Enumerados;
+        private System.Windows.Forms.Button BT_CrtierioFC;
+        private System.Windows.Forms.Button BT_Regresar;
+        private System.Windows.Forms.Panel P_Contenedor;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

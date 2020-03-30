@@ -1,95 +1,131 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace FC_Diseño_de_Nervios
 {
     public partial class F_Base : Form
     {
-
+        private bool ActivarVentanaEmergenteGuardarCambios = false;
         private static cUndoRedo<cProyecto> UndoRedo = new cUndoRedo<cProyecto>();
         public static Form F_Base_;
-
-
-
 
         #region Ventanas Emergentes
 
         private F_NuevoProyecto F_NuevoProyecto = new F_NuevoProyecto();
         public static F_EnumeracionPortico F_EnumeracionPortico;
-        #endregion
 
+        #endregion Ventanas Emergentes
 
-        #region Ventanas Acopladas
-
-
-
-        #endregion
 
 
         #region Proyecto
         public static cProyecto Proyecto;
 
-
-        #endregion
+        #endregion Proyecto
 
         #region Funciones Basicas
+
         private void NuevoProyecto_Function()
         {
             F_NuevoProyecto.ShowDialog();
         }
-        private void AbrirProyecto_Function() 
-        { 
+
+        private void AbrirProyecto_Function(bool ArchivoExterno = false, string Ruta = "")
+        {
+            if (ArchivoExterno == false)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = $"{cFunctionsProgram.NombrePrograma} |*{cFunctionsProgram.Ext}";
+                openFileDialog.Title = "Abrir Proyecto";
+                openFileDialog.ShowDialog();
+                Ruta = openFileDialog.FileName;
+            }
+
+            if (Ruta != "")
+            {
+                if (Proyecto != null)
+                {
+                    if (ActivarVentanaEmergenteGuardarCambios)
+                    {
+                        DialogResult BoxMensa = MessageBox.Show("¿Desea guardar cambios en el Proyecto: " + Proyecto.Nombre + "?", cFunctionsProgram.Empresa, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                        if (BoxMensa == DialogResult.Yes)
+                        {
+                            GuardarProyecto_Function();
+                        }
+                    }
+                }
+
+                cFunctionsProgram.Deserealizar(Ruta, ref Proyecto);
+                if (Proyecto != null)
+                {
+                    UndoRedo.LimpiarEstadosCtrlZyCtrlY();
+                }
+            }
         }
+
         private void GuardarProyecto_Function()
         {
-
-
+            if (Proyecto.Ruta != "")
+            {
+                cFunctionsProgram.Serializar(Proyecto.Ruta, Proyecto);
+                UndoRedo.LimpiarEstados();
+            }
+            else
+            {
+                GuardarComoProyecto_Function();
+            }
         }
+
         private void GuardarComoProyecto_Function()
         {
-
-
+            SaveFileDialog SaveFileDialog = new SaveFileDialog();
+            SaveFileDialog.Filter = $"{cFunctionsProgram.NombrePrograma} |*{cFunctionsProgram.Ext}";
+            SaveFileDialog.Title = $"Guardar Proyecto | {Proyecto.Nombre}";
+            SaveFileDialog.FileName = Proyecto.Nombre;
+            if (Proyecto.Ruta != "")
+            {
+                SaveFileDialog.InitialDirectory = Proyecto.Ruta;
+            }
+            SaveFileDialog.ShowDialog();
+            if (SaveFileDialog.FileName != "")
+            {
+                Proyecto.Ruta = SaveFileDialog.FileName;
+                Proyecto.Nombre = Path.GetFileName(SaveFileDialog.FileName).Replace(cFunctionsProgram.Ext, "");
+                cFunctionsProgram.Serializar(SaveFileDialog.FileName, Proyecto);
+                UndoRedo.LimpiarEstados();
+            }
         }
+
         public static void Deshacer_Function()
         {
-            Proyecto= UndoRedo.Deshacer();
+            Proyecto = UndoRedo.Deshacer();
             ActualizarTodosLasVentanas();
-
-
         }
+
         public static void Rehacer_Function()
         {
             Proyecto = UndoRedo.Rehacer();
             ActualizarTodosLasVentanas();
-
-
         }
+
         public static void EnviarEstado(cProyecto Proyecto)
         {
             UndoRedo.EnviarEstado(Proyecto);
         }
 
+        public static void LimpiarMemoria()
+        {
+            UndoRedo.LimpiarEstadosCtrlZyCtrlY();
+        }
 
         private static void ActualizarTodosLasVentanas()
         {
             F_EnumeracionPortico.Invalidate();
         }
 
-
-
-
-
-
-
-
-        #endregion
+        #endregion Funciones Basicas
 
         public F_Base()
         {
@@ -98,9 +134,14 @@ namespace FC_Diseño_de_Nervios
             SetStyle(ControlStyles.ResizeRedraw, true);
             ST_Base.SizingGrip = false;
             cFunctionsProgram.Notificador += CFunctionsProgram_Notificador;
-            
+            cFunctionsProgram.EventoVentanaEmergente += CFunctionsProgram_EventoVentanaEmergente;
 
             F_Base_ = this;
+        }
+
+        private void CFunctionsProgram_EventoVentanaEmergente(string Alert, MessageBoxIcon Icono)
+        {
+            MessageBox.Show(Alert, cFunctionsProgram.Empresa, MessageBoxButtons.OK, Icono);
         }
 
         private void CFunctionsProgram_Notificador(string Alert)
@@ -115,31 +156,30 @@ namespace FC_Diseño_de_Nervios
             CambiosTimer_2_Proyecto();
         }
 
-
-
         private void CambiosTimer_2_Proyecto()
         {
             if (Proyecto != null)
             {
+                Text = $"{cFunctionsProgram.NombrePrograma} | {Proyecto.Nombre}";
                 LB_NombreProyecto.Text = Proyecto.Nombre;
                 TSB_Undo.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
                 TSB_Redo.Enabled = UndoRedo.ObtenerEstadoCtrlY();
                 deshacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
                 rehacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+                ActivarVentanaEmergenteGuardarCambios = UndoRedo.ObtenerEstadoEstados();
                 CambiosTimer_3_F_EnumeracionPortico_Proyecto();
                 BloqueoDesbloqueoBotones(true);
-                
             }
             else
             {
+                Text = cFunctionsProgram.NombrePrograma;
                 TSB_Undo.Enabled = false;
                 TSB_Redo.Enabled = false;
                 deshacerToolStripMenuItem.Enabled = false;
                 rehacerToolStripMenuItem.Enabled = false;
+                ActivarVentanaEmergenteGuardarCambios = false;
                 BloqueoDesbloqueoBotones(false);
             }
-
-
         }
 
         private void CambiosTimer_3_F_EnumeracionPortico_Proyecto()
@@ -151,17 +191,14 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-
         private void BloqueoDesbloqueoBotones(bool Bloqueo_Desbloqueo)
         {
             guardarToolStripMenuItem.Enabled = Bloqueo_Desbloqueo;
             gurdarComoToolStripMenuItem.Enabled = Bloqueo_Desbloqueo;
             TSB_Guardar.Enabled = Bloqueo_Desbloqueo;
             TSB_GuardarComo.Enabled = Bloqueo_Desbloqueo;
-            enumeraciónDeElementosToolStripMenuItem.Enabled = Bloqueo_Desbloqueo ;
-
+            enumeraciónDeElementosToolStripMenuItem.Enabled = Bloqueo_Desbloqueo;
         }
-
 
         private void VentanaEnumeracionElementos()
         {
@@ -169,17 +206,12 @@ namespace FC_Diseño_de_Nervios
             {
                 F_EnumeracionPortico.ShowDialog();
             }
-            else{
+            else
+            {
                 F_EnumeracionPortico = new F_EnumeracionPortico();
                 F_EnumeracionPortico.ShowDialog();
             }
         }
-
-
-
-
-
-
 
         #region Dimensionar Formulario
 
@@ -192,8 +224,6 @@ namespace FC_Diseño_de_Nervios
 
         protected override void WndProc(ref Message m)
         {
-
-
             switch (m.Msg)
             {
                 case WM_NCHITTEST:
@@ -202,11 +232,11 @@ namespace FC_Diseño_de_Nervios
                     if (sizeGripRectangle.Contains(hitPoint))
                         m.Result = new IntPtr(HTBOTTOMRIGHT);
                     break;
+
                 default:
                     base.WndProc(ref m);
                     break;
             }
-
         }
 
         protected override void OnSizeChanged(EventArgs e)
@@ -224,9 +254,11 @@ namespace FC_Diseño_de_Nervios
             base.OnPaint(e);
             ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
         }
-        #endregion
+
+        #endregion Dimensionar Formulario
 
         #region Mover ,Maximizar, Cerrar y Restaurar Ventana - Eventos Clicks
+
         private void BT_Cerrar_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -248,6 +280,7 @@ namespace FC_Diseño_de_Nervios
         {
             WindowState = FormWindowState.Minimized;
         }
+
         private void CambiosTimer_1()
         {
             if (WindowState == FormWindowState.Normal)
@@ -257,9 +290,9 @@ namespace FC_Diseño_de_Nervios
             else if (WindowState == FormWindowState.Maximized)
             {
                 BT_MaxRest.Image = Properties.Resources.Restaurar14x11;
-          
             }
         }
+
         private void DobleClickMaximaze(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -274,6 +307,7 @@ namespace FC_Diseño_de_Nervios
                 }
             }
         }
+
         private void MS_BarraPrincipal_MouseDown(object sender, MouseEventArgs e)
         {
             cHerramientas.Movimiento(Handle);
@@ -292,10 +326,10 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-
-        #endregion
+        #endregion Mover ,Maximizar, Cerrar y Restaurar Ventana - Eventos Clicks
 
         #region Eventos de MenuStrip y ToolStrip
+
         private void TSB_Nuevo_Click(object sender, EventArgs e)
         {
             NuevoProyecto_Function();
@@ -356,11 +390,39 @@ namespace FC_Diseño_de_Nervios
             Rehacer_Function();
         }
 
-        #endregion
+        #endregion Eventos de MenuStrip y ToolStrip
 
         private void enumeraciónDeElementosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             VentanaEnumeracionElementos();
+        }
+
+        private void F_Base_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Proyecto != null)
+            {
+                if (ActivarVentanaEmergenteGuardarCambios)
+                {
+                    DialogResult BoxMessage = MessageBox.Show("¿Desea guardar cambios en el Proyecto: " + Proyecto.Nombre + "?", cFunctionsProgram.Empresa, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                    if (BoxMessage == DialogResult.Yes)
+                    {
+                        GuardarProyecto_Function();
+                    }
+                    else if (BoxMessage == DialogResult.No)
+                    {
+                        Application.Exit();
+                    }
+                    else if (BoxMessage == DialogResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
+
+                }
+
+
+
+            }
         }
     }
 }

@@ -6,15 +6,18 @@ using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
+
     [Serializable]
     public class cNervio
     {
-        public int ID { get; }
+        public int ID { get; set; }
         public string Nombre { get; set; }
         public string Prefijo { get; set; } = "N-";
         public eDireccion Direccion { get;set; }
         public List<cTramo> Lista_Tramos { get; set; }
         public List<cObjeto> Lista_Objetos { get; set; }
+        public bool SelectPlanta { get; set; }
+        private bool ElementoEnumerado_MouseMove = false;
         public cObjeto ObjetoSelect { get; set; }
         public List<cBarra> ListaBarras { get; set; }
         public eCambioenAltura CambioenAltura { get; set; }
@@ -29,6 +32,10 @@ namespace FC_Diseño_de_Nervios
             this.Lista_Objetos = Lista_Objetos;
             this.Direccion = Direccion;
             CrearTramos();
+        }
+        public void Cambio_Nombre()
+        {
+            Nombre = Prefijo + ID;
         }
 
 
@@ -82,22 +89,11 @@ namespace FC_Diseño_de_Nervios
 
         }
 
-        private bool ElementoEnumerado_MouseMove = false;
 
 
-        public void PaintNombreElementosEnumerados_MouseMove(Graphics e, float HeigthWindow, float WidthWindow)
-        {
-            if (ElementoEnumerado_MouseMove)
-            {
-                Font Font1 = new Font("Calibri", 9, FontStyle.Bold);
-                PointF PointString = new PointF(WidthWindow / 2 - e.MeasureString(Nombre, Font1).Width / 2, HeigthWindow / 2 - Font1.Height / 2);
-                e.DrawString(Nombre.ToString(), Font1, Brushes.Black, PointString);
 
 
-            }
-
-        }
-
+        #region Metodos Mouse
         public void MouseMoveNervioPlantaEtabs(Point Point)
         {
 
@@ -128,15 +124,50 @@ namespace FC_Diseño_de_Nervios
           
 
         }
+        public void MouseDownSelectPlanta(Point Point)
+        {
+            bool EncotroResultado = false;
+            foreach (cTramo Tramo in Lista_Tramos)
+            {
+                foreach (cObjeto Objeto in Tramo.Lista_Objetos)
+                {
+                    if (Objeto.Line.MouseInLineEtabs(Point))
+                    {
+                        if (SelectPlanta)
+                        {
+                            SelectPlanta = false;
+                        }
+                        else
+                        {
 
+                            SelectPlanta = true;
 
+                        }
 
+                        EncotroResultado = true;
+                    }
+                    if (EncotroResultado) { break; }
 
+                }
+                if (EncotroResultado) { break; }
+            }
 
+            Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.Select = SelectPlanta));
 
+        }
+        #endregion
 
+        #region Metodos Paint
+        public void PaintNombreElementosEnumerados_MouseMove(Graphics e, float HeigthWindow, float WidthWindow)
+        {
+            if (ElementoEnumerado_MouseMove)
+            {
+                Font Font1 = new Font("Calibri", 9, FontStyle.Bold);
+                PointF PointString = new PointF(WidthWindow / 2 - e.MeasureString(Nombre, Font1).Width / 2, HeigthWindow / 2 - Font1.Height / 2);
+                e.DrawString(Nombre.ToString(), Font1, Brushes.Black, PointString);
+            }
 
-
+        }
         public void Paint_Planta_ElementosEnumerados(Graphics e)
         {
             foreach(cTramo Tramo in Lista_Tramos)
@@ -148,11 +179,11 @@ namespace FC_Diseño_de_Nervios
             }
 
         }
+        #endregion
 
-        
 
 
-        
+
     }
 
 

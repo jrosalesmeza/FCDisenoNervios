@@ -29,22 +29,22 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            WeifenLuo.WinFormsUI.Docking.DockPanelSkin dockPanelSkin1 = new WeifenLuo.WinFormsUI.Docking.DockPanelSkin();
-            WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin autoHideStripSkin1 = new WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin();
-            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient1 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient1 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin dockPaneStripSkin1 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin();
-            WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient dockPaneStripGradient1 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient2 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient2 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient3 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient dockPaneStripToolWindowGradient1 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient4 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient5 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient3 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient6 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient7 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_Base));
+            WeifenLuo.WinFormsUI.Docking.DockPanelSkin dockPanelSkin6 = new WeifenLuo.WinFormsUI.Docking.DockPanelSkin();
+            WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin autoHideStripSkin6 = new WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin();
+            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient16 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
+            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient36 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+            WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin dockPaneStripSkin6 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin();
+            WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient dockPaneStripGradient6 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient();
+            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient37 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient17 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
+            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient38 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+            WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient dockPaneStripToolWindowGradient6 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient();
+            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient39 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient40 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient18 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
+            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient41 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
+            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient42 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
             this.MS_BarraPrincipal = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,29 +52,29 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gurdarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enumeraciónDeElementosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ST_Base = new System.Windows.Forms.StatusStrip();
             this.LB_Notificador = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.DP_ContenedorPrincipal = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.TS_Barra1 = new System.Windows.Forms.ToolStrip();
-            this.TS_S1 = new System.Windows.Forms.ToolStripSeparator();
-            this.P_Menu = new System.Windows.Forms.Panel();
-            this.P_Menu2 = new System.Windows.Forms.Panel();
-            this.LB_NombreProyecto = new System.Windows.Forms.Label();
-            this.T_Timer = new System.Windows.Forms.Timer(this.components);
             this.TSB_Nuevo = new System.Windows.Forms.ToolStripButton();
             this.TSB_Abrir = new System.Windows.Forms.ToolStripButton();
             this.TSB_Guardar = new System.Windows.Forms.ToolStripButton();
             this.TSB_GuardarComo = new System.Windows.Forms.ToolStripButton();
+            this.TS_S1 = new System.Windows.Forms.ToolStripSeparator();
             this.TSB_Undo = new System.Windows.Forms.ToolStripButton();
             this.TSB_Redo = new System.Windows.Forms.ToolStripButton();
+            this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
             this.BT_MaxRest = new System.Windows.Forms.Button();
             this.BT_Cerrar = new System.Windows.Forms.Button();
-            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.P_Menu2 = new System.Windows.Forms.Panel();
+            this.LB_NombreProyecto = new System.Windows.Forms.Label();
             this.PB_LogoPrincipal = new System.Windows.Forms.PictureBox();
-            this.enumeraciónDeElementosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.T_Timer = new System.Windows.Forms.Timer(this.components);
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
             this.TS_Barra1.SuspendLayout();
@@ -115,7 +115,7 @@
             this.nuevoToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.nuevoToolStripMenuItem.Name = "nuevoToolStripMenuItem";
             this.nuevoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.nuevoToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.nuevoToolStripMenuItem.Text = "Nuevo";
             this.nuevoToolStripMenuItem.Click += new System.EventHandler(this.nuevoToolStripMenuItem_Click);
             // 
@@ -124,7 +124,7 @@
             this.abrirToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
             this.abrirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
@@ -133,7 +133,7 @@
             this.guardarToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.guardarToolStripMenuItem.Name = "guardarToolStripMenuItem";
             this.guardarToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.guardarToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
             this.guardarToolStripMenuItem.Text = "Guardar";
             this.guardarToolStripMenuItem.Click += new System.EventHandler(this.guardarToolStripMenuItem_Click);
             // 
@@ -144,7 +144,7 @@
             this.gurdarComoToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
             this.gurdarComoToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
-            this.gurdarComoToolStripMenuItem.Text = "Gurdar como...";
+            this.gurdarComoToolStripMenuItem.Text = "Guardar como";
             this.gurdarComoToolStripMenuItem.Click += new System.EventHandler(this.gurdarComoToolStripMenuItem_Click);
             // 
             // editarToolStripMenuItem
@@ -155,8 +155,39 @@
             this.enumeraciónDeElementosToolStripMenuItem});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
-            this.editarToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
+            this.editarToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.editarToolStripMenuItem.Text = "Editar";
+            // 
+            // deshacerToolStripMenuItem
+            // 
+            this.deshacerToolStripMenuItem.Enabled = false;
+            this.deshacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.deshacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
+            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
+            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.deshacerToolStripMenuItem.Text = "Deshacer";
+            this.deshacerToolStripMenuItem.Click += new System.EventHandler(this.deshacerToolStripMenuItem_Click);
+            // 
+            // rehacerToolStripMenuItem
+            // 
+            this.rehacerToolStripMenuItem.Enabled = false;
+            this.rehacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.rehacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
+            this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
+            this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.rehacerToolStripMenuItem.Text = "Rehacer";
+            this.rehacerToolStripMenuItem.Click += new System.EventHandler(this.rehacerToolStripMenuItem_Click);
+            // 
+            // enumeraciónDeElementosToolStripMenuItem
+            // 
+            this.enumeraciónDeElementosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.enumeraciónDeElementosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("enumeraciónDeElementosToolStripMenuItem.Image")));
+            this.enumeraciónDeElementosToolStripMenuItem.Name = "enumeraciónDeElementosToolStripMenuItem";
+            this.enumeraciónDeElementosToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.enumeraciónDeElementosToolStripMenuItem.Text = "Enumeración de Elementos";
+            this.enumeraciónDeElementosToolStripMenuItem.Click += new System.EventHandler(this.enumeraciónDeElementosToolStripMenuItem_Click);
             // 
             // ST_Base
             // 
@@ -164,9 +195,9 @@
             this.ST_Base.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LB_Notificador,
             this.toolStripStatusLabel1});
-            this.ST_Base.Location = new System.Drawing.Point(0, 586);
+            this.ST_Base.Location = new System.Drawing.Point(0, 603);
             this.ST_Base.Name = "ST_Base";
-            this.ST_Base.Size = new System.Drawing.Size(1061, 22);
+            this.ST_Base.Size = new System.Drawing.Size(1073, 22);
             this.ST_Base.TabIndex = 1;
             this.ST_Base.Text = "statusStrip1";
             // 
@@ -190,51 +221,51 @@
             this.DP_ContenedorPrincipal.DockBackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DP_ContenedorPrincipal.Location = new System.Drawing.Point(0, 49);
             this.DP_ContenedorPrincipal.Name = "DP_ContenedorPrincipal";
-            this.DP_ContenedorPrincipal.Size = new System.Drawing.Size(1061, 537);
-            dockPanelGradient1.EndColor = System.Drawing.SystemColors.ControlLight;
-            dockPanelGradient1.StartColor = System.Drawing.SystemColors.ControlLight;
-            autoHideStripSkin1.DockStripGradient = dockPanelGradient1;
-            tabGradient1.EndColor = System.Drawing.SystemColors.Control;
-            tabGradient1.StartColor = System.Drawing.SystemColors.Control;
-            tabGradient1.TextColor = System.Drawing.SystemColors.ControlDarkDark;
-            autoHideStripSkin1.TabGradient = tabGradient1;
-            dockPanelSkin1.AutoHideStripSkin = autoHideStripSkin1;
-            tabGradient2.EndColor = System.Drawing.SystemColors.ControlLightLight;
-            tabGradient2.StartColor = System.Drawing.SystemColors.ControlLightLight;
-            tabGradient2.TextColor = System.Drawing.SystemColors.ControlText;
-            dockPaneStripGradient1.ActiveTabGradient = tabGradient2;
-            dockPanelGradient2.EndColor = System.Drawing.SystemColors.Control;
-            dockPanelGradient2.StartColor = System.Drawing.SystemColors.Control;
-            dockPaneStripGradient1.DockStripGradient = dockPanelGradient2;
-            tabGradient3.EndColor = System.Drawing.SystemColors.ControlLight;
-            tabGradient3.StartColor = System.Drawing.SystemColors.ControlLight;
-            tabGradient3.TextColor = System.Drawing.SystemColors.ControlText;
-            dockPaneStripGradient1.InactiveTabGradient = tabGradient3;
-            dockPaneStripSkin1.DocumentGradient = dockPaneStripGradient1;
-            tabGradient4.EndColor = System.Drawing.SystemColors.ActiveCaption;
-            tabGradient4.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            tabGradient4.StartColor = System.Drawing.SystemColors.GradientActiveCaption;
-            tabGradient4.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dockPaneStripToolWindowGradient1.ActiveCaptionGradient = tabGradient4;
-            tabGradient5.EndColor = System.Drawing.SystemColors.Control;
-            tabGradient5.StartColor = System.Drawing.SystemColors.Control;
-            tabGradient5.TextColor = System.Drawing.SystemColors.ControlText;
-            dockPaneStripToolWindowGradient1.ActiveTabGradient = tabGradient5;
-            dockPanelGradient3.EndColor = System.Drawing.SystemColors.ControlLight;
-            dockPanelGradient3.StartColor = System.Drawing.SystemColors.ControlLight;
-            dockPaneStripToolWindowGradient1.DockStripGradient = dockPanelGradient3;
-            tabGradient6.EndColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            tabGradient6.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            tabGradient6.StartColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            tabGradient6.TextColor = System.Drawing.SystemColors.ControlText;
-            dockPaneStripToolWindowGradient1.InactiveCaptionGradient = tabGradient6;
-            tabGradient7.EndColor = System.Drawing.Color.Transparent;
-            tabGradient7.StartColor = System.Drawing.Color.Transparent;
-            tabGradient7.TextColor = System.Drawing.SystemColors.ControlDarkDark;
-            dockPaneStripToolWindowGradient1.InactiveTabGradient = tabGradient7;
-            dockPaneStripSkin1.ToolWindowGradient = dockPaneStripToolWindowGradient1;
-            dockPanelSkin1.DockPaneStripSkin = dockPaneStripSkin1;
-            this.DP_ContenedorPrincipal.Skin = dockPanelSkin1;
+            this.DP_ContenedorPrincipal.Size = new System.Drawing.Size(1073, 554);
+            dockPanelGradient16.EndColor = System.Drawing.SystemColors.ControlLight;
+            dockPanelGradient16.StartColor = System.Drawing.SystemColors.ControlLight;
+            autoHideStripSkin6.DockStripGradient = dockPanelGradient16;
+            tabGradient36.EndColor = System.Drawing.SystemColors.Control;
+            tabGradient36.StartColor = System.Drawing.SystemColors.Control;
+            tabGradient36.TextColor = System.Drawing.SystemColors.ControlDarkDark;
+            autoHideStripSkin6.TabGradient = tabGradient36;
+            dockPanelSkin6.AutoHideStripSkin = autoHideStripSkin6;
+            tabGradient37.EndColor = System.Drawing.SystemColors.ControlLightLight;
+            tabGradient37.StartColor = System.Drawing.SystemColors.ControlLightLight;
+            tabGradient37.TextColor = System.Drawing.SystemColors.ControlText;
+            dockPaneStripGradient6.ActiveTabGradient = tabGradient37;
+            dockPanelGradient17.EndColor = System.Drawing.SystemColors.Control;
+            dockPanelGradient17.StartColor = System.Drawing.SystemColors.Control;
+            dockPaneStripGradient6.DockStripGradient = dockPanelGradient17;
+            tabGradient38.EndColor = System.Drawing.SystemColors.ControlLight;
+            tabGradient38.StartColor = System.Drawing.SystemColors.ControlLight;
+            tabGradient38.TextColor = System.Drawing.SystemColors.ControlText;
+            dockPaneStripGradient6.InactiveTabGradient = tabGradient38;
+            dockPaneStripSkin6.DocumentGradient = dockPaneStripGradient6;
+            tabGradient39.EndColor = System.Drawing.SystemColors.ActiveCaption;
+            tabGradient39.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            tabGradient39.StartColor = System.Drawing.SystemColors.GradientActiveCaption;
+            tabGradient39.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
+            dockPaneStripToolWindowGradient6.ActiveCaptionGradient = tabGradient39;
+            tabGradient40.EndColor = System.Drawing.SystemColors.Control;
+            tabGradient40.StartColor = System.Drawing.SystemColors.Control;
+            tabGradient40.TextColor = System.Drawing.SystemColors.ControlText;
+            dockPaneStripToolWindowGradient6.ActiveTabGradient = tabGradient40;
+            dockPanelGradient18.EndColor = System.Drawing.SystemColors.ControlLight;
+            dockPanelGradient18.StartColor = System.Drawing.SystemColors.ControlLight;
+            dockPaneStripToolWindowGradient6.DockStripGradient = dockPanelGradient18;
+            tabGradient41.EndColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            tabGradient41.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            tabGradient41.StartColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            tabGradient41.TextColor = System.Drawing.SystemColors.ControlText;
+            dockPaneStripToolWindowGradient6.InactiveCaptionGradient = tabGradient41;
+            tabGradient42.EndColor = System.Drawing.Color.Transparent;
+            tabGradient42.StartColor = System.Drawing.Color.Transparent;
+            tabGradient42.TextColor = System.Drawing.SystemColors.ControlDarkDark;
+            dockPaneStripToolWindowGradient6.InactiveTabGradient = tabGradient42;
+            dockPaneStripSkin6.ToolWindowGradient = dockPaneStripToolWindowGradient6;
+            dockPanelSkin6.DockPaneStripSkin = dockPaneStripSkin6;
+            this.DP_ContenedorPrincipal.Skin = dockPanelSkin6;
             this.DP_ContenedorPrincipal.TabIndex = 4;
             // 
             // TS_Barra1
@@ -249,54 +280,9 @@
             this.TSB_Redo});
             this.TS_Barra1.Location = new System.Drawing.Point(0, 24);
             this.TS_Barra1.Name = "TS_Barra1";
-            this.TS_Barra1.Size = new System.Drawing.Size(1061, 25);
+            this.TS_Barra1.Size = new System.Drawing.Size(1073, 25);
             this.TS_Barra1.TabIndex = 9;
             this.TS_Barra1.Text = "toolStrip2";
-            // 
-            // TS_S1
-            // 
-            this.TS_S1.Name = "TS_S1";
-            this.TS_S1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // P_Menu
-            // 
-            this.P_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(152)))), ((int)(((byte)(41)))));
-            this.P_Menu.Controls.Add(this.BT_Minimize);
-            this.P_Menu.Controls.Add(this.BT_MaxRest);
-            this.P_Menu.Controls.Add(this.BT_Cerrar);
-            this.P_Menu.Controls.Add(this.P_Menu2);
-            this.P_Menu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.P_Menu.Location = new System.Drawing.Point(0, 0);
-            this.P_Menu.Name = "P_Menu";
-            this.P_Menu.Size = new System.Drawing.Size(1061, 24);
-            this.P_Menu.TabIndex = 12;
-            this.P_Menu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Menu_MouseDown);
-            // 
-            // P_Menu2
-            // 
-            this.P_Menu2.Controls.Add(this.LB_NombreProyecto);
-            this.P_Menu2.Controls.Add(this.MS_BarraPrincipal);
-            this.P_Menu2.Controls.Add(this.PB_LogoPrincipal);
-            this.P_Menu2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.P_Menu2.Location = new System.Drawing.Point(0, 0);
-            this.P_Menu2.Name = "P_Menu2";
-            this.P_Menu2.Size = new System.Drawing.Size(558, 24);
-            this.P_Menu2.TabIndex = 1;
-            // 
-            // LB_NombreProyecto
-            // 
-            this.LB_NombreProyecto.AutoSize = true;
-            this.LB_NombreProyecto.BackColor = System.Drawing.Color.SandyBrown;
-            this.LB_NombreProyecto.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LB_NombreProyecto.Location = new System.Drawing.Point(418, 6);
-            this.LB_NombreProyecto.Name = "LB_NombreProyecto";
-            this.LB_NombreProyecto.Size = new System.Drawing.Size(0, 14);
-            this.LB_NombreProyecto.TabIndex = 2;
-            // 
-            // T_Timer
-            // 
-            this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
             // 
             // TSB_Nuevo
             // 
@@ -325,7 +311,7 @@
             this.TSB_Guardar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TSB_Guardar.Name = "TSB_Guardar";
             this.TSB_Guardar.Size = new System.Drawing.Size(23, 22);
-            this.TSB_Guardar.Text = "Guerdar (Ctrl + S)";
+            this.TSB_Guardar.Text = "Guardar (Ctrl + S)";
             this.TSB_Guardar.Click += new System.EventHandler(this.TSB_Guardar_Click);
             // 
             // TSB_GuardarComo
@@ -337,6 +323,11 @@
             this.TSB_GuardarComo.Size = new System.Drawing.Size(23, 22);
             this.TSB_GuardarComo.Text = "Guardar como (Ctrl  + Mayús + S)";
             this.TSB_GuardarComo.Click += new System.EventHandler(this.TSB_GuardarComo_Click);
+            // 
+            // TS_S1
+            // 
+            this.TS_S1.Name = "TS_S1";
+            this.TS_S1.Size = new System.Drawing.Size(6, 25);
             // 
             // TSB_Undo
             // 
@@ -360,6 +351,20 @@
             this.TSB_Redo.Text = "Rehacer (Ctrl + Y)";
             this.TSB_Redo.Click += new System.EventHandler(this.TSB_Redo_Click);
             // 
+            // P_Menu
+            // 
+            this.P_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(152)))), ((int)(((byte)(41)))));
+            this.P_Menu.Controls.Add(this.BT_Minimize);
+            this.P_Menu.Controls.Add(this.BT_MaxRest);
+            this.P_Menu.Controls.Add(this.BT_Cerrar);
+            this.P_Menu.Controls.Add(this.P_Menu2);
+            this.P_Menu.Dock = System.Windows.Forms.DockStyle.Top;
+            this.P_Menu.Location = new System.Drawing.Point(0, 0);
+            this.P_Menu.Name = "P_Menu";
+            this.P_Menu.Size = new System.Drawing.Size(1073, 24);
+            this.P_Menu.TabIndex = 12;
+            this.P_Menu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Menu_MouseDown);
+            // 
             // BT_Minimize
             // 
             this.BT_Minimize.Dock = System.Windows.Forms.DockStyle.Right;
@@ -370,7 +375,7 @@
             this.BT_Minimize.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Minimize.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Minimize.Image = global::FC_Diseño_de_Nervios.Properties.Resources.Minimizex16;
-            this.BT_Minimize.Location = new System.Drawing.Point(941, 0);
+            this.BT_Minimize.Location = new System.Drawing.Point(953, 0);
             this.BT_Minimize.Name = "BT_Minimize";
             this.BT_Minimize.Size = new System.Drawing.Size(40, 24);
             this.BT_Minimize.TabIndex = 30;
@@ -388,7 +393,7 @@
             this.BT_MaxRest.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_MaxRest.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_MaxRest.Image = global::FC_Diseño_de_Nervios.Properties.Resources.Maximizar14X11;
-            this.BT_MaxRest.Location = new System.Drawing.Point(981, 0);
+            this.BT_MaxRest.Location = new System.Drawing.Point(993, 0);
             this.BT_MaxRest.Name = "BT_MaxRest";
             this.BT_MaxRest.Size = new System.Drawing.Size(40, 24);
             this.BT_MaxRest.TabIndex = 29;
@@ -406,7 +411,7 @@
             this.BT_Cerrar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Cerrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Cerrar.Image = global::FC_Diseño_de_Nervios.Properties.Resources.x16Blanca;
-            this.BT_Cerrar.Location = new System.Drawing.Point(1021, 0);
+            this.BT_Cerrar.Location = new System.Drawing.Point(1033, 0);
             this.BT_Cerrar.Name = "BT_Cerrar";
             this.BT_Cerrar.Size = new System.Drawing.Size(40, 24);
             this.BT_Cerrar.TabIndex = 27;
@@ -414,27 +419,27 @@
             this.BT_Cerrar.UseVisualStyleBackColor = true;
             this.BT_Cerrar.Click += new System.EventHandler(this.BT_Cerrar_Click);
             // 
-            // deshacerToolStripMenuItem
+            // P_Menu2
             // 
-            this.deshacerToolStripMenuItem.Enabled = false;
-            this.deshacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.deshacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
-            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
-            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.deshacerToolStripMenuItem.Text = "Deshacer";
-            this.deshacerToolStripMenuItem.Click += new System.EventHandler(this.deshacerToolStripMenuItem_Click);
+            this.P_Menu2.Controls.Add(this.LB_NombreProyecto);
+            this.P_Menu2.Controls.Add(this.MS_BarraPrincipal);
+            this.P_Menu2.Controls.Add(this.PB_LogoPrincipal);
+            this.P_Menu2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.P_Menu2.Location = new System.Drawing.Point(0, 0);
+            this.P_Menu2.Name = "P_Menu2";
+            this.P_Menu2.Size = new System.Drawing.Size(558, 24);
+            this.P_Menu2.TabIndex = 1;
             // 
-            // rehacerToolStripMenuItem
+            // LB_NombreProyecto
             // 
-            this.rehacerToolStripMenuItem.Enabled = false;
-            this.rehacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.rehacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
-            this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
-            this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.rehacerToolStripMenuItem.Text = "Rehacer";
-            this.rehacerToolStripMenuItem.Click += new System.EventHandler(this.rehacerToolStripMenuItem_Click);
+            this.LB_NombreProyecto.AutoSize = true;
+            this.LB_NombreProyecto.BackColor = System.Drawing.Color.SandyBrown;
+            this.LB_NombreProyecto.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.LB_NombreProyecto.Location = new System.Drawing.Point(418, 6);
+            this.LB_NombreProyecto.Name = "LB_NombreProyecto";
+            this.LB_NombreProyecto.Size = new System.Drawing.Size(0, 14);
+            this.LB_NombreProyecto.TabIndex = 2;
             // 
             // PB_LogoPrincipal
             // 
@@ -447,21 +452,16 @@
             this.PB_LogoPrincipal.TabIndex = 1;
             this.PB_LogoPrincipal.TabStop = false;
             // 
-            // enumeraciónDeElementosToolStripMenuItem
+            // T_Timer
             // 
-            this.enumeraciónDeElementosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.enumeraciónDeElementosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("enumeraciónDeElementosToolStripMenuItem.Image")));
-            this.enumeraciónDeElementosToolStripMenuItem.Name = "enumeraciónDeElementosToolStripMenuItem";
-            this.enumeraciónDeElementosToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
-            this.enumeraciónDeElementosToolStripMenuItem.Text = "Enumeración de Elementos";
-            this.enumeraciónDeElementosToolStripMenuItem.Click += new System.EventHandler(this.enumeraciónDeElementosToolStripMenuItem_Click);
+            this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
             // 
             // F_Base
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1061, 608);
+            this.ClientSize = new System.Drawing.Size(1073, 625);
             this.Controls.Add(this.DP_ContenedorPrincipal);
             this.Controls.Add(this.TS_Barra1);
             this.Controls.Add(this.ST_Base);
@@ -474,7 +474,7 @@
             this.MainMenuStrip = this.MS_BarraPrincipal;
             this.MinimumSize = new System.Drawing.Size(1061, 608);
             this.Name = "F_Base";
-            this.Text = "Despiece de Nervios";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.F_Base_FormClosing);
             this.MS_BarraPrincipal.ResumeLayout(false);
             this.MS_BarraPrincipal.PerformLayout();
             this.ST_Base.ResumeLayout(false);
