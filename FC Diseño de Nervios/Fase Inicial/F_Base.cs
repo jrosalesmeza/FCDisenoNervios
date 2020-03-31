@@ -167,9 +167,19 @@ namespace FC_Diseño_de_Nervios
                 deshacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
                 rehacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlY();
                 ActivarVentanaEmergenteGuardarCambios = UndoRedo.ObtenerEstadoEstados();
+                if (Proyecto.Edificio != null && Proyecto.Edificio.PisoSelect != null && Proyecto.Edificio.PisoSelect.Nervios != null)
+                {
+                    if (Proyecto.Edificio.PisoSelect.NervioSelect != null)
+                    {
+                        esquemaToolStripMenuItem.Enabled = true;
+                    }
+                    else { esquemaToolStripMenuItem.Enabled = false; }
+                }
+                else { esquemaToolStripMenuItem.Enabled = false; }
                 CambiosTimer_3_F_EnumeracionPortico_Proyecto();
                 BloqueoDesbloqueoBotones(true);
             }
+
             else
             {
                 Text = cFunctionsProgram.NombrePrograma;
@@ -178,6 +188,7 @@ namespace FC_Diseño_de_Nervios
                 deshacerToolStripMenuItem.Enabled = false;
                 rehacerToolStripMenuItem.Enabled = false;
                 ActivarVentanaEmergenteGuardarCambios = false;
+                esquemaToolStripMenuItem.Enabled = false;
                 BloqueoDesbloqueoBotones(false);
             }
         }

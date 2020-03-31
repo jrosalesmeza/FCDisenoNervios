@@ -10,21 +10,14 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cVistas
     {
-        public List<PointF> Coordenadas_Perfil { get; set; }
-        public List<PointF> Coordenadas_Planta { get; set; }
-
-
-
-
+        public cCoordenadas Perfil_Original { get; set; } = new cCoordenadas();
+        public cCoordenadas Perfil_AutoCAD { get; set; } = new cCoordenadas();
+               
+       // public List<PointF> Coordenadas_Planta { get; set; }
     }
 
 
-    [Serializable]
-    public enum eSoporte
-    {
-        Vano,
-        Apoyo
-    }
+
 
 
 

@@ -504,7 +504,7 @@ namespace FC_Diseño_de_Nervios
             }
             return null;
         }
-        private static void AsignarApoyosALista(cLine Objeto, cLine LineApoyo, List<cLine> ListaObjetosOrganizada, int Indice, ref List<cLine> ListaObjetosOrganizadaDefinitiva)
+        private static void AsignarApoyosAListaConOffSet(cLine Objeto, cLine LineApoyo, List<cLine> ListaObjetosOrganizada, int Indice, ref List<cLine> ListaObjetosOrganizadaDefinitiva)
         {
             if (Indice + 1 > ListaObjetosOrganizada.Count)
             {
@@ -556,7 +556,7 @@ namespace FC_Diseño_de_Nervios
                         cLine LineApoyo = FindApoyo(Objeto, TodasLasLineas, 0);
                         if (LineApoyo != null && ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) == false && LineApoyo.Type != eType.Column && LineApoyo.ConfigLinea.Direccion != DireccionNervio)
                         {
-                            AsignarApoyosALista(Objeto, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
+                            AsignarApoyosAListaConOffSet(Objeto, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
                             break;
                         }
                     }
@@ -569,7 +569,7 @@ namespace FC_Diseño_de_Nervios
                         cLine LineApoyo = FindApoyo(Objeto, TodasLasLineas, 1);
                         if (LineApoyo != null && ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) == false && LineApoyo.Type != eType.Column && LineApoyo.ConfigLinea.Direccion != DireccionNervio)
                         {
-                            AsignarApoyosALista(Objeto, LineApoyo, ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
+                            AsignarApoyosAListaConOffSet(Objeto, LineApoyo, ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
                             break;
                         }
                     }
@@ -594,7 +594,6 @@ namespace FC_Diseño_de_Nervios
             List<PointF> PuntosSinEscalar = new List<PointF>(); TodasLasLineas.ForEach(y => { if (y.Type == eType.Beam) { PuntosSinEscalar.AddRange(y.Planta_Real); } });
 
             ListaObjetosFinal.ForEach(x => { TodasLasLineas.FindAll(y => y.Nombre == x.Line.Nombre && x.Soporte == eSoporte.Vano).ForEach(z => { z.isSelect = false; z.Select = false; z.IndexSelect = 0; }); x.Line.CrearPuntosPlantaEscaladaEtabsLine(PuntosSinEscalar, WidthWindow, HeightWindow, 0, 0, 1); });
-
 
             return new cNervio(ID, Prefijo, ListaObjetosFinal, DireccionNervio);
         }

@@ -28,14 +28,12 @@ namespace FC_Diseño_de_Nervios
         public F_EnumeracionPortico()
         {
             InitializeComponent();
-            ToolTipPerson.SetToolTip(BT_CrtierioFC, "Crea los nervios enumerándolos automáticamente \nsegún criterios de efe Prima Ce (Extrayendo los \nelementos que contienen en su nombre el prefijo 'N').");
+            ToolTipPerson.SetToolTip(BT_CrtierioFC, $"Crea los nervios enumerándolos automáticamente \nsegún criterios de {cFunctionsProgram.Empresa} (Extrayendo los \nelementos que contienen en su nombre el prefijo 'N').");
             WidthPB_NOENUMERADOS = PB_ElementosNoEnumerados.Width - XI * 3;
             Height_NOENUMERADOS = PB_ElementosNoEnumerados.Height - YI * 3;
             PB_ElementosEnumerados.Paint += PB_ElementosEnumerados_Paint;
             PB_ElementosNoEnumerados.MouseDown += PB_ElementosNoEnumerados_MouseDown2;
             PB_ElementosNoEnumerados.MouseMove += PB_ElementosNoEnumerados_MouseMove2;
-
-
         }
 
         public void CargarListView()
@@ -66,6 +64,34 @@ namespace FC_Diseño_de_Nervios
             T_Timer2.Start();
         }
 
+        private void MensajeDeAlerta()
+        {
+
+            if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
+            {
+                List<cNervio> NerviosaEliminar = F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(x => x.Lista_Objetos.Count < 2);
+
+                if (NerviosaEliminar != null && NerviosaEliminar.Count>0)
+                {
+                    string ElemetnosStrings = ""; NerviosaEliminar.ForEach(x => ElemetnosStrings += x.Lista_Objetos.First().Line.Nombre + ", ");
+                    DialogResult BoxResult = NerviosaEliminar.Count > 1
+                        ? MessageBox.Show($"Los Elementos: {ElemetnosStrings} no pueden ser enumerados debido a que no se encontraron apoyos", cFunctionsProgram.Empresa, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                        : MessageBox.Show($"El Elemento: {ElemetnosStrings} no puede ser enumerdo debido a que no se encontraron apoyos", cFunctionsProgram.Empresa, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    List<int> IDsAEliminar = NerviosaEliminar.Select(x => x.ID).ToList();
+                    NerviosaEliminar.ForEach(x => x.Lista_Objetos.ForEach(y => { F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(z => z.Nombre == y.Line.Nombre && y.Soporte == eSoporte.Vano).ForEach(m => { m.isSelect = true; }); }));
+                    foreach (int ID in IDsAEliminar)
+                    {
+                        F_Base.Proyecto.Edificio.PisoSelect.Nervios.Remove(F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.ID == ID));
+
+                    }
+                    int IDaRenombrar = 1;
+                    F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(y => { y.ID = IDaRenombrar; IDaRenombrar += 1; y.Cambio_Nombre(); });
+
+
+                }
+            }
+        }
+
         private void CambiosTimer()
         {
 
@@ -79,6 +105,7 @@ namespace FC_Diseño_de_Nervios
             {
                 TB_Nombramiento.Enabled = true;
                 BT_Enumerar.Enabled = true;
+                Text = $"Enumeración de Elementos | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre}";
             }
             else
             {
@@ -311,7 +338,6 @@ namespace FC_Diseño_de_Nervios
 
         private void CreaNervios(string Prefijo, List<cLine> LineasConCondiciones)
         {
-
             List<List<cLine>> LineasParaCrearNervios = cFunctionsProgram.LineasParaCrearNervios(LineasConCondiciones);
 
             List<cNervio> NerviosPisoSelect = F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre).Nervios;
@@ -335,7 +361,11 @@ namespace FC_Diseño_de_Nervios
 
             }
             F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre).Nervios = NerviosPisoSelect;
-
+            cNervio NervioMenorListaObjetosMenoraCero = NerviosPisoSelect.Find(x => x.Lista_Objetos.Count < 2);
+            if (NervioMenorListaObjetosMenoraCero != null)
+            {
+                MensajeDeAlerta();
+            }
 
         }
 
