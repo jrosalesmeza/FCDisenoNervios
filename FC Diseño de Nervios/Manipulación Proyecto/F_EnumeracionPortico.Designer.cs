@@ -47,18 +47,23 @@
             this.limpirarSeleccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LB_Pisos = new System.Windows.Forms.Label();
             this.GB_Controles = new System.Windows.Forms.GroupBox();
-            this.BT_CrtierioFC = new System.Windows.Forms.Button();
+            this.GB_Enumerar = new System.Windows.Forms.GroupBox();
             this.BT_Regresar = new System.Windows.Forms.Button();
+            this.BT_Enumerar = new System.Windows.Forms.Button();
+            this.BT_CrtierioFC = new System.Windows.Forms.Button();
             this.LB_Nombrar = new System.Windows.Forms.Label();
             this.TB_Nombramiento = new System.Windows.Forms.TextBox();
             this.CKB_SeleccionInteligente = new System.Windows.Forms.CheckBox();
-            this.BT_Enumerar = new System.Windows.Forms.Button();
             this.T_Timer2 = new System.Windows.Forms.Timer(this.components);
             this.CMS_Undo_Redo = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.P_Contenedor = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CB_Nomenclatura_Hztal = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.CB_Nomenclatura_Vertical = new System.Windows.Forms.ComboBox();
             this.P_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
             this.GB_1.SuspendLayout();
@@ -70,6 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosNoEnumerados)).BeginInit();
             this.CMS_1.SuspendLayout();
             this.GB_Controles.SuspendLayout();
+            this.GB_Enumerar.SuspendLayout();
             this.CMS_Undo_Redo.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -145,6 +151,7 @@
             this.GB_1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.GB_1.Controls.Add(this.groupBox1);
             this.GB_1.Controls.Add(this.GB_3);
             this.GB_1.Controls.Add(this.GB_2);
             this.GB_1.Controls.Add(this.LB_Pisos);
@@ -206,9 +213,9 @@
             // 
             // PB_InfoElementosNoEnumerados
             // 
-            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(7, 534);
+            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(7, 532);
             this.PB_InfoElementosNoEnumerados.Name = "PB_InfoElementosNoEnumerados";
-            this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(76, 27);
+            this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(126, 29);
             this.PB_InfoElementosNoEnumerados.TabIndex = 4;
             this.PB_InfoElementosNoEnumerados.TabStop = false;
             this.PB_InfoElementosNoEnumerados.Visible = false;
@@ -269,7 +276,7 @@
             // 
             this.GB_Controles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.GB_Controles.Controls.Add(this.groupBox1);
+            this.GB_Controles.Controls.Add(this.GB_Enumerar);
             this.GB_Controles.Controls.Add(this.LB_Nombrar);
             this.GB_Controles.Controls.Add(this.TB_Nombramiento);
             this.GB_Controles.Controls.Add(this.CKB_SeleccionInteligente);
@@ -282,6 +289,45 @@
             this.GB_Controles.TabStop = false;
             this.GB_Controles.Text = "Controles";
             // 
+            // GB_Enumerar
+            // 
+            this.GB_Enumerar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.GB_Enumerar.Controls.Add(this.BT_Regresar);
+            this.GB_Enumerar.Controls.Add(this.BT_Enumerar);
+            this.GB_Enumerar.Controls.Add(this.BT_CrtierioFC);
+            this.GB_Enumerar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_Enumerar.ForeColor = System.Drawing.Color.DarkRed;
+            this.GB_Enumerar.Location = new System.Drawing.Point(4, 166);
+            this.GB_Enumerar.Name = "GB_Enumerar";
+            this.GB_Enumerar.Size = new System.Drawing.Size(132, 109);
+            this.GB_Enumerar.TabIndex = 9;
+            this.GB_Enumerar.TabStop = false;
+            this.GB_Enumerar.Text = "Enumerar";
+            // 
+            // BT_Regresar
+            // 
+            this.BT_Regresar.FlatAppearance.BorderSize = 0;
+            this.BT_Regresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_Regresar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Regresar.Image")));
+            this.BT_Regresar.Location = new System.Drawing.Point(22, 20);
+            this.BT_Regresar.Name = "BT_Regresar";
+            this.BT_Regresar.Size = new System.Drawing.Size(35, 28);
+            this.BT_Regresar.TabIndex = 4;
+            this.BT_Regresar.UseVisualStyleBackColor = true;
+            this.BT_Regresar.Click += new System.EventHandler(this.BT_Regresar_Click);
+            // 
+            // BT_Enumerar
+            // 
+            this.BT_Enumerar.FlatAppearance.BorderSize = 0;
+            this.BT_Enumerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_Enumerar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Enumerar.Image")));
+            this.BT_Enumerar.Location = new System.Drawing.Point(75, 20);
+            this.BT_Enumerar.Name = "BT_Enumerar";
+            this.BT_Enumerar.Size = new System.Drawing.Size(38, 28);
+            this.BT_Enumerar.TabIndex = 0;
+            this.BT_Enumerar.UseVisualStyleBackColor = true;
+            this.BT_Enumerar.Click += new System.EventHandler(this.BT_Enumerar_Click);
+            // 
             // BT_CrtierioFC
             // 
             this.BT_CrtierioFC.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
@@ -292,30 +338,18 @@
             this.BT_CrtierioFC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.BT_CrtierioFC.Location = new System.Drawing.Point(6, 56);
             this.BT_CrtierioFC.Name = "BT_CrtierioFC";
-            this.BT_CrtierioFC.Size = new System.Drawing.Size(120, 35);
+            this.BT_CrtierioFC.Size = new System.Drawing.Size(120, 47);
             this.BT_CrtierioFC.TabIndex = 5;
-            this.BT_CrtierioFC.Text = "       Criterios F\'C\r\n";
+            this.BT_CrtierioFC.Text = "         Enumeración         Automática";
             this.BT_CrtierioFC.UseVisualStyleBackColor = true;
             this.BT_CrtierioFC.Click += new System.EventHandler(this.BT_CrtierioFC_Click);
-            // 
-            // BT_Regresar
-            // 
-            this.BT_Regresar.FlatAppearance.BorderSize = 0;
-            this.BT_Regresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BT_Regresar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Regresar.Image")));
-            this.BT_Regresar.Location = new System.Drawing.Point(19, 20);
-            this.BT_Regresar.Name = "BT_Regresar";
-            this.BT_Regresar.Size = new System.Drawing.Size(35, 28);
-            this.BT_Regresar.TabIndex = 4;
-            this.BT_Regresar.UseVisualStyleBackColor = true;
-            this.BT_Regresar.Click += new System.EventHandler(this.BT_Regresar_Click);
             // 
             // LB_Nombrar
             // 
             this.LB_Nombrar.AutoSize = true;
             this.LB_Nombrar.Font = new System.Drawing.Font("Calibri", 9F);
             this.LB_Nombrar.ForeColor = System.Drawing.Color.Black;
-            this.LB_Nombrar.Location = new System.Drawing.Point(12, 67);
+            this.LB_Nombrar.Location = new System.Drawing.Point(12, 59);
             this.LB_Nombrar.Name = "LB_Nombrar";
             this.LB_Nombrar.Size = new System.Drawing.Size(43, 14);
             this.LB_Nombrar.TabIndex = 3;
@@ -324,7 +358,7 @@
             // TB_Nombramiento
             // 
             this.TB_Nombramiento.Enabled = false;
-            this.TB_Nombramiento.Location = new System.Drawing.Point(61, 62);
+            this.TB_Nombramiento.Location = new System.Drawing.Point(61, 56);
             this.TB_Nombramiento.Name = "TB_Nombramiento";
             this.TB_Nombramiento.Size = new System.Drawing.Size(61, 22);
             this.TB_Nombramiento.TabIndex = 2;
@@ -342,18 +376,6 @@
             this.CKB_SeleccionInteligente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.CKB_SeleccionInteligente.UseVisualStyleBackColor = true;
             this.CKB_SeleccionInteligente.CheckedChanged += new System.EventHandler(this.CKB_SeleccionInteligente_CheckedChanged);
-            // 
-            // BT_Enumerar
-            // 
-            this.BT_Enumerar.FlatAppearance.BorderSize = 0;
-            this.BT_Enumerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BT_Enumerar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Enumerar.Image")));
-            this.BT_Enumerar.Location = new System.Drawing.Point(72, 19);
-            this.BT_Enumerar.Name = "BT_Enumerar";
-            this.BT_Enumerar.Size = new System.Drawing.Size(38, 28);
-            this.BT_Enumerar.TabIndex = 0;
-            this.BT_Enumerar.UseVisualStyleBackColor = true;
-            this.BT_Enumerar.Click += new System.EventHandler(this.BT_Enumerar_Click);
             // 
             // T_Timer2
             // 
@@ -395,17 +417,62 @@
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox1.Controls.Add(this.BT_Regresar);
-            this.groupBox1.Controls.Add(this.BT_Enumerar);
-            this.groupBox1.Controls.Add(this.BT_CrtierioFC);
+            this.groupBox1.Controls.Add(this.CB_Nomenclatura_Vertical);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.CB_Nomenclatura_Hztal);
             this.groupBox1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox1.Location = new System.Drawing.Point(3, 96);
+            this.groupBox1.Location = new System.Drawing.Point(10, 377);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(132, 109);
-            this.groupBox1.TabIndex = 9;
+            this.groupBox1.Size = new System.Drawing.Size(132, 70);
+            this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Enumerar";
+            this.groupBox1.Text = "Nomenclatura";
+            // 
+            // CB_Nomenclatura_Hztal
+            // 
+            this.CB_Nomenclatura_Hztal.FormattingEnabled = true;
+            this.CB_Nomenclatura_Hztal.Items.AddRange(new object[] {
+            "Alfabética",
+            "Numérica"});
+            this.CB_Nomenclatura_Hztal.Location = new System.Drawing.Point(66, 16);
+            this.CB_Nomenclatura_Hztal.Name = "CB_Nomenclatura_Hztal";
+            this.CB_Nomenclatura_Hztal.Size = new System.Drawing.Size(62, 22);
+            this.CB_Nomenclatura_Hztal.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 9F);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(2, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(64, 14);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Horizontal";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Calibri", 9F);
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(6, 47);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(47, 14);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Vertical";
+            // 
+            // CB_Nomenclatura_Vertical
+            // 
+            this.CB_Nomenclatura_Vertical.FormattingEnabled = true;
+            this.CB_Nomenclatura_Vertical.Items.AddRange(new object[] {
+            "Alfabética",
+            "Numérica"});
+            this.CB_Nomenclatura_Vertical.Location = new System.Drawing.Point(66, 43);
+            this.CB_Nomenclatura_Vertical.Name = "CB_Nomenclatura_Vertical";
+            this.CB_Nomenclatura_Vertical.Size = new System.Drawing.Size(62, 22);
+            this.CB_Nomenclatura_Vertical.TabIndex = 4;
             // 
             // F_EnumeracionPortico
             // 
@@ -439,8 +506,10 @@
             this.CMS_1.ResumeLayout(false);
             this.GB_Controles.ResumeLayout(false);
             this.GB_Controles.PerformLayout();
+            this.GB_Enumerar.ResumeLayout(false);
             this.CMS_Undo_Redo.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -476,6 +545,11 @@
         private System.Windows.Forms.Button BT_CrtierioFC;
         private System.Windows.Forms.Button BT_Regresar;
         private System.Windows.Forms.Panel P_Contenedor;
+        private System.Windows.Forms.GroupBox GB_Enumerar;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ComboBox CB_Nomenclatura_Vertical;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox CB_Nomenclatura_Hztal;
     }
 }

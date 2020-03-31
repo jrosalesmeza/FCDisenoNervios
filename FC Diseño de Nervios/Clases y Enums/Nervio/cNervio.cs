@@ -31,12 +31,61 @@ namespace FC_Diseño_de_Nervios
             Nombre = this.Prefijo + ID;
             this.Lista_Objetos = Lista_Objetos;
             this.Direccion = Direccion;
+            AsignarCambioAlturayCambioAncho();
+            if (Lista_Objetos.Count > 1)
+            {
+                CrearCoordenadas();
+            }
             CrearTramos();
         }
+
         public void Cambio_Nombre()
         {
             Nombre = Prefijo + ID;
         }
+
+        private void AsignarCambioAlturayCambioAncho()
+        {
+            bool CambioAltura = false; bool CambioAncho = false;
+
+            for (int i = 0; i < Lista_Objetos.Count; i++)
+            {
+                cObjeto ObjetoActual = Lista_Objetos[i];
+                cObjeto ObjetoDespues = null;float DeltaH = 0;float DeltaB = 0;
+                if (i + 1 < Lista_Objetos.Count)
+                {
+                    ObjetoDespues = Lista_Objetos[i + 1];
+                }
+
+                if (ObjetoDespues != null && ObjetoActual.Soporte== eSoporte.Vano && ObjetoDespues.Soporte== eSoporte.Vano)
+                {
+
+                    DeltaB = ObjetoActual.Line.Seccion.B - ObjetoDespues.Line.Seccion.B;
+                    DeltaH = ObjetoActual.Line.Seccion.H - ObjetoDespues.Line.Seccion.H;
+
+                }
+
+                if (DeltaB != 0)
+                {
+                    CambioAncho = true;
+                }
+                if (DeltaH != 0)
+                {
+                    CambioAltura = true;
+                }
+
+            }
+
+            CambioenAltura = CambioAltura ? eCambioenAltura.Inferior : eCambioenAltura.None;
+            CambioenAncho = CambioAncho ? eCambioenAncho.Inferior : eCambioenAncho.None; // Cambios Inferiores Predeterminados
+
+
+        }
+
+
+
+
+
 
 
         public override string ToString()
@@ -45,7 +94,7 @@ namespace FC_Diseño_de_Nervios
         }
 
 
-        public void CrearTramos()
+        private void CrearTramos()
         {
             Lista_Tramos = new List<cTramo>();
             List<cObjeto> Objetos = new List<cObjeto>();
@@ -89,9 +138,123 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+        public void CrearCoordenadas()
+        {
+            for (int i = 0; i < Lista_Objetos.Count; i++)
+            {
+                cObjeto ObjetoAnterior=null; cObjeto Objeto_Posterior = null;
+                if (i - 1 >= 0)
+                {
+                    ObjetoAnterior = Lista_Objetos[i - 1];
+                }
+                if (i + 1 < Lista_Objetos.Count)
+                {
+                    Objeto_Posterior = Lista_Objetos[i + 1];
+                }
+                CrearCoordenadasLongitudinal(ObjetoAnterior, Lista_Objetos[i], Objeto_Posterior);
+            }
+   
+        }
+
+        private void CrearCoordenadasLongitudinal(cObjeto Objeto_Anterior, cObjeto Objeto_Actual, cObjeto Objeto_Posterior)
+        {
+            PointF PuntoInicial = new PointF(0,0); float HApoyo;
+            HApoyo = Objeto_Actual.Line.Seccion.H;
+            if (Objeto_Actual.Soporte == eSoporte.Apoyo)
+            {
+                if (Objeto_Posterior != null)
+                {
+                    HApoyo = Objeto_Posterior.Line.Seccion.H;
+                }
+                else
+                {
+                    HApoyo = Objeto_Anterior.Line.Seccion.H;
+                }
+            }
+            if(Objeto_Anterior !=null && Objeto_Posterior!=null)
+            {
+                float H_anterior = Objeto_Anterior.Line.Seccion.H;
+                float H_Posterior = Objeto_Posterior.Line.Seccion.H;
+                float DeltaH = Math.Abs(H_anterior - H_Posterior);
+                PuntoInicial = Objeto_Anterior.Vistas.Perfil_Original.Reales[Objeto_Anterior.Vistas.Perfil_Original.Reales.Count - 1];
+
+                if (CambioenAltura == eCambioenAltura.Inferior)
+                {
+                    if (H_anterior < H_Posterior)
+                    {
+                        DeltaH = -DeltaH;
+                    }
+                }
+                else if (CambioenAltura == eCambioenAltura.Central)
+                {
+                    DeltaH = DeltaH / 2;
+
+                    if (H_anterior < H_Posterior)
+                    {
+                        DeltaH = -DeltaH;
+                    }
+                }
+
+                PuntoInicial.Y += DeltaH;
+            }
+            else if(Objeto_Posterior == null)
+            {
+                PuntoInicial = Objeto_Anterior.Vistas.Perfil_Original.Reales[Objeto_Anterior.Vistas.Perfil_Original.Reales.Count - 1];
+                float DeltaH = 0;
+                float H_anterior = Objeto_Anterior.Line.Seccion.H;
+                float H_Actual = Objeto_Actual.Line.Seccion.H;
+                if (Objeto_Actual.Soporte != eSoporte.Apoyo)
+                {
+                    DeltaH = Math.Abs(H_anterior - H_Actual);
+                }
+
+                if (CambioenAltura == eCambioenAltura.Inferior)
+                {
+                    if (H_anterior < H_Actual)
+                    {
+                        DeltaH = -DeltaH;
+                    }
+                }
+                else if (CambioenAltura == eCambioenAltura.Central)
+                {
+                    DeltaH = DeltaH / 2;
+
+                    if (H_anterior < H_Actual)
+                    {
+                        DeltaH = -DeltaH;
+                    }
+                }
+
+                PuntoInicial.Y += DeltaH;
+            }
+
+            CrearCoordenadasLongitudinal_Elemento_Reales(Objeto_Actual, PuntoInicial, HApoyo);
+
+        }
+        private void CrearCoordenadasLongitudinal_Elemento_Reales(cObjeto Objeto,PointF PuntoInicial, float HApoyo=0)
+        {
+            Objeto.Vistas.Perfil_Original.Reales = new List<PointF>();
+            float H = Objeto.Line.Seccion.H;
+            float B = Objeto.Line.Seccion.B;
+            float Longitud = Objeto.Line.ConfigLinea.Longitud;
+            if (Objeto.Soporte== eSoporte.Vano)
+            {
+                Longitud -= Objeto.Line.ConfigLinea.OffSetI - Objeto.Line.ConfigLinea.OffSetJ;
+                Objeto.Vistas.Perfil_Original.Reales.Add(PuntoInicial);
+                Objeto.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X,PuntoInicial.Y+H));
+                Objeto.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X+ Longitud, PuntoInicial.Y + H));
+                Objeto.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X + Longitud, PuntoInicial.Y));
+            }
+            else if(Objeto.Soporte == eSoporte.Apoyo)
+            {
+                Objeto.Vistas.Perfil_Original.Reales.Add(PuntoInicial);
+                Objeto.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X, PuntoInicial.Y + HApoyo));
+                Objeto.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X + B, PuntoInicial.Y + HApoyo));
+                Objeto.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X + B, PuntoInicial.Y));
+            }
 
 
-
+        }
 
         #region Metodos Mouse
         public void MouseMoveNervioPlantaEtabs(Point Point)
@@ -191,6 +354,7 @@ namespace FC_Diseño_de_Nervios
     public enum eCambioenAltura
     {
         None,
+        Central,
         Superior,
         Inferior
     }

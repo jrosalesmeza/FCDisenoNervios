@@ -14,7 +14,7 @@ namespace FC_Diseño_de_Nervios
         public int ID { get; set; }
         public cLine Line { get; set; }
         public float Longitud { get; set; }
-        public cVistas Vistas { get; set; }
+        public cVistas Vistas { get; set; } = new cVistas();
         public eSoporte Soporte { get; set; }
         public cObjeto(cLine Line, eSoporte Soporte)
         {
@@ -28,6 +28,13 @@ namespace FC_Diseño_de_Nervios
 
     }
 
+    [Serializable]
+    public enum eSoporte
+    {
+        Vano,
+        Irreal,
+        Apoyo
+    }
 
 
 }

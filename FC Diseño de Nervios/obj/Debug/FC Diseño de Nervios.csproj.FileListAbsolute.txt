@@ -49,8 +49,5 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Di
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.dll
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.pdb
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.xml
-C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.dll
-C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.pdb
-C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.xml
-C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_Pisos.resources
-C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_EnumeracionPortico.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_NervioEnPerfilLongitudinal.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_SelectNervio.resources
