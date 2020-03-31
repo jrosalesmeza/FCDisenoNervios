@@ -13,7 +13,7 @@ namespace FC_Diseño_de_Nervios
             this.Nombre = Nombre;
         }
         public string Nombre { get; set; }
-        public string Ruta { get; set; }
+        public string Ruta { get; set; } = "";
         public cDatosEtabs DatosEtabs { get; set; }
         public cEdificio Edificio { get; set; }
 
