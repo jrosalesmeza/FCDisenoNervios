@@ -17,7 +17,6 @@ namespace FC_Diseño_de_Nervios
 
         }
 
-
         public string Nombre { get; set; }
         public float B { get; set; }
         public float H { get; set; }

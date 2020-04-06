@@ -12,7 +12,7 @@ namespace FC_Diseño_de_Nervios
 
 
         public float Localizacion { get; set; }
-
+        public float CoordX { get; set; }
 
         public List<cSolicitacion> Combos { get; set; }
 

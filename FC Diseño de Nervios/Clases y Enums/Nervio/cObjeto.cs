@@ -10,7 +10,6 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cObjeto
     {
-
         public int ID { get; set; }
         public cLine Line { get; set; }
         public float Longitud { get; set; }
@@ -32,7 +31,6 @@ namespace FC_Diseño_de_Nervios
     public enum eSoporte
     {
         Vano,
-        Irreal,
         Apoyo
     }
 

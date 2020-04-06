@@ -49,12 +49,12 @@ namespace FC_Diseño_de_Nervios
             SaberCuandoSeHabilitaEstados();
         }
 
-        public T Deshacer()
+        public T Deshacer(T EstadoActual)
         {
             if (Bool_CtrlZ)
             {
-                T ObjetoQueQuite = DeepClone(Lista_CtrlZ.Pop());
-                Lista_CtrlY.Push(ObjetoQueQuite);
+                T ObjetoQueQuite = Lista_CtrlZ.Pop();
+                Lista_CtrlY.Push(DeepClone(EstadoActual));
                 Lista_Estados.Push(0);
                 SaberCuandoSeHabilitaCrtlY();
                 SaberCuandoSeHabilitaCrtlZ();
@@ -64,12 +64,12 @@ namespace FC_Diseño_de_Nervios
             return default;
         }
 
-        public T Rehacer()
+        public T Rehacer(T EstadoActual)
         {
             if (Bool_CtrlY)
             {
-                T ObjetoQueQuite = DeepClone(Lista_CtrlY.Pop());
-                Lista_CtrlZ.Push(ObjetoQueQuite);
+                T ObjetoQueQuite = Lista_CtrlY.Pop();
+                Lista_CtrlZ.Push(DeepClone(EstadoActual));
                 Lista_Estados.Push(0);
                 SaberCuandoSeHabilitaCrtlY();
                 SaberCuandoSeHabilitaCrtlZ();

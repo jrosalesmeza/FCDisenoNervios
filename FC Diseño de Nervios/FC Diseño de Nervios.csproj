@@ -85,16 +85,20 @@
     <Compile Include="Clases y Enums\cEstacion.cs" />
     <Compile Include="Clases y Enums\cEstribo.cs" />
     <Compile Include="Clases y Enums\cFunctionsProgram.cs" />
+    <Compile Include="Clases y Enums\cGrid.cs" />
     <Compile Include="Clases y Enums\cHerramientas.cs" />
     <Compile Include="Clases y Enums\cLine.cs" />
     <Compile Include="Clases y Enums\cMaterial.cs" />
+    <Compile Include="Clases y Enums\Nervio\cApoyo.cs" />
+    <Compile Include="Clases y Enums\Nervio\cAreasyMomentos.cs" />
+    <Compile Include="Clases y Enums\Nervio\cSubTramo.cs" />
     <Compile Include="Clases y Enums\Nervio\cNervio.cs" />
     <Compile Include="Clases y Enums\cObjetoCoordenadas.cs" />
     <Compile Include="Clases y Enums\cPiso.cs" />
     <Compile Include="Clases y Enums\cPoint.cs" />
     <Compile Include="Clases y Enums\cProyecto.cs" />
     <Compile Include="Clases y Enums\cSeccion.cs" />
-    <Compile Include="Clases y Enums\cTramo.cs" />
+    <Compile Include="Clases y Enums\Nervio\cTramo.cs" />
     <Compile Include="Clases y Enums\cUndoRedo.cs" />
     <Compile Include="Clases y Enums\cViga.cs" />
     <Compile Include="Clases y Enums\eDireccion.cs" />
@@ -102,6 +106,8 @@
     <Compile Include="Clases y Enums\eType.cs" />
     <Compile Include="Clases y Enums\eUbicacionRefuerzo.cs" />
     <Compile Include="Clases y Enums\Nervio\cVistasElemento.cs" />
+    <Compile Include="Clases y Enums\Nervio\IElemento.cs" />
+    <Compile Include="Clases y Enums\eNomenclatura.cs" />
     <Compile Include="Fase Inicial\F_Base.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,11 +133,23 @@
     <Compile Include="Manipulación Proyecto\F_EnumeracionPortico.Designer.cs">
       <DependentUpon>F_EnumeracionPortico.cs</DependentUpon>
     </Compile>
+    <Compile Include="Manipulación Proyecto\F_ModificarSeccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\F_ModificarSeccion.Designer.cs">
+      <DependentUpon>F_ModificarSeccion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Manipulación Proyecto\F_NervioEnPerfilLongitudinal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Manipulación Proyecto\F_NervioEnPerfilLongitudinal.Designer.cs">
       <DependentUpon>F_NervioEnPerfilLongitudinal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\F_Prop_Refuerzo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\F_Prop_Refuerzo.Designer.cs">
+      <DependentUpon>F_Prop_Refuerzo.cs</DependentUpon>
     </Compile>
     <Compile Include="Manipulación Proyecto\F_SelectNervio.cs">
       <SubType>Form</SubType>
@@ -153,8 +171,14 @@
     <EmbeddedResource Include="Manipulación Proyecto\F_EnumeracionPortico.resx">
       <DependentUpon>F_EnumeracionPortico.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\F_ModificarSeccion.resx">
+      <DependentUpon>F_ModificarSeccion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\F_NervioEnPerfilLongitudinal.resx">
       <DependentUpon>F_NervioEnPerfilLongitudinal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\F_Prop_Refuerzo.resx">
+      <DependentUpon>F_Prop_Refuerzo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\F_SelectNervio.resx">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>

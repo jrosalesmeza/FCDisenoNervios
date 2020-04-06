@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FC_Diseño_de_Nervios
 {
@@ -18,37 +15,39 @@ namespace FC_Diseño_de_Nervios
 
         private void ClasificacionDireccionElemento()
         {
-            if(Point1P.X== Point2P.X)
+            if (Point1P.X == Point2P.X)
             {
                 Direccion = eDireccion.Vertical;
             }
-            else if(Point1P.Y== Point2P.Y)
+            else if (Point1P.Y == Point2P.Y)
             {
                 Direccion = eDireccion.Horizontal;
-            }else
+            }
+            else
             {
                 float DistX = Math.Abs(Point1P.X - Point2P.X);
                 float DistY = Math.Abs(Point1P.Y - Point2P.Y);
+                float Pendiente_Grados = (float)Math.Atan(DistY / DistX)* cConversiones.Angulo_Rad_to_Grad;
 
-                if (DistX > DistY)
+                if (Pendiente_Grados >= cFunctionsProgram.ToleranciaVertical)
+                {
+                    Direccion = eDireccion.Vertical;
+                }
+                else if(Pendiente_Grados<= cFunctionsProgram.ToleranciaHorizontal)
                 {
                     Direccion = eDireccion.Horizontal;
                 }
                 else
                 {
-                    Direccion = eDireccion.Vertical;
+                    Direccion = eDireccion.Diagonal;
                 }
-
+      
             }
-
-
-
         }
 
-
+        public bool Activar_Cambio_Ejes { get; set; } = false;
         public eDireccion Direccion { get; set; }
         public bool Select { get; set; }
-
 
         public cPoint Point1P { get; set; }
 
@@ -57,18 +56,46 @@ namespace FC_Diseño_de_Nervios
         public float OffSetI { get; set; } = 0;
         public float OffSetJ { get; set; } = 0;
 
-
         public void CalcularLongitud()
         {
-            Longitud =(float)Math.Round(cFunctionsProgram.Long(Point1P, Point2P),2);
+            Longitud = (float)Math.Round(cFunctionsProgram.Long(Point1P, Point2P), 2);
         }
+
         public override string ToString()
         {
             return $"{Point1P},{Point2P}, L= {Longitud}";
         }
 
+        public void Direccionar_Ejes()
+        {
+            if (Point1P.Y == Point2P.Y || Point1P.X != Point2P.X && Point1P.Y != Point2P.Y) //Caso Horizontal Y Diagonal
+            {
+                if (Point1P.X > Point2P.X)
+                {
+                    Activar_Cambio_Ejes = true;
+                }
+            }
+            else //Caso vertical
+            {
+                if (Point1P.Y > Point2P.Y)
+                {
+                    Activar_Cambio_Ejes = true;
+                }
+            }
 
+            if (Activar_Cambio_Ejes)
+            {
+                cPoint PuntoAuxiliar1 = cFunctionsProgram.DeepClone(Point1P);
+                cPoint PuntoAuxiliar2 = cFunctionsProgram.DeepClone(Point2P);
+                Point1P = PuntoAuxiliar2;
+                Point2P = PuntoAuxiliar1;
 
+                float Offset_i = OffSetI;
+                float offset_j = OffSetJ;
 
+                OffSetI = offset_j;
+                OffSetJ = Offset_i;
+            }
+        }
     }
 }

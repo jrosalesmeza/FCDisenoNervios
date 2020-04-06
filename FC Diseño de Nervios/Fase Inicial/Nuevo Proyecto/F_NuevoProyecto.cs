@@ -89,7 +89,7 @@ namespace FC_Diseño_de_Nervios
                 F_Base.Proyecto = new cProyecto("Nuevo Proyecto");
                 F_Base.Proyecto.DatosEtabs =  cFunctionsProgram.CrearObjetosEtabs(CargarE2K.Item2);
                 F_Pisos _Pisos = new F_Pisos(F_Base.Proyecto.DatosEtabs);
-                CargarCSV = null; CargarE2K = null; TB_Ruta1.Text = ""; TB_Ruta2.Text = "";
+                 CargarCSV = null; CargarE2K = null; TB_Ruta1.Text = ""; TB_Ruta2.Text = "";
                 _Pisos.ShowDialog(F_Base.F_Base_);
             
             }

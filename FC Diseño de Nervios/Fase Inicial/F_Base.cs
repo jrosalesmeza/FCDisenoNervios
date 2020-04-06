@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace FC_Diseño_de_Nervios
 {
@@ -9,7 +10,7 @@ namespace FC_Diseño_de_Nervios
     {
         private bool ActivarVentanaEmergenteGuardarCambios = false;
         private static cUndoRedo<cProyecto> UndoRedo = new cUndoRedo<cProyecto>();
-        public static Form F_Base_;
+        public static F_Base F_Base_;
 
         #region Ventanas Emergentes
 
@@ -17,6 +18,15 @@ namespace FC_Diseño_de_Nervios
         public static F_EnumeracionPortico F_EnumeracionPortico;
 
         #endregion Ventanas Emergentes
+
+        #region Ventanas Acopladas
+        public static F_SelectNervio F_SelectNervio = new F_SelectNervio();
+
+        #endregion
+
+
+
+
 
 
 
@@ -26,9 +36,31 @@ namespace FC_Diseño_de_Nervios
         #endregion Proyecto
 
         #region Funciones Basicas
-
+        public void AcoplarVentana(DockContent Dock)
+        {
+            Dock.Show(DP_ContenedorPrincipal);
+        }
+        private void VerificarGuardadodeProyecto()
+        {
+            if (Proyecto != null)
+            {
+                if (ActivarVentanaEmergenteGuardarCambios)
+                {
+                    DialogResult BoxMensa = MessageBox.Show("¿Desea guardar cambios en el Proyecto: " + Proyecto.Nombre + "?", cFunctionsProgram.Empresa, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (BoxMensa == DialogResult.Yes)
+                    {
+                        GuardarProyecto_Function();
+                    }
+                    else
+                    {
+                        UndoRedo.LimpiarEstados();
+                    }
+                }
+            }
+        }
         private void NuevoProyecto_Function()
         {
+            VerificarGuardadodeProyecto();
             F_NuevoProyecto.ShowDialog();
         }
 
@@ -42,21 +74,10 @@ namespace FC_Diseño_de_Nervios
                 openFileDialog.ShowDialog();
                 Ruta = openFileDialog.FileName;
             }
-
+         
             if (Ruta != "")
             {
-                if (Proyecto != null)
-                {
-                    if (ActivarVentanaEmergenteGuardarCambios)
-                    {
-                        DialogResult BoxMensa = MessageBox.Show("¿Desea guardar cambios en el Proyecto: " + Proyecto.Nombre + "?", cFunctionsProgram.Empresa, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                        if (BoxMensa == DialogResult.Yes)
-                        {
-                            GuardarProyecto_Function();
-                        }
-                    }
-                }
-
+                VerificarGuardadodeProyecto();
                 cFunctionsProgram.Deserealizar(Ruta, ref Proyecto);
                 if (Proyecto != null)
                 {
@@ -100,13 +121,13 @@ namespace FC_Diseño_de_Nervios
 
         public static void Deshacer_Function()
         {
-            Proyecto = UndoRedo.Deshacer();
+            Proyecto = UndoRedo.Deshacer(Proyecto);
             ActualizarTodosLasVentanas();
         }
 
         public static void Rehacer_Function()
         {
-            Proyecto = UndoRedo.Rehacer();
+            Proyecto = UndoRedo.Rehacer(Proyecto);
             ActualizarTodosLasVentanas();
         }
 
@@ -430,10 +451,9 @@ namespace FC_Diseño_de_Nervios
                     }
 
                 }
-
-
-
             }
         }
+
+  
     }
 }

@@ -17,22 +17,16 @@ namespace FC_Diseño_de_Nervios
         public cDatosEtabs DatosEtabs { get; set; }
         public cEdificio Edificio { get; set; }
 
+
+        public eNomenclatura Nomenclatura_Hztal { get; set; } = eNomenclatura.Alfabética;
+        public eNomenclatura Nomenclatura_Vert { get; set; } = eNomenclatura.Numérica;
+
         #region Funciones Proyecto
 
 
 
 
         #endregion
-
-
-
-
- 
-
-
-
-
-
 
 
 

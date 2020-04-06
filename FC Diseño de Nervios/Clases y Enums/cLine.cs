@@ -21,11 +21,6 @@ namespace FC_Diseño_de_Nervios
         public cSeccion Seccion { get; set; }
 
         public eType Type { get; set; }
-
-        
-
-
-        public cLine ObjDerecha { get; set; }
         public cConfigLinea ConfigLinea { get; set; }
         public string Story { get; set; }
 
@@ -55,7 +50,7 @@ namespace FC_Diseño_de_Nervios
 
         #endregion
 
-
+   
 
 
 

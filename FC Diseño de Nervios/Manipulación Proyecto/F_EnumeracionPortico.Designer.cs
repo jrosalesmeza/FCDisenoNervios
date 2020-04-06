@@ -36,6 +36,11 @@
             this.LB_Title = new System.Windows.Forms.Label();
             this.LV_Stories = new System.Windows.Forms.ListView();
             this.GB_1 = new System.Windows.Forms.GroupBox();
+            this.GB_Nomenclatura = new System.Windows.Forms.GroupBox();
+            this.CB_Nomenclatura_Vertical = new System.Windows.Forms.ComboBox();
+            this.LB_2 = new System.Windows.Forms.Label();
+            this.LB_1 = new System.Windows.Forms.Label();
+            this.CB_Nomenclatura_Hztal = new System.Windows.Forms.ComboBox();
             this.GB_3 = new System.Windows.Forms.GroupBox();
             this.PB_InfoElementos_Enumerados = new System.Windows.Forms.PictureBox();
             this.PB_ElementosEnumerados = new System.Windows.Forms.PictureBox();
@@ -59,14 +64,10 @@
             this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.P_Contenedor = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.CB_Nomenclatura_Hztal = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.CB_Nomenclatura_Vertical = new System.Windows.Forms.ComboBox();
             this.P_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
             this.GB_1.SuspendLayout();
+            this.GB_Nomenclatura.SuspendLayout();
             this.GB_3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementos_Enumerados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).BeginInit();
@@ -77,7 +78,6 @@
             this.GB_Controles.SuspendLayout();
             this.GB_Enumerar.SuspendLayout();
             this.CMS_Undo_Redo.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_Title
@@ -91,7 +91,7 @@
             this.P_Title.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.P_Title.Location = new System.Drawing.Point(0, 0);
             this.P_Title.Name = "P_Title";
-            this.P_Title.Size = new System.Drawing.Size(1182, 23);
+            this.P_Title.Size = new System.Drawing.Size(1195, 23);
             this.P_Title.TabIndex = 1;
             this.P_Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Title_MouseDown);
             // 
@@ -105,7 +105,7 @@
             this.BT_Cerrar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Cerrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Cerrar.Image = global::FC_Diseño_de_Nervios.Properties.Resources.x16Blanca;
-            this.BT_Cerrar.Location = new System.Drawing.Point(1142, 0);
+            this.BT_Cerrar.Location = new System.Drawing.Point(1155, 0);
             this.BT_Cerrar.Name = "BT_Cerrar";
             this.BT_Cerrar.Size = new System.Drawing.Size(40, 23);
             this.BT_Cerrar.TabIndex = 28;
@@ -140,7 +140,7 @@
             this.LV_Stories.Location = new System.Drawing.Point(6, 30);
             this.LV_Stories.MultiSelect = false;
             this.LV_Stories.Name = "LV_Stories";
-            this.LV_Stories.Size = new System.Drawing.Size(141, 252);
+            this.LV_Stories.Size = new System.Drawing.Size(160, 252);
             this.LV_Stories.TabIndex = 2;
             this.LV_Stories.UseCompatibleStateImageBehavior = false;
             this.LV_Stories.View = System.Windows.Forms.View.List;
@@ -151,7 +151,7 @@
             this.GB_1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.GB_1.Controls.Add(this.groupBox1);
+            this.GB_1.Controls.Add(this.GB_Nomenclatura);
             this.GB_1.Controls.Add(this.GB_3);
             this.GB_1.Controls.Add(this.GB_2);
             this.GB_1.Controls.Add(this.LB_Pisos);
@@ -159,17 +159,82 @@
             this.GB_1.Controls.Add(this.LV_Stories);
             this.GB_1.Location = new System.Drawing.Point(10, 24);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(1165, 592);
+            this.GB_1.Size = new System.Drawing.Size(1178, 592);
             this.GB_1.TabIndex = 3;
             this.GB_1.TabStop = false;
             // 
+            // GB_Nomenclatura
+            // 
+            this.GB_Nomenclatura.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.GB_Nomenclatura.Controls.Add(this.CB_Nomenclatura_Vertical);
+            this.GB_Nomenclatura.Controls.Add(this.LB_2);
+            this.GB_Nomenclatura.Controls.Add(this.LB_1);
+            this.GB_Nomenclatura.Controls.Add(this.CB_Nomenclatura_Hztal);
+            this.GB_Nomenclatura.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_Nomenclatura.ForeColor = System.Drawing.Color.DarkRed;
+            this.GB_Nomenclatura.Location = new System.Drawing.Point(10, 376);
+            this.GB_Nomenclatura.Name = "GB_Nomenclatura";
+            this.GB_Nomenclatura.Size = new System.Drawing.Size(150, 79);
+            this.GB_Nomenclatura.TabIndex = 10;
+            this.GB_Nomenclatura.TabStop = false;
+            this.GB_Nomenclatura.Text = "Nomenclatura";
+            // 
+            // CB_Nomenclatura_Vertical
+            // 
+            this.CB_Nomenclatura_Vertical.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_Nomenclatura_Vertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CB_Nomenclatura_Vertical.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CB_Nomenclatura_Vertical.FormattingEnabled = true;
+            this.CB_Nomenclatura_Vertical.Location = new System.Drawing.Point(71, 48);
+            this.CB_Nomenclatura_Vertical.Name = "CB_Nomenclatura_Vertical";
+            this.CB_Nomenclatura_Vertical.Size = new System.Drawing.Size(75, 21);
+            this.CB_Nomenclatura_Vertical.TabIndex = 4;
+            this.CB_Nomenclatura_Vertical.SelectedIndexChanged += new System.EventHandler(this.CB_Nomenclatura_Vertical_SelectedIndexChanged);
+            // 
+            // LB_2
+            // 
+            this.LB_2.AutoSize = true;
+            this.LB_2.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_2.ForeColor = System.Drawing.Color.Black;
+            this.LB_2.Location = new System.Drawing.Point(5, 51);
+            this.LB_2.Name = "LB_2";
+            this.LB_2.Size = new System.Drawing.Size(50, 14);
+            this.LB_2.TabIndex = 3;
+            this.LB_2.Text = "Vertical:";
+            // 
+            // LB_1
+            // 
+            this.LB_1.AutoSize = true;
+            this.LB_1.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_1.ForeColor = System.Drawing.Color.Black;
+            this.LB_1.Location = new System.Drawing.Point(5, 22);
+            this.LB_1.Name = "LB_1";
+            this.LB_1.Size = new System.Drawing.Size(67, 14);
+            this.LB_1.TabIndex = 3;
+            this.LB_1.Text = "Horizontal:";
+            // 
+            // CB_Nomenclatura_Hztal
+            // 
+            this.CB_Nomenclatura_Hztal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_Nomenclatura_Hztal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CB_Nomenclatura_Hztal.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CB_Nomenclatura_Hztal.FormattingEnabled = true;
+            this.CB_Nomenclatura_Hztal.Location = new System.Drawing.Point(71, 18);
+            this.CB_Nomenclatura_Hztal.Name = "CB_Nomenclatura_Hztal";
+            this.CB_Nomenclatura_Hztal.Size = new System.Drawing.Size(75, 21);
+            this.CB_Nomenclatura_Hztal.TabIndex = 0;
+            this.CB_Nomenclatura_Hztal.SelectedIndexChanged += new System.EventHandler(this.CB_Nomenclatura_Hztal_SelectedIndexChanged);
+            // 
             // GB_3
             // 
+            this.GB_3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GB_3.Controls.Add(this.PB_InfoElementos_Enumerados);
             this.GB_3.Controls.Add(this.PB_ElementosEnumerados);
             this.GB_3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_3.ForeColor = System.Drawing.Color.DarkRed;
-            this.GB_3.Location = new System.Drawing.Point(659, 13);
+            this.GB_3.Location = new System.Drawing.Point(678, 13);
             this.GB_3.Name = "GB_3";
             this.GB_3.Size = new System.Drawing.Size(500, 570);
             this.GB_3.TabIndex = 8;
@@ -187,12 +252,13 @@
             // 
             // PB_ElementosEnumerados
             // 
-            this.PB_ElementosEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.PB_ElementosEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PB_ElementosEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PB_ElementosEnumerados.Location = new System.Drawing.Point(6, 15);
             this.PB_ElementosEnumerados.Name = "PB_ElementosEnumerados";
-            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(491, 547);
+            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(491, 546);
             this.PB_ElementosEnumerados.TabIndex = 4;
             this.PB_ElementosEnumerados.TabStop = false;
             this.PB_ElementosEnumerados.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosEnumerados_MouseDown);
@@ -200,11 +266,14 @@
             // 
             // GB_2
             // 
+            this.GB_2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.GB_2.Controls.Add(this.PB_InfoElementosNoEnumerados);
             this.GB_2.Controls.Add(this.PB_ElementosNoEnumerados);
             this.GB_2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_2.ForeColor = System.Drawing.Color.DarkRed;
-            this.GB_2.Location = new System.Drawing.Point(153, 13);
+            this.GB_2.Location = new System.Drawing.Point(172, 13);
             this.GB_2.Name = "GB_2";
             this.GB_2.Size = new System.Drawing.Size(500, 570);
             this.GB_2.TabIndex = 7;
@@ -223,12 +292,13 @@
             // 
             // PB_ElementosNoEnumerados
             // 
-            this.PB_ElementosNoEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.PB_ElementosNoEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PB_ElementosNoEnumerados.BackColor = System.Drawing.SystemColors.Window;
             this.PB_ElementosNoEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PB_ElementosNoEnumerados.ContextMenuStrip = this.CMS_1;
-            this.PB_ElementosNoEnumerados.Location = new System.Drawing.Point(4, 17);
+            this.PB_ElementosNoEnumerados.Location = new System.Drawing.Point(4, 18);
             this.PB_ElementosNoEnumerados.Name = "PB_ElementosNoEnumerados";
             this.PB_ElementosNoEnumerados.Size = new System.Drawing.Size(491, 547);
             this.PB_ElementosNoEnumerados.TabIndex = 3;
@@ -244,14 +314,14 @@
             this.mostrarSecciónToolStripMenuItem,
             this.limpirarSeleccionToolStripMenuItem});
             this.CMS_1.Name = "CMS_1";
-            this.CMS_1.Size = new System.Drawing.Size(168, 48);
+            this.CMS_1.Size = new System.Drawing.Size(184, 48);
             // 
             // mostrarSecciónToolStripMenuItem
             // 
             this.mostrarSecciónToolStripMenuItem.CheckOnClick = true;
             this.mostrarSecciónToolStripMenuItem.Name = "mostrarSecciónToolStripMenuItem";
-            this.mostrarSecciónToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.mostrarSecciónToolStripMenuItem.Text = "Mostrar Sección";
+            this.mostrarSecciónToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.mostrarSecciónToolStripMenuItem.Text = "Mostrar Propiedades";
             this.mostrarSecciónToolStripMenuItem.Click += new System.EventHandler(this.mostrarSecciónToolStripMenuItem_Click);
             // 
             // limpirarSeleccionToolStripMenuItem
@@ -284,7 +354,7 @@
             this.GB_Controles.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_Controles.Location = new System.Drawing.Point(6, 288);
             this.GB_Controles.Name = "GB_Controles";
-            this.GB_Controles.Size = new System.Drawing.Size(141, 295);
+            this.GB_Controles.Size = new System.Drawing.Size(160, 295);
             this.GB_Controles.TabIndex = 5;
             this.GB_Controles.TabStop = false;
             this.GB_Controles.Text = "Controles";
@@ -297,9 +367,9 @@
             this.GB_Enumerar.Controls.Add(this.BT_CrtierioFC);
             this.GB_Enumerar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_Enumerar.ForeColor = System.Drawing.Color.DarkRed;
-            this.GB_Enumerar.Location = new System.Drawing.Point(4, 166);
+            this.GB_Enumerar.Location = new System.Drawing.Point(4, 168);
             this.GB_Enumerar.Name = "GB_Enumerar";
-            this.GB_Enumerar.Size = new System.Drawing.Size(132, 109);
+            this.GB_Enumerar.Size = new System.Drawing.Size(150, 118);
             this.GB_Enumerar.TabIndex = 9;
             this.GB_Enumerar.TabStop = false;
             this.GB_Enumerar.Text = "Enumerar";
@@ -309,7 +379,7 @@
             this.BT_Regresar.FlatAppearance.BorderSize = 0;
             this.BT_Regresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_Regresar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Regresar.Image")));
-            this.BT_Regresar.Location = new System.Drawing.Point(22, 20);
+            this.BT_Regresar.Location = new System.Drawing.Point(37, 22);
             this.BT_Regresar.Name = "BT_Regresar";
             this.BT_Regresar.Size = new System.Drawing.Size(35, 28);
             this.BT_Regresar.TabIndex = 4;
@@ -321,7 +391,7 @@
             this.BT_Enumerar.FlatAppearance.BorderSize = 0;
             this.BT_Enumerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_Enumerar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Enumerar.Image")));
-            this.BT_Enumerar.Location = new System.Drawing.Point(75, 20);
+            this.BT_Enumerar.Location = new System.Drawing.Point(80, 22);
             this.BT_Enumerar.Name = "BT_Enumerar";
             this.BT_Enumerar.Size = new System.Drawing.Size(38, 28);
             this.BT_Enumerar.TabIndex = 0;
@@ -336,7 +406,7 @@
             this.BT_CrtierioFC.ForeColor = System.Drawing.Color.Black;
             this.BT_CrtierioFC.Image = ((System.Drawing.Image)(resources.GetObject("BT_CrtierioFC.Image")));
             this.BT_CrtierioFC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BT_CrtierioFC.Location = new System.Drawing.Point(6, 56);
+            this.BT_CrtierioFC.Location = new System.Drawing.Point(15, 55);
             this.BT_CrtierioFC.Name = "BT_CrtierioFC";
             this.BT_CrtierioFC.Size = new System.Drawing.Size(120, 47);
             this.BT_CrtierioFC.TabIndex = 5;
@@ -349,7 +419,7 @@
             this.LB_Nombrar.AutoSize = true;
             this.LB_Nombrar.Font = new System.Drawing.Font("Calibri", 9F);
             this.LB_Nombrar.ForeColor = System.Drawing.Color.Black;
-            this.LB_Nombrar.Location = new System.Drawing.Point(12, 59);
+            this.LB_Nombrar.Location = new System.Drawing.Point(17, 60);
             this.LB_Nombrar.Name = "LB_Nombrar";
             this.LB_Nombrar.Size = new System.Drawing.Size(43, 14);
             this.LB_Nombrar.TabIndex = 3;
@@ -358,7 +428,7 @@
             // TB_Nombramiento
             // 
             this.TB_Nombramiento.Enabled = false;
-            this.TB_Nombramiento.Location = new System.Drawing.Point(61, 56);
+            this.TB_Nombramiento.Location = new System.Drawing.Point(66, 56);
             this.TB_Nombramiento.Name = "TB_Nombramiento";
             this.TB_Nombramiento.Size = new System.Drawing.Size(61, 22);
             this.TB_Nombramiento.TabIndex = 2;
@@ -411,75 +481,15 @@
             this.P_Contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_Contenedor.Location = new System.Drawing.Point(0, 0);
             this.P_Contenedor.Name = "P_Contenedor";
-            this.P_Contenedor.Size = new System.Drawing.Size(1182, 619);
+            this.P_Contenedor.Size = new System.Drawing.Size(1195, 619);
             this.P_Contenedor.TabIndex = 4;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.groupBox1.Controls.Add(this.CB_Nomenclatura_Vertical);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.CB_Nomenclatura_Hztal);
-            this.groupBox1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.ForeColor = System.Drawing.Color.DarkRed;
-            this.groupBox1.Location = new System.Drawing.Point(10, 377);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(132, 70);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Nomenclatura";
-            // 
-            // CB_Nomenclatura_Hztal
-            // 
-            this.CB_Nomenclatura_Hztal.FormattingEnabled = true;
-            this.CB_Nomenclatura_Hztal.Items.AddRange(new object[] {
-            "Alfabética",
-            "Numérica"});
-            this.CB_Nomenclatura_Hztal.Location = new System.Drawing.Point(66, 16);
-            this.CB_Nomenclatura_Hztal.Name = "CB_Nomenclatura_Hztal";
-            this.CB_Nomenclatura_Hztal.Size = new System.Drawing.Size(62, 22);
-            this.CB_Nomenclatura_Hztal.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Calibri", 9F);
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(2, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 14);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Horizontal";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 9F);
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(6, 47);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 14);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Vertical";
-            // 
-            // CB_Nomenclatura_Vertical
-            // 
-            this.CB_Nomenclatura_Vertical.FormattingEnabled = true;
-            this.CB_Nomenclatura_Vertical.Items.AddRange(new object[] {
-            "Alfabética",
-            "Numérica"});
-            this.CB_Nomenclatura_Vertical.Location = new System.Drawing.Point(66, 43);
-            this.CB_Nomenclatura_Vertical.Name = "CB_Nomenclatura_Vertical";
-            this.CB_Nomenclatura_Vertical.Size = new System.Drawing.Size(62, 22);
-            this.CB_Nomenclatura_Vertical.TabIndex = 4;
             // 
             // F_EnumeracionPortico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1182, 619);
+            this.ClientSize = new System.Drawing.Size(1195, 619);
             this.ContextMenuStrip = this.CMS_Undo_Redo;
             this.Controls.Add(this.GB_1);
             this.Controls.Add(this.P_Title);
@@ -497,6 +507,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).EndInit();
             this.GB_1.ResumeLayout(false);
             this.GB_1.PerformLayout();
+            this.GB_Nomenclatura.ResumeLayout(false);
+            this.GB_Nomenclatura.PerformLayout();
             this.GB_3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementos_Enumerados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).EndInit();
@@ -508,8 +520,6 @@
             this.GB_Controles.PerformLayout();
             this.GB_Enumerar.ResumeLayout(false);
             this.CMS_Undo_Redo.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -546,10 +556,10 @@
         private System.Windows.Forms.Button BT_Regresar;
         private System.Windows.Forms.Panel P_Contenedor;
         private System.Windows.Forms.GroupBox GB_Enumerar;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox GB_Nomenclatura;
         private System.Windows.Forms.ComboBox CB_Nomenclatura_Vertical;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LB_2;
+        private System.Windows.Forms.Label LB_1;
         private System.Windows.Forms.ComboBox CB_Nomenclatura_Hztal;
     }
 }
