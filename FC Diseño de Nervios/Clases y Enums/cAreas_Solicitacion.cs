@@ -8,16 +8,10 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cAreas_Solicitacion
     {
-        public float[] AvR { get; set; }
+        public cAreasyMomentos SolicitacionesInferior { get; set; } = new cAreasyMomentos();
+        public cAreasyMomentos SolicitacionesSuperior { get; set; } = new cAreasyMomentos();
 
-
-        public float[] AmR { get; set; }
-
-
-        public float[] AvS { get; set; }
-
-
-        public float[] AmS { get; set; }
-
+        public cAreasyMomentos AsingnadoInferior { get; set; } = new cAreasyMomentos();
+        public cAreasyMomentos AsignadoSuperior { get; set; } = new cAreasyMomentos();
     }
 }

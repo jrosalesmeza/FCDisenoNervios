@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 namespace FC_Diseño_de_Nervios
 {
     [Serializable]
-    public enum eDireccion
+    public enum eNomenclatura
     {
-        Horizontal,
-        Vertical,
-        Diagonal
+        Alfabética, 
+        Numérica
     }
 }

@@ -10,6 +10,7 @@ namespace FC_Diseño_de_Nervios
     {
         public List<cPiso> Lista_Pisos { get; set; }
         public cPiso PisoSelect { get; set; }
+        public List<cGrid> Lista_Grids { get; set; }
  
     }
 }
