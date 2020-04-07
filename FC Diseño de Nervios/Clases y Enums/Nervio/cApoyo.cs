@@ -13,8 +13,7 @@ namespace FC_Diseño_de_Nervios
         public eSoporte Soporte { get; } = eSoporte.Apoyo;
         public cSeccion Seccion { get; set; }
         public cVistas Vistas { get; set; } = new cVistas();
-
-
+        public float HVirtual { get; set; }
         public cApoyo(string Nombre,cSeccion Seccion)
         {
             this.Nombre = Nombre;

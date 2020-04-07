@@ -12,5 +12,7 @@ namespace FC_Diseño_de_Nervios
         eSoporte Soporte { get; }
         cSeccion Seccion { get; set; }
         cVistas Vistas { get; set; }
+        float HVirtual { get; set; }
+
     }
 }

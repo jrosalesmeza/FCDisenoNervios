@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Drawing2D;
 
 namespace FC_Diseño_de_Nervios
 {
@@ -12,12 +9,38 @@ namespace FC_Diseño_de_Nervios
     {
         public cCoordenadas Perfil_Original { get; set; } = new cCoordenadas();
         public cCoordenadas Perfil_AutoCAD { get; set; } = new cCoordenadas();
-               
-       // public List<PointF> Coordenadas_Planta { get; set; }
+        public bool SelectPerfilLongitudinal { get; set; }
+
+
+
+
+        public bool IsSelectPlantaPerfilLongitudinal(PointF Point)
+        {
+            GraphicsPath graphicsPath = new GraphicsPath();
+            graphicsPath.AddPolygon(Perfil_Original.Escaladas.ToArray());
+            if (graphicsPath.IsVisible(Point))
+            {
+                SelectPerfilLongitudinal = true;
+                return true;
+            }
+            else
+            {
+                SelectPerfilLongitudinal = false;
+                return false;
+            }
+        }
+
+
+
+
+
+
+
+
     }
 
 
-
+  
 
 
 

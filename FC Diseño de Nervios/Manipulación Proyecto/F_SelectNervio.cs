@@ -24,7 +24,6 @@ namespace FC_Diseño_de_Nervios
             PB_Nervios.MouseWheel += PB_Nervios_MouseWheel;
             PB_Nervios.MouseDown += PB_Nervios_MouseDown;
             PB_Nervios.MouseMove += PB_Nervios_MouseMove;
-            CB_Direccion.SelectedIndex = 0;
         }
 
 
@@ -46,32 +45,33 @@ namespace FC_Diseño_de_Nervios
             {
                 LV_Stories.Items[LV_Stories.Items.Count - 1].Selected = true;
             }
-
+            CargarListViewNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios);
         }
-        private void CargarListViewNervios(cPiso PisoSelect)
+        private void CargarListViewNervios(List<cNervio> NerviosSelects)
         {
             LV_Nervios.Clear();
-            if (PisoSelect != null)
+
+            if (NerviosSelects != null && NerviosSelects.Count>0)
             {
-                if (PisoSelect.Nervios != null)
+                foreach (cNervio Nervio in NerviosSelects)
                 {
-                    foreach (cNervio Nervio in PisoSelect.Nervios)
-                    {
-                        LV_Nervios.Items.Add(Nervio.Nombre);
-                    }
-
-                    if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
-                    {
-                        ListViewItem[] listViewItems = LV_Nervios.Items.Find(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre, false);
-                        listViewItems[0].Selected = true;
-
-                    }
-                    else
-                    {
-                        LV_Nervios.Items[LV_Nervios.Items.Count - 1].Selected = true;
-                    }
-
+                    LV_Nervios.Items.Add(Nervio.Nombre);
                 }
+
+                if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+                {
+                    ListViewItem[] listViewItems = LV_Nervios.Items.Find(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre, false);
+                    if (listViewItems.Count() > 0)
+                    {
+                        listViewItems[0].Selected = true;
+                    }
+                }
+                else
+                {
+                    LV_Nervios.Items[LV_Nervios.Items.Count - 1].Selected = true;
+                }
+                SelectNervioChanged(new Point(0, 0), false);
+
             }
 
         }
@@ -99,6 +99,8 @@ namespace FC_Diseño_de_Nervios
         private void F_SelectNervio_Load(object sender, EventArgs e)
         {
             CargarListViewStories();
+            CB_Direccion.SelectedItem = eDireccion.Todos.ToString(); 
+
         }
 
         private void LV_Stories_SelectedIndexChanged(object sender, EventArgs e)
@@ -106,22 +108,16 @@ namespace FC_Diseño_de_Nervios
             if (LV_Stories.SelectedItems.Count > 0)
             {
                 F_Base.Proyecto.Edificio.PisoSelect = F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == LV_Stories.SelectedItems[0].Text);
-                CargarListViewNervios(F_Base.Proyecto.Edificio.PisoSelect);
-                GB_Propiedades.Text = $" | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre}";
-                PB_Nervios.Invalidate();
+                CargarListViewNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios);
+                NerviosACargar();
+                SelectNervioChanged(new Point(), false);
             }
         }
         private void LV_Nervios_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LV_Nervios.SelectedItems.Count > 0)
             {
-                if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
-                {
-                    F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.Nombre == LV_Nervios.SelectedItems[0].Text);
-                    GB_Propiedades.Text = $" {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre}";
-                    PB_Nervios.Invalidate();
-                }
-
+                SelectNervioChanged(new Point(0,0), false, LV_Nervios.SelectedItems[0].Text);
             }
         }
         private void PB_Nervios_MouseMove(object sender, MouseEventArgs e)
@@ -175,23 +171,127 @@ namespace FC_Diseño_de_Nervios
                 DesYButton = e.Y;
             }
         }
-        private void PB_Nervios_MouseDown_1(object sender, MouseEventArgs e)
+        private void PB_Nervios_MouseDown_SelectNervio(object sender, MouseEventArgs e)
         {
-
-            if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null && F_Base.Proyecto.Edificio.PisoSelect.Nervios.Count > 0)
+            if (e.Button == MouseButtons.Left && e.Clicks==1)
             {
-                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.MouseDownSelect(e.Location));
-                F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(x => x != F_Base.Proyecto.Edificio.PisoSelect.NervioSelect).ForEach(x => { x.Select = false;x.ChangeSelect(); });
+                SelectNervioChanged(e.Location, true);
             }
-            PB_Nervios.Invalidate();
-
         }
         private void F_SelectNervio_Resize(object sender, EventArgs e)
         {
             PB_Nervios.Invalidate();
         }
 
+        private void SelectNervioChanged(Point Location, bool MouseDown, string NombreABuscar = "")
+        {
+            cNervio NervioSelectMouse = null;
+        
+                if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null && F_Base.Proyecto.Edificio.PisoSelect.Nervios.Count > 0)
+                {
+                    if (NombreABuscar != "")
+                    {
+                        F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.Nombre == NombreABuscar);
+                        F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Select = true;
+                    }
+                    else if (MouseDown)
+                    {
+                        NervioSelectMouse = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.MouseDownSelect(Location));
+                        if (NervioSelectMouse != null)
+                        {
+                            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = NervioSelectMouse;
+                            LV_Nervios.SelectedItems.Clear();
+                        }
+                    }
+                }
+           
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(x => x != F_Base.Proyecto.Edificio.PisoSelect.NervioSelect).ForEach(x => { x.Select = false; x.ChangeSelect(); });
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Select = true;
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.ChangeSelect();
 
+                ListViewItem[] listViewItem = LV_Nervios.Items.Find(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre, false);
+                GB_Propiedades.Text = $" {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre}";
+                Text = $"Selección de Nervios | {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre} ";
+                CB_SeccionAltura.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAltura;
+                CB_SeccionAncho.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAncho;
+                ChangeComboBox();
+                CB_SeccionAltura.SelectedItem = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAltura.ToString();
+                CB_SeccionAncho.SelectedItem = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAncho.ToString();
+                F_Base.AcutalizarVentanaF_NervioEnPerfilLongitudinal();
+            }
+            else
+            {
+                Text = $"Selección de Nervios";
+                GB_Propiedades.Text = "";
+            }
+            PB_Nervios.Invalidate();
+        }
+
+        private void CB_SeccionAltura_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAltura = cFunctionsProgram.ConvertirStringtoeCambioAlto(CB_SeccionAltura.Text);
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasPerfilLongitudinalReales();
+                F_Base.AcutalizarVentanaF_NervioEnPerfilLongitudinal();
+            }
+        }
+
+        private void CB_SeccionAncho_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAncho = cFunctionsProgram.ConvertirStringtoeCambioAncho(CB_SeccionAncho.Text);
+
+            }
+        }
+
+        private void ChangeComboBox()
+        {
+            CB_SeccionAltura.Items.Clear();
+            CB_SeccionAncho.Items.Clear();
+            if (CB_SeccionAncho.Enabled)
+            {
+                CB_SeccionAncho.Items.AddRange(new string[] { "Superior", "Central", "Inferior" });
+            }
+            else
+            {
+                CB_SeccionAncho.Items.Add("Ninguno");
+            }
+            if (CB_SeccionAltura.Enabled)
+            {
+                CB_SeccionAltura.Items.AddRange(new string[] { "Superior", "Central", "Inferior" });
+            }
+            else
+            {
+                CB_SeccionAltura.Items.Add("Ninguno");
+            }
+
+        }
+
+        private void CB_Direccion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            NerviosACargar();
+        }
+        private void NerviosACargar()
+        {
+            eDireccion Direccion = cFunctionsProgram.ConvertirStringtoeDireccion(CB_Direccion.Text);
+            List<cNervio> NerviosSelects;
+            if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null && F_Base.Proyecto.Edificio.PisoSelect.Nervios.Count > 0)
+            {
+                if (Direccion == eDireccion.Todos)
+                {
+                    NerviosSelects = F_Base.Proyecto.Edificio.PisoSelect.Nervios;
+                }
+                else
+                {
+                    NerviosSelects = F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(x => x.Direccion == Direccion);
+                }
+                CargarListViewNervios(NerviosSelects);
+            }
+        }
 
     }
 }

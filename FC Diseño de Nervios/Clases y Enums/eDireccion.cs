@@ -11,6 +11,7 @@ namespace FC_Diseño_de_Nervios
     {
         Horizontal,
         Vertical,
-        Diagonal
+        Diagonal,
+        Todos
     }
 }

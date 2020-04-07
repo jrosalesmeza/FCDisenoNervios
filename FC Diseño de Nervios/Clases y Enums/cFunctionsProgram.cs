@@ -19,6 +19,12 @@ namespace FC_Diseño_de_Nervios
         public static List<eType> eTypes = new List<eType>() { eType.Beam, eType.Column, eType.Floor, eType.Wall, eType.None };
         public static List<eNomenclatura> Nomenclaturas_Nervios = new List<eNomenclatura>(){ eNomenclatura.Alfabética, eNomenclatura.Numérica };
         public static List<eDireccionGrid> Direcciones_Grid = new List<eDireccionGrid>() { eDireccionGrid.X, eDireccionGrid.Y };
+        public static List<eCambioenAltura> CambioAltura = new List<eCambioenAltura>() { eCambioenAltura.Ninguno, eCambioenAltura.Central, eCambioenAltura.Inferior, eCambioenAltura.Superior };
+        public static List<eCambioenAncho> CambioAncho = new List<eCambioenAncho>() { eCambioenAncho.Ninguno, eCambioenAncho.Central, eCambioenAncho.Inferior, eCambioenAncho.Superior };
+        public static List<eDireccion> Direcciones = new List<eDireccion>() { eDireccion.Diagonal, eDireccion.Horizontal, eDireccion.Vertical,eDireccion.Todos};
+
+
+
 
         public static event DelegateNotificadorProgram Notificador;
 
@@ -308,7 +314,18 @@ namespace FC_Diseño_de_Nervios
         {
             return Direcciones_Grid.Find(x => x.ToString().ToUpper() == StringGrid.ToUpper());
         }
-
+        public static eCambioenAncho ConvertirStringtoeCambioAncho(string StringAncho)
+        {
+            return CambioAncho.Find(x => x.ToString().ToUpper() == StringAncho.ToUpper());
+        }
+        public static eCambioenAltura ConvertirStringtoeCambioAlto(string StringAlto)
+        {
+            return CambioAltura.Find(x => x.ToString().ToUpper() == StringAlto.ToUpper());
+        }
+        public static eDireccion ConvertirStringtoeDireccion(string StringDireccion)
+        {
+            return Direcciones.Find(x => x.ToString().ToUpper() == StringDireccion.ToUpper());
+        }
         public static string ConvertireTypeToString(eType type)
         {
             return type.ToString();
@@ -696,6 +713,7 @@ namespace FC_Diseño_de_Nervios
                
 
         }
+        #region Librerias Weifo Luo
         public static void CambiarSkins(DockContent dock)
         {
             dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.StartColor = SystemColors.ControlLight;
@@ -704,8 +722,87 @@ namespace FC_Diseño_de_Nervios
             dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.EndColor = SystemColors.ControlLight;
             dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.TextColor = SystemColors.ControlLightLight;
         }
+        #endregion
+        #region Paint- Dibujar Regla
+        public static Tuple<List<float>,List<float>> LongitudesElementos(List<IElemento> Elementos)
+        {
+            List<float> Longitudes = new List<float>();
+            List<float> Longitudes_Escaladas = new List<float>();
+
+            Elementos.ForEach(x =>
+            {
+                Longitudes.Add(x.Vistas.Perfil_Original.Reales.Min(y => y.X));
+                Longitudes.Add(x.Vistas.Perfil_Original.Reales.Max(y => y.X));
+                Longitudes_Escaladas.Add(x.Vistas.Perfil_Original.Escaladas.Min(y => y.X));
+                Longitudes_Escaladas.Add(x.Vistas.Perfil_Original.Escaladas.Max(y => y.X));
+
+            });
+            return new Tuple<List<float>, List<float>>(Longitudes,Longitudes_Escaladas);
+        }
+        public static void DrawRegla(Graphics e, PointF PuntoInicialEscalado, PointF PuntoFinalEscalado,Tuple<List<float>, List<float>> DistanciasElementos,float Zoom)
+        {
+            Pen Pen1 = new Pen(Color.DarkRed);
+
+            List<float> DistanciasElementosReales = DistanciasElementos.Item1.Distinct().ToList();
+            List<float> DistanciasElementosEscalados = DistanciasElementos.Item2.Distinct().ToList();
+
+            e.DrawLine(Pen1, PuntoInicialEscalado, PuntoFinalEscalado);
+            float IncrementoEscalado;
+            float IncrementoNoEscalado;
+            float TamanoLetra;
+            if (Zoom > 0)
+            {
+                TamanoLetra = 9 * Zoom;
+            }
+            else
+            {
+                TamanoLetra = 1;
+            }
+
+            Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
+            float AltoLinea = 5f;
+
+            for (int i = 0; i < DistanciasElementosEscalados.Count; i++)
+            {
+                float IncrementoSrting = 0;
+                IncrementoEscalado = DistanciasElementosEscalados[i];
+                IncrementoNoEscalado = DistanciasElementosReales[i];
+                if (i == 0)
+                {
+                    IncrementoSrting += AltoLinea*1.5f;
+                }
 
 
+                string Texto = string.Format("{0:0.00}", IncrementoNoEscalado, 2);
+
+                SizeF MessureText = e.MeasureString(Texto, Font1);
+                PointF PuntoString = new PointF( IncrementoEscalado -MessureText.Width/2+ IncrementoSrting, PuntoInicialEscalado.Y+ AltoLinea + MessureText.Height);
+                e.DrawLine(Pen1, IncrementoEscalado, PuntoInicialEscalado.Y,IncrementoEscalado, PuntoInicialEscalado.Y + AltoLinea);
+                e.DrawLine(Pen1, IncrementoEscalado, PuntoInicialEscalado.Y,IncrementoEscalado, PuntoInicialEscalado.Y - AltoLinea);
+                e.DrawString(Texto, Font1, Brushes.Black,PuntoString);
+        
+
+            }
+
+        }
+        #endregion
+
+        #region WindowsForms
+
+        public static void AcopleFormEnunPanel(Control Control, F_ModificarSeccion Form)
+        {
+            if (Form.IsDisposed) { Form = new F_ModificarSeccion(); }
+            Form.TopLevel = false;
+            Form.FormBorderStyle = FormBorderStyle.None;
+
+            Control.Controls.Clear();
+            Control.Controls.Add(Form);
+            Control.Tag = Form;
+            Form.Show();
+
+        }
+
+        #endregion
 
 
         //Serializar y Deserializar
@@ -760,7 +857,6 @@ namespace FC_Diseño_de_Nervios
         {
             return (float)Math.Sqrt(Math.Pow(Punto1.X - Punto2.X, 2) + Math.Pow(Punto1.Y - Punto2.Y, 2));
         }
-
 
         public static RectangleF CrearCirculo(float Xc, float Yc, float Radio)
         {

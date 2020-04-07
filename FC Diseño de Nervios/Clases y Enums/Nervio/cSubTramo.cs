@@ -18,6 +18,7 @@ namespace FC_Diseño_de_Nervios
         public cEstacion Estacion { get; set; } = new cEstacion();
         public List<cLine> Lista_Lineas { get; set; }
         public eSoporte Soporte { get; } = eSoporte.Vano; 
+        public float HVirtual { get; set; }
 
         public cSubTramo(int Index,string Nombre,List<cLine> Lista_Lineas,cTramo TramoOrigen)
         {
@@ -34,6 +35,7 @@ namespace FC_Diseño_de_Nervios
             {
                 Longitud += Line.ConfigLinea.Longitud- Line.ConfigLinea.OffSetI - Line.ConfigLinea.OffSetJ;
             }
+            Longitud = (float)Math.Round(Longitud, 2);
         }
 
         public override string ToString()

@@ -80,6 +80,7 @@ namespace FC_Diseño_de_Nervios
                 F_Base.Proyecto.Edificio = new cEdificio();
                 F_Base.Proyecto.DatosEtabs.Lista_Pisos.ForEach(x => x.Lista_Lines.ForEach(y => y.CrearPuntosPlantaRealEtabsLine(y.ConfigLinea.Point1P, y.ConfigLinea.Point2P)));
                 F_Base.Proyecto.Edificio.Lista_Pisos = cFunctionsProgram.DeepClone(F_Base.Proyecto.DatosEtabs.Lista_Pisos);
+                F_Base.Proyecto.Edificio.Lista_Pisos.ForEach(x => x.Lista_Lines.ForEach(y => y.isSelect = false));
                 F_Base.Proyecto.Edificio.Lista_Grids = cFunctionsProgram.DeepClone(F_Base.Proyecto.DatosEtabs.Lista_Grids);
                 F_Base.F_EnumeracionPortico = new F_EnumeracionPortico();
                 F_Base.F_EnumeracionPortico.ShowDialog();

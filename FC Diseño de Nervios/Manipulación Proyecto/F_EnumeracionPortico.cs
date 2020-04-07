@@ -173,15 +173,13 @@ namespace FC_Diseño_de_Nervios
             List<cPiso> PisosConNervios = F_Base.Proyecto.Edificio.Lista_Pisos.FindAll(x => x.Nervios != null && x.Nervios.Count > 0);
             if (PisosConNervios!=null && PisosConNervios.Count>0)
             {
-                F_Base.F_Base_.AcoplarVentana(F_Base.F_SelectNervio);
-                cFunctionsProgram.CambiarSkins(F_Base.F_SelectNervio);
+                F_Base.F_Base_.AcoplarVentana(ref F_Base.F_SelectNervio);
+                F_Base.F_Base_.AcoplarVentana(ref F_Base.F_NervioEnPerfilLongitudinal);
                 PisosConNervios.ForEach(x => x.Nervios.ForEach(y => y.SelectPlantaEnumeracion = false));
             }
             F_Base.LimpiarMemoria();
             T_Timer2.Stop();
             Visible = false;
-
-
         }
 
 

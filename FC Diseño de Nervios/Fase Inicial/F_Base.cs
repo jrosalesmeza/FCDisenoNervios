@@ -16,19 +16,15 @@ namespace FC_Diseño_de_Nervios
 
         private F_NuevoProyecto F_NuevoProyecto = new F_NuevoProyecto();
         public static F_EnumeracionPortico F_EnumeracionPortico;
+        public static F_ModificarSeccion F_ModificarSeccion = new F_ModificarSeccion();
 
         #endregion Ventanas Emergentes
 
         #region Ventanas Acopladas
         public static F_SelectNervio F_SelectNervio = new F_SelectNervio();
+        public static F_NervioEnPerfilLongitudinal F_NervioEnPerfilLongitudinal = new F_NervioEnPerfilLongitudinal();
 
         #endregion
-
-
-
-
-
-
 
         #region Proyecto
         public static cProyecto Proyecto;
@@ -36,10 +32,32 @@ namespace FC_Diseño_de_Nervios
         #endregion Proyecto
 
         #region Funciones Basicas
-        public void AcoplarVentana(DockContent Dock)
+
+        #region AcopleDeVentanas y MostrarVetanaEmergente *** 
+        public void AcoplarVentana(ref F_SelectNervio Dock)
         {
+            if (!Dock.Created) { Dock = new F_SelectNervio(); }
             Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
         }
+        public void AcoplarVentana(ref F_NervioEnPerfilLongitudinal Dock)
+        {
+            if (!Dock.Created) { Dock = new F_NervioEnPerfilLongitudinal(); }
+            Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
+
+        public void VentanaEmergente(ref F_ModificarSeccion ModificarSeccion)
+        {
+            if (!ModificarSeccion.Created) { ModificarSeccion = new F_ModificarSeccion(); }
+            ModificarSeccion.StartPosition = FormStartPosition.CenterScreen;
+            ModificarSeccion.Focus();
+            ModificarSeccion.Show();
+        }
+    
+        #endregion
+
+
         private void VerificarGuardadodeProyecto()
         {
             if (Proyecto != null)
@@ -141,9 +159,17 @@ namespace FC_Diseño_de_Nervios
             UndoRedo.LimpiarEstadosCtrlZyCtrlY();
         }
 
+        public static void AcutalizarVentanaF_NervioEnPerfilLongitudinal()
+        {
+            F_NervioEnPerfilLongitudinal.Invalidate();
+        }
+
+    
+
         private static void ActualizarTodosLasVentanas()
         {
             F_EnumeracionPortico.Invalidate();
+            F_NervioEnPerfilLongitudinal.Invalidate();
         }
 
         #endregion Funciones Basicas
@@ -156,7 +182,7 @@ namespace FC_Diseño_de_Nervios
             ST_Base.SizingGrip = false;
             cFunctionsProgram.Notificador += CFunctionsProgram_Notificador;
             cFunctionsProgram.EventoVentanaEmergente += CFunctionsProgram_EventoVentanaEmergente;
-
+            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             F_Base_ = this;
         }
 
@@ -190,13 +216,21 @@ namespace FC_Diseño_de_Nervios
                 ActivarVentanaEmergenteGuardarCambios = UndoRedo.ObtenerEstadoEstados();
                 if (Proyecto.Edificio != null && Proyecto.Edificio.PisoSelect != null && Proyecto.Edificio.PisoSelect.Nervios != null)
                 {
+                    selecciónDeNerviosToolStripMenuItem.Enabled = true;
                     if (Proyecto.Edificio.PisoSelect.NervioSelect != null)
                     {
-                        esquemaToolStripMenuItem.Enabled = true;
+                        esquemaToolStripMenuItem.Enabled = true;                  
                     }
-                    else { esquemaToolStripMenuItem.Enabled = false; }
+                    else
+                    {
+                        esquemaToolStripMenuItem.Enabled = false;
+                    }
                 }
-                else { esquemaToolStripMenuItem.Enabled = false; }
+                else
+                {
+                    esquemaToolStripMenuItem.Enabled = false;
+                    selecciónDeNerviosToolStripMenuItem.Enabled = false;
+                }
                 CambiosTimer_3_F_EnumeracionPortico_Proyecto();
                 BloqueoDesbloqueoBotones(true);
             }
@@ -210,6 +244,7 @@ namespace FC_Diseño_de_Nervios
                 rehacerToolStripMenuItem.Enabled = false;
                 ActivarVentanaEmergenteGuardarCambios = false;
                 esquemaToolStripMenuItem.Enabled = false;
+                selecciónDeNerviosToolStripMenuItem.Enabled = false;
                 BloqueoDesbloqueoBotones(false);
             }
         }
@@ -454,6 +489,9 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-  
+        private void selecciónDeNerviosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_SelectNervio);
+        }
     }
 }

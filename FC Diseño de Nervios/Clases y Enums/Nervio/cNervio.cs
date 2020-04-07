@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace FC_Diseño_de_Nervios
 {
@@ -16,7 +17,8 @@ namespace FC_Diseño_de_Nervios
         public List<cObjeto> Lista_Objetos { get; set; }
         public List<cGrid> Grids { get; set; }
         public List<IElemento> Lista_Elementos { get; set; }
-
+        public bool Bool_CambioAltura { get; set; }
+        public bool Bool_CambioAncho { get; set; }
         public bool Select { get; set; }
 
         public bool SelectPlantaEnumeracion { get; set; }
@@ -26,7 +28,7 @@ namespace FC_Diseño_de_Nervios
         public eCambioenAltura CambioenAltura { get; set; }
         public eCambioenAncho CambioenAncho { get; set; }
 
-        public cNervio(int ID, string Prefijo, List<cObjeto> Lista_Objetos, eDireccion Direccion,List<cGrid> Grids)
+        public cNervio(int ID, string Prefijo, List<cObjeto> Lista_Objetos, eDireccion Direccion, List<cGrid> Grids)
         {
             this.ID = ID;
             if (Prefijo != "")
@@ -36,10 +38,14 @@ namespace FC_Diseño_de_Nervios
             this.Lista_Objetos = Lista_Objetos;
             this.Lista_Objetos.ForEach(x => { if (x.Soporte == eSoporte.Apoyo) { CantApoyos += 1; } });
             this.Direccion = Direccion;
-            this.Grids= Grids;
+            this.Grids = Grids;
             AsignarCambioAlturayCambioAncho();
             CrearTramos();
             CrearElementos();
+            if (CantApoyos > 0)
+            {
+                CrearCoordenadasPerfilLongitudinalReales();
+            }
         }
 
         public void Cambio_Nombre(string Nombre_)
@@ -49,7 +55,6 @@ namespace FC_Diseño_de_Nervios
 
         private void AsignarCambioAlturayCambioAncho()
         {
-            bool CambioAltura = false; bool CambioAncho = false;
 
             for (int i = 0; i < Lista_Objetos.Count; i++)
             {
@@ -68,16 +73,16 @@ namespace FC_Diseño_de_Nervios
 
                 if (DeltaB != 0)
                 {
-                    CambioAncho = true;
+                    Bool_CambioAncho = true;
                 }
                 if (DeltaH != 0)
                 {
-                    CambioAltura = true;
+                    Bool_CambioAltura = true;
                 }
             }
 
-            CambioenAltura = CambioAltura ? eCambioenAltura.Inferior : eCambioenAltura.Ninguno;
-            CambioenAncho = CambioAncho ? eCambioenAncho.Inferior : eCambioenAncho.Ninguno; // Cambios Inferiores Predeterminados
+            CambioenAltura = Bool_CambioAltura ? eCambioenAltura.Inferior : eCambioenAltura.Ninguno;
+            CambioenAncho = Bool_CambioAncho ? eCambioenAncho.Inferior : eCambioenAncho.Ninguno; // Cambios Inferiores Predeterminados
         }
 
         public override string ToString()
@@ -152,8 +157,9 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public void CrearCoordenadas()
+        public void CrearCoordenadasPerfilLongitudinalReales()
         {
+
             for (int i = 0; i < Lista_Elementos.Count; i++)
             {
                 IElemento ElementoAnterior = null; IElemento Elemento_Posterior = null;
@@ -161,94 +167,138 @@ namespace FC_Diseño_de_Nervios
                 {
                     ElementoAnterior = Lista_Elementos[i - 1];
                 }
-                if (i + 1 < Lista_Objetos.Count)
+                if (i + 1 < Lista_Elementos.Count)
                 {
                     Elemento_Posterior = Lista_Elementos[i + 1];
                 }
-                CrearCoordenadasLongitudinal(ElementoAnterior, Lista_Elementos[i], Elemento_Posterior);
+                AsignarAlturaVitual(ElementoAnterior, Lista_Elementos[i], Elemento_Posterior);
+            }
+
+            for (int i = 0; i < Lista_Elementos.Count; i++)
+            {
+                IElemento ElementoAnterior = null; IElemento Elemento_Posterior = null;
+                if (i - 1 >= 0)
+                {
+                    ElementoAnterior = Lista_Elementos[i - 1];
+                }
+                if (i + 1 < Lista_Elementos.Count)
+                {
+                    Elemento_Posterior = Lista_Elementos[i + 1];
+                }
+                CrearCoordenadasLongitudinal(ElementoAnterior, Lista_Elementos[i], Elemento_Posterior, 1);
             }
         }
 
-        private void CrearCoordenadasLongitudinal(IElemento ElementoAnterior, IElemento ElementoActual, IElemento ElementoPosterior)
+
+        private void AsignarAlturaVitual(IElemento ElementoAnterior, IElemento ElementoActual, IElemento ElementoPosterior)
         {
-            PointF PuntoInicial = new PointF(0, 0); float HApoyo;
-            HApoyo = ElementoActual.Seccion.H;
-            if (ElementoActual.Soporte == eSoporte.Apoyo)
+
+            if (ElementoAnterior == null && ElementoPosterior != null) //Primer Elemento
             {
-                if (ElementoPosterior != null)
+                if (ElementoActual is cApoyo)
                 {
-                    HApoyo = ElementoPosterior.Seccion.H;
+                    ElementoActual.HVirtual = ElementoPosterior.Seccion.H;
+
                 }
                 else
                 {
-                    HApoyo = ElementoAnterior.Seccion.H;
+                    ElementoActual.HVirtual = ElementoActual.Seccion.H;
                 }
             }
-            if (ElementoAnterior != null && ElementoPosterior != null)
+            else if (ElementoAnterior != null && ElementoPosterior != null) //Elemento del Medio
             {
-                float H_anterior = ElementoAnterior.Seccion.H;
-                float H_Posterior = ElementoPosterior.Seccion.H;
-                float DeltaH = Math.Abs(H_anterior - H_Posterior);
-                PuntoInicial = ElementoAnterior.Vistas.Perfil_Original.Reales[ElementoAnterior.Vistas.Perfil_Original.Reales.Count - 1];
 
-                if (CambioenAltura == eCambioenAltura.Inferior)
+                if (ElementoActual is cApoyo)
                 {
-                    if (H_anterior < H_Posterior)
+
+                    float DeltaH = ElementoPosterior.Seccion.H - ElementoAnterior.Seccion.H;
+
+                    if (DeltaH < 0)
                     {
-                        DeltaH = -DeltaH;
+                        ElementoActual.HVirtual = ElementoAnterior.Seccion.H;
                     }
+                    else
+                    {
+                        ElementoActual.HVirtual = ElementoPosterior.Seccion.H;
+                    }
+
                 }
-                else if (CambioenAltura == eCambioenAltura.Central)
+                else
                 {
-                    DeltaH = DeltaH / 2;
-
-                    if (H_anterior < H_Posterior)
-                    {
-                        DeltaH = -DeltaH;
-                    }
+                    ElementoActual.HVirtual = ElementoActual.Seccion.H;
                 }
 
-                PuntoInicial.Y += DeltaH;
             }
-            else if (ElementoPosterior == null)
+            else if (ElementoAnterior != null && ElementoPosterior == null)  //Ultimo Elemento
             {
-                PuntoInicial = ElementoAnterior.Vistas.Perfil_Original.Reales[ElementoAnterior.Vistas.Perfil_Original.Reales.Count - 1];
-                float DeltaH = 0;
-                float H_anterior = ElementoAnterior.Seccion.H;
-                float H_Actual = ElementoActual.Seccion.H;
-                if (ElementoActual.Soporte != eSoporte.Apoyo)
+
+                if (ElementoActual is cApoyo)
                 {
-                    DeltaH = Math.Abs(H_anterior - H_Actual);
+                    ElementoActual.HVirtual = ElementoAnterior.Seccion.H;
+                }
+                else
+                {
+                    ElementoActual.HVirtual = ElementoActual.Seccion.H;
                 }
 
-                if (CambioenAltura == eCambioenAltura.Inferior)
-                {
-                    if (H_anterior < H_Actual)
-                    {
-                        DeltaH = -DeltaH;
-                    }
-                }
-                else if (CambioenAltura == eCambioenAltura.Central)
-                {
-                    DeltaH = DeltaH / 2;
 
-                    if (H_anterior < H_Actual)
-                    {
-                        DeltaH = -DeltaH;
-                    }
-                }
-
-                PuntoInicial.Y += DeltaH;
             }
-
-            CrearCoordenadasLongitudinal_Elemento_Reales(ElementoActual, PuntoInicial, HApoyo);
         }
 
-        private void CrearCoordenadasLongitudinal_Elemento_Reales(IElemento Elemento, PointF PuntoInicial, float HApoyo = 0)
+        private void CrearCoordenadasLongitudinal(IElemento ElementoAnterior, IElemento ElementoActual, IElemento ElementoPosterior, float FE)
+        {
+            PointF PuntoInicial;
+            if (ElementoAnterior == null && ElementoPosterior != null) //Primer Elemento
+            {
+                PuntoInicial = new PointF(0, 0);
+            }
+            else //(ElementoAnterior != null && ElementoPosterior != null) //Elemento del Medio y Ultimo
+            {
+                float DeltaH = ElementoActual.HVirtual-ElementoAnterior.HVirtual ;
+                PuntoInicial = ElementoAnterior.Vistas.Perfil_Original.Reales[ElementoAnterior.Vistas.Perfil_Original.Reales.Count - 1];
+
+                if (CambioenAltura == eCambioenAltura.Inferior)
+                {
+                    if (DeltaH > 0)
+                    {
+                        DeltaH = -Math.Abs(DeltaH);
+                    }
+                    else
+                    {
+                        DeltaH = Math.Abs(DeltaH);
+                    }
+                }else if (CambioenAltura== eCambioenAltura.Superior | CambioenAltura== eCambioenAltura.Ninguno) {
+                    DeltaH = 0;
+               
+                }else if(CambioenAltura == eCambioenAltura.Central)
+                {
+                    if (DeltaH > 0)
+                    {
+                        DeltaH = -Math.Abs(DeltaH)/2;
+                    }
+                    else
+                    {
+                        DeltaH = Math.Abs(DeltaH)/2;
+                    }
+                }
+
+                PuntoInicial.Y += DeltaH*FE*cConversiones.Dimension_cm_to_m;
+            }
+
+
+
+
+
+
+            CrearCoordenadasLongitudinal_Elemento_Reales(ElementoActual, PuntoInicial);
+        }
+
+        private void CrearCoordenadasLongitudinal_Elemento_Reales(IElemento Elemento, PointF PuntoInicial)
         {
             Elemento.Vistas.Perfil_Original.Reales = new List<PointF>();
-            float H = Elemento.Seccion.H;
-            float B = Elemento.Seccion.B;
+
+            float H = Elemento.HVirtual* cConversiones.Dimension_cm_to_m;
+            float B = Elemento.Seccion.B* cConversiones.Dimension_cm_to_m;
             if (Elemento.Soporte == eSoporte.Vano)
             {
                 cSubTramo SubTramo = (cSubTramo)Elemento;
@@ -261,8 +311,8 @@ namespace FC_Diseño_de_Nervios
             else if (Elemento.Soporte == eSoporte.Apoyo)
             {
                 Elemento.Vistas.Perfil_Original.Reales.Add(PuntoInicial);
-                Elemento.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X, PuntoInicial.Y + HApoyo));
-                Elemento.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X + B, PuntoInicial.Y + HApoyo));
+                Elemento.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X, PuntoInicial.Y + H));
+                Elemento.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X + B, PuntoInicial.Y + H));
                 Elemento.Vistas.Perfil_Original.Reales.Add(new PointF(PuntoInicial.X + B, PuntoInicial.Y));
             }
         }
@@ -271,12 +321,13 @@ namespace FC_Diseño_de_Nervios
         {
             foreach (IElemento Elemento in Lista_Elementos)
             {
-                Elemento.Vistas.Perfil_Original.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntos(PuntosTodosObjetos, Elemento.Vistas.Perfil_Original.Reales, WidthWindow, HeigthWindow, Dx, Dy, Zoom);
+                Elemento.Vistas.Perfil_Original.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosEnEjeY(PuntosTodosObjetos, Elemento.Vistas.Perfil_Original.Reales, WidthWindow, HeigthWindow, Zoom, Dx, Dy);
             }
 
         }
        
-           
+
+
         #region Metodos Mouse
 
         public void MouseMoveNervioPlantaEtabs(Point Point)
@@ -321,6 +372,7 @@ namespace FC_Diseño_de_Nervios
         }
         public bool MouseDownSelect(Point Point)
         {
+            bool Select=false;
             foreach (cTramo Tramo in Lista_Tramos)
             {
                 foreach (cObjeto Objeto in Tramo.Lista_Objetos)
@@ -348,7 +400,6 @@ namespace FC_Diseño_de_Nervios
         #endregion Metodos Mouse
 
         #region Metodos Paint
-
         public void PaintNombreElementosEnumerados_MouseMove(Graphics e, float HeigthWindow, float WidthWindow)
         {
             if (ElementoEnumerado_MouseMove)
@@ -364,6 +415,64 @@ namespace FC_Diseño_de_Nervios
             Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(z => z.Line.PaintPlantaEscaladaEtabsLine(e)));
         }
 
+        public void Paint_Longitudinal_Elementos_Escalados_Original(Graphics e, float Zoom)
+        {
+
+            Pen Pen_SinSeleccionar = new Pen(Color.Black, 2);
+            Pen Pen__Seleccionado = new Pen(Color.FromArgb( 0, 3,100),3);
+            Pen Pen_Definitivo;
+            SolidBrush Brush_Selecciondo_Apoyo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(59, 57, 57)));
+            SolidBrush Brush_SinSeleccionar_Apoyo = new SolidBrush(Color.FromArgb(85, 85, 85));
+            SolidBrush Brush_SinSeleccionado_Subtramos = new SolidBrush(Color.FromArgb(187, 211, 238));
+            SolidBrush Brush_Seleccionado_Subtramos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(73, 115, 163)));
+
+
+            SolidBrush Brush_Definitivo;
+
+
+            float TamanoLetra;
+            if (Zoom > 0)
+            {
+                TamanoLetra = 9 * Zoom;
+            }
+            else
+            {
+                TamanoLetra = 1;
+            }
+            Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
+
+
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                float Largo = Elemento.Vistas.Perfil_Original.Escaladas.Max(y => y.X) - Elemento.Vistas.Perfil_Original.Escaladas.Min(y => y.X);
+                float XI = Elemento.Vistas.Perfil_Original.Escaladas.Min(y => y.X);
+                float YI = Elemento.Vistas.Perfil_Original.Escaladas.Max(y => y.Y);
+                Pen_Definitivo = Elemento.Vistas.SelectPerfilLongitudinal ? Pen__Seleccionado : Pen_SinSeleccionar;
+                if (Elemento is cApoyo)
+                {
+                    Brush_Definitivo = Elemento.Vistas.SelectPerfilLongitudinal ? Brush_Selecciondo_Apoyo : Brush_SinSeleccionar_Apoyo;
+                    string Texto = $"({Elemento.Seccion.B}x{Elemento.Seccion.H})";
+                    SizeF MeasureString = e.MeasureString(Texto, Font1);
+                    PointF PuntoString = new PointF(XI + Largo / 2 - MeasureString.Width / 2, YI + MeasureString.Height / 2);
+                    e.DrawPolygon(Pen_Definitivo, Elemento.Vistas.Perfil_Original.Escaladas.ToArray());
+                    e.FillPolygon(Brush_Definitivo, Elemento.Vistas.Perfil_Original.Escaladas.ToArray());
+                    e.DrawString(Texto, Font1, Brushes.Black, PuntoString);
+                }
+                else
+                {
+                    Brush_Definitivo = Elemento.Vistas.SelectPerfilLongitudinal ? Brush_Seleccionado_Subtramos : Brush_SinSeleccionado_Subtramos;
+                    cSubTramo ElementoTramo = (cSubTramo)Elemento;
+                    e.DrawPolygon(Pen_Definitivo, Elemento.Vistas.Perfil_Original.Escaladas.ToArray());
+                    e.FillPolygon(Brush_Definitivo, Elemento.Vistas.Perfil_Original.Escaladas.ToArray());
+                    string Texto = $"({Elemento.Seccion.B}x{Elemento.Seccion.H}) L={ElementoTramo.Longitud}";
+                    SizeF MeasureString = e.MeasureString(Texto, Font1);
+                    PointF PuntoString = new PointF(XI + Largo / 2 - MeasureString.Width / 2, YI + MeasureString.Height / 2);
+                    e.DrawString(Texto, Font1, Brushes.Black, PuntoString);
+                }
+            });
+
+
+        }
         #endregion Metodos Paint
     }
 
