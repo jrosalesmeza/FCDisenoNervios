@@ -19,7 +19,6 @@ C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.exe
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.pdb
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
-C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csprojAssemblyReference.cache
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_Base.resources
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_NuevoProyecto.resources
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Properties.Resources.resources
@@ -51,5 +50,12 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_Esc
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.xml
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_SelectNervio.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_Prop_Refuerzo.resources
-C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_NervioEnPerfilLongitudinal.resources
-C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_ModificarSeccion.resources
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.dll
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.pdb
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.xml
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_Pisos.resources
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_EnumeracionPortico.resources
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_ModificarSeccion.resources
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_NervioEnPerfilLongitudinal.resources
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_Prop_Refuerzo.resources
+C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_SelectNervio.resources
