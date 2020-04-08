@@ -9,17 +9,52 @@ namespace FC_Diseño_de_Nervios
     public class cSeccion
     {
 
+        public bool CambioH { get; set; }
+        public bool CambioB { get; set; }
         public cSeccion(string Nombre, float B, float H)
         {
             this.Nombre = Nombre;
-            this.B = B;
-            this.H = H;
+            b = B;
+            h = H;
 
         }
 
         public string Nombre { get; set; }
-        public float B { get; set; }
-        public float H { get; set; }
+
+        private float b;
+        public float B
+        {
+            get { return b; }
+            set
+            {
+                if (b != value && b!=0)
+                {
+                    CambioB =true;
+                }
+                else
+                {
+                    CambioB = false;
+                }
+                b = value;
+            }
+        }
+        private float h;
+        public float H
+        {
+            get { return h; }
+            set
+            {
+                if (h != value && h != 0)
+                {
+                    CambioH = true;
+                }
+                else
+                {
+                    CambioH = false;
+                }
+                h = value;
+            }
+        }
         public float R_Top { get; set; }
         public float R_Bottom { get; set; }
         public cMaterial Material { get; set; }

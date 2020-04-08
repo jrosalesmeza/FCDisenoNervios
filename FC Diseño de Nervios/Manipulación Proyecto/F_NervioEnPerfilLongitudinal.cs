@@ -55,6 +55,7 @@ namespace FC_Diseño_de_Nervios
             if (ElementoSeleccionado != null)
             {
                 F_Base.F_Base_.VentanaEmergente(ref F_Base.F_ModificarSeccion);
+                F_Base.F_ModificarSeccion.ElementoSeleccionado = ElementoSeleccionado;
             }
             else { F_Base.F_ModificarSeccion.Close(); }
             

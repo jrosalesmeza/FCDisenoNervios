@@ -464,7 +464,7 @@ namespace FC_Diseño_de_Nervios
                     cSubTramo ElementoTramo = (cSubTramo)Elemento;
                     e.DrawPolygon(Pen_Definitivo, Elemento.Vistas.Perfil_Original.Escaladas.ToArray());
                     e.FillPolygon(Brush_Definitivo, Elemento.Vistas.Perfil_Original.Escaladas.ToArray());
-                    string Texto = $"({Elemento.Seccion.B}x{Elemento.Seccion.H}) L={ElementoTramo.Longitud}";
+                    string Texto = $"({Elemento.Seccion.B}x{Elemento.Seccion.H}) L={string.Format("{0:0.00}", ElementoTramo.Longitud)}";
                     SizeF MeasureString = e.MeasureString(Texto, Font1);
                     PointF PuntoString = new PointF(XI + Largo / 2 - MeasureString.Width / 2, YI + MeasureString.Height / 2);
                     e.DrawString(Texto, Font1, Brushes.Black, PuntoString);

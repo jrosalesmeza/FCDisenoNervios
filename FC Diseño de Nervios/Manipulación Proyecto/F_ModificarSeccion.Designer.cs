@@ -38,9 +38,12 @@
             this.TB_Longitud = new System.Windows.Forms.TextBox();
             this.TB_Ancho = new System.Windows.Forms.TextBox();
             this.TB_Altura = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.LB_Longitud = new System.Windows.Forms.Label();
+            this.LB_Ancho = new System.Windows.Forms.Label();
+            this.LB_Altura = new System.Windows.Forms.Label();
+            this.LB_m3 = new System.Windows.Forms.Label();
+            this.LB_cm2 = new System.Windows.Forms.Label();
+            this.LB_cm1 = new System.Windows.Forms.Label();
             this.P_1.SuspendLayout();
             this.GB_1.SuspendLayout();
             this.P_2.SuspendLayout();
@@ -87,6 +90,7 @@
             this.LB_1.Size = new System.Drawing.Size(104, 14);
             this.LB_1.TabIndex = 30;
             this.LB_1.Text = "Modificar Elemento";
+            this.LB_1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_1_MouseDown);
             // 
             // GB_1
             // 
@@ -100,19 +104,22 @@
             this.GB_1.Size = new System.Drawing.Size(226, 161);
             this.GB_1.TabIndex = 30;
             this.GB_1.TabStop = false;
-            this.GB_1.Text = "Propiedades de Sección";
+            this.GB_1.Text = "Propiedades del Elemento";
             // 
             // P_2
             // 
             this.P_2.BackColor = System.Drawing.Color.LightGray;
+            this.P_2.Controls.Add(this.LB_m3);
+            this.P_2.Controls.Add(this.LB_cm2);
+            this.P_2.Controls.Add(this.LB_cm1);
             this.P_2.Controls.Add(this.BT_Aplicar);
             this.P_2.Controls.Add(this.BT_Cancelar);
             this.P_2.Controls.Add(this.TB_Longitud);
             this.P_2.Controls.Add(this.TB_Ancho);
             this.P_2.Controls.Add(this.TB_Altura);
-            this.P_2.Controls.Add(this.label2);
-            this.P_2.Controls.Add(this.label7);
-            this.P_2.Controls.Add(this.label6);
+            this.P_2.Controls.Add(this.LB_Longitud);
+            this.P_2.Controls.Add(this.LB_Ancho);
+            this.P_2.Controls.Add(this.LB_Altura);
             this.P_2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_2.ForeColor = System.Drawing.Color.White;
             this.P_2.Location = new System.Drawing.Point(3, 16);
@@ -124,12 +131,13 @@
             // 
             this.BT_Aplicar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Aplicar.ForeColor = System.Drawing.Color.Black;
-            this.BT_Aplicar.Location = new System.Drawing.Point(157, 111);
+            this.BT_Aplicar.Location = new System.Drawing.Point(156, 111);
             this.BT_Aplicar.Name = "BT_Aplicar";
             this.BT_Aplicar.Size = new System.Drawing.Size(59, 23);
-            this.BT_Aplicar.TabIndex = 31;
+            this.BT_Aplicar.TabIndex = 10;
             this.BT_Aplicar.Text = "Aplicar";
             this.BT_Aplicar.UseVisualStyleBackColor = true;
+            this.BT_Aplicar.Click += new System.EventHandler(this.BT_Aplicar_Click);
             // 
             // BT_Cancelar
             // 
@@ -138,16 +146,17 @@
             this.BT_Cancelar.Location = new System.Drawing.Point(93, 111);
             this.BT_Cancelar.Name = "BT_Cancelar";
             this.BT_Cancelar.Size = new System.Drawing.Size(59, 23);
-            this.BT_Cancelar.TabIndex = 31;
+            this.BT_Cancelar.TabIndex = 9;
             this.BT_Cancelar.Text = "Cancelar";
             this.BT_Cancelar.UseVisualStyleBackColor = true;
+            this.BT_Cancelar.Click += new System.EventHandler(this.BT_Cancelar_Click);
             // 
             // TB_Longitud
             // 
             this.TB_Longitud.Location = new System.Drawing.Point(107, 77);
             this.TB_Longitud.Name = "TB_Longitud";
             this.TB_Longitud.Size = new System.Drawing.Size(60, 20);
-            this.TB_Longitud.TabIndex = 7;
+            this.TB_Longitud.TabIndex = 8;
             // 
             // TB_Ancho
             // 
@@ -163,38 +172,71 @@
             this.TB_Altura.Size = new System.Drawing.Size(60, 20);
             this.TB_Altura.TabIndex = 6;
             // 
-            // label2
+            // LB_Longitud
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(49, 80);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(52, 14);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Longitud:";
+            this.LB_Longitud.AutoSize = true;
+            this.LB_Longitud.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Longitud.ForeColor = System.Drawing.Color.Black;
+            this.LB_Longitud.Location = new System.Drawing.Point(49, 80);
+            this.LB_Longitud.Name = "LB_Longitud";
+            this.LB_Longitud.Size = new System.Drawing.Size(52, 14);
+            this.LB_Longitud.TabIndex = 5;
+            this.LB_Longitud.Text = "Longitud:";
             // 
-            // label7
+            // LB_Ancho
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(49, 53);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(40, 14);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Ancho:";
+            this.LB_Ancho.AutoSize = true;
+            this.LB_Ancho.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Ancho.ForeColor = System.Drawing.Color.Black;
+            this.LB_Ancho.Location = new System.Drawing.Point(49, 53);
+            this.LB_Ancho.Name = "LB_Ancho";
+            this.LB_Ancho.Size = new System.Drawing.Size(40, 14);
+            this.LB_Ancho.TabIndex = 5;
+            this.LB_Ancho.Text = "Ancho:";
             // 
-            // label6
+            // LB_Altura
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(49, 27);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(40, 14);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Altura:";
+            this.LB_Altura.AutoSize = true;
+            this.LB_Altura.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Altura.ForeColor = System.Drawing.Color.Black;
+            this.LB_Altura.Location = new System.Drawing.Point(49, 27);
+            this.LB_Altura.Name = "LB_Altura";
+            this.LB_Altura.Size = new System.Drawing.Size(40, 14);
+            this.LB_Altura.TabIndex = 4;
+            this.LB_Altura.Text = "Altura:";
+            // 
+            // LB_m3
+            // 
+            this.LB_m3.AutoSize = true;
+            this.LB_m3.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_m3.ForeColor = System.Drawing.Color.Black;
+            this.LB_m3.Location = new System.Drawing.Point(173, 80);
+            this.LB_m3.Name = "LB_m3";
+            this.LB_m3.Size = new System.Drawing.Size(17, 14);
+            this.LB_m3.TabIndex = 13;
+            this.LB_m3.Text = "m";
+            // 
+            // LB_cm2
+            // 
+            this.LB_cm2.AutoSize = true;
+            this.LB_cm2.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_cm2.ForeColor = System.Drawing.Color.Black;
+            this.LB_cm2.Location = new System.Drawing.Point(173, 53);
+            this.LB_cm2.Name = "LB_cm2";
+            this.LB_cm2.Size = new System.Drawing.Size(22, 14);
+            this.LB_cm2.TabIndex = 12;
+            this.LB_cm2.Text = "cm";
+            // 
+            // LB_cm1
+            // 
+            this.LB_cm1.AutoSize = true;
+            this.LB_cm1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_cm1.ForeColor = System.Drawing.Color.Black;
+            this.LB_cm1.Location = new System.Drawing.Point(173, 27);
+            this.LB_cm1.Name = "LB_cm1";
+            this.LB_cm1.Size = new System.Drawing.Size(22, 14);
+            this.LB_cm1.TabIndex = 11;
+            this.LB_cm1.Text = "cm";
             // 
             // F_ModificarSeccion
             // 
@@ -228,9 +270,12 @@
         private System.Windows.Forms.Button BT_Cancelar;
         private System.Windows.Forms.TextBox TB_Ancho;
         private System.Windows.Forms.TextBox TB_Altura;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label LB_Ancho;
+        private System.Windows.Forms.Label LB_Altura;
         private System.Windows.Forms.TextBox TB_Longitud;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label LB_Longitud;
+        private System.Windows.Forms.Label LB_m3;
+        private System.Windows.Forms.Label LB_cm2;
+        private System.Windows.Forms.Label LB_cm1;
     }
 }

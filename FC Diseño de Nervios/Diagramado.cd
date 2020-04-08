@@ -13,8 +13,8 @@
       <Path>
         <Point X="12" Y="7.993" />
         <Point X="12.375" Y="7.993" />
-        <Point X="12.375" Y="7.5" />
-        <Point X="16" Y="7.5" />
+        <Point X="12.375" Y="8.011" />
+        <Point X="16" Y="8.011" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.964" Y="0.088" />
@@ -42,7 +42,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AEBAAAAAAAAAAAAEAAAAgAAAAAAAAAAAAQAAAEEAAAA=</HashCode>
+      <HashCode>AEBAAAAACAIAAAAEAAAAgAAAAAAAAAAAQQAAAEEAAAA=</HashCode>
       <FileName>Clases y Enums\cSeccion.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
