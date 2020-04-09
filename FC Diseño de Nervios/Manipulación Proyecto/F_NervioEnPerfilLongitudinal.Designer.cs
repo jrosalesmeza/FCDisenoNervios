@@ -33,6 +33,7 @@
             this.PB_VistaPerfilLongitudinal = new System.Windows.Forms.PictureBox();
             this.CTMS_1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.MostrarReglaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editarEjesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.P_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_VistaPerfilLongitudinal)).BeginInit();
             this.CTMS_1.SuspendLayout();
@@ -66,9 +67,10 @@
             // CTMS_1
             // 
             this.CTMS_1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MostrarReglaToolStripMenuItem});
+            this.MostrarReglaToolStripMenuItem,
+            this.editarEjesToolStripMenuItem});
             this.CTMS_1.Name = "CTMS_1";
-            this.CTMS_1.Size = new System.Drawing.Size(148, 26);
+            this.CTMS_1.Size = new System.Drawing.Size(181, 70);
             // 
             // MostrarReglaToolStripMenuItem
             // 
@@ -76,9 +78,16 @@
             this.MostrarReglaToolStripMenuItem.CheckOnClick = true;
             this.MostrarReglaToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.MostrarReglaToolStripMenuItem.Name = "MostrarReglaToolStripMenuItem";
-            this.MostrarReglaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.MostrarReglaToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.MostrarReglaToolStripMenuItem.Text = "Mostrar Regla";
             this.MostrarReglaToolStripMenuItem.CheckedChanged += new System.EventHandler(this.MostrarReglaToolStripMenuItem_CheckedChanged);
+            // 
+            // editarEjesToolStripMenuItem
+            // 
+            this.editarEjesToolStripMenuItem.Name = "editarEjesToolStripMenuItem";
+            this.editarEjesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editarEjesToolStripMenuItem.Text = "Editar Ejes";
+            this.editarEjesToolStripMenuItem.Click += new System.EventHandler(this.editarEjesToolStripMenuItem_Click);
             // 
             // F_NervioEnPerfilLongitudinal
             // 
@@ -106,5 +115,6 @@
         private System.Windows.Forms.PictureBox PB_VistaPerfilLongitudinal;
         private System.Windows.Forms.ContextMenuStrip CTMS_1;
         private System.Windows.Forms.ToolStripMenuItem MostrarReglaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editarEjesToolStripMenuItem;
     }
 }

@@ -20,6 +20,7 @@ namespace FC_Diseño_de_Nervios
             {
                 if (longitud != value && longitud!=0)
                 {
+                    F_Base.EnviarEstado(F_Base.Proyecto);
                     longitud = value;
                     TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalReales();
                 }
@@ -40,10 +41,13 @@ namespace FC_Diseño_de_Nervios
                 {
                     if(seccion.CambioB | seccion.CambioH)
                     {
+                        seccion = value;
+                        TramoOrigen.NervioOrigen.AsignarCambioAlturayCambioAnchoElementos();
                         TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalReales();
                     }
+                    seccion = value;
                 }
-                seccion = value;
+           
             }
         }
         public cVistas Vistas { get; set; } = new cVistas();

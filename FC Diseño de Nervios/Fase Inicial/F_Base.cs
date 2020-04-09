@@ -139,13 +139,15 @@ namespace FC_Diseño_de_Nervios
 
         public static void Deshacer_Function()
         {
-            Proyecto = UndoRedo.Deshacer(Proyecto);
+            cProyecto PoryectoAux = UndoRedo.Deshacer(Proyecto);
+            if (PoryectoAux != null) { Proyecto = PoryectoAux; }
             ActualizarTodosLasVentanas();
         }
 
         public static void Rehacer_Function()
         {
-            Proyecto = UndoRedo.Rehacer(Proyecto);
+            cProyecto PoryectoAux = UndoRedo.Rehacer(Proyecto);
+            if (PoryectoAux != null) { Proyecto = PoryectoAux; }
             ActualizarTodosLasVentanas();
         }
 
@@ -166,9 +168,10 @@ namespace FC_Diseño_de_Nervios
 
     
 
-        private static void ActualizarTodosLasVentanas()
+        public static void ActualizarTodosLasVentanas()
         {
             F_EnumeracionPortico.Invalidate();
+            F_SelectNervio.Invalidate();
             F_NervioEnPerfilLongitudinal.Invalidate();
         }
 
@@ -492,6 +495,11 @@ namespace FC_Diseño_de_Nervios
         private void selecciónDeNerviosToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AcoplarVentana(ref F_SelectNervio);
+        }
+
+        private void geometríaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_NervioEnPerfilLongitudinal);
         }
     }
 }

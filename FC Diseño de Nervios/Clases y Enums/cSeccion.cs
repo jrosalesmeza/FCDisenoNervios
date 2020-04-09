@@ -29,6 +29,7 @@ namespace FC_Diseño_de_Nervios
             {
                 if (b != value && b!=0)
                 {
+                    F_Base.EnviarEstado(F_Base.Proyecto);
                     CambioB =true;
                 }
                 else
@@ -46,6 +47,7 @@ namespace FC_Diseño_de_Nervios
             {
                 if (h != value && h != 0)
                 {
+                    F_Base.EnviarEstado(F_Base.Proyecto);
                     CambioH = true;
                 }
                 else

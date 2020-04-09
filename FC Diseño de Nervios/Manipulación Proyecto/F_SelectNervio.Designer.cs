@@ -329,6 +329,7 @@
             this.Name = "F_SelectNervio";
             this.Text = "Seleccionar Nervio";
             this.Load += new System.EventHandler(this.F_SelectNervio_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.F_SelectNervio_Paint);
             this.Resize += new System.EventHandler(this.F_SelectNervio_Resize);
             this.P_1.ResumeLayout(false);
             this.GB_Propiedades.ResumeLayout(false);

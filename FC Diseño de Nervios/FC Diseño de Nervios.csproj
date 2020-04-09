@@ -51,6 +51,9 @@
     <Reference Include="B_EscalaCoordenadas">
       <HintPath>..\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\bin\Debug\B_EscalaCoordenadas.dll</HintPath>
     </Reference>
+    <Reference Include="FontAwesome.Sharp, Version=5.12.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\FontAwesome.Sharp.5.12.1\lib\net45\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -85,7 +88,7 @@
     <Compile Include="Clases y Enums\cEstacion.cs" />
     <Compile Include="Clases y Enums\cEstribo.cs" />
     <Compile Include="Clases y Enums\cFunctionsProgram.cs" />
-    <Compile Include="Clases y Enums\cGrid.cs" />
+    <Compile Include="Clases y Enums\Grid\cGrid.cs" />
     <Compile Include="Clases y Enums\cHerramientas.cs" />
     <Compile Include="Clases y Enums\cLine.cs" />
     <Compile Include="Clases y Enums\cMaterial.cs" />
@@ -157,6 +160,12 @@
     <Compile Include="Manipulación Proyecto\F_SelectNervio.Designer.cs">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>
     </Compile>
+    <Compile Include="Manipulación Proyecto\ModificacionEjes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\ModificacionEjes.Designer.cs">
+      <DependentUpon>ModificacionEjes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Fase Inicial\F_Base.resx">
@@ -183,6 +192,9 @@
     <EmbeddedResource Include="Manipulación Proyecto\F_SelectNervio.resx">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\ModificacionEjes.resx">
+      <DependentUpon>ModificacionEjes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -194,6 +206,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Diagramado.cd" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

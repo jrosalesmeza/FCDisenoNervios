@@ -17,21 +17,18 @@ namespace FC_Diseño_de_Nervios
     {
         private static string[] Separadores = { "  ", " ", @"""" };
         public static List<eType> eTypes = new List<eType>() { eType.Beam, eType.Column, eType.Floor, eType.Wall, eType.None };
-        public static List<eNomenclatura> Nomenclaturas_Nervios = new List<eNomenclatura>(){ eNomenclatura.Alfabética, eNomenclatura.Numérica };
+        public static List<eNomenclatura> Nomenclaturas_Nervios = new List<eNomenclatura>() { eNomenclatura.Alfabética, eNomenclatura.Numérica };
         public static List<eDireccionGrid> Direcciones_Grid = new List<eDireccionGrid>() { eDireccionGrid.X, eDireccionGrid.Y };
         public static List<eCambioenAltura> CambioAltura = new List<eCambioenAltura>() { eCambioenAltura.Ninguno, eCambioenAltura.Central, eCambioenAltura.Inferior, eCambioenAltura.Superior };
         public static List<eCambioenAncho> CambioAncho = new List<eCambioenAncho>() { eCambioenAncho.Ninguno, eCambioenAncho.Central, eCambioenAncho.Inferior, eCambioenAncho.Superior };
-        public static List<eDireccion> Direcciones = new List<eDireccion>() { eDireccion.Diagonal, eDireccion.Horizontal, eDireccion.Vertical,eDireccion.Todos};
-
-
-
+        public static List<eDireccion> Direcciones = new List<eDireccion>() { eDireccion.Diagonal, eDireccion.Horizontal, eDireccion.Vertical, eDireccion.Todos };
 
         public static event DelegateNotificadorProgram Notificador;
 
         public static event DelegateVentanasEmergentes EventoVentanaEmergente;
+
         public static float ToleranciaHorizontal = 25f;
         public static float ToleranciaVertical = 75f;
-
 
         public const string Empresa = "efe Prima Ce";
         public const string Ext = ".nrv";
@@ -115,12 +112,12 @@ namespace FC_Diseño_de_Nervios
         public static List<cGrid> CrearGridsEtabs2009(List<string> ArchivoE2K)
         {
             int IndiceInicio_GRIDS = ArchivoE2K.FindIndex(x => x.Contains("$ GRIDS")) + 1;
-            int IndiceFin_GRIDS= Find_FinalIndice(ArchivoE2K, IndiceInicio_GRIDS);
+            int IndiceFin_GRIDS = Find_FinalIndice(ArchivoE2K, IndiceInicio_GRIDS);
             List<string> ArchivoGrids = RangoDeDatosArchivoTextoPlano(IndiceInicio_GRIDS, IndiceFin_GRIDS, ArchivoE2K);
             List<cGrid> GRIDS = new List<cGrid>();
 
             float BubbleSize = Convert.ToSingle(ArchivoGrids[0].Split(Separadores, StringSplitOptions.RemoveEmptyEntries)[5]);
-            for(int i= 1; i < ArchivoGrids.Count;i++)
+            for (int i = 1; i < ArchivoGrids.Count; i++)
             {
                 string[] Grids_Separado = ArchivoGrids[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
                 string NombreGrid = Grids_Separado[3];
@@ -129,11 +126,12 @@ namespace FC_Diseño_de_Nervios
                 cGrid Grid = new cGrid(NombreGrid, Coordenada, ConvertirStringtoeDireccionGrid(DireccionGrid), BubbleSize);
                 GRIDS.Add(Grid);
             }
-            List<float> X= GRIDS.FindAll(x=>x.Direccion== eDireccionGrid.X).Select(x=>x.CoordenadaInicial).ToList();
+            List<float> X = GRIDS.FindAll(x => x.Direccion == eDireccionGrid.X).Select(x => x.CoordenadaInicial).ToList();
             List<float> Y = GRIDS.FindAll(x => x.Direccion == eDireccionGrid.Y).Select(x => x.CoordenadaInicial).ToList(); ;
             GRIDS.ForEach(x => x.CrearRecta(X.Max(), Y.Max(), X.Min(), Y.Min()));
             return GRIDS;
         }
+
         public static List<cPoint> CreacionPuntosEtabsV2009(List<string> ArchivoE2K)
         {
             int IndiceInicio_POINT_COORDINATES = ArchivoE2K.FindIndex(x => x.Contains("$ POINT COORDINATES")) + 1;
@@ -143,7 +141,7 @@ namespace FC_Diseño_de_Nervios
 
             for (int i = 0; i < ArchivoPuntos.Count; i++)
             {
-                string[] Point_Separado = ArchivoPuntos[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries); 
+                string[] Point_Separado = ArchivoPuntos[i].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
                 cPoint point = new cPoint(Point_Separado[1], (float)Math.Round(Convert.ToSingle(Point_Separado[2]), 2), (float)Math.Round(Convert.ToSingle(Point_Separado[3]), 2));
                 ListaPuntos.Add(point);
             }
@@ -305,6 +303,7 @@ namespace FC_Diseño_de_Nervios
         {
             return eTypes.Find(x => x.ToString().ToUpper() == StringType.ToUpper());
         }
+
         public static eNomenclatura ConvertirStringtoeNomenclatura(string StringNomenclatura)
         {
             return Nomenclaturas_Nervios.Find(x => x.ToString().ToUpper() == StringNomenclatura.ToUpper());
@@ -314,18 +313,22 @@ namespace FC_Diseño_de_Nervios
         {
             return Direcciones_Grid.Find(x => x.ToString().ToUpper() == StringGrid.ToUpper());
         }
+
         public static eCambioenAncho ConvertirStringtoeCambioAncho(string StringAncho)
         {
             return CambioAncho.Find(x => x.ToString().ToUpper() == StringAncho.ToUpper());
         }
+
         public static eCambioenAltura ConvertirStringtoeCambioAlto(string StringAlto)
         {
             return CambioAltura.Find(x => x.ToString().ToUpper() == StringAlto.ToUpper());
         }
+
         public static eDireccion ConvertirStringtoeDireccion(string StringDireccion)
         {
             return Direcciones.Find(x => x.ToString().ToUpper() == StringDireccion.ToUpper());
         }
+
         public static string ConvertireTypeToString(eType type)
         {
             return type.ToString();
@@ -516,22 +519,23 @@ namespace FC_Diseño_de_Nervios
             }
             return null;
         }
-        private static List<cGrid> FindGridPertencientesalNervio(float XYo,float XYi, eDireccion DireccionNervio,List<cGrid> Grids)
+
+        private static List<cGrid> FindGridPertencientesalNervio(float XYo, float XYi, eDireccion DireccionNervio, List<cGrid> Grids)
         {
             List<cGrid> GridsFinales = new List<cGrid>();
             foreach (cGrid Grid in Grids)
             {
-                if(DireccionNervio== eDireccion.Horizontal || DireccionNervio == eDireccion.Diagonal)
+                if (DireccionNervio == eDireccion.Horizontal || DireccionNervio == eDireccion.Diagonal)
                 {
                     if (Grid.Direccion == eDireccionGrid.X)
                     {
-                        if(Grid.CoordenadaInicial>= XYo && XYi>= Grid.CoordenadaInicial)
+                        if (Grid.CoordenadaInicial >= XYo && XYi >= Grid.CoordenadaInicial)
                         {
                             GridsFinales.Add(Grid);
                         }
                     }
                 }
-                else if(DireccionNervio == eDireccion.Vertical)
+                else if (DireccionNervio == eDireccion.Vertical)
                 {
                     if (Grid.Direccion == eDireccionGrid.Y)
                     {
@@ -540,16 +544,10 @@ namespace FC_Diseño_de_Nervios
                             GridsFinales.Add(Grid);
                         }
                     }
-
                 }
-                
-
-
             }
             return GridsFinales;
-
         }
-
 
         private static void AsignarApoyosAListaConOffSet(int InicioIFinJ, cLine LineApoyo, List<cLine> ListaObjetosOrganizada, int Indice, ref List<cLine> ListaObjetosOrganizadaDefinitiva)
         {
@@ -557,7 +555,7 @@ namespace FC_Diseño_de_Nervios
             {
                 if (InicioIFinJ == 0)
                 {
-                    ListaObjetosOrganizadaDefinitiva.Insert(Indice, LineApoyo); 
+                    ListaObjetosOrganizadaDefinitiva.Insert(Indice, LineApoyo);
                 }
                 else
                 {
@@ -577,7 +575,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public static cNervio CrearNervio(string Prefijo, int ID, List<cLine> LineasQComponenAlNervio, List<cLine> TodasLasLineas,List<cGrid> TodosLosGrids, float WidthWindow, float HeightWindow)
+        public static cNervio CrearNervio(string Prefijo, int ID, List<cLine> LineasQComponenAlNervio, List<cLine> TodasLasLineas, List<cGrid> TodosLosGrids, float WidthWindow, float HeightWindow)
         {
             eDireccion DireccionNervio = LineasQComponenAlNervio.First().ConfigLinea.Direccion;
             List<cLine> ListaObjetosOrganizada;
@@ -635,10 +633,10 @@ namespace FC_Diseño_de_Nervios
             }
 
             float XYo, XYi;
-            if(DireccionNervio == eDireccion.Horizontal || DireccionNervio == eDireccion.Diagonal)
+            if (DireccionNervio == eDireccion.Horizontal || DireccionNervio == eDireccion.Diagonal)
             {
                 XYo = ListaObjetosOrganizada[0].ConfigLinea.Point1P.X;
-                XYi = ListaObjetosOrganizada[ListaObjetosOrganizada.Count-1].ConfigLinea.Point2P.X;
+                XYi = ListaObjetosOrganizada[ListaObjetosOrganizada.Count - 1].ConfigLinea.Point2P.X;
             }
             else
             {
@@ -655,13 +653,12 @@ namespace FC_Diseño_de_Nervios
 
         public static void RenombrarNervios(List<cNervio> Nervios, eNomenclatura NomeclaturaHztal, eNomenclatura NomenclaturaVertical)
         {
-
             List<cNervio> NerviosHztales_Diago = Nervios.FindAll(x => x.Direccion == eDireccion.Horizontal | x.Direccion == eDireccion.Diagonal);
-            List<cNervio> NerviosVerticales= Nervios.FindAll(x => x.Direccion == eDireccion.Vertical);
+            List<cNervio> NerviosVerticales = Nervios.FindAll(x => x.Direccion == eDireccion.Vertical);
 
             if (NerviosHztales_Diago != null)
             {
-                NerviosHztales_Diago = NerviosHztales_Diago.OrderBy(x => x.Lista_Objetos.First(y => y.Soporte == eSoporte.Vano).Line.Planta_Real.Min(z=>z.Y)).ToList();
+                NerviosHztales_Diago = NerviosHztales_Diago.OrderBy(x => x.Lista_Objetos.First(y => y.Soporte == eSoporte.Vano).Line.Planta_Real.Min(z => z.Y)).ToList();
                 RenombrarNervios2(ref NerviosHztales_Diago, NomeclaturaHztal);
             }
 
@@ -670,50 +667,45 @@ namespace FC_Diseño_de_Nervios
                 NerviosVerticales = NerviosVerticales.OrderBy(x => x.Lista_Objetos.First(y => y.Soporte == eSoporte.Vano).Line.Planta_Real.Min(z => z.X)).ToList();
                 RenombrarNervios2(ref NerviosVerticales, NomenclaturaVertical);
             }
-
-
         }
-        private static void RenombrarNervios2(ref List<cNervio> Nervios,eNomenclatura Nomenclatura)
+
+        private static void RenombrarNervios2(ref List<cNervio> Nervios, eNomenclatura Nomenclatura)
         {
             char Letra = 'A';
             char Letra2 = ' ';
-            
+
             int Contador = 1;
             foreach (cNervio nervio in Nervios)
             {
-
                 if (Nomenclatura == eNomenclatura.Alfabética)
                 {
-                    string NombreFinal = Letra.ToString() + Letra2.ToString().Replace(" ","");
+                    string NombreFinal = Letra.ToString() + Letra2.ToString().Replace(" ", "");
                     nervio.Cambio_Nombre(NombreFinal);
-                    
+
                     if (Letra != 'Z')
                     {
                         Letra++;
-                        if(Letra2!=' ')
+                        if (Letra2 != ' ')
                         {
                             Letra2++;
                         }
                     }
-                    else{
+                    else
+                    {
                         Letra = 'A';
                         Letra2 = 'A';
                     }
-                        
-                    
                 }
                 else
                 {
                     nervio.Cambio_Nombre(Contador.ToString());
                     Contador++;
                 }
-
-
             }
-               
-
         }
+
         #region Librerias Weifo Luo
+
         public static void CambiarSkins(DockContent dock)
         {
             dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.StartColor = SystemColors.ControlLight;
@@ -722,9 +714,12 @@ namespace FC_Diseño_de_Nervios
             dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.EndColor = SystemColors.ControlLight;
             dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.TextColor = SystemColors.ControlLightLight;
         }
-        #endregion
+
+        #endregion Librerias Weifo Luo
+
         #region Paint- Dibujar Regla
-        public static Tuple<List<float>,List<float>> LongitudesElementos(List<IElemento> Elementos)
+
+        public static Tuple<List<float>, List<float>> LongitudesElementos(List<IElemento> Elementos)
         {
             List<float> Longitudes = new List<float>();
             List<float> Longitudes_Escaladas = new List<float>();
@@ -735,18 +730,17 @@ namespace FC_Diseño_de_Nervios
                 Longitudes.Add(x.Vistas.Perfil_Original.Reales.Max(y => y.X));
                 Longitudes_Escaladas.Add(x.Vistas.Perfil_Original.Escaladas.Min(y => y.X));
                 Longitudes_Escaladas.Add(x.Vistas.Perfil_Original.Escaladas.Max(y => y.X));
-
             });
-            return new Tuple<List<float>, List<float>>(Longitudes,Longitudes_Escaladas);
+            return new Tuple<List<float>, List<float>>(Longitudes, Longitudes_Escaladas);
         }
-        public static void DrawRegla(Graphics e, PointF PuntoInicialEscalado, PointF PuntoFinalEscalado,Tuple<List<float>, List<float>> DistanciasElementos,float Zoom)
+
+        public static void DrawRegla(Graphics e, PointF PuntoInicialEscalado, PointF PuntoFinalEscalado, Tuple<List<float>, List<float>> DistanciasElementos, float Zoom)
         {
             Pen Pen1 = new Pen(Color.DarkRed);
 
             List<float> DistanciasElementosReales = DistanciasElementos.Item1.Distinct().ToList();
             List<float> DistanciasElementosEscalados = DistanciasElementos.Item2.Distinct().ToList();
 
-            e.DrawLine(Pen1, PuntoInicialEscalado, PuntoFinalEscalado);
             float IncrementoEscalado;
             float IncrementoNoEscalado;
             float TamanoLetra;
@@ -762,6 +756,7 @@ namespace FC_Diseño_de_Nervios
             Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
             float AltoLinea = 5f;
 
+            e.DrawLine(Pen1, new PointF(PuntoInicialEscalado.X, PuntoInicialEscalado.Y + AltoLinea * 2), new PointF(PuntoFinalEscalado.X, PuntoFinalEscalado.Y + AltoLinea * 2));
             for (int i = 0; i < DistanciasElementosEscalados.Count; i++)
             {
                 float IncrementoSrting = 0;
@@ -769,23 +764,20 @@ namespace FC_Diseño_de_Nervios
                 IncrementoNoEscalado = DistanciasElementosReales[i];
                 if (i == 0)
                 {
-                    IncrementoSrting += AltoLinea*1.5f;
+                    IncrementoSrting += AltoLinea * 1.5f;
                 }
-
 
                 string Texto = string.Format("{0:0.00}", IncrementoNoEscalado, 2);
 
                 SizeF MessureText = e.MeasureString(Texto, Font1);
-                PointF PuntoString = new PointF( IncrementoEscalado -MessureText.Width/2+ IncrementoSrting, PuntoInicialEscalado.Y+ AltoLinea + MessureText.Height);
-                e.DrawLine(Pen1, IncrementoEscalado, PuntoInicialEscalado.Y,IncrementoEscalado, PuntoInicialEscalado.Y + AltoLinea);
-                e.DrawLine(Pen1, IncrementoEscalado, PuntoInicialEscalado.Y,IncrementoEscalado, PuntoInicialEscalado.Y - AltoLinea);
-                e.DrawString(Texto, Font1, Brushes.Black,PuntoString);
-        
-
+                PointF PuntoString = new PointF(IncrementoEscalado - MessureText.Width / 2 + IncrementoSrting, PuntoInicialEscalado.Y + AltoLinea + MessureText.Height);
+                e.DrawLine(Pen1, IncrementoEscalado, PuntoInicialEscalado.Y + AltoLinea * 2, IncrementoEscalado, PuntoInicialEscalado.Y + AltoLinea * 2 + AltoLinea);
+                e.DrawLine(Pen1, IncrementoEscalado, PuntoInicialEscalado.Y + AltoLinea * 2, IncrementoEscalado, PuntoInicialEscalado.Y + AltoLinea * 2 - AltoLinea);
+                e.DrawString(Texto, Font1, Brushes.Black, PuntoString);
             }
-
         }
-        #endregion
+
+        #endregion Paint- Dibujar Regla
 
         #region WindowsForms
 
@@ -799,11 +791,29 @@ namespace FC_Diseño_de_Nervios
             Control.Controls.Add(Form);
             Control.Tag = Form;
             Form.Show();
-
         }
 
-        #endregion
+        #endregion WindowsForms
 
+        public static void EstiloDatGridView(DataGridView DataGrid)
+        {
+            DataGridViewCellStyle StyleC = new DataGridViewCellStyle();
+            StyleC.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            StyleC.Font = new Font("Vderdana", 8, FontStyle.Bold);
+
+            DataGridViewCellStyle StyleR = new DataGridViewCellStyle();
+            StyleR.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            StyleR.Font = new Font("Vderdana", 8, FontStyle.Regular);
+
+            foreach (DataGridViewColumn column in DataGrid.Columns)
+            {
+                column.HeaderCell.Style = StyleC;
+            }
+            foreach (DataGridViewRow row in DataGrid.Rows)
+            {
+                row.DefaultCellStyle = StyleR;
+            }
+        }
 
         //Serializar y Deserializar
 
@@ -860,7 +870,7 @@ namespace FC_Diseño_de_Nervios
 
         public static RectangleF CrearCirculo(float Xc, float Yc, float Radio)
         {
-            return new RectangleF(Xc - Radio, Yc - Radio, Radio*2, Radio*2);
+            return new RectangleF(Xc - Radio, Yc - Radio, Radio * 2, Radio * 2);
         }
     }
 }

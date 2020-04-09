@@ -39,7 +39,7 @@ namespace FC_Diseño_de_Nervios
 
                 if(ElementoSeleccionado is cApoyo)
                 {
-                    cSeccion Seccion = ElementoSeleccionado.Seccion;
+                    cSeccion Seccion =ElementoSeleccionado.Seccion;
                     Seccion.B = Ancho; Seccion.H = Altura;
                     ElementoSeleccionado.Seccion = Seccion;
                 }
@@ -118,7 +118,7 @@ namespace FC_Diseño_de_Nervios
 
             }
             ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
-            F_Base.AcutalizarVentanaF_NervioEnPerfilLongitudinal();
+            F_Base.ActualizarTodosLasVentanas();
             Close();
 
 
@@ -127,7 +127,7 @@ namespace FC_Diseño_de_Nervios
         private void BT_Cancelar_Click(object sender, EventArgs e)
         {
             ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
-            F_Base.AcutalizarVentanaF_NervioEnPerfilLongitudinal();
+            F_Base.ActualizarTodosLasVentanas();
             Close();
         }
     }

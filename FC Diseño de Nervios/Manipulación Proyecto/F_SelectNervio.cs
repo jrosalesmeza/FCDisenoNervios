@@ -234,7 +234,6 @@ namespace FC_Diseño_de_Nervios
             if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
             {
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAltura = cFunctionsProgram.ConvertirStringtoeCambioAlto(CB_SeccionAltura.Text);
-                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasPerfilLongitudinalReales();
                 F_Base.AcutalizarVentanaF_NervioEnPerfilLongitudinal();
             }
         }
@@ -244,7 +243,6 @@ namespace FC_Diseño_de_Nervios
             if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
             {
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAncho = cFunctionsProgram.ConvertirStringtoeCambioAncho(CB_SeccionAncho.Text);
-
             }
         }
 
@@ -293,5 +291,10 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+        private void F_SelectNervio_Paint(object sender, PaintEventArgs e)
+        {
+            CargarListViewStories();
+            CB_Direccion.SelectedItem = eDireccion.Todos.ToString();
+        }
     }
 }

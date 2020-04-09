@@ -52,11 +52,21 @@ namespace FC_Diseño_de_Nervios
             Recta_Real.Add(Punto1); Recta_Real.Add(Punto2);
         }
 
-        public void CrearPuntosPlantaEscaladaEtabs(List<PointF> PuntosTodosObjetos, float WidthWindow, float HeigthWindow, float Dx, float Dy, float Zoom)
+        public void CrearPuntosPlantaEscaladaEtabs(List<PointF> PuntosTodosObjetos, float WidthWindow, float HeigthWindow, float Dx, float Dy, float Zoom,bool EscalaEnEjeY=false,float XI=5f)
         {
-            Recta_Escalada = cEscalaCoordenadas.EscalarPuntos(PuntosTodosObjetos, Recta_Real, WidthWindow, HeigthWindow, Zoom, Dx, Dy);
+            if (EscalaEnEjeY)
+            {
+                Recta_Escalada = cEscalaCoordenadas.EscalarPuntosEnEjeY(PuntosTodosObjetos, Recta_Real, WidthWindow, HeigthWindow, Zoom, Dx, Dy, XI);
+                PuntoBubbleEscalado = cEscalaCoordenadas.EscalarPuntoEnEjeY(PuntosTodosObjetos, PuntoBubble_Real, WidthWindow, HeigthWindow, Zoom, Dx, Dy, XI);
 
-            PuntoBubbleEscalado = cEscalaCoordenadas.EscalarPunto(PuntosTodosObjetos, PuntoBubble_Real, WidthWindow, HeigthWindow, Zoom, Dx, Dy);
+            }
+            else
+            {
+                Recta_Escalada = cEscalaCoordenadas.EscalarPuntos(PuntosTodosObjetos, Recta_Real, WidthWindow, HeigthWindow, Zoom, Dx, Dy);
+                PuntoBubbleEscalado = cEscalaCoordenadas.EscalarPunto(PuntosTodosObjetos, PuntoBubble_Real, WidthWindow, HeigthWindow, Zoom, Dx, Dy);
+
+            }
+            
             float RadioEscalado = Direccion == eDireccionGrid.X
                 ? Math.Abs(Recta_Escalada[1].Y - PuntoBubbleEscalado.Y)
                 : Math.Abs(Recta_Escalada[0].X - PuntoBubbleEscalado.X);

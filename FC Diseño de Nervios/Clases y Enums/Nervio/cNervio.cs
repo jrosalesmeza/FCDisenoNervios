@@ -20,13 +20,37 @@ namespace FC_Diseño_de_Nervios
         public bool Bool_CambioAltura { get; set; }
         public bool Bool_CambioAncho { get; set; }
         public bool Select { get; set; }
-
         public bool SelectPlantaEnumeracion { get; set; }
         private bool ElementoEnumerado_MouseMove = false;
         public cObjeto ObjetoSelect { get; set; }
         public List<cBarra> ListaBarras { get; set; }
-        public eCambioenAltura CambioenAltura { get; set; }
-        public eCambioenAncho CambioenAncho { get; set; }
+
+        private eCambioenAltura cambioenAltura;
+        private eCambioenAncho cambioenAncho;
+        public eCambioenAltura CambioenAltura {
+            get { return cambioenAltura; }
+            set {
+                if (value != cambioenAltura)
+                {
+                    cambioenAltura = value;
+                    CrearCoordenadasPerfilLongitudinalReales();
+                }
+              
+            }
+        }
+        public eCambioenAncho CambioenAncho
+        {
+            get { return cambioenAncho; }
+            set
+            {
+                if (value != cambioenAncho)
+                {
+                   // CrearCoordenadasPerfilLongitudinalReales();
+                }
+                cambioenAncho = value;
+            }
+        }
+
 
         public cNervio(int ID, string Prefijo, List<cObjeto> Lista_Objetos, eDireccion Direccion, List<cGrid> Grids)
         {
@@ -39,12 +63,13 @@ namespace FC_Diseño_de_Nervios
             this.Lista_Objetos.ForEach(x => { if (x.Soporte == eSoporte.Apoyo) { CantApoyos += 1; } });
             this.Direccion = Direccion;
             this.Grids = Grids;
-            AsignarCambioAlturayCambioAncho();
+            AsignarCambioAlturayCambioAnchoObjetos();
             CrearTramos();
             CrearElementos();
             if (CantApoyos > 0)
             {
                 CrearCoordenadasPerfilLongitudinalReales();
+                ModificarGridsCoordenadasReales();
             }
         }
 
@@ -53,38 +78,103 @@ namespace FC_Diseño_de_Nervios
             Nombre = Prefijo + Nombre_;
         }
 
-        private void AsignarCambioAlturayCambioAncho()
+        public void ModificarGridsCoordenadasReales(float BubbleSize = 0.25f)
         {
+            Grids.ForEach(Grid =>
+            {
+                cObjeto PrimerObjeto = Lista_Objetos.First();
+                if (Direccion == eDireccion.Horizontal | Direccion == eDireccion.Diagonal)
+                {
+                    if(PrimerObjeto.Soporte== eSoporte.Apoyo)
+                    {
+                        Grid.CoordenadaInicial = Grid.CoordenadaInicial - PrimerObjeto.Line.ConfigLinea.Point1P.X+ PrimerObjeto.Line.Seccion.B*cConversiones.Dimension_cm_to_m/2;
+                    }
+                    else
+                    {
+                        Grid.CoordenadaInicial = Grid.CoordenadaInicial - PrimerObjeto.Line.ConfigLinea.Point1P.X;
+                    }
+                    
+                }
+                else
+                {
+                    if (PrimerObjeto.Soporte == eSoporte.Apoyo)
+                    {
+                        Grid.CoordenadaInicial = Grid.CoordenadaInicial - PrimerObjeto.Line.ConfigLinea.Point1P.Y+ PrimerObjeto.Line.Seccion.B * cConversiones.Dimension_cm_to_m/2;
+                    }
+                    else
+                    {
+                        Grid.CoordenadaInicial = Grid.CoordenadaInicial - PrimerObjeto.Line.ConfigLinea.Point1P.Y;
+                    }
+                }
 
+                Grid.Direccion = eDireccionGrid.X;
+                Grid.BubbleSize = BubbleSize;
+            }
+            );
+
+            float ExtensionInferior = 0.2f; 
+            float Ymin = Lista_Elementos.Min(x => x.Vistas.Perfil_Original.Reales.Min(y => y.Y)) - ExtensionInferior;
+            float Ymax = Lista_Elementos.Max(x => x.Vistas.Perfil_Original.Reales.Max(y => y.Y));
+            Grids.ForEach(x => x.CrearRecta(0, Ymax, 0, Ymin));
+        }
+
+        private void AsignarCambioAlturayCambioAnchoObjetos()
+        {
+            List<float> Hs = new List<float>();
+            List<float> Bs = new List<float>();
             for (int i = 0; i < Lista_Objetos.Count; i++)
             {
                 cObjeto ObjetoActual = Lista_Objetos[i];
-                cObjeto ObjetoDespues = null; float DeltaH = 0; float DeltaB = 0;
-                if (i + 1 < Lista_Objetos.Count)
+                if ( ObjetoActual.Soporte == eSoporte.Vano)
                 {
-                    ObjetoDespues = Lista_Objetos[i + 1];
-                }
-
-                if (ObjetoDespues != null && ObjetoActual.Soporte == eSoporte.Vano && ObjetoDespues.Soporte == eSoporte.Vano)
-                {
-                    DeltaB = ObjetoActual.Line.Seccion.B - ObjetoDespues.Line.Seccion.B;
-                    DeltaH = ObjetoActual.Line.Seccion.H - ObjetoDespues.Line.Seccion.H;
-                }
-
-                if (DeltaB != 0)
-                {
-                    Bool_CambioAncho = true;
-                }
-                if (DeltaH != 0)
-                {
-                    Bool_CambioAltura = true;
+                    Hs.Add(ObjetoActual.Line.Seccion.H);
+                    Bs.Add(ObjetoActual.Line.Seccion.B);
                 }
             }
+            if (Bs.Distinct().ToList().Count>1)
+            {
+                Bool_CambioAncho = true;
+            }
+            if (Hs.Distinct().ToList().Count > 1)
+            {
+                Bool_CambioAltura = true;
+            }
 
-            CambioenAltura = Bool_CambioAltura ? eCambioenAltura.Inferior : eCambioenAltura.Ninguno;
-            CambioenAncho = Bool_CambioAncho ? eCambioenAncho.Inferior : eCambioenAncho.Ninguno; // Cambios Inferiores Predeterminados
+            cambioenAltura = Bool_CambioAltura ? eCambioenAltura.Inferior : eCambioenAltura.Ninguno;
+            cambioenAncho = Bool_CambioAncho ? eCambioenAncho.Inferior : eCambioenAncho.Ninguno; // Cambios Inferiores Predeterminados
         }
-
+        public void AsignarCambioAlturayCambioAnchoElementos()
+        {
+            List<float> Hs = new List<float>();
+            List<float> Bs = new List<float>();
+            for (int i = 0; i < Lista_Elementos.Count; i++)
+            {
+                IElemento ObjetoActual = Lista_Elementos[i];
+                if (ObjetoActual is cSubTramo)
+                {
+                    Hs.Add(ObjetoActual.Seccion.H);
+                    Bs.Add(ObjetoActual.Seccion.B);
+                }
+            }
+            if ( Bs.Distinct().ToList().Count > 1)
+            {
+                Bool_CambioAncho = true;
+            }
+            else
+            {
+                Bool_CambioAncho = false;
+            }
+            if ( Hs.Distinct().ToList().Count > 1)
+            {
+                Bool_CambioAltura = true;
+            }
+            else
+            {
+                Bool_CambioAltura = false;
+            }
+            cambioenAltura = Bool_CambioAltura ? eCambioenAltura.Inferior : eCambioenAltura.Ninguno;
+            cambioenAncho = Bool_CambioAncho ? eCambioenAncho.Inferior : eCambioenAncho.Ninguno; // Cambios Inferiores Predeterminados
+        }
         public override string ToString()
         {
             return $"{Nombre} | CountTramos = {Lista_Tramos.Count} | {Direccion}";
@@ -137,7 +227,7 @@ namespace FC_Diseño_de_Nervios
                 if (Objeto.Soporte == eSoporte.Apoyo)
                 {
                     CountApoyo += 1;
-                    cApoyo Apoyo = new cApoyo($"Apoyo {CountApoyo}", cFunctionsProgram.DeepClone(Objeto.Line.Seccion));
+                    cApoyo Apoyo = new cApoyo($"Apoyo {CountApoyo}", cFunctionsProgram.DeepClone(Objeto.Line.Seccion),this);
                     Lista_Elementos.Add(Apoyo);
                 }
                 else
@@ -317,16 +407,11 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public void CrearCoordenadasLongitudinal_Elementos_Escalados_Original(List<PointF> PuntosTodosObjetos, float WidthWindow, float HeigthWindow, float Dx, float Dy, float Zoom)
+        public void CrearCoordenadasLongitudinal_Elementos_Escalados_Original(List<PointF> PuntosTodosObjetos, float WidthWindow, float HeigthWindow, float Dx, float Dy, float Zoom,float XI)
         {
-            foreach (IElemento Elemento in Lista_Elementos)
-            {
-                Elemento.Vistas.Perfil_Original.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosEnEjeY(PuntosTodosObjetos, Elemento.Vistas.Perfil_Original.Reales, WidthWindow, HeigthWindow, Zoom, Dx, Dy);
-            }
-
+            Lista_Elementos.ForEach(Elemento => Elemento.Vistas.Perfil_Original.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosEnEjeY(PuntosTodosObjetos, Elemento.Vistas.Perfil_Original.Reales, WidthWindow, HeigthWindow, Zoom, Dx, Dy,XI));
+            Grids.ForEach(x => x.CrearPuntosPlantaEscaladaEtabs(PuntosTodosObjetos, WidthWindow, HeigthWindow, Dx, Dy, Zoom,true,XI));
         }
-       
-
 
         #region Metodos Mouse
 
@@ -417,7 +502,7 @@ namespace FC_Diseño_de_Nervios
 
         public void Paint_Longitudinal_Elementos_Escalados_Original(Graphics e, float Zoom)
         {
-
+            Grids.ForEach(x => x.Paint(e, Zoom));
             Pen Pen_SinSeleccionar = new Pen(Color.Black, 2);
             Pen Pen__Seleccionado = new Pen(Color.FromArgb( 0, 3,100),3);
             Pen Pen_Definitivo;
@@ -425,10 +510,7 @@ namespace FC_Diseño_de_Nervios
             SolidBrush Brush_SinSeleccionar_Apoyo = new SolidBrush(Color.FromArgb(85, 85, 85));
             SolidBrush Brush_SinSeleccionado_Subtramos = new SolidBrush(Color.FromArgb(187, 211, 238));
             SolidBrush Brush_Seleccionado_Subtramos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(73, 115, 163)));
-
-
             SolidBrush Brush_Definitivo;
-
 
             float TamanoLetra;
             if (Zoom > 0)
@@ -471,8 +553,9 @@ namespace FC_Diseño_de_Nervios
                 }
             });
 
-
+            
         }
+        
         #endregion Metodos Paint
     }
 
