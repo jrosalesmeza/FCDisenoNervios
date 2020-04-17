@@ -24,22 +24,7 @@
             <param name="YI">Coordenada en Y inicial en pixeles</param>
             <returns></returns>
         </member>
-        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosEnEjeY(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
-            <summary>
-            Establece la escala a una lista de puntos en su eje mayor, centrando el dibujo en el eje Y. 
-            </summary>
-            <param name="Points">Lista de Puntos.</param>
-            <param name="PuntosObjeto">Lista de Puntos pertenecientes a <paramref name="Points"/></param>
-            <param name="WidthWindow">Ancho de la ventana. </param>
-            <param name="HeigthWindow">Alto de la ventana.</param>
-            <param name="Zoom">Factor de ampliación.</param>
-            <param name="Dx">Factor de desplazamiento en X.</param>
-            <param name="Dy">Factor de desplazamiento en Y.</param>
-            <param name="XI">Coordenada en X inicial en pixeles.</param>
-            <param name="YI">Coordenada en Y inicial en pixeles</param>
-            <returns></returns>
-        </member>
-        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalaEnDosDirecciones(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalaEnDosDirecciones(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single,System.Single,System.Single@,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Establece la escala a una lista de puntos en sus dos ejes. 
             </summary>
@@ -52,7 +37,25 @@
             <param name="Dy">Factor de desplazamiento en Y.</param>
             <param name="XI">Coordenada en X inicial en pixeles.</param>
             <param name="YI">Coordenada en Y inicial en pixeles</param>
+            <param name="SX">Devuelve la escala en X </param>
+             <param name="Tamano">Parametro para reducir la altura del dibujo. </param>
             <returns></returns>
+        </member>
+        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoEnDosDirecciones(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+             <summary>
+             Establece la escala a un Punto en ambos ejes. 
+             </summary>
+             <param name="Points">Lista de Puntos</param>
+             <param name="PuntoObjeto">Punto perteneciente a <paramref name="Points"/></param>
+             <param name="WidthWindow">Ancho de la ventana. </param>
+             <param name="HeigthWindow">Alto de la ventana.</param>
+             <param name="Zoom">Factor de ampliación.</param>
+             <param name="Dx">Factor de desplazamiento en X.</param>
+             <param name="Dy">Factor de desplazamiento en Y.</param>
+             <param name="XI">Coordenada en X inicial en pixeles.</param>
+             <param name="YI">Coordenada en Y inicial en pixeles</param>
+            <param name="Tamano">Parametro para reducir la altura del dibujo. </param>
+             <returns></returns>
         </member>
         <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPunto(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
             <summary>
@@ -78,6 +81,54 @@
             <param name="WidthWindow">Ancho de la ventana. </param>
             <param name="HeigthWindow">Alto de la ventana.</param>
             <param name="Zoom">Factor de ampliación.</param>
+            <param name="Dx">Factor de desplazamiento en X.</param>
+            <param name="Dy">Factor de desplazamiento en Y.</param>
+            <param name="XI">Coordenada en X inicial en pixeles.</param>
+            <param name="YI">Coordenada en Y inicial en pixeles</param>
+            <returns></returns>
+        </member>
+        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosEnEjeY(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single,System.Single,System.Single@,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Establece la escala a una lista de puntos en su eje mayor, centrando el dibujo en el eje Y. 
+            </summary>
+            <param name="Points">Lista de Puntos.</param>
+            <param name="PuntosObjeto">Lista de Puntos pertenecientes a <paramref name="Points"/></param>
+            <param name="WidthWindow">Ancho de la ventana. </param>
+            <param name="HeigthWindow">Alto de la ventana.</param>
+            <param name="Zoom">Factor de ampliación.</param>
+            <param name="Dx">Factor de desplazamiento en X.</param>
+            <param name="Dy">Factor de desplazamiento en Y.</param>
+            <param name="XI">Coordenada en X inicial en pixeles.</param>
+            <param name="YI">Coordenada en Y inicial en pixeles</param>
+            <param name="EscalaMayor">Devuelve la Escala Mayor</param>
+            <returns></returns>
+        </member>
+        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Establece la escala a una Lista de Puntos en ambos ejes, dependiendo en el sentido X de una escala dada y el dibujo se centra en el eje Y.
+            </summary>
+            <param name="Points">Lista de Puntos</param>
+            <param name="Puntos">Puntos perteneciente a <paramref name="Points"/></param>
+            <param name="HeigthDraw">Alto del dibujo. </param>
+            <param name="HeigthWindow">Alto de la ventana.</param>
+            <param name="Zoom">Factor de ampliación.</param>
+            <param name="SX">Escala en X.</param>
+            <param name="Dx">Factor de desplazamiento en X.</param>
+            <param name="Dy">Factor de desplazamiento en Y.</param>
+            <param name="XI">Coordenada en X inicial en pixeles.</param>
+            <param name="YI">Coordenada en Y inicial en pixeles</param>
+            <returns></returns>
+        </member>
+        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Establece la escala a un Punto en ambos ejes, dependiendo en el sentido X de una escala dada y el dibujo se centra en el eje Y.
+            </summary>
+            <param name="Points">Lista de Puntos</param>
+            <param name="Punto">Punto perteneciente a <paramref name="Points"/></param>
+            <param name="HeigthDraw">Alto del Dibujo. </param>
+            <param name="HeigthWindow">Alto de la ventana.</param>
+            <param name="Zoom">Factor de ampliación.</param>
+            <param name="SX">Escala en X.</param>
             <param name="Dx">Factor de desplazamiento en X.</param>
             <param name="Dy">Factor de desplazamiento en Y.</param>
             <param name="XI">Coordenada en X inicial en pixeles.</param>

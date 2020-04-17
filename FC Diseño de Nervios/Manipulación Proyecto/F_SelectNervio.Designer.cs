@@ -30,6 +30,13 @@
         {
             this.P_1 = new System.Windows.Forms.Panel();
             this.GB_Propiedades = new System.Windows.Forms.GroupBox();
+            this.PB_Info = new FontAwesome.Sharp.IconPictureBox();
+            this.TB_d2 = new System.Windows.Forms.TextBox();
+            this.TB_d1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.LB_cm0 = new System.Windows.Forms.Label();
+            this.LB_d1 = new System.Windows.Forms.Label();
+            this.LB_d2 = new System.Windows.Forms.Label();
             this.P_4 = new System.Windows.Forms.Panel();
             this.LB_3 = new System.Windows.Forms.Label();
             this.CB_SeccionAncho = new System.Windows.Forms.ComboBox();
@@ -50,6 +57,7 @@
             this.LB_1 = new System.Windows.Forms.Label();
             this.P_1.SuspendLayout();
             this.GB_Propiedades.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_Info)).BeginInit();
             this.P_4.SuspendLayout();
             this.GB_4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Nervios)).BeginInit();
@@ -69,7 +77,7 @@
             this.P_1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_1.Location = new System.Drawing.Point(0, 0);
             this.P_1.Name = "P_1";
-            this.P_1.Size = new System.Drawing.Size(641, 700);
+            this.P_1.Size = new System.Drawing.Size(656, 700);
             this.P_1.TabIndex = 1;
             // 
             // GB_Propiedades
@@ -77,6 +85,13 @@
             this.GB_Propiedades.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.GB_Propiedades.BackColor = System.Drawing.Color.LightGray;
+            this.GB_Propiedades.Controls.Add(this.PB_Info);
+            this.GB_Propiedades.Controls.Add(this.TB_d2);
+            this.GB_Propiedades.Controls.Add(this.TB_d1);
+            this.GB_Propiedades.Controls.Add(this.label1);
+            this.GB_Propiedades.Controls.Add(this.LB_cm0);
+            this.GB_Propiedades.Controls.Add(this.LB_d1);
+            this.GB_Propiedades.Controls.Add(this.LB_d2);
             this.GB_Propiedades.Controls.Add(this.P_4);
             this.GB_Propiedades.Controls.Add(this.CB_SeccionAncho);
             this.GB_Propiedades.Controls.Add(this.LB_6);
@@ -86,10 +101,79 @@
             this.GB_Propiedades.ForeColor = System.Drawing.Color.Black;
             this.GB_Propiedades.Location = new System.Drawing.Point(170, 3);
             this.GB_Propiedades.Name = "GB_Propiedades";
-            this.GB_Propiedades.Size = new System.Drawing.Size(468, 77);
+            this.GB_Propiedades.Size = new System.Drawing.Size(483, 77);
             this.GB_Propiedades.TabIndex = 10;
             this.GB_Propiedades.TabStop = false;
             this.GB_Propiedades.Text = "N - X | Piso X ";
+            // 
+            // PB_Info
+            // 
+            this.PB_Info.BackColor = System.Drawing.Color.LightGray;
+            this.PB_Info.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.PB_Info.IconChar = FontAwesome.Sharp.IconChar.InfoCircle;
+            this.PB_Info.IconColor = System.Drawing.SystemColors.Highlight;
+            this.PB_Info.IconSize = 21;
+            this.PB_Info.Location = new System.Drawing.Point(415, 48);
+            this.PB_Info.Name = "PB_Info";
+            this.PB_Info.Size = new System.Drawing.Size(21, 21);
+            this.PB_Info.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PB_Info.TabIndex = 20;
+            this.PB_Info.TabStop = false;
+            this.PB_Info.UseGdi = true;
+            // 
+            // TB_d2
+            // 
+            this.TB_d2.Location = new System.Drawing.Point(349, 48);
+            this.TB_d2.Name = "TB_d2";
+            this.TB_d2.Size = new System.Drawing.Size(39, 22);
+            this.TB_d2.TabIndex = 17;
+            this.TB_d2.TextChanged += new System.EventHandler(this.TB_d2_TextChanged);
+            // 
+            // TB_d1
+            // 
+            this.TB_d1.Location = new System.Drawing.Point(274, 48);
+            this.TB_d1.Name = "TB_d1";
+            this.TB_d1.Size = new System.Drawing.Size(32, 22);
+            this.TB_d1.TabIndex = 16;
+            this.TB_d1.TextChanged += new System.EventHandler(this.TB_d1_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 9F);
+            this.label1.Location = new System.Drawing.Point(387, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(22, 14);
+            this.label1.TabIndex = 19;
+            this.label1.Text = "cm";
+            // 
+            // LB_cm0
+            // 
+            this.LB_cm0.AutoSize = true;
+            this.LB_cm0.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_cm0.Location = new System.Drawing.Point(305, 52);
+            this.LB_cm0.Name = "LB_cm0";
+            this.LB_cm0.Size = new System.Drawing.Size(22, 14);
+            this.LB_cm0.TabIndex = 18;
+            this.LB_cm0.Text = "cm";
+            // 
+            // LB_d1
+            // 
+            this.LB_d1.AutoSize = true;
+            this.LB_d1.Location = new System.Drawing.Point(251, 52);
+            this.LB_d1.Name = "LB_d1";
+            this.LB_d1.Size = new System.Drawing.Size(22, 14);
+            this.LB_d1.TabIndex = 14;
+            this.LB_d1.Text = "d1:";
+            // 
+            // LB_d2
+            // 
+            this.LB_d2.AutoSize = true;
+            this.LB_d2.Location = new System.Drawing.Point(326, 52);
+            this.LB_d2.Name = "LB_d2";
+            this.LB_d2.Size = new System.Drawing.Size(22, 14);
+            this.LB_d2.TabIndex = 15;
+            this.LB_d2.Text = "d2:";
             // 
             // P_4
             // 
@@ -100,7 +184,7 @@
             this.P_4.ForeColor = System.Drawing.Color.Transparent;
             this.P_4.Location = new System.Drawing.Point(3, 17);
             this.P_4.Name = "P_4";
-            this.P_4.Size = new System.Drawing.Size(462, 21);
+            this.P_4.Size = new System.Drawing.Size(477, 21);
             this.P_4.TabIndex = 6;
             // 
             // LB_3
@@ -109,7 +193,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LB_3.Location = new System.Drawing.Point(2, 3);
             this.LB_3.Name = "LB_3";
-            this.LB_3.Size = new System.Drawing.Size(455, 18);
+            this.LB_3.Size = new System.Drawing.Size(470, 18);
             this.LB_3.TabIndex = 1;
             this.LB_3.Text = "CAMBIO SECCIÓN";
             this.LB_3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -172,7 +256,7 @@
             this.GB_4.ForeColor = System.Drawing.Color.White;
             this.GB_4.Location = new System.Drawing.Point(170, 81);
             this.GB_4.Name = "GB_4";
-            this.GB_4.Size = new System.Drawing.Size(468, 609);
+            this.GB_4.Size = new System.Drawing.Size(483, 609);
             this.GB_4.TabIndex = 11;
             this.GB_4.TabStop = false;
             this.GB_4.Text = "Nervios";
@@ -184,7 +268,7 @@
             this.PB_Nervios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PB_Nervios.Location = new System.Drawing.Point(3, 18);
             this.PB_Nervios.Name = "PB_Nervios";
-            this.PB_Nervios.Size = new System.Drawing.Size(462, 588);
+            this.PB_Nervios.Size = new System.Drawing.Size(477, 588);
             this.PB_Nervios.TabIndex = 4;
             this.PB_Nervios.TabStop = false;
             this.PB_Nervios.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_Nervios_Paint);
@@ -321,7 +405,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(641, 700);
+            this.ClientSize = new System.Drawing.Size(656, 700);
             this.Controls.Add(this.P_1);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft)));
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -334,6 +418,7 @@
             this.P_1.ResumeLayout(false);
             this.GB_Propiedades.ResumeLayout(false);
             this.GB_Propiedades.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_Info)).EndInit();
             this.P_4.ResumeLayout(false);
             this.GB_4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_Nervios)).EndInit();
@@ -368,5 +453,12 @@
         private System.Windows.Forms.ComboBox CB_SeccionAltura;
         private System.Windows.Forms.Label LB_7;
         private System.Windows.Forms.Label LB_6;
+        private System.Windows.Forms.TextBox TB_d1;
+        private System.Windows.Forms.Label LB_d1;
+        private System.Windows.Forms.Label LB_d2;
+        private System.Windows.Forms.TextBox TB_d2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label LB_cm0;
+        private FontAwesome.Sharp.IconPictureBox PB_Info;
     }
 }

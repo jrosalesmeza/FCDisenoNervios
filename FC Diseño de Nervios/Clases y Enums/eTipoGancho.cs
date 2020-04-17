@@ -10,6 +10,7 @@ namespace FC_Diseño_de_Nervios
     {
         None,
         G90,
+        G135,
         G180
     }
 }

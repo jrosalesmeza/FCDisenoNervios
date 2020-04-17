@@ -10,7 +10,10 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cCoordenadas
     {
-       public List<PointF> Reales { get; set; }
-       public List<PointF> Escaladas { get; set; }
+        public List<PointF> Reales { get; set; }
+        public List<PointF> Escaladas { get; set; }
+        public PointF Y0_Escalado { get; set; }
+
+
     }
 }

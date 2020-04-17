@@ -30,21 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_Base));
-            WeifenLuo.WinFormsUI.Docking.DockPanelSkin dockPanelSkin1 = new WeifenLuo.WinFormsUI.Docking.DockPanelSkin();
-            WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin autoHideStripSkin1 = new WeifenLuo.WinFormsUI.Docking.AutoHideStripSkin();
-            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient1 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient1 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin dockPaneStripSkin1 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripSkin();
-            WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient dockPaneStripGradient1 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient2 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient2 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient3 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient dockPaneStripToolWindowGradient1 = new WeifenLuo.WinFormsUI.Docking.DockPaneStripToolWindowGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient4 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient5 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.DockPanelGradient dockPanelGradient3 = new WeifenLuo.WinFormsUI.Docking.DockPanelGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient6 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
-            WeifenLuo.WinFormsUI.Docking.TabGradient tabGradient7 = new WeifenLuo.WinFormsUI.Docking.TabGradient();
             this.MS_BarraPrincipal = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nuevoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -75,6 +60,7 @@
             this.TSB_Undo = new System.Windows.Forms.ToolStripButton();
             this.TSB_Redo = new System.Windows.Forms.ToolStripButton();
             this.TS_S2 = new System.Windows.Forms.ToolStripSeparator();
+            this.TSB_SelectCombinaciones = new FontAwesome.Sharp.IconToolStripButton();
             this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
             this.BT_MaxRest = new System.Windows.Forms.Button();
@@ -224,26 +210,26 @@
             this.geometríaToolStripMenuItem,
             this.refuerzoToolStripMenuItem});
             this.longitudinalToolStripMenuItem.Name = "longitudinalToolStripMenuItem";
-            this.longitudinalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.longitudinalToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.longitudinalToolStripMenuItem.Text = "Longitudinal";
             // 
             // geometríaToolStripMenuItem
             // 
             this.geometríaToolStripMenuItem.Name = "geometríaToolStripMenuItem";
-            this.geometríaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.geometríaToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.geometríaToolStripMenuItem.Text = "Geometría";
             this.geometríaToolStripMenuItem.Click += new System.EventHandler(this.geometríaToolStripMenuItem_Click);
             // 
             // refuerzoToolStripMenuItem
             // 
             this.refuerzoToolStripMenuItem.Name = "refuerzoToolStripMenuItem";
-            this.refuerzoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refuerzoToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.refuerzoToolStripMenuItem.Text = "Refuerzo";
             // 
             // plantaToolStripMenuItem
             // 
             this.plantaToolStripMenuItem.Name = "plantaToolStripMenuItem";
-            this.plantaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plantaToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.plantaToolStripMenuItem.Text = "Planta";
             // 
             // selecciónDeNerviosToolStripMenuItem
@@ -282,56 +268,11 @@
             // 
             // DP_ContenedorPrincipal
             // 
-            this.DP_ContenedorPrincipal.ActiveAutoHideContent = null;
             this.DP_ContenedorPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DP_ContenedorPrincipal.DockBackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.DP_ContenedorPrincipal.Location = new System.Drawing.Point(0, 49);
             this.DP_ContenedorPrincipal.Name = "DP_ContenedorPrincipal";
             this.DP_ContenedorPrincipal.Size = new System.Drawing.Size(1252, 642);
-            dockPanelGradient1.EndColor = System.Drawing.SystemColors.ControlLight;
-            dockPanelGradient1.StartColor = System.Drawing.SystemColors.ControlLight;
-            autoHideStripSkin1.DockStripGradient = dockPanelGradient1;
-            tabGradient1.EndColor = System.Drawing.SystemColors.Control;
-            tabGradient1.StartColor = System.Drawing.SystemColors.Control;
-            tabGradient1.TextColor = System.Drawing.SystemColors.ControlDarkDark;
-            autoHideStripSkin1.TabGradient = tabGradient1;
-            dockPanelSkin1.AutoHideStripSkin = autoHideStripSkin1;
-            tabGradient2.EndColor = System.Drawing.SystemColors.ControlLightLight;
-            tabGradient2.StartColor = System.Drawing.SystemColors.ControlLightLight;
-            tabGradient2.TextColor = System.Drawing.SystemColors.ControlText;
-            dockPaneStripGradient1.ActiveTabGradient = tabGradient2;
-            dockPanelGradient2.EndColor = System.Drawing.SystemColors.Control;
-            dockPanelGradient2.StartColor = System.Drawing.SystemColors.Control;
-            dockPaneStripGradient1.DockStripGradient = dockPanelGradient2;
-            tabGradient3.EndColor = System.Drawing.SystemColors.ControlLight;
-            tabGradient3.StartColor = System.Drawing.SystemColors.ControlLight;
-            tabGradient3.TextColor = System.Drawing.SystemColors.ControlText;
-            dockPaneStripGradient1.InactiveTabGradient = tabGradient3;
-            dockPaneStripSkin1.DocumentGradient = dockPaneStripGradient1;
-            tabGradient4.EndColor = System.Drawing.SystemColors.ActiveCaption;
-            tabGradient4.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            tabGradient4.StartColor = System.Drawing.SystemColors.GradientActiveCaption;
-            tabGradient4.TextColor = System.Drawing.SystemColors.ActiveCaptionText;
-            dockPaneStripToolWindowGradient1.ActiveCaptionGradient = tabGradient4;
-            tabGradient5.EndColor = System.Drawing.SystemColors.Control;
-            tabGradient5.StartColor = System.Drawing.SystemColors.Control;
-            tabGradient5.TextColor = System.Drawing.SystemColors.ControlText;
-            dockPaneStripToolWindowGradient1.ActiveTabGradient = tabGradient5;
-            dockPanelGradient3.EndColor = System.Drawing.SystemColors.ControlLight;
-            dockPanelGradient3.StartColor = System.Drawing.SystemColors.ControlLight;
-            dockPaneStripToolWindowGradient1.DockStripGradient = dockPanelGradient3;
-            tabGradient6.EndColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            tabGradient6.LinearGradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
-            tabGradient6.StartColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            tabGradient6.TextColor = System.Drawing.SystemColors.ControlText;
-            dockPaneStripToolWindowGradient1.InactiveCaptionGradient = tabGradient6;
-            tabGradient7.EndColor = System.Drawing.Color.Transparent;
-            tabGradient7.StartColor = System.Drawing.Color.Transparent;
-            tabGradient7.TextColor = System.Drawing.SystemColors.ControlDarkDark;
-            dockPaneStripToolWindowGradient1.InactiveTabGradient = tabGradient7;
-            dockPaneStripSkin1.ToolWindowGradient = dockPaneStripToolWindowGradient1;
-            dockPanelSkin1.DockPaneStripSkin = dockPaneStripSkin1;
-            this.DP_ContenedorPrincipal.Skin = dockPanelSkin1;
             this.DP_ContenedorPrincipal.TabIndex = 4;
             // 
             // TS_Barra1
@@ -344,7 +285,8 @@
             this.TS_S1,
             this.TSB_Undo,
             this.TSB_Redo,
-            this.TS_S2});
+            this.TS_S2,
+            this.TSB_SelectCombinaciones});
             this.TS_Barra1.Location = new System.Drawing.Point(0, 24);
             this.TS_Barra1.Name = "TS_Barra1";
             this.TS_Barra1.Size = new System.Drawing.Size(1252, 25);
@@ -422,6 +364,22 @@
             // 
             this.TS_S2.Name = "TS_S2";
             this.TS_S2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // TSB_SelectCombinaciones
+            // 
+            this.TSB_SelectCombinaciones.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_SelectCombinaciones.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.TSB_SelectCombinaciones.IconChar = FontAwesome.Sharp.IconChar.CheckSquare;
+            this.TSB_SelectCombinaciones.IconColor = System.Drawing.Color.Olive;
+            this.TSB_SelectCombinaciones.IconSize = 25;
+            this.TSB_SelectCombinaciones.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.TSB_SelectCombinaciones.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_SelectCombinaciones.Name = "TSB_SelectCombinaciones";
+            this.TSB_SelectCombinaciones.Rotation = 0D;
+            this.TSB_SelectCombinaciones.Size = new System.Drawing.Size(23, 22);
+            this.TSB_SelectCombinaciones.Text = "Selección de Combinaciones";
+            this.TSB_SelectCombinaciones.ToolTipText = "Selección de Combinaciones de Carga";
+            this.TSB_SelectCombinaciones.Click += new System.EventHandler(this.TSB_SelectCombinaciones_Click);
             // 
             // P_Menu
             // 
@@ -602,5 +560,6 @@
         private System.Windows.Forms.ToolStripSeparator TS_S2;
         private WeifenLuo.WinFormsUI.Docking.DockPanel DP_ContenedorPrincipal;
         private System.Windows.Forms.ToolStripMenuItem selecciónDeNerviosToolStripMenuItem;
+        private FontAwesome.Sharp.IconToolStripButton TSB_SelectCombinaciones;
     }
 }

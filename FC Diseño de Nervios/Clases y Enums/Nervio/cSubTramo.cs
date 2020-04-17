@@ -20,9 +20,12 @@ namespace FC_Diseño_de_Nervios
             {
                 if (longitud != value && longitud!=0)
                 {
-                    F_Base.EnviarEstado(F_Base.Proyecto);
+                    F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
                     longitud = value;
+                    ReasignarEstaciones();
                     TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalReales();
+                    TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalAutoCAD();
+                    TramoOrigen.NervioOrigen.CrearCoordenadasDiagramaMomentosyCortantesyAreas_Reales_Envolvente();
                 }
                 longitud = value;
             }
@@ -44,6 +47,7 @@ namespace FC_Diseño_de_Nervios
                         seccion = value;
                         TramoOrigen.NervioOrigen.AsignarCambioAlturayCambioAnchoElementos();
                         TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalReales();
+                        TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalAutoCAD();
                     }
                     seccion = value;
                 }
@@ -51,10 +55,15 @@ namespace FC_Diseño_de_Nervios
             }
         }
         public cVistas Vistas { get; set; } = new cVistas();
-        public cEstacion Estacion { get; set; } = new cEstacion();
+        public List<cEstacion> Estaciones { get; set; }
         public List<cLine> Lista_Lineas { get; set; }
         public eSoporte Soporte { get; } = eSoporte.Vano; 
-        public float HVirtual { get; set; }
+        public float HVirtual_Real { get; set; }
+        public float HVirtual_AutoCAD { get; set; }
+
+        public cCoordenadasCalculos CoordenadasCalculosSolicitaciones { get; set; } = new cCoordenadasCalculos();
+        public cCoordenadasCalculos CoordenadasCalculosAsignado { get; set; } = new cCoordenadasCalculos();
+
 
         public cSubTramo(int Index,string Nombre,List<cLine> Lista_Lineas,cTramo TramoOrigen)
         {
@@ -62,9 +71,46 @@ namespace FC_Diseño_de_Nervios
             this.Index = Index;
             this.Nombre = Nombre;
             this.Lista_Lineas = Lista_Lineas;
+            CrearEstaciones();
             seccion = cFunctionsProgram.DeepClone(Lista_Lineas.First().Seccion);
+            TramoOrigen.NervioOrigen.d1_ = seccion.R_Top + cDiccionarios.AceroBarras[eNoBarra.B3];
+            TramoOrigen.NervioOrigen.d2_ = seccion.R_Bottom + cDiccionarios.AceroBarras[eNoBarra.B3];
             CalcularLongitud();
         }
+
+
+        private void CrearEstaciones()
+        {
+            float Delta = 0;
+            for (int i = 0; i < Lista_Lineas.Count; i++)
+            {
+                cLine LineaAnterior = null;
+                cLine LineActual = Lista_Lineas[i];
+                if (i - 1 >= 0)
+                {
+                    LineaAnterior = Lista_Lineas[i - 1];
+                    Delta = LineaAnterior.Estaciones.Last().CoordX;
+                }
+                LineActual.Estaciones.ForEach(x => x.CoordX = Delta + x.Localizacion - LineActual.Estaciones.First().Localizacion);
+            }
+            Estaciones = new List<cEstacion>();
+            Lista_Lineas.ForEach(x => Estaciones.AddRange(x.Estaciones));
+            Estaciones.ForEach(X => X.SubTramoOrigen = this);
+        }
+        private void ReasignarEstaciones()
+        {
+            float Delta = 0;
+            float LongitudRedistribuir = Longitud / (Estaciones.Count - 1);
+            Estaciones.ForEach(Estacion =>
+            {
+                Estacion.CoordX = Delta;
+                Delta += LongitudRedistribuir;
+            });
+
+        }
+
+
+
         private void CalcularLongitud()
         {
             foreach(cLine Line in Lista_Lineas)

@@ -40,8 +40,8 @@
             this.TB_Ruta2 = new System.Windows.Forms.TextBox();
             this.BT_Aceptar = new System.Windows.Forms.Button();
             this.P_Title = new System.Windows.Forms.Panel();
-            this.LB_Title = new System.Windows.Forms.Label();
             this.PB_Nuevo = new System.Windows.Forms.PictureBox();
+            this.LB_Title = new System.Windows.Forms.Label();
             this.P_Contenedor.SuspendLayout();
             this.GB_1.SuspendLayout();
             this.P_Title.SuspendLayout();
@@ -58,7 +58,7 @@
             this.P_Contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_Contenedor.Location = new System.Drawing.Point(0, 0);
             this.P_Contenedor.Name = "P_Contenedor";
-            this.P_Contenedor.Size = new System.Drawing.Size(504, 233);
+            this.P_Contenedor.Size = new System.Drawing.Size(513, 231);
             this.P_Contenedor.TabIndex = 0;
             // 
             // TB_Cancelar
@@ -86,7 +86,7 @@
             this.GB_1.Size = new System.Drawing.Size(474, 143);
             this.GB_1.TabIndex = 14;
             this.GB_1.TabStop = false;
-            this.GB_1.Text = "Datos de Entrada";
+            this.GB_1.Text = "Archivos de Entrada";
             // 
             // TB_Ruta1
             // 
@@ -175,19 +175,9 @@
             this.P_Title.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.P_Title.Location = new System.Drawing.Point(0, 0);
             this.P_Title.Name = "P_Title";
-            this.P_Title.Size = new System.Drawing.Size(502, 30);
+            this.P_Title.Size = new System.Drawing.Size(511, 30);
             this.P_Title.TabIndex = 0;
             this.P_Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Title_MouseDown);
-            // 
-            // LB_Title
-            // 
-            this.LB_Title.AutoSize = true;
-            this.LB_Title.Location = new System.Drawing.Point(30, 8);
-            this.LB_Title.Name = "LB_Title";
-            this.LB_Title.Size = new System.Drawing.Size(85, 14);
-            this.LB_Title.TabIndex = 0;
-            this.LB_Title.Text = "Nuevo Proyecto";
-            this.LB_Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Title_MouseDown);
             // 
             // PB_Nuevo
             // 
@@ -200,12 +190,22 @@
             this.PB_Nuevo.TabStop = false;
             this.PB_Nuevo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Title_MouseDown);
             // 
+            // LB_Title
+            // 
+            this.LB_Title.AutoSize = true;
+            this.LB_Title.Location = new System.Drawing.Point(30, 8);
+            this.LB_Title.Name = "LB_Title";
+            this.LB_Title.Size = new System.Drawing.Size(85, 14);
+            this.LB_Title.TabIndex = 0;
+            this.LB_Title.Text = "Nuevo Proyecto";
+            this.LB_Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Title_MouseDown);
+            // 
             // F_NuevoProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(504, 233);
+            this.ClientSize = new System.Drawing.Size(513, 231);
             this.Controls.Add(this.P_Contenedor);
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

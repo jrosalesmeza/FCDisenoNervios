@@ -1,0 +1,6 @@
+C:\Users\jrosales\Desktop\Bibliotecas\B_DiseñoDeVigas\B_FCDiseñoVigas\bin\Debug\B_FCDiseñoVigas.xml
+C:\Users\jrosales\Desktop\Bibliotecas\B_DiseñoDeVigas\B_FCDiseñoVigas\bin\Debug\B_FCDiseñoVigas.dll
+C:\Users\jrosales\Desktop\Bibliotecas\B_DiseñoDeVigas\B_FCDiseñoVigas\bin\Debug\B_FCDiseñoVigas.pdb
+C:\Users\jrosales\Desktop\Bibliotecas\B_DiseñoDeVigas\B_FCDiseñoVigas\obj\Debug\B_FCDiseñoVigas.csprojAssemblyReference.cache
+C:\Users\jrosales\Desktop\Bibliotecas\B_DiseñoDeVigas\B_FCDiseñoVigas\obj\Debug\B_FCDiseñoVigas.dll
+C:\Users\jrosales\Desktop\Bibliotecas\B_DiseñoDeVigas\B_FCDiseñoVigas\obj\Debug\B_FCDiseñoVigas.pdb

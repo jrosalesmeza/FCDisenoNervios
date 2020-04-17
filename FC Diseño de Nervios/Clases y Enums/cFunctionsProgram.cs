@@ -23,6 +23,8 @@ namespace FC_Diseño_de_Nervios
         public static List<eCambioenAncho> CambioAncho = new List<eCambioenAncho>() { eCambioenAncho.Ninguno, eCambioenAncho.Central, eCambioenAncho.Inferior, eCambioenAncho.Superior };
         public static List<eDireccion> Direcciones = new List<eDireccion>() { eDireccion.Diagonal, eDireccion.Horizontal, eDireccion.Vertical, eDireccion.Todos };
 
+        public static List<cSolicitacion> Solicitaciones;
+
         public static event DelegateNotificadorProgram Notificador;
 
         public static event DelegateVentanasEmergentes EventoVentanaEmergente;
@@ -32,69 +34,167 @@ namespace FC_Diseño_de_Nervios
 
         public const string Empresa = "efe Prima Ce";
         public const string Ext = ".nrv";
+        public const string ExtFuerzas = ".fzs";
         public const string NombrePrograma = "FC-JOISTS";
 
+
+ 
         /// <summary>
         /// Tuple(string, List(String))
         /// </summary>
         /// <param name="FilterTitle">Ejemplo: "Archivo | *.e2k;.$et"</param>
         public static Tuple<string, List<string>> CagarArchivoTextoPlano(string FilterTitle, string TitleText)
         {
-            OpenFileDialog OpenFileDialog = new OpenFileDialog() { Filter = FilterTitle, Title = TitleText };
-            OpenFileDialog.ShowDialog();
-            string Ruta = OpenFileDialog.FileName;
-            if (Ruta != "")
+            try
             {
-                List<string> Archivo = new List<string>();
-                Notificador("Cargando " + TitleText);
-                StreamReader colReader = new StreamReader(Ruta);
-                string colLineReader;
-                do
+                OpenFileDialog OpenFileDialog = new OpenFileDialog() { Filter = FilterTitle, Title = TitleText };
+                OpenFileDialog.ShowDialog();
+                string Ruta = OpenFileDialog.FileName;
+                if (Ruta != "")
                 {
-                    colLineReader = colReader.ReadLine();
-                    Archivo.Add(colLineReader);
-                } while (!(colLineReader == null));
-                colReader.Close();
-                //Control de Errores
-                Archivo.RemoveAll(x => x == null);
-                // Fin
-                Notificador("Listo");
-                return new Tuple<string, List<string>>(Ruta, Archivo);
-            }
+                    List<string> Archivo = new List<string>();
+                    Notificador("Cargando " + FilterTitle);
+                    StreamReader colReader = new StreamReader(Ruta);
+                    string colLineReader;
+                    do
+                    {
+                        colLineReader = colReader.ReadLine();
+                        Archivo.Add(colLineReader);
+                    } while (!(colLineReader == null));
+                    colReader.Close();
+                    //Control de Errores
+                    Archivo.RemoveAll(x => x == null);
+                    // Fin
+                    Notificador("Listo");
+                    return new Tuple<string, List<string>>(Ruta, Archivo);
+                }
 
-            Notificador("Listo");
+                Notificador("Listo");
+            }
+            catch (Exception exception) { EventoVentanaEmergente(exception.Message, MessageBoxIcon.Exclamation); Notificador("Listo"); }
             return null;
         }
 
         public static List<string> ComprobarErroresArchivoE2K(List<string> ArchivoE2K)
         {
             List<string> Errores = new List<string>();
-            int Inicio_ProgramInformation = ArchivoE2K.FindIndex(x => x.Contains("$ PROGRAM INFORMATION")) + 1;
-            int Final_ProgramInformation = Find_FinalIndice(ArchivoE2K, Inicio_ProgramInformation);
-            List<string> ArchivoProgramInformation = RangoDeDatosArchivoTextoPlano(Inicio_ProgramInformation, Final_ProgramInformation, ArchivoE2K);
-            foreach (string Line in ArchivoProgramInformation)
+            try
             {
-                string[] Line_Separate = Line.Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
-                if (Line_Separate[3].Contains("9.5"))
+                int Inicio_ProgramInformation = ArchivoE2K.FindIndex(x => x.Contains("$ PROGRAM INFORMATION")) + 1;
+                int Final_ProgramInformation = Find_FinalIndice(ArchivoE2K, Inicio_ProgramInformation);
+                List<string> ArchivoProgramInformation = RangoDeDatosArchivoTextoPlano(Inicio_ProgramInformation, Final_ProgramInformation, ArchivoE2K);
+
+                foreach (string Line in ArchivoProgramInformation)
                 {
-                    break;
+                    string[] Line_Separate = Line.Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
+                    if (Line_Separate[3].Contains("9.5"))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Errores.Add("Versión Inválida");
+                    }
+                }
+
+                int Inicio_Controls = ArchivoE2K.FindIndex(x => x.Contains("$ CONTROLS")) + 1;
+                int Final_Controls = Find_FinalIndice(ArchivoE2K, Inicio_Controls);
+                List<string> ArchivoControls = RangoDeDatosArchivoTextoPlano(Inicio_Controls, Final_Controls, ArchivoE2K);
+
+                string[] Line_Separate2 = ArchivoControls[0].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
+                if (Line_Separate2[1].Contains("TON") == false || Line_Separate2[2].Contains("M") == false)
+                {
+                    Errores.Add("Asignar unidades en Ton-m");
+                }
+            }
+            catch { Errores.Add("Archivo sin información"); }
+            return Errores;
+        }
+
+        public static List<string> CoprobarErroresArchivoCSV(List<string> ArchivoCSV)
+        {
+            List<string> Errores = new List<string>();
+
+            foreach (string Line in ArchivoCSV)
+            {
+                string[] LineSeparete = Line.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
+                if (LineSeparete.Count() != 10)
+                {
+                    Errores.Add("Cantidad de columnas de datos inválida");
+                    return Errores;
+                }
+            }
+            if (Errores.Count == 0)
+            {
+                Errores.Add("Archivo sin Información");
+            }
+
+            return Errores;
+        }
+
+
+        public static void AsignarSolicitacionesLineas(List<cEstacion> ListaEstaciones, cPiso Piso)
+        {
+            ListaEstaciones.ForEach(Estacion =>
+            {
+                Piso.Lista_Lines.ForEach(Line =>
+                 {
+                     if (Line.Nombre == Estacion.NombreLinea && Piso.Nombre == Estacion.StoryLinea)
+                     {
+                         Line.Estaciones.Add(Estacion);
+                         Line.Estaciones[Line.Estaciones.Count - 1].LineaOrigen = Line;
+                     }
+                 });
+            });
+
+            Piso.Lista_Lines.ForEach(Line => {
+                if (Line.ConfigLinea.Activar_Cambio_Ejes)
+                {
+                    int Inidice = 0;
+                    List<float> Localizaciones = Line.Estaciones.Select(x => x.Localizacion).ToList(); Localizaciones.Reverse();
+                    Line.Estaciones.ForEach(x => { x.Localizacion = Localizaciones[Inidice]; Inidice++; }) ;
+                    Line.Estaciones.Reverse();
+                } });
+        }
+
+        public static List<cEstacion> CrearEstaciones(List<string> ArchivoCSV)
+        {
+            Notificador("Cargando...");
+            List<cEstacion> ListaEstaciones = new List<cEstacion>();
+            List<string[]> ListaFuerzas = new List<string[]>();
+            ArchivoCSV.ForEach(x => ListaFuerzas.Add(x.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries)));
+            ListaFuerzas.RemoveAt(0);
+            foreach (string[] LineaArchivoCSV in ListaFuerzas)
+            {
+                string NombreStory = LineaArchivoCSV[0];
+                string NombreElemento = LineaArchivoCSV[1];
+                string NombreLoad = LineaArchivoCSV[2];
+                float Localizacion = Convert.ToSingle(LineaArchivoCSV[3]);
+                float P = Convert.ToSingle(LineaArchivoCSV[4]);
+                float V2 = Convert.ToSingle(LineaArchivoCSV[5]);
+                float V3 = Convert.ToSingle(LineaArchivoCSV[6]);
+                float T = Convert.ToSingle(LineaArchivoCSV[7]);
+                float M2 = -Convert.ToSingle(LineaArchivoCSV[8]);
+                float M3 = -Convert.ToSingle(LineaArchivoCSV[9]);
+                cEstacion estacion = new cEstacion(NombreStory, NombreElemento, Localizacion);
+                cSolicitacion Solicitacion = new cSolicitacion(NombreLoad, P, V2, V3, M2, M3, T);
+                if (!ListaEstaciones.Exists(x => estacion.Equals(x)))
+                {
+                    estacion.Lista_Solicitaciones = new List<cSolicitacion>();
+                    Solicitacion.EstacionOrigen = estacion;
+                    estacion.Lista_Solicitaciones.Add(Solicitacion);
+                    ListaEstaciones.Add(estacion);
                 }
                 else
                 {
-                    Errores.Add("Versión Inválida");
+                    cEstacion EstaiconFind = ListaEstaciones.Find(x => estacion.Equals(x));
+                    Solicitacion.EstacionOrigen = EstaiconFind;
+                    EstaiconFind.Lista_Solicitaciones.Add(Solicitacion);
+
                 }
             }
-
-            int Inicio_Controls = ArchivoE2K.FindIndex(x => x.Contains("$ CONTROLS")) + 1;
-            int Final_Controls = Find_FinalIndice(ArchivoE2K, Inicio_Controls);
-            List<string> ArchivoControls = RangoDeDatosArchivoTextoPlano(Inicio_Controls, Final_Controls, ArchivoE2K);
-
-            string[] Line_Separate2 = ArchivoControls[0].Split(Separadores, StringSplitOptions.RemoveEmptyEntries);
-            if (Line_Separate2[1].Contains("TON") == false || Line_Separate2[2].Contains("M") == false)
-            {
-                Errores.Add("Asignar unidades en Ton-m");
-            }
-            return Errores;
+            Notificador("Listo");
+            return ListaEstaciones;
         }
 
         public static cDatosEtabs CrearObjetosEtabs(List<string> ArchivoE2K)
@@ -160,7 +260,7 @@ namespace FC_Diseño_de_Nervios
 
                 if (Material_Separado.Length == 10)
                 {
-                    cMaterial material = new cMaterial(Material_Separado[1], Convert.ToSingle(Material_Separado[7]) * cConversiones.Esfuerzo_Ton_m_to_kfg_cm, Convert.ToSingle(Material_Separado[5]) * cConversiones.Esfuerzo_Ton_m_to_kfg_cm);
+                    cMaterial material = new cMaterial(Material_Separado[1], Convert.ToSingle(Material_Separado[7]) * cConversiones.Esfuerzo_Ton_m_to_kgf_cm, Convert.ToSingle(Material_Separado[5]) * cConversiones.Esfuerzo_Ton_m_to_kgf_cm);
                     Lista_Materiales.Add(material);
                 }
             }
@@ -449,7 +549,7 @@ namespace FC_Diseño_de_Nervios
 
             foreach (var LineGrupoBeams in GrupoBeams)
             {
-                Lista_Lista_Lineas.Add((List<cLine>)DeepClone(LineGrupoBeams.ListaBeams));
+                Lista_Lista_Lineas.Add(DeepClone(LineGrupoBeams.ListaBeams));
             }
 
             return Lista_Lista_Lineas;
@@ -575,7 +675,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public static cNervio CrearNervio(string Prefijo, int ID, List<cLine> LineasQComponenAlNervio, List<cLine> TodasLasLineas, List<cGrid> TodosLosGrids, float WidthWindow, float HeightWindow)
+        public static cNervio CrearNervio(string Prefijo, int ID, List<cLine> LineasQComponenAlNervio, List<cLine> TodasLasLineas, List<cGrid> TodosLosGrids, cPiso Piso, float WidthWindow, float HeightWindow)
         {
             eDireccion DireccionNervio = LineasQComponenAlNervio.First().ConfigLinea.Direccion;
             List<cLine> ListaObjetosOrganizada;
@@ -648,7 +748,7 @@ namespace FC_Diseño_de_Nervios
             TodosLosGrids.ForEach(y => { PuntosSinEscalar.AddRange(y.Recta_Real); });
             ListaObjetosFinal.ForEach(x => { TodasLasLineas.FindAll(y => y.Nombre == x.Line.Nombre && x.Soporte == eSoporte.Vano).ForEach(z => { z.isSelect = false; z.Select = false; z.IndexSelect = 0; }); x.Line.CrearPuntosPlantaEscaladaEtabsLine(PuntosSinEscalar, WidthWindow, HeightWindow, 0, 0, 1); });
 
-            return new cNervio(ID, Prefijo, ListaObjetosFinal, DireccionNervio, GridsParaNervios);
+            return new cNervio(ID, Prefijo, ListaObjetosFinal, DireccionNervio, GridsParaNervios, Piso);
         }
 
         public static void RenombrarNervios(List<cNervio> Nervios, eNomenclatura NomeclaturaHztal, eNomenclatura NomenclaturaVertical)
@@ -708,11 +808,11 @@ namespace FC_Diseño_de_Nervios
 
         public static void CambiarSkins(DockContent dock)
         {
-            dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.StartColor = SystemColors.ControlLight;
-            dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.EndColor = SystemColors.GrayText;
-            dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.StartColor = SystemColors.ControlLight;
-            dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.EndColor = SystemColors.ControlLight;
-            dock.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.TextColor = SystemColors.ControlLightLight;
+            dock.DockPanel.Theme.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.StartColor = SystemColors.ControlLight;
+            dock.DockPanel.Theme.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.EndColor = SystemColors.GrayText;
+            dock.DockPanel.Theme.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.StartColor = SystemColors.ControlLight;
+            dock.DockPanel.Theme.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.EndColor = SystemColors.ControlLight;
+            dock.DockPanel.Theme.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.TextColor = SystemColors.ControlLightLight;
         }
 
         #endregion Librerias Weifo Luo
@@ -794,7 +894,44 @@ namespace FC_Diseño_de_Nervios
         }
 
         #endregion WindowsForms
+        public static void SeleccionDataGridView(DataGridView data, int CeldaAValidar, bool DejarHabilitadoUno)
+        {
+            int Descontar = 0;
+            if (DejarHabilitadoUno){Descontar=1;}
+    
+            bool TodasSonSelect = false;
 
+            for (int i = Descontar; i < data.Rows.Count; i++)
+            {
+                if ((bool)data.Rows[i].Cells[CeldaAValidar].Value == true)
+                {
+                    if (i != data.Rows.Count - 1)
+                    {
+                        TodasSonSelect = true;
+                    }
+                }
+                else { TodasSonSelect = false; }
+            }
+
+            if (data.Rows.Count != 0)
+            {
+                for (int i = Descontar; i < data.Rows.Count; i++)
+                {
+                    data.Rows[i].Cells[CeldaAValidar].Value = true;
+                }
+            }
+
+            if (TodasSonSelect)
+            {
+                if (data.Rows.Count != 0)
+                {
+                    for (int i = Descontar; i < data.Rows.Count; i++)
+                    {
+                        data.Rows[i].Cells[CeldaAValidar].Value = false;
+                    }
+                }
+            }
+        }
         public static void EstiloDatGridView(DataGridView DataGrid)
         {
             DataGridViewCellStyle StyleC = new DataGridViewCellStyle();
@@ -858,6 +995,27 @@ namespace FC_Diseño_de_Nervios
         }
 
         /// <summary>
+        /// Determina la Longitud de una Polilinea
+        /// </summary>
+        /// <param name="Puntos">Lista de Puntos</param>
+        /// <returns></returns>
+        public static float Long(List<PointF> Puntos)
+        {
+            float Longitud = 0;
+            for (int i=0;i<Puntos.Count;i++)
+            {
+                if (i + 1 < Puntos.Count)
+                {
+                    PointF PuntoInicial = Puntos[i];
+                    PointF PuntoFinal = Puntos[i + 1];
+                    Longitud += Long(PuntoInicial, PuntoFinal);
+                }
+
+            }
+            return Longitud;
+        }
+
+        /// <summary>
         /// Determina la distancia entre dos puntos.
         /// </summary>
         /// <param name="Punto1"></param>
@@ -868,9 +1026,31 @@ namespace FC_Diseño_de_Nervios
             return (float)Math.Sqrt(Math.Pow(Punto1.X - Punto2.X, 2) + Math.Pow(Punto1.Y - Punto2.Y, 2));
         }
 
+
+        #region Metodos Paint
         public static RectangleF CrearCirculo(float Xc, float Yc, float Radio)
         {
             return new RectangleF(Xc - Radio, Yc - Radio, Radio * 2, Radio * 2);
+        } 
+        public static void CerrarPoligonoParaMomentos(ref List<PointF> Puntos,List<PointF> PuntosSinEscalar,float YIgualCeroEscalado)
+        {
+            float YInicial = PuntosSinEscalar[0].Y;
+            float YFinal = PuntosSinEscalar[PuntosSinEscalar.Count-1].Y;
+            float X,YInicialSinEscala,YFinalSinEscala;
+            if (YInicial != 0)
+            {
+                YInicialSinEscala = Puntos[0].Y;
+                X = Puntos.Find(x => x.Y == YInicialSinEscala).X;
+                Puntos.Insert(0,new PointF(X, YIgualCeroEscalado));
+            }
+            if (YFinal != 0)
+            {
+                YFinalSinEscala = Puntos[Puntos.Count - 1].Y;
+                X = Puntos.FindLast(x => x.Y == YFinalSinEscala).X;
+                Puntos.Add(new PointF(X, YIgualCeroEscalado));
+            }
         }
+
+        #endregion
     }
 }

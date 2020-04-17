@@ -173,8 +173,12 @@ namespace FC_Diseño_de_Nervios
             List<cPiso> PisosConNervios = F_Base.Proyecto.Edificio.Lista_Pisos.FindAll(x => x.Nervios != null && x.Nervios.Count > 0);
             if (PisosConNervios!=null && PisosConNervios.Count>0)
             {
-                F_Base.F_Base_.AcoplarVentana(ref F_Base.F_SelectNervio);
+               
                 F_Base.F_Base_.AcoplarVentana(ref F_Base.F_NervioEnPerfilLongitudinal);
+                F_Base.F_Base_.AcoplarVentana(ref F_Base.F_MomentosNervio);
+                F_Base.F_Base_.AcoplarVentana(ref F_Base.F_AreasMomentoNervio);
+                F_Base.F_Base_.AcoplarVentana(ref F_Base.F_VentanaDiseno);
+                F_Base.F_Base_.AcoplarVentana(ref F_Base.F_SelectNervio);
                 PisosConNervios.ForEach(x => x.Nervios.ForEach(y => y.SelectPlantaEnumeracion = false));
             }
             F_Base.LimpiarMemoria();
@@ -365,7 +369,7 @@ namespace FC_Diseño_de_Nervios
 
             foreach (List<cLine> lines in LineasParaCrearNervios)
             {
-                cNervio Nervio = cFunctionsProgram.CrearNervio(Prefijo, IndiceNervio, lines, F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines, F_Base.Proyecto.Edificio.Lista_Grids, WidthPB_NOENUMERADOS, Height_NOENUMERADOS);
+                cNervio Nervio = cFunctionsProgram.CrearNervio(Prefijo, IndiceNervio, lines, F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines, F_Base.Proyecto.Edificio.Lista_Grids, F_Base.Proyecto.DatosEtabs.PisoSelect,WidthPB_NOENUMERADOS, Height_NOENUMERADOS);
                 Nervio.Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.Select = false));
                 NerviosPisoSelect.Add(Nervio);
                 IndiceNervio = NerviosPisoSelect.Last().ID + 1;

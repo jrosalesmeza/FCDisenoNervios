@@ -16,7 +16,7 @@ namespace FC_Diseño_de_Nervios
             this.Nombre = Nombre;
             this.Type = Type;
         }
-        public List<cEstacion> Estaciones { get; set; }
+        public List<cEstacion> Estaciones { get; set; } = new List<cEstacion>();
 
         public cSeccion Seccion { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using FC_Diseño_de_Nervios.Controles;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -24,6 +25,8 @@ namespace FC_Diseño_de_Nervios
             PB_Nervios.MouseWheel += PB_Nervios_MouseWheel;
             PB_Nervios.MouseDown += PB_Nervios_MouseDown;
             PB_Nervios.MouseMove += PB_Nervios_MouseMove;
+            CustomizedToolTip ToolTipPerzonalizado = new CustomizedToolTip(); ToolTipPerzonalizado.AutoSize = false; ToolTipPerzonalizado.Size = new Size(150,150);
+            ToolTipPerzonalizado.SetToolTip(PB_Info, $" "); PB_Info.Tag = Properties.Resources.c3;
         }
 
 
@@ -212,20 +215,22 @@ namespace FC_Diseño_de_Nervios
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.ChangeSelect();
 
                 ListViewItem[] listViewItem = LV_Nervios.Items.Find(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre, false);
-                GB_Propiedades.Text = $" {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre}";
-                Text = $"Selección de Nervios | {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre} ";
+                GB_Propiedades.Text = $" {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.Edificio.PisoSelect.Nombre}";
+                Text = $"Selección de Nervios | {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.Edificio.PisoSelect.Nombre} ";
                 CB_SeccionAltura.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAltura;
                 CB_SeccionAncho.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAncho;
                 ChangeComboBox();
                 CB_SeccionAltura.SelectedItem = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAltura.ToString();
                 CB_SeccionAncho.SelectedItem = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAncho.ToString();
-                F_Base.AcutalizarVentanaF_NervioEnPerfilLongitudinal();
+                TB_d1.Text =string.Format("{0:0.00}",F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.d1);
+                TB_d2.Text = string.Format("{0:0.00}", F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.d2);
             }
             else
             {
                 Text = $"Selección de Nervios";
                 GB_Propiedades.Text = "";
             }
+            F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
             PB_Nervios.Invalidate();
         }
 
@@ -234,7 +239,7 @@ namespace FC_Diseño_de_Nervios
             if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
             {
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAltura = cFunctionsProgram.ConvertirStringtoeCambioAlto(CB_SeccionAltura.Text);
-                F_Base.AcutalizarVentanaF_NervioEnPerfilLongitudinal();
+                F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
             }
         }
 
@@ -295,6 +300,27 @@ namespace FC_Diseño_de_Nervios
         {
             CargarListViewStories();
             CB_Direccion.SelectedItem = eDireccion.Todos.ToString();
+        }
+
+        private void TB_d1_TextChanged(object sender, EventArgs e)
+        {
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+            {
+                float.TryParse(TB_d1.Text, out float d1);
+                if (d1 == 0) { d1 = 4f;}
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.d1 = d1;
+            }
+        }
+
+        private void TB_d2_TextChanged(object sender, EventArgs e)
+        {
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+            {
+                float.TryParse(TB_d2.Text, out float d2);
+                if (d2 == 0) { d2 = 4f; }
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.d2 = d2;
+
+            }
         }
     }
 }

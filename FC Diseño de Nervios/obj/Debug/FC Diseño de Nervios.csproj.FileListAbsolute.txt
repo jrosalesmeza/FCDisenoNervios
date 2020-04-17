@@ -49,7 +49,6 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_Esc
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.pdb
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.xml
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_SelectNervio.resources
-C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_Prop_Refuerzo.resources
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.dll
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.pdb
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\B_EscalaCoordenadas.xml
@@ -63,3 +62,11 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Di
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_NervioEnPerfilLongitudinal.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\FontAwesome.Sharp.dll
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_ModificacionEjes.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_MomentosNervio.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_SelectCombinaciones.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_SeleccionBarras.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_FCDiseñoVigas.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_FCDiseñoVigas.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_FCDiseñoVigas.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_AreasMomentoNervio.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_VentanaDiseno.resources

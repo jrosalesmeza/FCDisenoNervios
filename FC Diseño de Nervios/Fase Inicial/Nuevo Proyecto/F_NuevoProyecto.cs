@@ -13,6 +13,7 @@ namespace FC_Diseño_de_Nervios
     public partial class F_NuevoProyecto : Form
     {
 
+        
         Tuple<string, List<string>> CargarE2K;
         Tuple<string, List<string>> CargarCSV;
         public F_NuevoProyecto()
@@ -49,7 +50,8 @@ namespace FC_Diseño_de_Nervios
             if (CargarE2K != null && CargarCSV!=null)
             {
                 List<string> Errores = cFunctionsProgram.ComprobarErroresArchivoE2K(CargarE2K.Item2);
-                if (Errores.Count != 0)
+                List<string> ErroresCSV = cFunctionsProgram.CoprobarErroresArchivoCSV(CargarCSV.Item2);
+                if (Errores.Count != 0 && ErroresCSV.Count!=0)
                 {
                     foreach (string Error in Errores)
                     {
@@ -84,14 +86,15 @@ namespace FC_Diseño_de_Nervios
         {
             if (VerificarArchivos())
             {
-                Visible = false;
                 Close();
                 F_Base.Proyecto = new cProyecto("Nuevo Proyecto");
                 F_Base.Proyecto.DatosEtabs =  cFunctionsProgram.CrearObjetosEtabs(CargarE2K.Item2);
+                List<cEstacion> ListaEstaciones = cFunctionsProgram.CrearEstaciones(CargarCSV.Item2);
+                F_Base.Proyecto.DatosEtabs.Lista_Pisos.ForEach(Piso => cFunctionsProgram.AsignarSolicitacionesLineas(ListaEstaciones, Piso));
                 F_Pisos _Pisos = new F_Pisos(F_Base.Proyecto.DatosEtabs);
-                 CargarCSV = null; CargarE2K = null; TB_Ruta1.Text = ""; TB_Ruta2.Text = "";
+                CargarCSV = null; CargarE2K = null; TB_Ruta1.Text = ""; TB_Ruta2.Text = "";
                 _Pisos.ShowDialog(F_Base.F_Base_);
-            
+                
             }
         }
 

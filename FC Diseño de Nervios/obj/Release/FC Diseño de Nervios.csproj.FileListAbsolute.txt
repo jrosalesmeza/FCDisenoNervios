@@ -17,6 +17,7 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC 
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC Diseño de Nervios.exe
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC Diseño de Nervios.pdb
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_NervioEnPerfilLongitudinal.resources
-C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_Prop_Refuerzo.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_SelectNervio.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_ModificarSeccion.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\FontAwesome.Sharp.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_ModificacionEjes.resources

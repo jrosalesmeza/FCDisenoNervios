@@ -20,7 +20,7 @@ namespace FC_Diseño_de_Nervios
         public List<PointF> Recta_Real { get; set; }
         public List<PointF> Recta_Escalada { get; set; }
 
-        private PointF PuntoBubble_Real { get; set; } 
+        public PointF PuntoBubble_Real { get; set; } 
         private PointF PuntoBubbleEscalado { get; set; }
         public RectangleF BubleSize_Objeto_Escalado { get; set; }
 
@@ -56,7 +56,7 @@ namespace FC_Diseño_de_Nervios
         {
             if (EscalaEnEjeY)
             {
-                Recta_Escalada = cEscalaCoordenadas.EscalarPuntosEnEjeY(PuntosTodosObjetos, Recta_Real, WidthWindow, HeigthWindow, Zoom, Dx, Dy, XI);
+                Recta_Escalada = cEscalaCoordenadas.EscalarPuntosEnEjeY(PuntosTodosObjetos, Recta_Real, WidthWindow, HeigthWindow,out float EscalaMayorX, Zoom, Dx, Dy, XI);
                 PuntoBubbleEscalado = cEscalaCoordenadas.EscalarPuntoEnEjeY(PuntosTodosObjetos, PuntoBubble_Real, WidthWindow, HeigthWindow, Zoom, Dx, Dy, XI);
 
             }
@@ -91,10 +91,10 @@ namespace FC_Diseño_de_Nervios
 
             string NombreAMostrar = $"{Nombre}";
             PointF PointString = new PointF(PuntoBubbleEscalado.X - e.MeasureString(NombreAMostrar, Font1).Width / 2, PuntoBubbleEscalado.Y - Font1.Height / 2);
-
             e.DrawLines(Pen_Linea, Recta_Escalada.ToArray());
             e.DrawEllipse(Pen_Circulo, BubleSize_Objeto_Escalado);
             e.FillEllipse(BrushCirculo, BubleSize_Objeto_Escalado);
+            e.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             e.DrawString(NombreAMostrar, Font1, Brush_String, PointString);
             
         }

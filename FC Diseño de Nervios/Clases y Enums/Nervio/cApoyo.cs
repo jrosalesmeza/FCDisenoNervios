@@ -25,13 +25,16 @@ namespace FC_Diseño_de_Nervios
                         seccion = value;
                         NervioOrigen.AsignarCambioAlturayCambioAnchoElementos();
                         NervioOrigen.CrearCoordenadasPerfilLongitudinalReales();
+                        NervioOrigen.CrearCoordenadasPerfilLongitudinalAutoCAD();
+                        NervioOrigen.CrearCoordenadasDiagramaMomentosyCortantesyAreas_Reales_Envolvente();
                     }
                 }
               
             }
         }
         public cVistas Vistas { get; set; } = new cVistas();
-        public float HVirtual { get; set; }
+        public float HVirtual_Real { get; set; }
+        public float HVirtual_AutoCAD { get; set; }
         public cNervio NervioOrigen { get; set; }
         public cApoyo(string Nombre,cSeccion Seccion,cNervio NervioOrigen)
         {

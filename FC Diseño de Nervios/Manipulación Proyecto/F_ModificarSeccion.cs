@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FC_Diseño_de_Nervios
@@ -64,14 +57,33 @@ namespace FC_Diseño_de_Nervios
         {
             if(ElementoSeleccionado is cApoyo)
             {
+                LB_Ancho.Location = new System.Drawing.Point(66, 25);
+                TB_Ancho.Location = new System.Drawing.Point(130, 22);
+                LB_cm2.Location = new System.Drawing.Point(190, 25);
+                TB_Altura.Location = new System.Drawing.Point(130, 57);
+                LB_cm1.Location = new System.Drawing.Point(190, 60);
+                LB_Altura.Location = new System.Drawing.Point(66, 60);
+                GB_1.Location = new System.Drawing.Point(9, 31);
+                Height = 172;
+                GB_2.Visible = false;
                 TB_Longitud.Visible = false;
                 LB_Longitud.Visible = false;
                 LB_m3.Visible = false;
                 TB_Altura.Text= ElementoSeleccionado.Seccion.H.ToString();
                 TB_Ancho.Text = ElementoSeleccionado.Seccion.B.ToString();
+
             }
             else
             {
+                LB_Ancho.Location = new System.Drawing.Point(65, 15);
+                TB_Ancho.Location = new System.Drawing.Point(129, 12);
+                LB_cm2.Location = new System.Drawing.Point(189, 15);
+                TB_Altura.Location = new System.Drawing.Point(129, 36);
+                LB_cm1.Location = new System.Drawing.Point(189, 39);
+                LB_Altura.Location = new System.Drawing.Point(65, 39);
+                Height = 239;
+                GB_1.Location = new System.Drawing.Point(9, 102);
+                GB_2.Visible = true;
                 TB_Longitud.Visible = true;
                 LB_Longitud.Visible = true;
                 LB_m3.Visible = true;
@@ -79,15 +91,19 @@ namespace FC_Diseño_de_Nervios
                 TB_Ancho.Text = ElementoSeleccionado.Seccion.B.ToString();
                 cSubTramo SubTramo = (cSubTramo)ElementoSeleccionado;
                 TB_Longitud.Text = SubTramo.Longitud.ToString();
+                TB_fc.Text = SubTramo.Seccion.Material.fc.ToString();
+                TB_fy.Text = SubTramo.Seccion.Material.fy.ToString();
             }
         }
 
 
-
-
-
         private void BT_Cerrar_Click(object sender, EventArgs e)
         {
+            if (ElementoSeleccionado != null)
+            {
+                ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
+                F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
+            }
             Close();
         }
 
@@ -126,8 +142,11 @@ namespace FC_Diseño_de_Nervios
 
         private void BT_Cancelar_Click(object sender, EventArgs e)
         {
-            ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
-            F_Base.ActualizarTodosLasVentanas();
+            if (ElementoSeleccionado != null)
+            {
+                ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
+                F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
+            }
             Close();
         }
     }

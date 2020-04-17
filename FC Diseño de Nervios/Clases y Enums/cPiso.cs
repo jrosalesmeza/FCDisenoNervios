@@ -26,7 +26,22 @@ namespace FC_Diseño_de_Nervios
         
         public List<cNervio> Nervios { get; set; }
 
-        public cNervio NervioSelect { get; set; }
+        private cNervio nervioSelect;
+        public cNervio NervioSelect {
+            get { return nervioSelect; }
+            set {
+                if (nervioSelect != null)
+                {
+                    if (nervioSelect.Nombre != value.Nombre)
+                    {
+
+                        F_Base.LimpiarMemoria_Nervio();
+                    }
+                }
+                nervioSelect = value;
+                nervioSelect.Select = true;
+            }
+        }
 
         /// <summary>
         /// Propiedad con datos de Etabs

@@ -1,0 +1,60 @@
+  List<PointF> Momento_Negativos_Escalados = new List<PointF>(); List<PointF> Momento_Positivos_Escalados = new List<PointF>();
+            List<PointF> Momento_Negativos_SinEscalados = new List<PointF>(); List<PointF> Momento_Positivos_SinEscalados = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    Momento_Negativos_SinEscalados.AddRange(SubtramoAux.Coordenadas_Momentos_Negativos.Reales);
+                    Momento_Positivos_SinEscalados.AddRange(SubtramoAux.Coordenadas_Momentos_Positvos.Reales);
+                    Momento_Negativos_Escalados.AddRange(SubtramoAux.Coordenadas_Momentos_Negativos.Escaladas);
+                    Momento_Positivos_Escalados.AddRange(SubtramoAux.Coordenadas_Momentos_Positvos.Escaladas);
+                }
+            });
+
+            cFunctionsProgram.CerrarPoligonoParaMomentos(ref Momento_Negativos_Escalados, Momento_Negativos_SinEscalados);
+            cFunctionsProgram.CerrarPoligonoParaMomentos(ref Momento_Positivos_Escalados, Momento_Positivos_SinEscalados);
+
+
+            float YInicial = Momento_Negativos_Escalados[0].Y; float YFinal = Momento_Negativos_Escalados[0].Y;
+            SolidBrush Brush_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(227, 88, 88)));
+            SolidBrush Brush_Negativo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(38, 86, 158))); 
+            Pen PenBlack = new Pen(Brushes.Black, 1.5f); PenBlack.LineJoin = LineJoin.Round;
+            e.FillPolygon(Brush_Positivos, Momento_Positivos_Escalados.ToArray());
+            e.FillPolygon(Brush_Negativo, Momento_Negativos_Escalados.ToArray());
+
+            e.DrawLines(PenBlack, Momento_Positivos_Escalados.ToArray());
+            e.DrawLines(PenBlack, Momento_Negativos_Escalados.ToArray());
+            //float Radio = 1f;
+
+            //Momento_Negativos_Escalados.ForEach(Punto => { e.FillEllipse(Brush_Negativo, cFunctionsProgram.CrearCirculo(Punto.X, Punto.Y, Radio)); });
+            //Momento_Positivos_Escalados.ForEach(Punto => { e.FillEllipse(Brush_Positivos, cFunctionsProgram.CrearCirculo(Punto.X, Punto.Y, Radio)); });
+
+            float TamanoLetra;
+            if (Zoom > 0)
+            {
+                TamanoLetra = 9 * Zoom;
+            }
+            else
+            {
+                TamanoLetra = 1;
+            }
+            Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
+
+            GraficarRectaApoyos(e, HeightForm);
+
+            if (PuntoInMouseMomentos_Escalado_Real != null && PuntoInMouseMomentos_Escalado_Real.Length != 0)
+            {
+                string Text = $"(X= {Math.Round(PuntoInMouseMomentos_Escalado_Real[1].X, 2)}, M={Math.Round(PuntoInMouseMomentos_Escalado_Real[1].Y, 2)})";
+                SizeF MeasureString = e.MeasureString(Text, Font1);
+                float BordeRectangulo = 3f; float XString = PuntoInMouseMomentos_Escalado_Real[0].X + MeasureString.Width / 4; float YString = PuntoInMouseMomentos_Escalado_Real[0].Y;
+                PointF PuntoString = new PointF(XString, YString);
+
+                PointF[] PuntosRectangulo = new PointF[] { new PointF(XString-BordeRectangulo, YString+MeasureString.Height+ BordeRectangulo),
+                                                            new PointF(XString+ MeasureString.Width+BordeRectangulo, YString+MeasureString.Height+ BordeRectangulo),
+                                                            new PointF(XString+ MeasureString.Width+BordeRectangulo, YString- BordeRectangulo),
+                                                            new PointF(XString-BordeRectangulo, YString- BordeRectangulo) };
+                e.FillPolygon(new SolidBrush(Color.FromArgb(253, 255, 220)), PuntosRectangulo);
+                e.DrawPolygon(Pens.Black, PuntosRectangulo);
+                e.DrawString(Text, Font1, Brushes.Black, PuntoString);
+            }
