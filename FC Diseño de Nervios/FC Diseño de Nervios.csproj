@@ -120,6 +120,15 @@
     <Compile Include="Clases y Enums\Nervio\cVistasElemento.cs" />
     <Compile Include="Clases y Enums\Nervio\IElemento.cs" />
     <Compile Include="Clases y Enums\eNomenclatura.cs" />
+    <Compile Include="Controles\AdvancedRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controles\Control_Barra.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controles\Control_Barra.Designer.cs">
+      <DependentUpon>Control_Barra.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controles\ToolTipPersonalizado.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -196,6 +205,12 @@
     <Compile Include="Manipulación Proyecto\F_ModificacionEjes.Designer.cs">
       <DependentUpon>F_ModificacionEjes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Manipulación Proyecto\F_Tendencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\F_Tendencia.Designer.cs">
+      <DependentUpon>F_Tendencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="Manipulación Proyecto\F_VentanaDiseno.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +219,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controles\Control_Barra.resx">
+      <DependentUpon>Control_Barra.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Fase Inicial\F_Base.resx">
       <DependentUpon>F_Base.cs</DependentUpon>
     </EmbeddedResource>
@@ -239,6 +257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\F_ModificacionEjes.resx">
       <DependentUpon>F_ModificacionEjes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\F_Tendencia.resx">
+      <DependentUpon>F_Tendencia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\F_VentanaDiseno.resx">
       <DependentUpon>F_VentanaDiseno.cs</DependentUpon>

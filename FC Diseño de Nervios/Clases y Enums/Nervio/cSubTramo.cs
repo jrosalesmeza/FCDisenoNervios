@@ -9,7 +9,9 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cSubTramo: IElemento
     {
-        public int Index { get; set; }
+
+        public int Indice { get; set; }
+        public int Index { get; }
         public string Nombre { get; set; }
 
         private float longitud;

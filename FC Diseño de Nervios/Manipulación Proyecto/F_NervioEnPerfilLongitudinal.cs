@@ -34,6 +34,7 @@ namespace FC_Diseño_de_Nervios
 
         private void PB_VistaPerfilLongitudinal_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             e.Graphics.Clear(Color.White);
             if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
             {

@@ -103,13 +103,13 @@
             <param name="EscalaMayor">Devuelve la Escala Mayor</param>
             <returns></returns>
         </member>
-        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single@,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Establece la escala a una Lista de Puntos en ambos ejes, dependiendo en el sentido X de una escala dada y el dibujo se centra en el eje Y.
             </summary>
             <param name="Points">Lista de Puntos</param>
             <param name="Puntos">Puntos perteneciente a <paramref name="Points"/></param>
-            <param name="HeigthDraw">Alto del dibujo. </param>
+            <param name="SY">Devuelve la Escala en Y. </param>
             <param name="HeigthWindow">Alto de la ventana.</param>
             <param name="Zoom">Factor de ampliación.</param>
             <param name="SX">Escala en X.</param>

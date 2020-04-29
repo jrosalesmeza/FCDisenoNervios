@@ -9,6 +9,7 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cApoyo : IElemento
     {
+        public int Indice { get; set; }
         public string Nombre { get; set; }
         public eSoporte Soporte { get; } = eSoporte.Apoyo;
         

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,8 +18,17 @@ namespace FC_Diseño_de_Nervios
         public static Dictionary<eNoBarra, float> Ld_560 = new Dictionary<eNoBarra, float>();
         public static Dictionary<eNoBarra, float> AceroBarras = new Dictionary<eNoBarra, float>();
         public static Dictionary<eNoBarra, float> G90;
-        public static Dictionary<eNoBarra, float> G135;
-        public static Dictionary<eNoBarra, float> G180;
+
+        /// <summary>
+        /// Diccionario [NoBarra, (L,D)]
+        /// </summary>
+        public static Dictionary<eNoBarra, Tuple<float, float>> G135;
+        /// <summary>
+        /// Diccionario [NoBarra, (L,D)]
+        /// </summary>
+        public static Dictionary<eNoBarra, Tuple<float, float>> G180;
+        public static Dictionary<eNoBarra, Color> ColorBarra;
+
 
 
         public cDiccionarios()
@@ -26,6 +36,7 @@ namespace FC_Diseño_de_Nervios
             LlenarDiccionarioDiametrosBarras();
             LlenarDiccionarioAceroBarras();
             LlenarDiccionariosGanchos();
+            LlenarColoresBarra();
         }
 
         private static void LlenarDiccionarioDiametrosBarras()
@@ -41,13 +52,13 @@ namespace FC_Diseño_de_Nervios
         }
         private static void LlenarDiccionarioAceroBarras()
         {
-            AceroBarras.Add(eNoBarra.B2, 0.32f );
-            AceroBarras.Add(eNoBarra.B3, 0.71f );
-            AceroBarras.Add(eNoBarra.B4, 1.29f );
-            AceroBarras.Add(eNoBarra.B5, 1.99f );
-            AceroBarras.Add(eNoBarra.B6, 2.84f );
-            AceroBarras.Add(eNoBarra.B7, 3.87f );
-            AceroBarras.Add(eNoBarra.B8, 5.10f );
+            AceroBarras.Add(eNoBarra.B2, 0.32f);
+            AceroBarras.Add(eNoBarra.B3, 0.71f);
+            AceroBarras.Add(eNoBarra.B4, 1.29f);
+            AceroBarras.Add(eNoBarra.B5, 1.99f);
+            AceroBarras.Add(eNoBarra.B6, 2.84f);
+            AceroBarras.Add(eNoBarra.B7, 3.87f);
+            AceroBarras.Add(eNoBarra.B8, 5.10f);
             AceroBarras.Add(eNoBarra.B10, 8.09f);
         }
         private static void LlenarDiccionariosGanchos()
@@ -64,59 +75,68 @@ namespace FC_Diseño_de_Nervios
                 { eNoBarra.B10, 0.47f }
             };
 
-            G135 = new Dictionary<eNoBarra, float>
+            G135 = new Dictionary<eNoBarra, Tuple<float, float>>
             {
-                { eNoBarra.B2, 0.063f },
-                { eNoBarra.B3, 0.094f },
-                { eNoBarra.B4, 0.125f },
-                { eNoBarra.B5, 0.157f },
-                { eNoBarra.B6, 0.214f },
-                { eNoBarra.B7, 0.249f },
-                { eNoBarra.B8, 0.286f },
-                { eNoBarra.B10, 0.363f }
+                { eNoBarra.B2, new  Tuple<float, float>(0.063f,0.026f)},
+                { eNoBarra.B3, new  Tuple<float, float>(0.094f,0.038f)},
+                { eNoBarra.B4, new  Tuple<float, float>(0.125f,0.051f)},
+                { eNoBarra.B5, new  Tuple<float, float>(0.157f,0.064f)},
+                { eNoBarra.B6, new  Tuple<float, float>(0.214f,0.115f)},
+                { eNoBarra.B7, new  Tuple<float, float>(0.249f,0.133f)},
+                { eNoBarra.B8, new  Tuple<float, float>(0.286f,0.152f)},
+                { eNoBarra.B10,new  Tuple<float, float>(0.363f,0.194f) }
             };
-            G180 = new Dictionary<eNoBarra, float>
+
+            G180 = new Dictionary<eNoBarra, Tuple<float, float>>
             {
-                { eNoBarra.B2, 0.116f },
-                { eNoBarra.B3, 0.14f },
-                { eNoBarra.B4, 0.167f },
-                { eNoBarra.B5, 0.192f },
-                { eNoBarra.B6, 0.228f },
-                { eNoBarra.B7, 0.266f },
-                { eNoBarra.B8, 0.305f },
-                { eNoBarra.B10, 0.457f }
+                { eNoBarra.B2, new  Tuple<float, float>(0.116f,0.038f) },
+                { eNoBarra.B3, new  Tuple<float, float>(0.140f,0.057f)},
+                { eNoBarra.B4, new  Tuple<float, float>(0.167f,0.076f) },
+                { eNoBarra.B5, new  Tuple<float, float>(0.192f,0.095f) },
+                { eNoBarra.B6, new  Tuple<float, float>(0.228f,0.115f) },
+                { eNoBarra.B7, new  Tuple<float, float>(0.266f,0.133f) },
+                { eNoBarra.B8, new  Tuple<float, float>(0.305f,0.152f) },
+                { eNoBarra.B10,new  Tuple<float, float>(0.457f,0.258f) }
             };
         }
 
+        public static void LlenarColoresBarra()
+        {
+            ColorBarra = new Dictionary<eNoBarra, Color>()
+            {
+                { eNoBarra.B2, Color.FromArgb(247,128,38)},
+                { eNoBarra.B3, Color.FromArgb(250,164,27)},
+                { eNoBarra.B4, Color.FromArgb(253,190,17)},
+                { eNoBarra.B5, Color.FromArgb(210,207,32)},
+                { eNoBarra.B6, Color.FromArgb(159,207,33)},
+                { eNoBarra.B7, Color.FromArgb(121,207,34)},
+                { eNoBarra.B8, Color.FromArgb(28,173,134)},
+                { eNoBarra.B10,Color.FromArgb(32,62,148) }
+            };
+        }
         public static float FindTraslapo(eNoBarra NoBarra, float FC, bool isNervio)
         {
             if (isNervio) { return cVariables.TraslapoNervio; }
             if (FC == 210f) { return Ld_210[NoBarra]; }
-            if (FC == 280f) { return  Ld_280[NoBarra]; }
+            if (FC == 280f) { return Ld_280[NoBarra]; }
             if (FC == 350f) { return Ld_350[NoBarra]; }
             if (FC == 420f) { return Ld_420[NoBarra]; }
             if (FC == 490f) { return Ld_490[NoBarra]; }
             if (FC == 560f) { return Ld_560[NoBarra]; }
             return 0;
         }
-
-        public static float Find_Gancho(eNoBarra NoBarra, eTipoGancho TipoGancho)
+        public static float LDGancho(eNoBarra NoBarra, eTipoGancho Gancho)
         {
-            if (TipoGancho== eTipoGancho.G90)
+            switch (Gancho)
             {
-                return G90[NoBarra];
-            }
-            else if (TipoGancho == eTipoGancho.G135)
-            {
-                return G135[NoBarra];
-            }
-            else if(TipoGancho == eTipoGancho.G180)
-            {
-                return G180[NoBarra];
-            }
-            else
-            {
-                return 0f;
+                case eTipoGancho.G90:
+                    return G90[NoBarra];
+                case eTipoGancho.G180:
+                    return G180[NoBarra].Item1;
+                case eTipoGancho.G135:
+                    return G135[NoBarra].Item1;
+                default:
+                    return 0;
             }
         }
     }

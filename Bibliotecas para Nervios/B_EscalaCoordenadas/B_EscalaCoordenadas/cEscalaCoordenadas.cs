@@ -448,7 +448,7 @@ namespace B_EscalaCoordenadas
         /// </summary>
         /// <param name="Points">Lista de Puntos</param>
         /// <param name="Puntos">Puntos perteneciente a <paramref name="Points"/></param>
-        /// <param name="HeigthDraw">Alto del dibujo. </param>
+        /// <param name="SY">Devuelve la Escala en Y. </param>
         /// <param name="HeigthWindow">Alto de la ventana.</param>
         /// <param name="Zoom">Factor de ampliación.</param>
         /// <param name="SX">Escala en X.</param>
@@ -458,7 +458,7 @@ namespace B_EscalaCoordenadas
         /// <param name="YI">Coordenada en Y inicial en pixeles</param>
         /// <returns></returns>
 
-        public static List<PointF> EscalarPuntosConEscalasDependientes(List<PointF> Points, List<PointF> Puntos, float HeigthDraw, float HeigthWindow,float SX, float Zoom = 1, float Dx = 0, float Dy = 0, float XI = 5f, float YI = 5f)
+        public static List<PointF> EscalarPuntosConEscalasDependientes(List<PointF> Points, List<PointF> Puntos, out float SY, float HeigthWindow,float SX, float Zoom = 1, float Dx = 0, float Dy = 0, float XI = 5f, float YI = 5f)
         {
 
             float MaxPositivoX = Points.Max(x => x.X);
@@ -471,7 +471,7 @@ namespace B_EscalaCoordenadas
             if (MaxNegativoX > 0) { MaxNegativoX = 0; }
             if (MaxNegativoY > 0) { MaxNegativoY = 0; }
 
-            float SY = (HeigthWindow / Math.Abs(MaxPositivoY - MaxNegativoY) )/2* Zoom;
+            SY = (HeigthWindow / Math.Abs(MaxPositivoY - MaxNegativoY) )/2* Zoom;
 
 
             YI = -(HeigthWindow - (MaxPositivoY - MaxNegativoY) * SY) / 2;

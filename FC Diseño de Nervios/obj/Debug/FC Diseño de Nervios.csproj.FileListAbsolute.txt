@@ -70,3 +70,6 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_FCD
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\B_FCDiseñoVigas.xml
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_AreasMomentoNervio.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_VentanaDiseno.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.CoreCompileInputs.cache
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Controles.Control_Barra.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_Tendencia.resources

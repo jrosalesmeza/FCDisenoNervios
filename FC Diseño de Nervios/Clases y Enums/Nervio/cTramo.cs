@@ -43,6 +43,7 @@ namespace FC_Diseño_de_Nervios
                     }
                     else
                     {
+                        
                         cSubTramo subTramo = new cSubTramo(IndexTramo, "SubTramo " + (IndexTramo + 1), Lista_Iniciales, this);
                         Lista_SubTramos.Add(subTramo);
                         IndexTramo += 1;

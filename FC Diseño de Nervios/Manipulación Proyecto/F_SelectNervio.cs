@@ -230,7 +230,7 @@ namespace FC_Diseño_de_Nervios
                 Text = $"Selección de Nervios";
                 GB_Propiedades.Text = "";
             }
-            F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
+            F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();F_Base.F_VentanaDiseno.CargarComboBox();
             PB_Nervios.Invalidate();
         }
 

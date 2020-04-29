@@ -9,7 +9,8 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cNervio
     {
-        private float EscalaMayorenX;
+        public float EscalaMayorenX;
+        public float EscalaMayorenY;
         public int ID { get; set; }
         public string Nombre { get; set; }
         public string Prefijo { get; set; } = "N-";
@@ -100,7 +101,9 @@ namespace FC_Diseño_de_Nervios
             this.Lista_Objetos.ForEach(x => { if (x.Soporte == eSoporte.Apoyo) { CantApoyos += 1; } });
             this.Direccion = Direccion;
             this.Grids = Grids;
-            this.PisoOrigen = PisoOrigen;
+            this.PisoOrigen = PisoOrigen; Tendencia_Refuerzos.NervioOrigen = this; 
+            Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1,Tendencia_Refuerzos)); Tendencia_Refuerzos.TInfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
+            Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos)); Tendencia_Refuerzos.TSupeSelect = Tendencia_Refuerzos.TendenciasSuperior.First();
             AsignarCambioAlturayCambioAnchoObjetos();
             CrearTramos();
             CrearElementos();
@@ -116,6 +119,7 @@ namespace FC_Diseño_de_Nervios
         public void Cambio_Nombre(string Nombre_)
         {
             Nombre = Prefijo + Nombre_;
+            Tendencia_Refuerzos.NombreNervioOrigen = Nombre;
         }
 
         public void ModificarGridsCoordenadasReales(float BubbleSize = 0.25f)
@@ -265,6 +269,7 @@ namespace FC_Diseño_de_Nervios
             int CountApoyo = 0;
             foreach (cObjeto Objeto in Lista_Objetos)
             {
+
                 if (Objeto.Soporte == eSoporte.Apoyo)
                 {
                     CountApoyo += 1;
@@ -286,6 +291,8 @@ namespace FC_Diseño_de_Nervios
                     }
                 }
             }
+            int Contador = 0;
+            Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; } ) ;
         }
 
 
@@ -660,8 +667,8 @@ namespace FC_Diseño_de_Nervios
                if (Elemento is cSubTramo)
                {
                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
-                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Reales, HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales, HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
+                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
+                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
                    SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
                }
            });
@@ -673,8 +680,8 @@ namespace FC_Diseño_de_Nervios
                 if (Elemento is cSubTramo)
                 {
                     cSubTramo SubtramoAux = (cSubTramo)Elemento;
-                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Reales, HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Reales, HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
                     SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
                 }
             });
@@ -690,9 +697,10 @@ namespace FC_Diseño_de_Nervios
 
         public void CrearCoordenadasLongitudinal_Elementos_Escalados_AutoCAD(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
         {
-            Lista_Elementos.ForEach(Elemento => Elemento.Vistas.Perfil_AutoCAD.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, Elemento.Vistas.Perfil_AutoCAD.Reales, HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI));
+            Lista_Elementos.ForEach(Elemento => Elemento.Vistas.Perfil_AutoCAD.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, Elemento.Vistas.Perfil_AutoCAD.Reales, out EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI));
+            Tendencia_Refuerzos.TInfeSelect.Barras.ForEach(x => x.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI));
+            Tendencia_Refuerzos.TSupeSelect.Barras.ForEach(x => x.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI));
         }
-
 
 
 
@@ -799,15 +807,7 @@ namespace FC_Diseño_de_Nervios
             SolidBrush Brush_Seleccionado_Subtramos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(73, 115, 163)));
             SolidBrush Brush_Definitivo;
 
-            float TamanoLetra;
-            if (Zoom > 0)
-            {
-                TamanoLetra = 9 * Zoom;
-            }
-            else
-            {
-                TamanoLetra = 1;
-            }
+            float TamanoLetra = Zoom > 0 ? 9 * Zoom : 1;
             Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
 
             Lista_Elementos.ForEach(Elemento =>
@@ -962,12 +962,13 @@ namespace FC_Diseño_de_Nervios
         }
         public void Paint_Longitudinal_Elementos_Escalados_AutoCAD(Graphics e, float Zoom, float HeightForm)
         {
+            
             Pen Pen_Borde_Subtramo= new Pen(Color.Black,1);
             //Pen_Borde_Subtramo.DashStyle = DashStyle.Dot;
             Pen Pen_Borde_Apoyo = new Pen(Color.Black,1);
             //Pen_Borde_Apoyo.DashStyle = DashStyle.Dash;
-            Brush relleno = new SolidBrush(Color.FromArgb(80,17, 126, 178));
-            Brush rellenoApoyo = new SolidBrush(Color.FromArgb(80,14, 32, 70));
+            Brush relleno = new SolidBrush(Color.FromArgb(200,200,200));
+            Brush rellenoApoyo = new SolidBrush(Color.FromArgb(150,150,150));
 
             float TamanoLetra = Zoom > 0 ? 9 * Zoom : 1;
             Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
@@ -986,28 +987,11 @@ namespace FC_Diseño_de_Nervios
                 }
             });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             GraficarRectaApoyos(e, HeightForm);
+
+            Tendencia_Refuerzos.TSupeSelect.Barras.ForEach(x => x.Paint(e, Zoom, HeightForm));
+            Tendencia_Refuerzos.TInfeSelect.Barras.ForEach(x => x.Paint(e, Zoom, HeightForm));
         }
-
-
-
-
 
 
 

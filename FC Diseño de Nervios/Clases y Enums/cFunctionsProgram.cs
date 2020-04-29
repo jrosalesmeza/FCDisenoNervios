@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -15,13 +16,16 @@ namespace FC_Diseño_de_Nervios
 
     public static class cFunctionsProgram
     {
+       
         private static string[] Separadores = { "  ", " ", @"""" };
-        public static List<eType> eTypes = new List<eType>() { eType.Beam, eType.Column, eType.Floor, eType.Wall, eType.None };
-        public static List<eNomenclatura> Nomenclaturas_Nervios = new List<eNomenclatura>() { eNomenclatura.Alfabética, eNomenclatura.Numérica };
-        public static List<eDireccionGrid> Direcciones_Grid = new List<eDireccionGrid>() { eDireccionGrid.X, eDireccionGrid.Y };
-        public static List<eCambioenAltura> CambioAltura = new List<eCambioenAltura>() { eCambioenAltura.Ninguno, eCambioenAltura.Central, eCambioenAltura.Inferior, eCambioenAltura.Superior };
-        public static List<eCambioenAncho> CambioAncho = new List<eCambioenAncho>() { eCambioenAncho.Ninguno, eCambioenAncho.Central, eCambioenAncho.Inferior, eCambioenAncho.Superior };
-        public static List<eDireccion> Direcciones = new List<eDireccion>() { eDireccion.Diagonal, eDireccion.Horizontal, eDireccion.Vertical, eDireccion.Todos };
+        public static List<eType> eTypes = ((eType[])Enum.GetValues(typeof(eType))).ToList();
+        public static List<eNomenclatura> Nomenclaturas_Nervios = ((eNomenclatura[])Enum.GetValues(typeof(eNomenclatura))).ToList();
+        public static List<eDireccionGrid> Direcciones_Grid = ((eDireccionGrid[])Enum.GetValues(typeof(eDireccionGrid))).ToList();
+        public static List<eCambioenAltura> CambioAltura = ((eCambioenAltura[])Enum.GetValues(typeof(eCambioenAltura))).ToList();
+        public static List<eCambioenAncho> CambioAncho = ((eCambioenAncho[])Enum.GetValues(typeof(eCambioenAncho))).ToList();
+        public static List<eDireccion> Direcciones = ((eDireccion[])Enum.GetValues(typeof(eDireccion))).ToList();
+        public static List<eNoBarra> NoBarras = ((eNoBarra[])Enum.GetValues(typeof(eNoBarra))).ToList();
+
 
         public static List<cSolicitacion> Solicitaciones;
 
@@ -423,7 +427,14 @@ namespace FC_Diseño_de_Nervios
         {
             return CambioAltura.Find(x => x.ToString().ToUpper() == StringAlto.ToUpper());
         }
-
+        public static string ConvertireNoBarraToString(eNoBarra NoBarra)
+        {
+            return NoBarra.ToString().Replace("B", "#");
+        }
+        public static eNoBarra ConvertirStringToeNoBarra(string NoBarra)
+        {
+            return NoBarras.Find(x => x.ToString() == NoBarra.Replace("#", "B"));
+        }
         public static eDireccion ConvertirStringtoeDireccion(string StringDireccion)
         {
             return Direcciones.Find(x => x.ToString().ToUpper() == StringDireccion.ToUpper());
@@ -463,7 +474,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        //Funciones de Selección
+        #region Funciones de Selección
         public static void SeleccionInteligente(cLine LineMadre, List<cLine> Lista_Lines, int IndiceSeleccion, bool CondicionSelect)
         {
             foreach (cLine LineaHija in Lista_Lines)
@@ -537,6 +548,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+#endregion
         public static List<List<cLine>> LineasParaCrearNervios(List<cLine> Lista_LineasSeleccionadas)
         {
             List<List<cLine>> Lista_Lista_Lineas = new List<List<cLine>>();
@@ -803,6 +815,46 @@ namespace FC_Diseño_de_Nervios
                 }
             }
         }
+        
+        public static cTendencia CrearTendenciaDefault(int IDTendencia, cTendencia_Refuerzo Tendencia_Refuerzo_Origen)
+        {
+            cTendencia Tendencia = new cTendencia(IDTendencia, Tendencia_Refuerzo_Origen);
+            Tendencia.BarrasAEmplear = new List<eNoBarra>() { eNoBarra.B3, eNoBarra.B4, eNoBarra.B5 };
+            Tendencia.CuantiaMinimaInferior = cVariables.CuantiaMinimaInferior;
+            Tendencia.CuantiaMinimaSuperior = cVariables.CuantiaMinimaSuperior;
+            Tendencia.MinimaLongitud = cVariables.MinimaLongitud;
+            Tendencia.MaximaLongitud = cVariables.MaximaLongitud;
+            Tendencia.DeltaAlargamientoBarras = cVariables.DeltaAlargamitoBarras;
+            return Tendencia;
+        }
+
+        public static bool IsPuntoInSeccion(IElemento Elemento, PointF Punto)
+        {
+            GraphicsPath Path = new GraphicsPath();
+            Path.AddPolygon(Elemento.Vistas.Perfil_AutoCAD.Reales.ToArray());
+            if (Path.IsVisible(Punto))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+
+        public static cBarra CrearBarraDefault(cTendencia TendenciaOrigen, eUbicacionRefuerzo UbicacionRefuerzo)
+        {
+            float xi = TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.First(x => x is cSubTramo).Seccion.R_Bottom * cConversiones.Dimension_cm_to_m;
+            float xf = TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.First(x => x is cSubTramo).Seccion.R_Bottom * cConversiones.Dimension_cm_to_m + cVariables.MinimaLongitud;
+            return CrearBarra(0, TendenciaOrigen, eNoBarra.B3, UbicacionRefuerzo, 1,xi,xf);
+        }
+        public static cBarra CrearBarra(int ID, cTendencia TendenciaOrigen, eNoBarra NoBarra,eUbicacionRefuerzo UbicacionRefuerzo, int CantBarra, float xi,float xf)
+        {
+            return new cBarra(ID, TendenciaOrigen, NoBarra,UbicacionRefuerzo, CantBarra, xi,xf);
+
+        }
 
         #region Librerias Weifo Luo
 
@@ -1026,12 +1078,17 @@ namespace FC_Diseño_de_Nervios
             return (float)Math.Sqrt(Math.Pow(Punto1.X - Punto2.X, 2) + Math.Pow(Punto1.Y - Punto2.Y, 2));
         }
 
-
         #region Metodos Paint
         public static RectangleF CrearCirculo(float Xc, float Yc, float Radio)
         {
             return new RectangleF(Xc - Radio, Yc - Radio, Radio * 2, Radio * 2);
-        } 
+        }
+        public static RectangleF CrearCirculo(List<PointF> Puntos)
+        {
+            PointF P = Puntos.First(); PointF P2 = Puntos.Last();
+            return CrearCirculo(P.X, P.Y, Math.Abs(P.X-P2.X));
+        }
+
         public static void CerrarPoligonoParaMomentos(ref List<PointF> Puntos,List<PointF> PuntosSinEscalar,float YIgualCeroEscalado)
         {
             float YInicial = PuntosSinEscalar[0].Y;
@@ -1052,5 +1109,35 @@ namespace FC_Diseño_de_Nervios
         }
 
         #endregion
+
+
+        #region Vectorial
+        /// <summary>
+        /// Distancia Minima Entre Una Recta y Un Punto
+        /// </summary>
+        /// <param name="Punto1_Recta">Punto Inicial de la Recta.</param>
+        /// <param name="Punto2_Recta">Punto Final de la Recta.</param>
+        /// <param name="Punto">Punto </param>
+        public static float Dist(PointF Punto1_Recta,PointF Punto2_Recta, PointF Punto)
+        {
+            float m = (Punto1_Recta.Y - Punto2_Recta.Y) / (Punto1_Recta.X - Punto2_Recta.X);
+            float Numerador = Math.Abs(-m * Punto.X + Punto.Y + m * Punto1_Recta.X - Punto1_Recta.Y);
+            float Denominador = (float)Math.Sqrt(Math.Pow(-m, 2) + Math.Pow(1, 2));
+            return Numerador / Denominador;
+
+        }
+
+
+
+        #endregion
+
+
+
+
+
+
+
+
+
     }
 }

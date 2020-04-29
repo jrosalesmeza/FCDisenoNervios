@@ -1,4 +1,5 @@
 ﻿using B_FC_DiseñoVigas;
+using FC_Diseño_de_Nervios.Manipulación_Proyecto;
 using System;
 using System.Drawing;
 using System.IO;
@@ -12,6 +13,7 @@ namespace FC_Diseño_de_Nervios
         private bool ActivarVentanaEmergenteGuardarCambios = false;
         private static cUndoRedo<cProyecto> UndoRedo = new cUndoRedo<cProyecto>();
         private static cUndoRedo<cNervio> UndoRedoNervio = new cUndoRedo<cNervio>();
+
         public static F_Base F_Base_;
 
         #region Ventanas Emergentes
@@ -19,7 +21,7 @@ namespace FC_Diseño_de_Nervios
         private F_NuevoProyecto F_NuevoProyecto = new F_NuevoProyecto();
         public static F_EnumeracionPortico F_EnumeracionPortico;
         public static F_ModificarSeccion F_ModificarSeccion = new F_ModificarSeccion();
-
+        public static F_SeleccionBarras F_SeleccionBarras = new F_SeleccionBarras();
         #endregion Ventanas Emergentes
 
         #region Ventanas Acopladas
@@ -68,14 +70,21 @@ namespace FC_Diseño_de_Nervios
             Dock.Show(DP_ContenedorPrincipal);
             cFunctionsProgram.CambiarSkins(Dock);
         }
-        public void VentanaEmergente(ref F_ModificarSeccion ModificarSeccion)
+        public void VentanaEmergente(ref F_ModificarSeccion Form)
         {
-            if (!ModificarSeccion.Created) { ModificarSeccion = new F_ModificarSeccion(); }
-            ModificarSeccion.StartPosition = FormStartPosition.CenterScreen;
-            ModificarSeccion.Focus();
-            ModificarSeccion.Show();
+            if (!Form.Created) { Form = new F_ModificarSeccion(); }
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.Focus();
+            Form.Show();
         }
-    
+        public void VentanaEmergente(ref F_SeleccionBarras Form)
+        {
+            if (!Form.Created) { Form = new F_SeleccionBarras(); }
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.Focus();
+            Form.Show();
+        }
+
         #endregion
 
 
@@ -238,6 +247,10 @@ namespace FC_Diseño_de_Nervios
         public static void ActualizarVentanaF_VentanaDiseno(float Zoom,float Dx,float Dy)
         {
             F_VentanaDiseno.Zoom = Zoom; F_VentanaDiseno.Dx = Dx; F_VentanaDiseno.Dy = Dy;
+            F_VentanaDiseno.Invalidate();
+        }
+        public static void ActualizarVentanaF_VentanaDiseno()
+        {
             F_VentanaDiseno.Invalidate();
         }
 
@@ -636,5 +649,7 @@ namespace FC_Diseño_de_Nervios
             F_SelectCombinaciones.NervioSelect = Proyecto.Edificio.PisoSelect.NervioSelect;
             F_SelectCombinaciones.ShowDialog();
         }
+
+ 
     }
 }

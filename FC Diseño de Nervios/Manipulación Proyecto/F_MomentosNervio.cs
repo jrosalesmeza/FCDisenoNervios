@@ -23,7 +23,7 @@ namespace FC_Diseño_de_Nervios
 
         private void PB_VistaPerfilLongitudinalMomentos_Paint(object sender, PaintEventArgs e)
         {
-
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             e.Graphics.Clear(Color.White);
             float XI = 15f; float YI = 15f;
             float WidthPB = PB_VistaPerfilLongitudinalMomentos.Width - XI * 3;

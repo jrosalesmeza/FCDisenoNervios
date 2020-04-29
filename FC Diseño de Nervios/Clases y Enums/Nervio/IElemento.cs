@@ -8,6 +8,7 @@ namespace FC_Diseño_de_Nervios
 {
     public interface IElemento
     {
+        int Indice { get; set; }
         string Nombre { get; set; }
         eSoporte Soporte { get; }
         cSeccion Seccion { get; set; }

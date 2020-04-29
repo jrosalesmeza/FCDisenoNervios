@@ -117,4 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="TS_1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>132, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="TSB_CopiarRefuerzo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAC0AAAAtCAYAAAA6GuKaAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFWSURBVGhD7ZjBSsNAFEXfXwj+Sz/CP3DjH3QGdOe3iAhd
+        Cl0quBR3gltB0WWxtNRMLVXv2AtmpkOzavIC78Cl096XcBhKmlQMw+gZlZdx5WQZvPx0Geo0g+FbSH/k
+        J+giVGoGO7wonaCLUGk3GHyG9Lp+IN6vsPMTrN+xnub9PkOt3UAu1A+C4BK5x+cnn04GHNNFIuzlG6+v
+        1VCOWeskl0aeWOmlLs28sdJLLh2/06z0kkvHsNKLSbeFSbdFL6UNwzCaKV3etISKKaVBTaHmP6UhbaHq
+        htIAn1DC30Orl1m8hy7NtRnqbigNQHQC0evg5Azrc47qYUvYSQXREWud5NLY3ZcwlCPWOqkLY5fXkL5Z
+        ODlkrZNE2ssXxC9Z6SWRjlcJJxes9JJIx7/AeicdrxxOrljpJZNeYafvWOklkY6/hE4eWellS9rLw/xU
+        DlgbhrFXRH4BoqX5wZHFrQ0AAAAASUVORK5CYII=
+</value>
+  </data>
 </root>
