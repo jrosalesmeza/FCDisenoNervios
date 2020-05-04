@@ -178,8 +178,8 @@ namespace FC_Diseño_de_Nervios
                 float V2 = Convert.ToSingle(LineaArchivoCSV[5]);
                 float V3 = Convert.ToSingle(LineaArchivoCSV[6]);
                 float T = Convert.ToSingle(LineaArchivoCSV[7]);
-                float M2 = -Convert.ToSingle(LineaArchivoCSV[8]);
-                float M3 = -Convert.ToSingle(LineaArchivoCSV[9]);
+                float M2 = Convert.ToSingle(LineaArchivoCSV[8]);
+                float M3 = Convert.ToSingle(LineaArchivoCSV[9]);
                 cEstacion estacion = new cEstacion(NombreStory, NombreElemento, Localizacion);
                 cSolicitacion Solicitacion = new cSolicitacion(NombreLoad, P, V2, V3, M2, M3, T);
                 if (!ListaEstaciones.Exists(x => estacion.Equals(x)))

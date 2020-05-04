@@ -28,6 +28,7 @@ namespace FC_Diseño_de_Nervios
                         NervioOrigen.CrearCoordenadasPerfilLongitudinalReales();
                         NervioOrigen.CrearCoordenadasPerfilLongitudinalAutoCAD();
                         NervioOrigen.CrearCoordenadasDiagramaMomentosyCortantesyAreas_Reales_Envolvente();
+                        NervioOrigen.CrearCoordenadasDiagramaMomentosyAreas_Reales_Asignado();
                     }
                 }
               

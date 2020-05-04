@@ -68,7 +68,9 @@ namespace FC_Diseño_de_Nervios
                 });
             });
 
+  
             Barras.ForEach(x => x.CrearCoordenadasReales());
+            Tendencia_Refuerzo_Origen.NervioOrigen.CrearAceroAsignado();
         }
 
 

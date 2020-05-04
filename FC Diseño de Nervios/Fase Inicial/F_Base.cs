@@ -159,7 +159,7 @@ namespace FC_Diseño_de_Nervios
                 SaveFileDialog.InitialDirectory = Proyecto.Ruta;
             }
             SaveFileDialog.ShowDialog();
-            if (SaveFileDialog.FileName != "")
+            if (SaveFileDialog.FileName != "" && SaveFileDialog.FileName!= Proyecto.Nombre)
             {
                 Proyecto.Ruta = SaveFileDialog.FileName;
                 Proyecto.Nombre = Path.GetFileName(SaveFileDialog.FileName).Replace(cFunctionsProgram.Ext, "");

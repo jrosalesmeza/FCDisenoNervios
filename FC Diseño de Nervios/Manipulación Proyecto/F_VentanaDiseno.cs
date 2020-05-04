@@ -45,17 +45,20 @@ namespace FC_Diseño_de_Nervios
             PuntosNoEscalados.Add(new PointF(0, 0));
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasLongitudinal_Elementos_Escalados_AutoCAD(PuntosNoEscalados, HeightPB/3, HeightPB, Dx, Dy, Zoom, XI);
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_Elementos_Escalados_AutoCAD(e.Graphics, Zoom, PB_VistaPerfilLongitudinalDiseno.Height);
-
+            F_Base.ActualizarVentanaF_MomentosNervio(Zoom, Dx, Dy);
+            F_Base.ActualizarVentanaF_AreasMomentoNervio(Zoom, Dx, Dy);
         }
 
         private void F_VentanaDiseno_Paint(object sender, PaintEventArgs e)
         {
-       
-             PB_VistaPerfilLongitudinalDiseno.Invalidate();
+
+            CargarComboBox();
+            PB_VistaPerfilLongitudinalDiseno.Invalidate();
+            
         }
 
 
-        public void CargarComboBox()
+        private void CargarComboBox()
         {
             TSCB_RInferior.Items.Clear();
             TSCB_RSuperior.Items.Clear();
@@ -102,7 +105,9 @@ namespace FC_Diseño_de_Nervios
                 }
                 else
                 {
-                    F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.CrearBarra(cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.Last()));
+                    cBarra BarraClonada = cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.Last());
+                    BarraClonada.TendenciaOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.Last().TendenciaOrigen;
+                    F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.CrearBarra(BarraClonada);
                 }
             }
             else if (DilogResult == DialogResult.No)
@@ -114,7 +119,9 @@ namespace FC_Diseño_de_Nervios
                 }
                 else
                 {
-                    F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.CrearBarra(cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Last()));
+                    cBarra BarraClonada = cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Last());
+                    BarraClonada.TendenciaOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Last().TendenciaOrigen;
+                    F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.CrearBarra(BarraClonada);
                 }
             }
 

@@ -32,7 +32,8 @@ namespace FC_Diseño_de_Nervios
                 {
                     noBarra = value;
                     traslapo = cDiccionarios.FindTraslapo(NoBarra, TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x is cSubTramo).Seccion.Material.fc, true);
-                    CrearCoordenadasReales();
+                    AreaTotalBarra();
+                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.CrearAceroAsignado();
                 }
 
             }
@@ -46,6 +47,8 @@ namespace FC_Diseño_de_Nervios
                 if (cantBarra != value)
                 {
                     cantBarra = value;
+                    AreaTotalBarra();
+                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.CrearAceroAsignado();
                 }
             }
         }
@@ -223,7 +226,6 @@ namespace FC_Diseño_de_Nervios
         }
         public float AreaTotal { get; set; }
 
-
         private cTendencia tendenciaOrigen;
         public cTendencia TendenciaOrigen {
             get
@@ -242,15 +244,15 @@ namespace FC_Diseño_de_Nervios
         }
         private void FindTendeciaOrgien()
         {
-            if (UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
-            {
-                tendenciaOrigen = tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Tendencia_Refuerzos.TendenciasInferior.Find(x => x.Nombre == tendenciaOrigen.Nombre);
-            }
-            else
-            {
-                tendenciaOrigen = tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Tendencia_Refuerzos.TendenciasSuperior.Find(x => x.Nombre == tendenciaOrigen.Nombre);
+            //if (UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
+            //{
+            //    tendenciaOrigen = tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Tendencia_Refuerzos.TendenciasInferior.Find(x => x.Nombre == tendenciaOrigen.Nombre);
+            //}
+            //else
+            //{
+            //    tendenciaOrigen = tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Tendencia_Refuerzos.TendenciasSuperior.Find(x => x.Nombre == tendenciaOrigen.Nombre);
 
-            }
+            //}
         }
 
 
@@ -259,7 +261,7 @@ namespace FC_Diseño_de_Nervios
         public cCoordenadas C_F_Central { get; set; } = new cCoordenadas();
         public cCoordenadas C_F_Derecha { get; set; } = new cCoordenadas();
 
-        public cBarra(int ID,cTendencia TendenciaOrigen, eNoBarra NoBarra, eUbicacionRefuerzo UbicacionRefuerzo, int CantBarra, float xi, float xf)
+        public cBarra(int ID, cTendencia TendenciaOrigen, eNoBarra NoBarra, eUbicacionRefuerzo UbicacionRefuerzo, int CantBarra, float xi, float xf)
         {
             this.ID = ID;
             tendenciaOrigen = TendenciaOrigen;
@@ -342,9 +344,15 @@ namespace FC_Diseño_de_Nervios
         }
 
 
+        public bool EstacionEnBarra(cEstacion Estacion,cSubTramo Subtramo)
+        {
+            float CoordenaXMenor = Subtramo.Vistas.Perfil_Original.Reales.Min(X => X.X);
+            return xi <= CoordenaXMenor+Estacion.CoordX && CoordenaXMenor + Estacion.CoordX <= xf;
+        }
+
+
+
         private bool AplicarCambiosXFiXI(float Long){
-            float Longitud2 = XF - XI;
-            float Delta = Long - Longitud2;
             float LongiMaximaConGancho = TendenciaOrigen.MaximaLongitud - cDiccionarios.LDGancho(NoBarra, ganchoDerecha) - cDiccionarios.LDGancho(NoBarra, ganchoIzquierdo);
             if (Long >= TendenciaOrigen.MinimaLongitud && Long <= LongiMaximaConGancho)
             {
@@ -396,6 +404,8 @@ namespace FC_Diseño_de_Nervios
             
         }
 
+
+        #region Metodos Paint
         public void Paint(Graphics e, float Zoom, float HeigthForm)
         {
             float Espesor = 3f;
@@ -428,7 +438,9 @@ namespace FC_Diseño_de_Nervios
         }
 
 
-   
+        #endregion
+
+        #region Metodos Mouse
 
         public void MouseDown(PointF Point, bool NoArrastre)
         {
@@ -491,7 +503,6 @@ namespace FC_Diseño_de_Nervios
             return false;
         }
 
-
         public void MouseMove(PointF PointF)
         {
             if (C_F_Izquierda.IsSelect)
@@ -543,6 +554,11 @@ namespace FC_Diseño_de_Nervios
             }
             C_F_Central.IsSelect = false;
         }
+
+        #endregion
+
+
+
 
 
         public override string ToString()

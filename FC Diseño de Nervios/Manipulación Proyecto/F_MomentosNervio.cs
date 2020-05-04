@@ -38,12 +38,15 @@ namespace FC_Diseño_de_Nervios
                     cSubTramo cSubTramo = (cSubTramo)x;
                     PuntosNoEscalados.AddRange(cSubTramo.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Reales);
                     PuntosNoEscalados.AddRange(cSubTramo.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales);
+                    PuntosNoEscalados.AddRange(cSubTramo.CoordenadasCalculosAsignado.Momentos_Negativos.Reales);
+                    PuntosNoEscalados.AddRange(cSubTramo.CoordenadasCalculosAsignado.Momentos_Positivos.Reales);
                 }
             });
 
             //Crear Coordenadas Escaladas de Elementos
 
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasDiagramaMomentos_Escaladas_Envolvente(PuntosNoEscalados, HeightPB, HeightPB, Dx, Dy, Zoom, XI);
+            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasDiagramaMomentos_Escaladas_Asignado(PuntosNoEscalados, HeightPB, HeightPB, Dx, Dy, Zoom, XI);
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_DrawMomentos(e.Graphics, Zoom, PB_VistaPerfilLongitudinalMomentos.Height);
         }
 

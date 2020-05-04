@@ -13,16 +13,17 @@ namespace FC_Diseño_de_Nervios
         public string Nombre { get; set; } = "Tendencias";
 
         [NonSerialized]
-        public cNervio nervioOrigen;
+        private cNervio nervioOrigen;
         public cNervio NervioOrigen
         {
-            get {
+            get
+            {
                 if (nervioOrigen == null)
                 {
                     AsignarNervioOrigen();
                 }
-                return nervioOrigen; 
-            
+                return nervioOrigen;
+
             }
             set
             {
@@ -36,7 +37,7 @@ namespace FC_Diseño_de_Nervios
 
         private void AsignarNervioOrigen()
         {
-            nervioOrigen= F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.Nombre == NombreNervioOrigen);
+            nervioOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect;
         }
         public List<cTendencia> TendenciasSuperior = new List<cTendencia>();
         public List<cTendencia> TendenciasInferior = new List<cTendencia>();
@@ -62,6 +63,7 @@ namespace FC_Diseño_de_Nervios
                 if (t_InfeSelect != value)
                 {
                     t_InfeSelect = value;
+                    //t_InfeSelect.Tendencia_Refuerzo_Origen.NervioOrigen.CrearCoordenadasDiagramaMomentosyAreas_Reales_Asignado();
                 }
             }
         }

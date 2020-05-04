@@ -38,13 +38,13 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
         {
             CB_NoBarra.Items.Clear();
             cFunctionsProgram.NoBarras.ForEach(x => CB_NoBarra.Items.Add(cFunctionsProgram.ConvertireNoBarraToString(x)));
+            TB_Longitud.Text = string.Format("{0:0.00}", barraSelect.XF - barraSelect.XI);
             Barra_1.UbicacionRefuerzo = barraSelect.UbicacionRefuerzo;
             Barra_1.TipoGancho_Izquierdo = barraSelect.GanchoIzquierda;
             Barra_1.TipoGancho_Derecho = barraSelect.GanchoDerecha;
             Barra_1.NoBarra = barraSelect.NoBarra;
             NUP_Cantidad.Value = barraSelect.CantBarra;
             CB_NoBarra.Text = cFunctionsProgram.ConvertireNoBarraToString(barraSelect.NoBarra);
-            TB_Longitud.Text= string.Format("{0:0.00}", barraSelect.XF- barraSelect.XI);
             TB_Precision.Text = string.Format("{0:0.00}", barraSelect.DeltaAlargamiento);
         }
 
@@ -223,6 +223,8 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
         private void NUP_Cantidad_ValueChanged(object sender, EventArgs e)
         {
             barraSelect.CantBarra = (int)NUP_Cantidad.Value;
+            ChangeBarra();
+            ChangeTextLong();
         }
 
         private void BT_Der_Click(object sender, EventArgs e)

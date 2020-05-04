@@ -59,7 +59,6 @@ namespace FC_Diseño_de_Nervios
                 });
             }
             nervioSelect.CrearEnvolvente();
-            nervioSelect.CrearCoordenadasDiagramaMomentosyCortantesyAreas_Reales_Envolvente();
         }
 
         private void DGV_1_CellEndEdit(object sender, DataGridViewCellEventArgs e)

@@ -12,19 +12,18 @@ namespace FC_Diseño_de_Nervios
         public cCalculos(cSubTramo SubtramoOrigen)
         {
             this.SubtramoOrigen = SubtramoOrigen;
+            Solicitacion_Asignado_Corante = new cAreasyCortante(this);
+            Solicitacion_Asignado_Momentos = new cSolicitacion_Asignado_Momentos(this);
         }
 
         public float Phi_Vc { get; set; }
-        public cSolicitacion_Asignado_Momentos Solicitacion_Asingado_Momentos { get; set; } = new cSolicitacion_Asignado_Momentos();
-        public cAreasyCortante Solicitacion_Asingado_Corante { get; set; } = new cAreasyCortante();
+        public cSolicitacion_Asignado_Momentos Solicitacion_Asignado_Momentos { get; set; }
+        public cAreasyCortante Solicitacion_Asignado_Corante { get; set; } 
         public cEnvolvente Envolvente { get; set; }
 
         public cSubTramo SubtramoOrigen { get; }
 
 
-        public override string ToString()
-        {
-            return $"Calculos | {SubtramoOrigen.ToString()}";
-        }
+        public override string ToString() => $"Calculos | {SubtramoOrigen.ToString()}";
     }
 }
