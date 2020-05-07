@@ -15,5 +15,7 @@ namespace FC_Diseño_de_Nervios
         cVistas Vistas { get; set; }
         float HVirtual_Real { get; set; }
         float HVirtual_AutoCAD { get; set; }
+
+        float Longitud { get; set; }
     }
 }

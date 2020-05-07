@@ -9,6 +9,7 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public enum eNoBarra
     {
+        BNone,
         B2,
         B3,
         B4,

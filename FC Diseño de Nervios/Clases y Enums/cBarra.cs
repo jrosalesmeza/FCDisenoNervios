@@ -449,10 +449,12 @@ namespace FC_Diseño_de_Nervios
                 if (isMouseOverNoArrastre(Point))
                 {
                     C_Barra.IsSelect = true;
+                    C_Barra.IsSelectArrastre = false;
                 }
                 else
                 {
                     C_Barra.IsSelect = false;
+                    C_Barra.IsSelectArrastre = false;
                 }
             }
             else
@@ -460,10 +462,12 @@ namespace FC_Diseño_de_Nervios
                 if (isMouseOverNoArrastre(Point))
                 {
                     C_Barra.IsSelectArrastre = true;
-                
+                    C_Barra.IsSelect = false;
+
                 }
                 else
                 {
+                    C_Barra.IsSelect = false;
                     C_Barra.IsSelectArrastre = false;
                 }
             }
@@ -505,9 +509,10 @@ namespace FC_Diseño_de_Nervios
 
         public void MouseMove(PointF PointF)
         {
+
             if (C_F_Izquierda.IsSelect)
             {
-                float DistanciaPixeles =  PointF.X- C_F_Izquierda.Escaladas.First().X;
+                float DistanciaPixeles = PointF.X - C_F_Izquierda.Escaladas.First().X;
                 float DeltaDistancia = DistanciaPixeles / SX;
                 XI += DeltaDistancia;
             }
@@ -520,13 +525,14 @@ namespace FC_Diseño_de_Nervios
             if (C_F_Central.IsSelect)
             {
                 float DistanciaPixeles1 = PointF.X - C_F_Central.Escaladas.First().X;
-                if (xi+ DistanciaPixeles1 /SX>= LimiteIzquierdo  && xf + DistanciaPixeles1 / SX <= LimiteDerecho)
+                if (xi + DistanciaPixeles1 / SX >= LimiteIzquierdo && xf + DistanciaPixeles1 / SX <= LimiteDerecho)
                 {
                     XI += DistanciaPixeles1 / SX;
                     XF += DistanciaPixeles1 / SX;
                 }
                 C_F_Central.Escaladas = new List<PointF>() { PointF };
             }
+
         }
         public void MouseDownEsferas(PointF PointPer)
         {

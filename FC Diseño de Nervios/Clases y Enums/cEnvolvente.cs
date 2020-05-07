@@ -57,15 +57,15 @@ namespace FC_Diseño_de_Nervios
                 M3_0 = 0.001f;
             if (M3_1 == 0)
                 M3_1 = 0.001f;
-
-
-
-
-
             float[] AreaAporteInferior = DiseñoYRevisonVigasRectangulares.Diseñar(B, H, d1, d2, fc, fy, M3_0 * cConversiones.Momento_Ton_m_to_kgf_cm, DiseñoYRevisonVigasRectangulares.eTipoViga.NoSismica);
-            float[] AreaAporteSuperior = DiseñoYRevisonVigasRectangulares.Diseñar(B, H, d1, d2, fc, fy, M3_1 * cConversiones.Momento_Ton_m_to_kgf_cm, DiseñoYRevisonVigasRectangulares.eTipoViga.NoSismica);
+            float[] AreaAporteSuperior = DiseñoYRevisonVigasRectangulares.Diseñar(B, H, d1, d2, fc, fy, M3_1 * cConversiones.Momento_Ton_m_to_kgf_cm, DiseñoYRevisonVigasRectangulares.eTipoViga.NoAplica);
+            float ASuperior = AreaAporteSuperior[0];
+
+            if (B >= 12) { if (ASuperior < 0.0009f * B * H) { ASuperior = 0.0009f * B * H; } } //Criterios de F'C
+
+
             CalculosOrigen.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Area_Momento = AreaAporteInferior[0];
-            CalculosOrigen.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento = AreaAporteSuperior[0];
+            CalculosOrigen.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento = ASuperior;
             CalculosOrigen.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Momento = M3[0];
             CalculosOrigen.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Momento = M3[1];
         }

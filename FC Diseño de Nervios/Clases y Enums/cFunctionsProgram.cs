@@ -819,9 +819,9 @@ namespace FC_Diseño_de_Nervios
         public static cTendencia CrearTendenciaDefault(int IDTendencia, cTendencia_Refuerzo Tendencia_Refuerzo_Origen)
         {
             cTendencia Tendencia = new cTendencia(IDTendencia, Tendencia_Refuerzo_Origen);
-            Tendencia.BarrasAEmplear = new List<eNoBarra>() { eNoBarra.B3, eNoBarra.B4, eNoBarra.B5 };
-            Tendencia.CuantiaMinimaInferior = cVariables.CuantiaMinimaInferior;
-            Tendencia.CuantiaMinimaSuperior = cVariables.CuantiaMinimaSuperior;
+            Tendencia.BarrasAEmplearBase = new List<eNoBarra>() { eNoBarra.B3, eNoBarra.B4, eNoBarra.B5, eNoBarra.B6 };
+            Tendencia.BarrasAEmplearAdicional= new List<eNoBarra>() { eNoBarra.B2, eNoBarra.B3, eNoBarra.B4,eNoBarra.B5, eNoBarra.B6 };
+            Tendencia.CuantiaMinima = cVariables.CuantiaMinimaSuperior;
             Tendencia.MinimaLongitud = cVariables.MinimaLongitud;
             Tendencia.MaximaLongitud = cVariables.MaximaLongitud;
             Tendencia.DeltaAlargamientoBarras = cVariables.DeltaAlargamitoBarras;
@@ -1133,7 +1133,77 @@ namespace FC_Diseño_de_Nervios
 
 
 
+        public static void DiseñarNervio(cNervio Nervio)
+        {
+            //Acero inferior 
 
+
+            //Determinar Area Minima 
+
+            List<float> AsminSubTramo = new List<float>();
+
+            Nervio.Lista_Elementos.ForEach((x => {
+                if (x is cSubTramo)
+                {
+                    cSubTramo subtramo = (cSubTramo)x;
+                    float AminAx = subtramo.Seccion.B * subtramo.Seccion.H * Nervio.Tendencia_Refuerzos.TInfeSelect.CuantiaMinima;
+                    AsminSubTramo.Add(AminAx);
+                }
+            
+            }));
+            float Asmin = AsminSubTramo.Min(); //Barra de Refuerzo Base
+            eNoBarra BarraPropuesta= ProponerUnaBarra(Asmin, Nervio.Tendencia_Refuerzos.TInfeSelect.BarrasAEmplearBase, Nervio);
+            AgregarBarraContinua(Nervio.Lista_Elementos, Nervio.Tendencia_Refuerzos.TInfeSelect,BarraPropuesta,eUbicacionRefuerzo.Inferior);
+
+
+        }
+
+
+
+        private static void AgregarBarraContinua(List<IElemento> Elementos,cTendencia tendencia,eNoBarra NoBarra,eUbicacionRefuerzo Ubicacion)
+        {
+            float LongitudElementos = Elementos.Sum(x => x.Longitud);
+            float d1 = tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.d1*cConversiones.Dimension_cm_to_m;
+         
+            if(LongitudElementos< tendencia.MaximaLongitud)
+            {
+                cBarra BarraInicial = new cBarra(0, tendencia, NoBarra, Ubicacion, 1, d1, LongitudElementos-d1);
+                BarraInicial.GanchoDerecha = eTipoGancho.G90;
+                BarraInicial.GanchoIzquierda = eTipoGancho.G90;
+                tendencia.AgregarBarra(BarraInicial);
+            }
+
+        }
+
+
+
+
+
+
+
+
+        private static eNoBarra ProponerUnaBarra(float As, List<eNoBarra> Barras,cNervio Nervio)
+        {
+            List<eNoBarra> BarrasFinales = new List<eNoBarra>();
+            Barras.ForEach(Barra => {
+
+                float Delta = cDiccionarios.AceroBarras[Barra] - As;
+                if (Delta > 0)
+                    BarrasFinales.Add(Barra);
+            });
+
+
+            if (BarrasFinales.Count == 0)
+            {
+                EventoVentanaEmergente?.Invoke($"No se encontró el refuerzo necesario para las solicitaciones del Nervio: {Nervio.Nombre}", MessageBoxIcon.Error);
+                return eNoBarra.BNone;
+            }
+            else
+            {
+                return BarrasFinales.Min(); 
+            }
+
+       }
 
 
 

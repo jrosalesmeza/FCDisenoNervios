@@ -25,18 +25,28 @@ namespace FC_Diseño_de_Nervios
         public float MinimaLongitud { get; set; }
         public float MaximaLongitud { get; set; }
 
-        public List<eNoBarra> BarrasAEmplear { get; set; }
+        public List<eNoBarra> BarrasAEmplearBase { get; set; }
+
+        public List<eNoBarra> BarrasAEmplearAdicional { get; set; }
         public float DeltaAlargamientoBarras { get; set; }
 
-        public float CuantiaMinimaInferior { get; set; }
-        public float CuantiaMinimaSuperior { get; set; }
-
+        public float CuantiaMinima { get; set; }
 
         public float PesoRefuerzo { get; set; }
         public eUbicacionRefuerzo UbicacionRefuerzo { get; set; }
 
 
-        public void CrearBarra(cBarra Barra)
+        public void EliminarBarra(cBarra Barra)
+        {
+            Barras.Remove(Barra);
+            AsignarNivelABarras();
+        }
+        public void EliminarBarra(int IndexBarra)
+        {
+            Barras.RemoveAt(IndexBarra);
+            AsignarNivelABarras();
+        }
+        public void AgregarBarra(cBarra Barra)
         {
             Barras.Add(Barra);
             AsignarNivelABarras();
@@ -72,7 +82,6 @@ namespace FC_Diseño_de_Nervios
             Barras.ForEach(x => x.CrearCoordenadasReales());
             Tendencia_Refuerzo_Origen.NervioOrigen.CrearAceroAsignado();
         }
-
 
 
         private void CompararBarras(cBarra Barra0,List<cBarra> Barras)
@@ -155,11 +164,6 @@ namespace FC_Diseño_de_Nervios
             });
             
         }
-
-
-
-
-
 
         private bool XiPerteneceaX0X1(float X0, float X1, float Xi)
         {

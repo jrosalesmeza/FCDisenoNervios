@@ -48,6 +48,12 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+        private float longitud;
+        public float Longitud {
+            get { return longitud; }
+            set { longitud = value; }
+        
+        }
         public eDireccion Direccion { get; set; }
         public List<cTramo> Lista_Tramos { get; set; }
         public List<cObjeto> Lista_Objetos { get; set; }
@@ -104,11 +110,13 @@ namespace FC_Diseño_de_Nervios
             this.Direccion = Direccion;
             this.Grids = Grids;
             this.PisoOrigen = PisoOrigen; Tendencia_Refuerzos.NervioOrigen = this; 
-            Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1,Tendencia_Refuerzos)); Tendencia_Refuerzos.TInfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
-            Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos)); Tendencia_Refuerzos.TSupeSelect = Tendencia_Refuerzos.TendenciasSuperior.First();
             AsignarCambioAlturayCambioAnchoObjetos();
             CrearTramos();
             CrearElementos();
+
+            Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos)); Tendencia_Refuerzos.TInfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
+            Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos)); Tendencia_Refuerzos.TSupeSelect = Tendencia_Refuerzos.TendenciasSuperior.First();
+
             if (CantApoyos > 0)
             {
                 CrearCoordenadasPerfilLongitudinalReales();
@@ -116,8 +124,14 @@ namespace FC_Diseño_de_Nervios
                 ModificarGridsCoordenadasReales();
                 CrearEnvolvente();
                 CrearAceroAsignado();
+            }
+            if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+            {
+                Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud+ 2*cDiccionarios.G90[eNoBarra.B6];
+                Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud+ 2*cDiccionarios.G90[eNoBarra.B6];
 
             }
+
         }
 
         public void Cambio_Nombre(string Nombre_)
@@ -496,6 +510,8 @@ namespace FC_Diseño_de_Nervios
                 }
                 CrearCoordenadasLongitudinal_Reales(ElementoAnterior, Lista_Elementos[i], Elemento_Posterior, 1);
             }
+
+            longitud = Lista_Elementos.Sum(x => x.Longitud);
         }
         private void AsignarAlturaVitual_PerfilLongitudinalReal(IElemento ElementoAnterior, IElemento ElementoActual, IElemento ElementoPosterior)
         {
@@ -612,6 +628,8 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+
+     
 
 
 
@@ -994,11 +1012,6 @@ namespace FC_Diseño_de_Nervios
             e.DrawLines(PenBlack, Momento_Negativos_Escalados2.ToArray());
 
             #endregion
-
-
-
-
-
 
 
 

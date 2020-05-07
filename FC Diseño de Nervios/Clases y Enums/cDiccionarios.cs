@@ -9,6 +9,9 @@ namespace FC_Diseño_de_Nervios
 {
     public class cDiccionarios
     {
+        /// <summary>
+        /// Diametros en [cm]
+        /// </summary>
         public static Dictionary<eNoBarra, float> DiametrosBarras = new Dictionary<eNoBarra, float>();
         public static Dictionary<eNoBarra, float> Ld_210 = new Dictionary<eNoBarra, float>();
         public static Dictionary<eNoBarra, float> Ld_280 = new Dictionary<eNoBarra, float>();
@@ -29,8 +32,6 @@ namespace FC_Diseño_de_Nervios
         public static Dictionary<eNoBarra, Tuple<float, float>> G180;
         public static Dictionary<eNoBarra, Color> ColorBarra;
 
-
-
         public cDiccionarios()
         {
             LlenarDiccionarioDiametrosBarras();
@@ -41,6 +42,7 @@ namespace FC_Diseño_de_Nervios
 
         private static void LlenarDiccionarioDiametrosBarras()
         {
+            DiametrosBarras.Add(eNoBarra.BNone, 0f);
             DiametrosBarras.Add(eNoBarra.B2, 0.64f);
             DiametrosBarras.Add(eNoBarra.B3, 0.95f);
             DiametrosBarras.Add(eNoBarra.B4, 1.27f);
@@ -52,6 +54,7 @@ namespace FC_Diseño_de_Nervios
         }
         private static void LlenarDiccionarioAceroBarras()
         {
+            AceroBarras.Add(eNoBarra.BNone, 0f);
             AceroBarras.Add(eNoBarra.B2, 0.32f);
             AceroBarras.Add(eNoBarra.B3, 0.71f);
             AceroBarras.Add(eNoBarra.B4, 1.29f);
@@ -65,6 +68,7 @@ namespace FC_Diseño_de_Nervios
         {
             G90 = new Dictionary<eNoBarra, float>
             {
+                { eNoBarra.BNone, 0.0f },
                 { eNoBarra.B2, 0.09f },
                 { eNoBarra.B3, 0.14f },
                 { eNoBarra.B4, 0.18f },
@@ -77,6 +81,7 @@ namespace FC_Diseño_de_Nervios
 
             G135 = new Dictionary<eNoBarra, Tuple<float, float>>
             {
+                { eNoBarra.BNone, new  Tuple<float, float>(0f,0f)},
                 { eNoBarra.B2, new  Tuple<float, float>(0.063f,0.026f)},
                 { eNoBarra.B3, new  Tuple<float, float>(0.094f,0.038f)},
                 { eNoBarra.B4, new  Tuple<float, float>(0.125f,0.051f)},
@@ -89,6 +94,7 @@ namespace FC_Diseño_de_Nervios
 
             G180 = new Dictionary<eNoBarra, Tuple<float, float>>
             {
+                { eNoBarra.BNone, new  Tuple<float, float>(0f,0f)},
                 { eNoBarra.B2, new  Tuple<float, float>(0.116f,0.038f) },
                 { eNoBarra.B3, new  Tuple<float, float>(0.140f,0.057f)},
                 { eNoBarra.B4, new  Tuple<float, float>(0.167f,0.076f) },
@@ -139,5 +145,18 @@ namespace FC_Diseño_de_Nervios
                     return 0;
             }
         }
+
+        /// <summary>
+        /// Devuelve la longitud de anclaje en [m]
+        /// </summary>
+        /// <param name="NoBarra">Numero de la Barra.</param>
+        /// <param name="fy">Resistencia del acero [kgf/cm²].</param>
+        /// <returns></returns>
+        /// <param name="fc">Resistencia del concreto. [kgf/cm²]</param>
+        public static float Ldh(eNoBarra NoBarra,float fy,float fc)
+        {
+            return 0.075f * fy / ((float)Math.Sqrt(fc)) * DiametrosBarras[NoBarra] * cConversiones.Dimension_cm_to_m;
+        }
+
     }
 }

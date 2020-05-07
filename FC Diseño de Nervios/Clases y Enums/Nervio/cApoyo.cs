@@ -12,8 +12,12 @@ namespace FC_Diseño_de_Nervios
         public int Indice { get; set; }
         public string Nombre { get; set; }
         public eSoporte Soporte { get; } = eSoporte.Apoyo;
-        
-        cSeccion seccion;
+
+
+
+        public float Longitud { get; set; }
+
+        private cSeccion seccion;
         public cSeccion Seccion
         {
             get { return seccion; }
@@ -29,6 +33,7 @@ namespace FC_Diseño_de_Nervios
                         NervioOrigen.CrearCoordenadasPerfilLongitudinalAutoCAD();
                         NervioOrigen.CrearCoordenadasDiagramaMomentosyCortantesyAreas_Reales_Envolvente();
                         NervioOrigen.CrearCoordenadasDiagramaMomentosyAreas_Reales_Asignado();
+                        Longitud = seccion.B * cConversiones.Dimension_cm_to_m;
                     }
                 }
               
@@ -43,6 +48,7 @@ namespace FC_Diseño_de_Nervios
             this.Nombre = Nombre;
             seccion = Seccion;
             this.NervioOrigen = NervioOrigen;
+            Longitud = seccion.B * cConversiones.Dimension_cm_to_m;
         }
 
         public override string ToString()
