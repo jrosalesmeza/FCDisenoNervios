@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>B_FCDiseñoVigas</name>
+    </assembly>
+    <members>
+        <member name="T:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares">
+            <summary>
+            Revisión y diseño de vigas rectangulares [efe Prima Ce].
+            </summary>
+        </member>
+        <member name="T:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.DelegateNotificador">
+            <summary>
+            
+            </summary>
+            <param name="Alerta">Mensaje de Alerta.</param>
+        </member>
+        <member name="E:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.Notificador">
+            <summary>
+            Evento notificador. 
+            </summary>
+        </member>
+        <member name="T:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.eTipoViga">
+            <summary>
+            Tipo de Viga: Sismica, No Sismica, No Aplica.
+            </summary>
+        </member>
+        <member name="F:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.eTipoViga.Sismica">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.eTipoViga.NoSismica">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.eTipoViga.NoAplica">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.Diseñar(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.eTipoViga,System.Single,System.Single,System.Single)">
+            <summary>
+            Diseña una viga Simple o Doblemente Reforzada  Return [AsT, AsC, fi,fi_max1, Mmax,c,et].
+            </summary>
+            <param name="b">Ancho [cm].</param>
+            <param name="h">Alto [cm].</param>
+            <param name="d1">Distancia desde la fibra superior hasta el centro de la barras a compresión [cm].</param>
+            <param name="d2">Distancia desde la fibra inferior hasta el centro de la barras a tracción [cm].</param>
+            <param name="fc">Resistencia del concreto [kgf/cm²]</param>
+            <param name="fy">Resistencia del acero [kgf/cm²]</param>
+            <param name="Mu">Momento a flexión a cual se está sometiendo el elemento [kgf-cm].</param>
+            <param name="TipoViga">Tipo de Viga.</param>
+            <param name="es">Deformación unitaria para calcular el Φmax. </param>
+            <param name="pmin">Cuantía mínima según el tipo de viga [ρ=0.0033].</param>
+            <param name="pminnosimico">Cuantía mínima según el tipo de viga [ρ=0.0018].</param>
+            <returns></returns>
+        </member>
+        <member name="M:B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.Revision(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Revisa una viga Simple o Doblemente Reforzada, dada su geometría y aceros a Tracción y Compresión.
+            </summary>
+            <param name="b">Ancho [cm].</param>
+            <param name="h">Alto [cm].</param>
+            <param name="d1">Distancia desde la fibra superior hasta el centro de la barras a compresión [cm].</param>
+            <param name="d2">Distancia desde la fibra inferior hasta el centro de la barras a tracción [cm].</param>
+            <param name="fc">Resistencia del concreto [kgf/cm²]</param>
+            <param name="fy">Resistencia del acero [kgf/cm²]</param>
+                    /// <param name="AsT">Acero a Tracción [cm²].</param>
+            <param name="AsC">Acero a Compresión [cm²].</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

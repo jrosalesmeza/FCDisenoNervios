@@ -1,0 +1,7 @@
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\FunctionsAutoCAD\obj\Debug\FC_BFunctionsAutoCAD2020.csprojAssemblyReference.cache
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\FunctionsAutoCAD\obj\Debug\FC_BFunctionsAutoCAD2020.csproj.CoreCompileInputs.cache
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\FunctionsAutoCAD\obj\Debug\FunctionsAutoCAD.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\Bibliotecas para Nervios\FunctionsAutoCAD\obj\Debug\FunctionsAutoCAD.pdb

@@ -127,7 +127,6 @@ namespace FC_Diseño_de_Nervios.Controles
 
         protected override void OnPaint(PaintEventArgs e)
         {
-
             cDiccionarios.LlenarColoresBarra();
             Pen Pen = new Pen(cDiccionarios.ColorBarra[noBarra], espesor);
             Rectangle rec = ClientRectangle;

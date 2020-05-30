@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FunctionsAutoCAD</name>
+    </assembly>
+    <members>
+        <member name="T:FC_BFunctionsAutoCAD.ArrowHeadType">
+            <summary>
+            Tipo de punta de la cota.
+            </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.ArrowHeadType.ArrowDot">
+            <summary>
+            Punta en circulo.
+            </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.ArrowHeadType.ArrowDefault">
+            <summary>
+            Punta en flecha.
+            </summary>
+        </member>
+        <member name="T:FC_BFunctionsAutoCAD.PrecisionCota">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.PrecisionCota.Cero">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.PrecisionCota.Uno">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.PrecisionCota.Dos">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.PrecisionCota.Tres">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.PrecisionCota.Cuatro">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.PrecisionCota.Cinco">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.PrecisionCota.Seis">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="T:FC_BFunctionsAutoCAD.JustifyText">
+            <summary>
+            Justificar Texto.
+            </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.JustifyText.Center">
+            <summary>
+            Centro
+            </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.JustifyText.Left">
+            <summary>
+            Izquierda.
+            </summary>
+        </member>
+        <member name="F:FC_BFunctionsAutoCAD.JustifyText.Right">
+            <summary>
+            Derecha.
+            </summary>
+        </member>
+        <member name="T:FC_BFunctionsAutoCAD.FunctionsAutoCAD">
+            <summary>
+            Funciones basicas para la manipulación de AutoCAD - efe Prima Ce, Por: José Luis Rosales Meza
+            </summary>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.OpenAutoCAD">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.SetScale(System.String)">
+            <summary>
+            Establece escala especificada al documento actual.
+            </summary>
+            <param name="Scale">Escala especificada, ejemplo: "1:25"</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.DeleteESelec(System.String)">
+            <summary>
+            Elimina una seleccion del documento actual.
+            </summary>
+            <param name="Selection">Selección específica a eliminar.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddSelection(System.String)">
+            <summary>
+            Agregar nueva selección al documento actual.
+            </summary>
+            <param name="SelectionS">Selección a agregar.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.GetPoint(System.Double[]@,System.String)">
+            <summary>
+            Obtiene un punto del documento actual.
+            </summary>
+            <param name="Msg">Mensaje a mostrar en el documento actual.</param>
+            <param name="Array">Coordenadas del punto.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddText(System.String,System.Double[],System.Double,System.Double,System.String,System.String,System.Single,System.Double,System.Double,FC_BFunctionsAutoCAD.JustifyText)">
+            <summary>
+            Agrega un nuevo texto al documento actual.
+            </summary>
+            <param name="TextString">Texto a mostrar</param>
+            <param name="P_XYZ">Coordenadas del texto (X,Y,Z).</param>
+            <param name="Width">Ancho del texto.</param>
+             <param name="Height">Alto del texto.</param>
+            <param name="Layer">Capa del texto.</param>
+            <param name="Style">Estilo del texto.</param>
+            <param name="Rotation">Ángulo de rotación del texto en grados.</param>
+            <param name="LineTypeSacale">Tipo de escala de la linea.</param>
+            <param name="Width2">Ancho del cuadro de Texto.</param>
+            <param name="justifyText">Justificación del Texto.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddCota(System.Double[],System.Double[],System.String,System.String,System.Single,System.Single,System.Single,FC_BFunctionsAutoCAD.PrecisionCota,System.String,System.Double,System.Double,FC_BFunctionsAutoCAD.ArrowHeadType,FC_BFunctionsAutoCAD.ArrowHeadType,System.Double)">
+            <summary>
+            Añadir nueva cota al documento actual.
+            </summary>
+            <param name="P1_XYZ">Punto Inicial (X,Y,Z)</param>
+            <param name="P2_XYZ">Punto Final (X,Y,Z)</param>
+            <param name="Layer">Capa de la cota.</param>
+            <param name="Style">Estilo de la cota.</param>
+            <param name="DesplazCota">Desplazamiento de la Cota perpendicularmente a la línea formada.</param>
+            <param name="DeplazaTextX">Desplazamiento en X del texto asociado a la cota</param>
+            <param name="DeplazaTextY">Desplazamiento en Y del texto asociado a la cota</param>
+            <param name="Precision">Cantidad de decimales de la cota. Ejemplo: (0,0.0,0.00,0.000)</param>
+            <param name="Text">Cambia la medición original al texto establecido.</param>
+            <param name="TextHeight">Alto del texto.</param>
+            <param name="ArrowheadSize">Tamaño de las puntas de la cota.</param>
+            <param name="headType1">Tipo de cabeza de la cota en la punta inicial.</param>
+            <param name="headType2">Tipo de cabeza de la cota en la punta final.</param>
+            <param name="TextRotation">Angulo de rotación en grados del texto.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(System.Double[],System.String,System.Boolean)">
+            <summary>
+            Crear un nuevo Polígono en 2D.
+            </summary>
+            <param name="VerticesList">Vertices del polígono. Ejemplo: (X1,Y1, X2,Y2, X3,Y3 X4,Y4)</param>
+            <param name="Layer">Capa del Polígono</param>
+            <param name="Closed">Establece si el polígono es cerrado</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddCircle(System.Double[],System.Double,System.String)">
+            <summary>
+            Crear una circunferencia
+            </summary>
+            <param name="Center">Insertion point del cirvulo. Ejemplo: (x,y,z)</param>
+            <param name="Layer">Capa del Polígono</param>
+            <param name="Radio">Radio de la circunferencia</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(System.Double[],System.String,System.String,System.String,System.Double,System.Double,System.Single)">
+            <summary>
+            Crear un nuevo Polígono en 2D con su respectivo Relleno (Hatch).
+            </summary>
+            <param name="VerticesList">Vértices del Polígono</param>
+            <param name="Layer">Capa del Polígono.</param>
+            <param name="Pattern">Tipo de Hatch (SOILD,ANGLE,ANS31,...)</param>
+            <param name="LayerHatch">Capa del Hatch</param>
+            <param name="ScaleHacth">Escala del Hatch</param>
+            <param name="PatternScale">Factor de escala del tipo de Hatch</param>
+            <param name="PatternAngle">Angulo del tipo de Hatch</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2DWithLengthText(System.Double[],System.String,System.String,System.Double[],System.Double,System.Double,System.String,System.String,System.Single,System.Double)">
+            <summary>
+             Añadir un nuevo Poligono y un texto representado el largo de este.
+            </summary>
+            <param name="VerticesPolyline">Vertices del polígono. Ejemplo: (X1,Y1, X2,Y2, X3,Y3 X4,Y4)</param>
+            <param name="LayerPolyline">Capa del Polígono</param>
+            <param name="TextString">Texto adicional al largo del Polígono</param>
+            <param name="PText_XYZ">Coordenadas del texto (X,Y,Z).</param>
+            <param name="Width">Alto del Texto.</param>
+            <param name="Height">Ancho del Texto.</param>
+            <param name="LayerText">Capa del Texto.</param>
+            <param name="StyleText">Estilo del Texto</param>
+            <param name="Rotation">Ángulo de rotación del texto en grados </param>
+            <param name="Width2">Ancho del cuadro de Texto.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_NivelSeccion(System.Double[],System.String,System.Double,System.Double,System.Boolean,System.String,System.Double,System.Double,System.Double,System.Single)">
+            <summary>
+            Bloque: Nivel de Sección - Efe Prima Ce
+            </summary>
+            <param name="P_XYZ">Coordenadas del Bloque.</param>
+            <param name="Nivel">Texto correspondiente al nivel especificado, se recomienda asignar el texto así:  N+/PLosa xx, “/P” es para agregar un espacio.</param>
+            <param name="Distance1">Largo de la línea superior del bloque, en Escalas 1:75 se recomienda: 1.08 </param>
+            <param name="Distance2">Largo de la línea inferior del bloque medido desde el <paramref name="P_XYZ"/>, en Escalas 1:75 se recomienda: 1.90</param>
+            <param name="FlipSate1">Dirección del Bloque, False: Izquierda, True: Derecha</param>
+            <param name="Layer">Capa del Bloque.</param>
+            <param name="Xscale">Escala en X del Bloque.</param>
+            <param name="Yscale">Escala en Y del Bloque.</param>
+            <param name="Zscale">Escala en Z del Bloque.</param>
+            <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_NombreSeccion(System.Double[],System.String,System.String,System.String,System.Double,System.Double,System.Double,System.Single)">
+            <summary>
+            Bloque: Nombre de Sección - Efe Prima Ce
+            </summary>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_Seccion(System.Double[],System.String,System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Boolean,System.String,System.Double,System.Double,System.Double,System.Single)">
+            <summary>
+            Bloque: Corte de Sección - Efe Prima Ce
+            </summary>
+            <param name="P_XYZ">Coordenadas del Bloque</param>
+            <param name="X1">Texto del corte, punta inicial.</param>
+            <param name="X2">Texto del corte, punta final.</param>
+            <param name="Distance1">Distancia medida desde el <paramref name="P_XYZ"/>, usualmente se asigna el espesor del elemento hacer el corte.</param>
+            <param name="Position1X">Posición en X del Texto ubicado en la punta inicial, se recomienda en Columnas,Escala 1:75 0.1.</param>
+            <param name="Position1Y">Posición en Y del Texto ubicado en la punta inicial, se recomienda en Columnas,Escala 1:75 -0.1688.</param>
+            <param name="Position2X">Posición en X del Texto ubicado en la punta final, se recomienda en Columnas,Escala 1:75 <paramref name="Distance1"/> + 1.0  - <paramref name="Position1X"/></param>
+            <param name="Position2Y">Posición en Y del Texto ubicado en la punta final, se recomienda en Columnas,Escala 1:75 -0.1688.</param>
+            <param name="FlipSate1">Dirección del Bloque: True: Abajo, False: Arriba</param>
+            <param name="Layer">Capa del Bloque.</param>
+            <param name="Xscale">Escala en X del Bloque.</param>
+            <param name="Yscale">Escala en Y del Bloque.</param>
+            <param name="Zscale">Escala en Z del Bloque.</param>
+            <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_Estribo(System.Double[],System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Single)">
+            <summary>
+            Bloque: Estibo de Sección - Efe Prima Ce
+            </summary>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_Estribo_Circular(System.Double[],System.String,System.Double,System.Double,System.Double,System.Double,System.Single)">
+            <summary>
+            Bloque: Estibo para secciones circulares - Efe Prima Ce
+            </summary>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_Gancho(System.Double[],System.String,System.Double,System.Double,System.Double,System.Double,System.Single,System.Int16)">
+            <summary>
+            Bloque: Ganchos Sección - Efe Prima Ce
+            </summary>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.Add_ref(System.Double[],System.String,System.Int32,System.Double,System.Double,System.Double,System.Single)">
+            <summary>
+            Bloque: Refuerzo i en seccion - Efe Prima Ce
+            </summary>
+        </member>
+    </members>
+</doc>

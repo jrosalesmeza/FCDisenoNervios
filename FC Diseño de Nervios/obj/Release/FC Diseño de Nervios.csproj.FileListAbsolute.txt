@@ -21,3 +21,19 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_ModificarSeccion.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\FontAwesome.Sharp.dll
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_ModificacionEjes.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_FCDiseñoVigas.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_Operaciones_Matricialesl.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\MathNet.Numerics.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_FCDiseñoVigas.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_FCDiseñoVigas.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_Operaciones_Matricialesl.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\MathNet.Numerics.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Controles.Control_Barra.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_PropiedadesProyecto.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_AreasMomentoNervio.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_MomentosNervio.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_SeleccionBarras.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_SelectCombinaciones.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_Tendencia.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_VentanaDiseno.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC Diseño de Nervios.csproj.CoreCompileInputs.cache

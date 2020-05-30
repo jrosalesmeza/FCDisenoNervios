@@ -1,0 +1,852 @@
+﻿using B_FC_DiseñoVigas;
+using FC_Diseño_de_Nervios.Manipulación_Proyecto;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
+
+namespace FC_Diseño_de_Nervios
+{
+    public partial class F_Base : Form
+    {
+        #region Propiedades Necesarias Formulario Base
+        private bool ActivarVentanaEmergenteGuardarCambios = false;
+        private  DeserializeDockContent DeserializeDockContent;
+        private static cUndoRedo<cProyecto> UndoRedo = new cUndoRedo<cProyecto>();
+        private static cUndoRedo<cNervio> UndoRedoNervio = new cUndoRedo<cNervio>();
+        public static F_Base F_Base_;
+
+
+        private string Ruta_ConfigVentanasDefault = Path.Combine(Application.StartupPath,cFunctionsProgram.Ext_ConfigVentana);
+        private string Ruta_ConfigVentanasUsuario = Path.Combine(cFunctionsProgram.Ruta_CarpetaLocal, cFunctionsProgram.Ext_ConfigVentana);
+        #endregion
+
+        #region Ventanas Emergentes
+
+        private F_NuevoProyecto F_NuevoProyecto = new F_NuevoProyecto();
+        public static F_EnumeracionPortico F_EnumeracionPortico = new F_EnumeracionPortico();
+        public static F_ModificarSeccion F_ModificarSeccion = new F_ModificarSeccion();
+        public static F_SeleccionBarras F_SeleccionBarras = new F_SeleccionBarras();
+        public static F_SelectCombinaciones F_SelectCombinaciones = new F_SelectCombinaciones();
+        public static F_PropiedadesProyecto F_PropiedadesProyecto = new F_PropiedadesProyecto();
+        #endregion Ventanas Emergentes
+
+        #region Ventanas Acopladas
+        public static F_SelectNervio F_SelectNervio;
+        public static F_NervioEnPerfilLongitudinal F_NervioEnPerfilLongitudinal;
+        public static F_MomentosNervio F_MomentosNervio;
+        public static F_AreasMomentoNervio F_AreasMomentoNervio;
+        public static F_VentanaDiseno F_VentanaDiseno;
+        public static F_AreasCortanteNervio F_AreasCortanteNervio;
+        public static F_CortanteNervio F_CortanteNervio;
+        #endregion
+
+        public F_Base()
+        {
+            InitializeComponent();
+            InstanciamientodeVentanasAcopladas();
+            CrearCarpetaLocalConArchivos();
+            cFunctionsProgram.Notificador += CFunctionsProgram_Notificador;
+            DiseñoYRevisonVigasRectangulares.Notificador += NotificadorDeCalculos;
+            cFunctionsProgram.EventoVentanaEmergente += CFunctionsProgram_EventoVentanaEmergente;
+            new cDiccionarios();
+            DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+            T_Timer.Start();
+
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            ST_Base.SizingGrip = false;
+            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
+
+
+            F_Base_ = this;
+        }
+        #region Proyecto
+        public static cProyecto Proyecto;
+
+        #endregion Proyecto
+
+        #region Funciones Basicas
+
+        #region AcopleDeVentanas y MostrarVetanasEmergente *** 
+        public void AcoplarVentana(ref F_SelectNervio Dock)
+        {
+            if (!Dock.Created) { Dock = new F_SelectNervio(); }
+            Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
+        public void AcoplarVentana(ref F_NervioEnPerfilLongitudinal Dock)
+        {
+            if (!Dock.Created) { Dock = new F_NervioEnPerfilLongitudinal(); }
+            Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
+        public void AcoplarVentana(ref F_MomentosNervio Dock)
+        {
+            if (!Dock.Created) { Dock = new F_MomentosNervio(); }
+            Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
+        public void AcoplarVentana(ref F_AreasMomentoNervio Dock)
+        {
+            if (!Dock.Created) { Dock = new F_AreasMomentoNervio(); }
+            Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
+        public void AcoplarVentana(ref F_VentanaDiseno Dock)
+        {
+            if (!Dock.Created) { Dock = new F_VentanaDiseno(); }
+            Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
+        public void AcoplarVentana(ref F_CortanteNervio Dock)
+        {
+            if (!Dock.Created) { Dock = new F_CortanteNervio(); }
+            Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
+        public void AcoplarVentana(ref F_AreasCortanteNervio Dock)
+        {
+            if (!Dock.Created) { Dock = new F_AreasCortanteNervio(); }
+            Dock.Show(DP_ContenedorPrincipal);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
+        public void VentanaEmergente(ref F_ModificarSeccion Form)
+        {
+            if (!Form.Created) { Form = new F_ModificarSeccion(); }
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.Focus();
+            Form.Show();
+        }
+        public void VentanaEmergente(ref F_SeleccionBarras Form)
+        {
+            if (!Form.Created) { Form = new F_SeleccionBarras(); }
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.Focus();
+            Form.Show();
+        }
+
+        private void VentanaEmergente(ref F_EnumeracionPortico Form)
+        {
+            if (!Form.Created) { Form = new F_EnumeracionPortico(); }
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.ShowDialog();
+        }
+
+        private void VentanaEmergente(ref F_SelectCombinaciones Form)
+        {
+            if (!Form.Created) { Form = new F_SelectCombinaciones(); }
+            Form.NervioSelect = Proyecto.Edificio.PisoSelect.NervioSelect;
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.ShowDialog();
+        }
+        private void VentanaEmergente(ref F_PropiedadesProyecto Form)
+        {
+            if (!Form.Created) { Form = new F_PropiedadesProyecto(); }
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.ShowDialog();
+        }
+        #endregion
+
+        #region Funciones para Abrir, Crear, Guardar Proyecto 
+
+        private void VerificarGuardadodeProyecto()
+        {
+            if (Proyecto != null)
+            {
+                if (ActivarVentanaEmergenteGuardarCambios)
+                {
+                    DialogResult BoxMensa = MessageBox.Show("¿Desea guardar cambios en el Proyecto: " + Proyecto.Nombre + "?", cFunctionsProgram.Empresa, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (BoxMensa == DialogResult.Yes)
+                    {
+                        GuardarProyecto_Function();
+                    }
+                    else
+                    {
+                        UndoRedo.LimpiarEstados();
+                    }
+                }
+            }
+        }
+        private void NuevoProyecto_Function()
+        {
+            VerificarGuardadodeProyecto();
+            F_NuevoProyecto.ShowDialog();
+        }
+
+        private void AbrirProyecto_Function(bool ArchivoExterno = false, string Ruta = "")
+        {
+
+            if (ArchivoExterno == false)
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = $"{cFunctionsProgram.NombrePrograma} |*{cFunctionsProgram.Ext}";
+                openFileDialog.Title = "Abrir Proyecto";
+                openFileDialog.ShowDialog();
+                Ruta = openFileDialog.FileName;
+            }
+        
+            if (Ruta != "")
+            {
+                VerificarGuardadodeProyecto();
+                cFunctionsProgram.Deserealizar(Ruta, ref Proyecto);
+                CerrarTodasLasVentanas();
+                if (Proyecto != null)
+                {
+                    UndoRedo.LimpiarEstadosCtrlZyCtrlY();
+                    CargarVentanasXML();
+                    Proyecto.Nombre = Path.GetFileName(Ruta).Replace(cFunctionsProgram.Ext, "");
+                    
+                }
+            }
+        }
+
+        public void CargarVentanasXML()
+        {
+            CrearCarpetaLocalConArchivos();
+            if (DP_ContenedorPrincipal.Contents.Count == 0)
+            {
+                DP_ContenedorPrincipal.LoadFromXml(Ruta_ConfigVentanasUsuario, DeserializeDockContent);
+                cFunctionsProgram.CambiarSkins(DP_ContenedorPrincipal);
+            }
+        }
+        public void CerrarTodasLasVentanas()
+        {
+            DP_ContenedorPrincipal.Contents.ToList().ForEach(x => x.DockHandler.Close());
+            InstanciamientodeVentanasAcopladas();
+        }
+
+        private void CrearCarpetaLocalConArchivos()
+        {
+            if (!Directory.Exists(cFunctionsProgram.Ruta_CarpetaLocal))
+                Directory.CreateDirectory(cFunctionsProgram.Ruta_CarpetaLocal);
+            if (!File.Exists(Ruta_ConfigVentanasUsuario))
+                File.Copy(Ruta_ConfigVentanasDefault, Ruta_ConfigVentanasUsuario);
+        }
+
+        private void GuardarProyecto_Function()
+        {
+            if (Proyecto.Ruta != "")
+            {
+                cFunctionsProgram.Serializar(Proyecto.Ruta, Proyecto);
+                UndoRedo.LimpiarEstados();
+                UndoRedoNervio.LimpiarEstados();
+            }
+            else
+            {
+                GuardarComoProyecto_Function();
+            }
+        }
+
+        private void GuardarComoProyecto_Function()
+        {
+            SaveFileDialog SaveFileDialog = new SaveFileDialog();
+            SaveFileDialog.Filter = $"{cFunctionsProgram.NombrePrograma} |*{cFunctionsProgram.Ext}";
+            SaveFileDialog.Title = $"Guardar Proyecto | {Proyecto.Nombre}";
+            SaveFileDialog.FileName = Proyecto.Nombre;
+            if (Proyecto.Ruta != "")
+            {
+                SaveFileDialog.InitialDirectory = Proyecto.Ruta;
+            }
+            SaveFileDialog.ShowDialog();
+            if (SaveFileDialog.FileName != "" && SaveFileDialog.FileName!= Proyecto.Nombre)
+            {
+                Proyecto.Ruta = SaveFileDialog.FileName;
+                Proyecto.Nombre = Path.GetFileName(SaveFileDialog.FileName).Replace(cFunctionsProgram.Ext, "");
+                cFunctionsProgram.Serializar(SaveFileDialog.FileName, Proyecto);
+                UndoRedo.LimpiarEstados();
+                UndoRedoNervio.LimpiarEstados();
+            }
+        }
+
+        private void F_Base_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Proyecto != null)
+            {
+                if (ActivarVentanaEmergenteGuardarCambios)
+                {
+                    DialogResult BoxMessage = MessageBox.Show("¿Desea guardar cambios en el Proyecto: " + Proyecto.Nombre + "?", cFunctionsProgram.Empresa, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                    if (BoxMessage == DialogResult.Yes)
+                    {
+                        GuardarProyecto_Function();
+                    }
+                    else if (BoxMessage == DialogResult.No)
+                    {
+                        Application.Exit();
+                    }
+                    else if (BoxMessage == DialogResult.Cancel)
+                    {
+                        e.Cancel = true;
+                    }
+
+                }
+            }
+        }
+        #endregion
+
+        #region Deshacer, rehacer y enviar estado completo del proyecto
+        public static void Deshacer_Function()
+        {
+            cProyecto PoryectoAux = UndoRedo.Deshacer(Proyecto);
+            if (PoryectoAux != null) { Proyecto = PoryectoAux; }
+            ActualizarTodosLasVentanas();
+        }
+
+        public static void Rehacer_Function()
+        {
+            cProyecto PoryectoAux = UndoRedo.Rehacer(Proyecto);
+            if (PoryectoAux != null) { Proyecto = PoryectoAux; }
+            ActualizarTodosLasVentanas();
+        }
+
+  
+
+        public static void LimpiarMemoria()
+        {
+            UndoRedo.LimpiarEstadosCtrlZyCtrlY();
+        }
+
+        #endregion
+
+        #region Deshacer, rehacer y enviar estado del Nervio
+        public static void Deshacer_Function_Nervio()
+        {
+            cNervio NervioAux = UndoRedoNervio.Deshacer(Proyecto.Edificio.PisoSelect.NervioSelect);
+            if (NervioAux != null) { Proyecto.Edificio.PisoSelect.NervioSelect = NervioAux; }
+            ActualizarTodosLasVentanas();
+        }
+
+        public static void Rehacer_Function_Nervio()
+        {
+            cNervio NervioAux = UndoRedoNervio.Rehacer(Proyecto.Edificio.PisoSelect.NervioSelect);
+            if (NervioAux != null) { Proyecto.Edificio.PisoSelect.NervioSelect = NervioAux; }
+            ActualizarTodosLasVentanas();
+        }
+        public static void EnviarEstado(cProyecto Proyecto)
+        {
+            UndoRedo.EnviarEstado(Proyecto);
+        }
+        public static void EnviarEstado_Nervio(cNervio Nervio)
+        {
+            UndoRedoNervio.EnviarEstado(Nervio);
+        }
+
+        public static void LimpiarMemoria_Nervio()
+        {
+            UndoRedoNervio.LimpiarEstadosCtrlZyCtrlY();
+        }
+
+        #endregion
+
+        #region Actualizar Ventanas
+        public static void ActualizarVentanaF_NervioEnPerfilLongitudinal()
+        {
+            F_NervioEnPerfilLongitudinal.Invalidate();
+        }
+        public static void ActualizarVentanaF_MomentosNervio(float Zoom,float Dx,float Dy)
+        {
+            F_MomentosNervio.Zoom = Zoom; F_MomentosNervio.Dx = Dx; F_MomentosNervio.Dy = Dy;
+            F_MomentosNervio.Invalidate();
+        }
+        public static void ActualizarVentanaF_AreasMomentoNervio(float Zoom, float Dx, float Dy)
+        {
+            F_AreasMomentoNervio.Zoom = Zoom; F_AreasMomentoNervio.Dx = Dx; F_AreasMomentoNervio.Dy = Dy;
+            F_AreasMomentoNervio.Invalidate();
+        }
+        public static void ActualizarVentanaF_VentanaDiseno(float Zoom,float Dx,float Dy)
+        {
+            F_VentanaDiseno.Zoom = Zoom; F_VentanaDiseno.Dx = Dx; F_VentanaDiseno.Dy = Dy;
+            F_VentanaDiseno.Invalidate();
+        }
+        public static void ActualizarVentanaF_CortanteNervio(float Zoom, float Dx, float Dy)
+        {
+            F_CortanteNervio.Zoom = Zoom; F_CortanteNervio.Dx = Dx; F_CortanteNervio.Dy = Dy;
+            F_CortanteNervio.Invalidate();
+        }
+        public static void ActualizarVentanaF_AreaCortanteNervio(float Zoom, float Dx, float Dy)
+        {
+            F_AreasCortanteNervio.Zoom = Zoom; F_AreasCortanteNervio.Dx = Dx; F_AreasCortanteNervio.Dy = Dy;
+            F_AreasCortanteNervio.Invalidate();
+        }
+        public static void ActualizarVentanaF_VentanaDiseno()
+        {
+            F_VentanaDiseno.Invalidate();
+        }
+        public static void ActualizarTodosLasVentanas()
+        {
+            F_EnumeracionPortico.Invalidate();
+            F_SelectNervio.Invalidate();
+            F_NervioEnPerfilLongitudinal.Invalidate();
+
+        }
+        public static void ActualizarVentanaF_SelectNervio()
+        {
+            F_SelectNervio.Invalidate();
+        }
+        #endregion
+
+
+        #endregion Funciones Basicas
+
+
+        #region Noficadores
+        private void NotificadorDeCalculos(string Alerta)
+        {
+            
+        }
+
+        private void CFunctionsProgram_EventoVentanaEmergente(string Alert, MessageBoxIcon Icono)
+        {
+            MessageBox.Show(Alert, cFunctionsProgram.Empresa, MessageBoxButtons.OK, Icono);
+        }
+        private void CFunctionsProgram_Notificador(string Alert)
+        {
+            LB_Notificador.Text = Alert; 
+            LB_Notificador.Invalidate();
+            if(Alert.Contains("Cargando")| Alert.Contains("Guardando"))
+            {
+                Cursor = Cursors.WaitCursor;
+            }
+            else
+            {
+                Cursor = Cursors.Default;
+            }
+            Application.DoEvents();
+        }
+
+        #endregion
+
+        #region Timer
+        private void T_Timer_Tick(object sender, EventArgs e)
+        {
+            CambiosTimer_1();
+            CambiosTimer_2_Proyecto();
+        }
+
+        private void CambiosTimer_2_Proyecto()
+        {
+            if (Proyecto != null)
+            {
+                Text = $"{cFunctionsProgram.NombrePrograma} | {Proyecto.Nombre}";
+                LB_NombreProyecto.Text = Proyecto.Nombre;
+                ActivarDesacitvarBotonesDeRehaceryDeshacer();
+                if (Proyecto.Edificio != null && Proyecto.Edificio.PisoSelect != null && Proyecto.Edificio.PisoSelect.Nervios != null)
+                {
+                    selecciónDeNerviosToolStripMenuItem.Enabled = true;
+                    if (Proyecto.Edificio.PisoSelect.NervioSelect != null)
+                    {
+                        esquemaToolStripMenuItem.Enabled = true;
+                        diagramasToolStripMenuItem.Enabled = true;
+                        TSB_SelectCombinaciones.Enabled = true;
+                    }
+                    else
+                    {
+                        esquemaToolStripMenuItem.Enabled = false;
+                        diagramasToolStripMenuItem.Enabled = false;
+                        TSB_SelectCombinaciones.Enabled = false;
+                    }
+                }
+                else
+                {
+                    esquemaToolStripMenuItem.Enabled = false;
+                    diagramasToolStripMenuItem.Enabled = false;
+                    selecciónDeNerviosToolStripMenuItem.Enabled = false;
+                    TSB_SelectCombinaciones.Enabled = false;
+                }
+                CambiosTimer_3_F_EnumeracionPortico_Proyecto();
+                BloqueoDesbloqueoBotones(true);
+            }
+
+            else
+            {
+                Text = cFunctionsProgram.NombrePrograma;
+                TSB_Undo.Enabled = false;
+                TSB_Redo.Enabled = false;
+                TSB_SelectCombinaciones.Enabled = false;
+                deshacerToolStripMenuItem.Enabled = false;
+                rehacerToolStripMenuItem.Enabled = false;
+                ActivarVentanaEmergenteGuardarCambios = false;
+                esquemaToolStripMenuItem.Enabled = false;
+                diagramasToolStripMenuItem.Enabled = false;
+                selecciónDeNerviosToolStripMenuItem.Enabled = false;
+                BloqueoDesbloqueoBotones(false);
+            }
+        }
+        private void ActivarDesacitvarBotonesDeRehaceryDeshacer()
+        {
+            if (F_EnumeracionPortico != null)
+            {
+                if (F_EnumeracionPortico.Visible)
+                {
+                    ActivarVentanaEmergenteGuardarCambios = UndoRedo.ObtenerEstadoEstados();
+                    TSB_Undo.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
+                    TSB_Redo.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+                    deshacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
+                    rehacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+                }
+                else
+                {
+                    ActivarVentanaEmergenteGuardarCambios = UndoRedoNervio.ObtenerEstadoEstados();
+                    TSB_Undo.Enabled = UndoRedoNervio.ObtenerEstadoCtrlZ();
+                    TSB_Redo.Enabled = UndoRedoNervio.ObtenerEstadoCtrlY();
+                    deshacerToolStripMenuItem.Enabled = UndoRedoNervio.ObtenerEstadoCtrlZ();
+                    rehacerToolStripMenuItem.Enabled = UndoRedoNervio.ObtenerEstadoCtrlY();
+                }
+            }
+        }
+        private void CambiosTimer_3_F_EnumeracionPortico_Proyecto()
+        {
+            if (F_EnumeracionPortico != null)
+            {
+                F_EnumeracionPortico.deshacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
+                F_EnumeracionPortico.rehacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+            }
+        }
+
+        private void BloqueoDesbloqueoBotones(bool Bloqueo_Desbloqueo)
+        {
+            guardarToolStripMenuItem.Enabled = Bloqueo_Desbloqueo;
+            gurdarComoToolStripMenuItem.Enabled = Bloqueo_Desbloqueo;
+            TSB_Guardar.Enabled = Bloqueo_Desbloqueo;
+            TSB_GuardarComo.Enabled = Bloqueo_Desbloqueo;
+            enumeraciónDeElementosToolStripMenuItem.Enabled = Bloqueo_Desbloqueo;
+        }
+        #endregion
+
+
+
+        #region Dimensionar Formulario
+
+        private int tolerance = 16;
+        private int tolerance2W = 2;
+        private int tolerance2H = 2;
+        private const int WM_NCHITTEST = 132;
+        private const int HTBOTTOMRIGHT = 17;
+        private Rectangle sizeGripRectangle;
+
+        protected override void WndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+                case WM_NCHITTEST:
+                    base.WndProc(ref m);
+                    var hitPoint = this.PointToClient(new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16));
+                    if (sizeGripRectangle.Contains(hitPoint))
+                        m.Result = new IntPtr(HTBOTTOMRIGHT);
+                    break;
+
+                default:
+                    base.WndProc(ref m);
+                    break;
+            }
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+            var region = new Region(new Rectangle(0, 0, ClientRectangle.Width - tolerance2W, this.ClientRectangle.Height - tolerance2H));
+            sizeGripRectangle = new Rectangle(this.ClientRectangle.Width - tolerance, this.ClientRectangle.Height - tolerance, tolerance, tolerance);
+            region.Exclude(sizeGripRectangle);
+            ST_Base.Region = region;
+            Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            ControlPaint.DrawSizeGrip(e.Graphics, Color.Transparent, sizeGripRectangle);
+        }
+
+        #endregion Dimensionar Formulario
+
+        #region Mover ,Maximizar, Cerrar y Restaurar Ventana - Eventos Clicks
+
+        private void BT_Cerrar_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void BT_MaxRest_Click(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                WindowState = FormWindowState.Maximized;
+            }
+            else if (WindowState == FormWindowState.Maximized)
+            {
+                WindowState = FormWindowState.Normal;
+            }
+        }
+
+        private void BT_Minimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void CambiosTimer_1()
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                BT_MaxRest.Image = Properties.Resources.Maximizar14X11;
+            }
+            else if (WindowState == FormWindowState.Maximized)
+            {
+                BT_MaxRest.Image = Properties.Resources.Restaurar14x11;
+            }
+        }
+
+        private void DobleClickMaximaze(MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                if (WindowState == FormWindowState.Normal)
+                {
+                    WindowState = FormWindowState.Maximized;
+                }
+                else if (WindowState == FormWindowState.Maximized)
+                {
+                    WindowState = FormWindowState.Normal;
+                }
+            }
+        }
+
+        private void MS_BarraPrincipal_MouseDown(object sender, MouseEventArgs e)
+        {
+            cHerramientas.Movimiento(Handle);
+            if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            {
+                DobleClickMaximaze(e);
+            }
+        }
+
+        private void P_Menu_MouseDown(object sender, MouseEventArgs e)
+        {
+            cHerramientas.Movimiento(Handle);
+            if (e.Button == MouseButtons.Left && e.Clicks == 2)
+            {
+                DobleClickMaximaze(e);
+            }
+        }
+
+        #endregion Mover ,Maximizar, Cerrar y Restaurar Ventana - Eventos Clicks
+
+        #region Eventos de MenuStrip y ToolStrip
+
+        private void TSB_Nuevo_Click(object sender, EventArgs e)
+        {
+            NuevoProyecto_Function();
+        }
+
+        private void nuevoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NuevoProyecto_Function();
+        }
+
+        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AbrirProyecto_Function();
+        }
+
+        private void guardarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GuardarProyecto_Function();
+        }
+
+        private void gurdarComoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GuardarComoProyecto_Function();
+        }
+
+        private void TSB_Abrir_Click(object sender, EventArgs e)
+        {
+            AbrirProyecto_Function();
+        }
+
+        private void TSB_Guardar_Click(object sender, EventArgs e)
+        {
+            GuardarProyecto_Function();
+        }
+
+        private void TSB_GuardarComo_Click(object sender, EventArgs e)
+        {
+            GuardarComoProyecto_Function();
+        }
+
+        private void TSB_Undo_Click(object sender, EventArgs e)
+        {
+            if (F_EnumeracionPortico.Visible == true) { Deshacer_Function(); } else
+            {
+                Deshacer_Function_Nervio();
+            }
+
+        }
+
+        private void TSB_Redo_Click(object sender, EventArgs e)
+        {
+            if (F_EnumeracionPortico.Visible == true) { Rehacer_Function(); }
+            else
+            {
+                Rehacer_Function_Nervio();
+            }
+        }
+
+        private void deshacerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (F_EnumeracionPortico.Visible == true) { Deshacer_Function(); }
+            else
+            {
+                Deshacer_Function_Nervio();
+            }
+        }
+
+        private void rehacerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (F_EnumeracionPortico.Visible == true) { Rehacer_Function(); }
+            else
+            {
+                Rehacer_Function_Nervio();
+            }
+        }
+
+        private void enumeraciónDeElementosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VentanaEmergente(ref F_EnumeracionPortico);
+        }
+        private void selecciónDeNerviosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_SelectNervio);
+        }
+        private void geometríaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_NervioEnPerfilLongitudinal);
+        }
+        private void refuerzoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_VentanaDiseno);
+        }
+
+        private void diagramaDeMomentosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_MomentosNervio);
+        }
+
+        private void diagramaDeÁreasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_AreasMomentoNervio);
+        }
+
+        private void diagramaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_CortanteNervio);
+        }
+
+        private void diagramaDeCortanteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AcoplarVentana(ref F_AreasCortanteNervio);
+        }
+        private void TSB_SelectCombinaciones_Click(object sender, EventArgs e)
+        {
+            VentanaEmergente(ref F_SelectCombinaciones);
+        }
+        private void propiedadesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            VentanaEmergente(ref F_PropiedadesProyecto);
+        }
+      
+        private void diseñarNervioActualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cFunctionsProgram.DiseñarNervio(Proyecto.Edificio.PisoSelect.NervioSelect);
+            ActualizarTodosLasVentanas();
+        }
+        private void nerviosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void todosLosNerviosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (cNervio Nervio in Proyecto.Edificio.PisoSelect.Nervios)
+            {
+                Proyecto.Edificio.PisoSelect.NervioSelect = Nervio;
+                cFunctionsProgram.DiseñarNervio(Nervio);
+            }
+            ActualizarTodosLasVentanas();
+        }
+        private void TLS_ButtonProgramador_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        #endregion Eventos de MenuStrip y ToolStrip
+
+
+
+        //private void SerializarConfigVentana()
+        //{
+
+        //    string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "FC Nervios Ventanas.config");
+        //    DP_ContenedorPrincipal.SaveAsXml(path);
+
+        //}
+
+
+
+
+
+
+
+
+
+        private IDockContent GetContentFromPersistString(string persistString)
+        {
+            DockContent dockContent;
+            if (persistString == typeof(F_SelectNervio).ToString())
+                dockContent= F_SelectNervio;
+            else if (persistString == typeof(F_NervioEnPerfilLongitudinal).ToString())
+                dockContent= F_NervioEnPerfilLongitudinal;
+            else if (persistString == typeof(F_MomentosNervio).ToString())
+                dockContent= F_MomentosNervio;
+            else if (persistString == typeof(F_AreasMomentoNervio).ToString())
+                dockContent= F_AreasMomentoNervio;
+            else if (persistString == typeof(F_VentanaDiseno).ToString())
+                dockContent= F_VentanaDiseno;
+            else if (persistString == typeof(F_CortanteNervio).ToString())
+                dockContent = F_CortanteNervio;
+            else if (persistString == typeof(F_AreasCortanteNervio).ToString())
+                dockContent = F_AreasCortanteNervio;
+            else
+            {
+                string[] parsedStrings = persistString.Split(new char[] { ',' });
+                if (parsedStrings.Length != 3)
+                    return null;
+                if (parsedStrings[0] != typeof(DockContent).ToString())
+                    return null;
+
+                dockContent = new F_SelectNervio();
+                if (parsedStrings[2] != string.Empty)
+                    dockContent.Text = parsedStrings[2];
+
+                return dockContent;
+            }
+            return dockContent;
+        }
+
+
+        private void InstanciamientodeVentanasAcopladas()
+        {
+            F_SelectNervio = new F_SelectNervio();
+            F_NervioEnPerfilLongitudinal = new F_NervioEnPerfilLongitudinal();
+            F_MomentosNervio = new F_MomentosNervio();
+            F_AreasMomentoNervio = new F_AreasMomentoNervio();
+            F_VentanaDiseno = new F_VentanaDiseno();
+            F_CortanteNervio = new F_CortanteNervio();
+            F_AreasCortanteNervio = new F_AreasCortanteNervio();
+
+        }
+
+
+    }
+}

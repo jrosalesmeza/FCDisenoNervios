@@ -74,15 +74,7 @@ namespace FC_Diseño_de_Nervios
         }
         public void Paint(Graphics e,float Zoom)
         {
-            float TamanoLetra;
-            if (Zoom > 0)
-            {
-                TamanoLetra = 9 * Zoom;
-            }
-            else
-            {
-                TamanoLetra = 1;
-            }
+            float TamanoLetra = Zoom > 0 ? 9 * Zoom : 1;
             Pen Pen_Linea = new Pen(Color.FromArgb(230, 230, 230), 1);
             Pen Pen_Circulo = new Pen(Color.FromArgb(244, 244, 244), 2);
             SolidBrush Brush_String = new SolidBrush(Color.FromArgb(0, 104, 149));

@@ -1,0 +1,7 @@
+C:\Users\jrosales\Desktop\Diseno_Columnas\Bibliotecas proyecto\FunctionsAutoCAD\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.xml
+C:\Users\jrosales\Desktop\Diseno_Columnas\Bibliotecas proyecto\FunctionsAutoCAD\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll
+C:\Users\jrosales\Desktop\Diseno_Columnas\Bibliotecas proyecto\FunctionsAutoCAD\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.pdb
+C:\Users\jrosales\Desktop\Diseno_Columnas\Bibliotecas proyecto\FunctionsAutoCAD\FunctionsAutoCAD\obj\Debug\FunctionsAutoCAD2020.csprojAssemblyReference.cache
+C:\Users\jrosales\Desktop\Diseno_Columnas\Bibliotecas proyecto\FunctionsAutoCAD\FunctionsAutoCAD\obj\Debug\FunctionsAutoCAD.dll
+C:\Users\jrosales\Desktop\Diseno_Columnas\Bibliotecas proyecto\FunctionsAutoCAD\FunctionsAutoCAD\obj\Debug\FunctionsAutoCAD.pdb
+C:\Users\jrosales\Desktop\Diseno_Columnas\Bibliotecas proyecto\FunctionsAutoCAD\FunctionsAutoCAD\obj\Debug\FunctionsAutoCAD2020.csproj.CoreCompileInputs.cache

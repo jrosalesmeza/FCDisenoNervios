@@ -48,14 +48,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="B_EscalaCoordenadas">
-      <HintPath>..\Bibliotecas para Nervios\B_EscalaCoordenadas\B_EscalaCoordenadas\bin\Debug\B_EscalaCoordenadas.dll</HintPath>
+    <Reference Include="B_EscalaCoordenadas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bibliotecas\B_EscalaCoordenadas\B_EscalaCoordenadas\bin\Debug\B_EscalaCoordenadas.dll</HintPath>
     </Reference>
     <Reference Include="B_FCDiseñoVigas">
       <HintPath>..\Bibliotecas para Nervios\B_DiseñoDeVigas\B_FCDiseñoVigas\bin\Debug\B_FCDiseñoVigas.dll</HintPath>
     </Reference>
+    <Reference Include="B_Operaciones_Matricialesl">
+      <HintPath>..\..\Bibliotecas\B_Operaciones_Matricialesl\B_Operaciones_Matricialesl\bin\Debug\B_Operaciones_Matricialesl.dll</HintPath>
+    </Reference>
     <Reference Include="FontAwesome.Sharp, Version=5.12.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome.Sharp.5.12.1\lib\net45\FontAwesome.Sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="FunctionsAutoCAD">
+      <HintPath>..\Bibliotecas para Nervios\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -77,49 +84,51 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases y Enums\cDiccionarios.cs" />
-    <Compile Include="Clases y Enums\cSolicitacion_Asignado.cs" />
-    <Compile Include="Clases y Enums\cBarra.cs" />
-    <Compile Include="Clases y Enums\cCalculos.cs" />
-    <Compile Include="Clases y Enums\cCombos.cs" />
-    <Compile Include="Clases y Enums\cConfigLinea.cs" />
-    <Compile Include="Clases y Enums\cConversiones.cs" />
-    <Compile Include="Clases y Enums\cCoordenadas.cs" />
-    <Compile Include="Clases y Enums\cDatosEtabs.cs" />
-    <Compile Include="Clases y Enums\cDrawing.cs" />
-    <Compile Include="Clases y Enums\cEdificio.cs" />
-    <Compile Include="Clases y Enums\cEnvolvente.cs" />
-    <Compile Include="Clases y Enums\cEstacion.cs" />
-    <Compile Include="Clases y Enums\cEstribo.cs" />
-    <Compile Include="Clases y Enums\cFunctionsProgram.cs" />
-    <Compile Include="Clases y Enums\cVariables.cs" />
-    <Compile Include="Clases y Enums\eNoBarra.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cDiccionarios.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estribos\cLadoDeEstribos.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estribos\cZonaEstribos.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estacion\cSolicitacion_Asignado_Momentos.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estacion\c_Solicitacion_Asignado_Cortante.cs" />
+    <Compile Include="Clases y Enums\Refuerzo\cBarra.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estacion\cCalculos.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estacion\cCombos.cs" />
+    <Compile Include="Clases y Enums\Etabs\cConfigLinea.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cConversiones.cs" />
+    <Compile Include="Clases y Enums\Nervio\cCoordenadas.cs" />
+    <Compile Include="Clases y Enums\Proyecto\cDatosEtabs.cs" />
+    <Compile Include="Clases y Enums\Proyecto\cEdificio.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estacion\cEnvolvente.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estacion\cEstacion.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estribos\cEstribo.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cFunctionsProgram.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cVariables.cs" />
+    <Compile Include="Clases y Enums\Refuerzo\eNoBarra.cs" />
     <Compile Include="Clases y Enums\Grid\cGrid.cs" />
-    <Compile Include="Clases y Enums\cHerramientas.cs" />
-    <Compile Include="Clases y Enums\cLine.cs" />
-    <Compile Include="Clases y Enums\cMaterial.cs" />
-    <Compile Include="Clases y Enums\Nervio\cApoyo.cs" />
-    <Compile Include="Clases y Enums\Nervio\cAreasyMomentos.cs" />
-    <Compile Include="Clases y Enums\Nervio\cCoordenadasCalculos.cs" />
-    <Compile Include="Clases y Enums\Nervio\cSubTramo.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cHerramientas.cs" />
+    <Compile Include="Clases y Enums\Etabs\cLine.cs" />
+    <Compile Include="Clases y Enums\Seccion\cMaterial.cs" />
+    <Compile Include="Clases y Enums\Nervio\Partes\cApoyo.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estacion\cAreasyMomentos.cs" />
+    <Compile Include="Clases y Enums\Nervio\SubTramo\cCoordenadasCalculos.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estacion\cPuntoInfelxion.cs" />
+    <Compile Include="Clases y Enums\Nervio\SubTramo\cSubTramo.cs" />
     <Compile Include="Clases y Enums\Nervio\cNervio.cs" />
-    <Compile Include="Clases y Enums\cObjetoCoordenadas.cs" />
-    <Compile Include="Clases y Enums\cPiso.cs" />
-    <Compile Include="Clases y Enums\cPoint.cs" />
-    <Compile Include="Clases y Enums\cProyecto.cs" />
-    <Compile Include="Clases y Enums\cSeccion.cs" />
-    <Compile Include="Clases y Enums\Nervio\cTendencia.cs" />
-    <Compile Include="Clases y Enums\Nervio\cTendencia_Refuerzo.cs" />
-    <Compile Include="Clases y Enums\Nervio\cTramo.cs" />
-    <Compile Include="Clases y Enums\cUndoRedo.cs" />
-    <Compile Include="Clases y Enums\cViga.cs" />
-    <Compile Include="Clases y Enums\eDireccion.cs" />
-    <Compile Include="Clases y Enums\eTipoGancho.cs" />
-    <Compile Include="Clases y Enums\eType.cs" />
-    <Compile Include="Clases y Enums\eUbicacionRefuerzo.cs" />
-    <Compile Include="Clases y Enums\Nervio\cVistasElemento.cs" />
-    <Compile Include="Clases y Enums\Nervio\IElemento.cs" />
-    <Compile Include="Clases y Enums\eNomenclatura.cs" />
+    <Compile Include="Clases y Enums\Etabs\cObjetoCoordenadas.cs" />
+    <Compile Include="Clases y Enums\Proyecto\cPiso.cs" />
+    <Compile Include="Clases y Enums\Etabs\cPoint.cs" />
+    <Compile Include="Clases y Enums\Proyecto\cProyecto.cs" />
+    <Compile Include="Clases y Enums\Seccion\cSeccion.cs" />
+    <Compile Include="Clases y Enums\Nervio\Partes\Tendencias\cTendencia.cs" />
+    <Compile Include="Clases y Enums\Nervio\Partes\Tendencias\cTendencia_Refuerzo.cs" />
+    <Compile Include="Clases y Enums\Nervio\Partes\cTramo.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cUndoRedo.cs" />
+    <Compile Include="Clases y Enums\Etabs\eDireccion.cs" />
+    <Compile Include="Clases y Enums\Refuerzo\eTipoGancho.cs" />
+    <Compile Include="Clases y Enums\Etabs\eType.cs" />
+    <Compile Include="Clases y Enums\Refuerzo\eUbicacionRefuerzo.cs" />
+    <Compile Include="Clases y Enums\Nervio\Partes\cVistasElemento.cs" />
+    <Compile Include="Clases y Enums\Nervio\Partes\IElemento.cs" />
+    <Compile Include="Clases y Enums\Herramientas\eNomenclatura.cs" />
     <Compile Include="Controles\AdvancedRadioButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -132,89 +141,107 @@
     <Compile Include="Controles\ToolTipPersonalizado.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Fase Inicial\F_Base.cs">
+    <Compile Include="Ventana Principal\F_Base.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fase Inicial\F_Base.Designer.cs">
+    <Compile Include="Ventana Principal\F_Base.Designer.cs">
       <DependentUpon>F_Base.cs</DependentUpon>
     </Compile>
-    <Compile Include="Fase Inicial\Nuevo Proyecto\F_NuevoProyecto.cs">
+    <Compile Include="Ventana Principal\Nuevo Proyecto\F_NuevoProyecto.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fase Inicial\Nuevo Proyecto\F_NuevoProyecto.Designer.cs">
+    <Compile Include="Ventana Principal\Nuevo Proyecto\F_NuevoProyecto.Designer.cs">
       <DependentUpon>F_NuevoProyecto.cs</DependentUpon>
     </Compile>
-    <Compile Include="Fase Inicial\Nuevo Proyecto\F_Pisos.cs">
+    <Compile Include="Ventana Principal\Nuevo Proyecto\F_Pisos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Fase Inicial\Nuevo Proyecto\F_Pisos.Designer.cs">
+    <Compile Include="Ventana Principal\Nuevo Proyecto\F_Pisos.Designer.cs">
       <DependentUpon>F_Pisos.cs</DependentUpon>
     </Compile>
-    <Compile Include="Clases y Enums\Nervio\cObjeto.cs" />
-    <Compile Include="Manipulación Proyecto\F_AreasMomentoNervio.cs">
+    <Compile Include="Clases y Enums\Nervio\Partes\cObjeto.cs" />
+    <Compile Include="Manipulación Proyecto\Cortante\F_CortanteNervio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_AreasMomentoNervio.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Cortante\F_CortanteNervio.Designer.cs">
+      <DependentUpon>F_CortanteNervio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Cortante\F_AreasCortanteNervio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Cortante\F_AreasCortanteNervio.Designer.cs">
+      <DependentUpon>F_AreasCortanteNervio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ventana Principal\Propiedades del Proyecto\F_PropiedadesProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventana Principal\Propiedades del Proyecto\F_PropiedadesProyecto.Designer.cs">
+      <DependentUpon>F_PropiedadesProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Flexión\F_AreasMomentoNervio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Flexión\F_AreasMomentoNervio.Designer.cs">
       <DependentUpon>F_AreasMomentoNervio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_EnumeracionPortico.cs">
+    <Compile Include="Ventana Principal\Nuevo Proyecto\F_EnumeracionPortico.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_EnumeracionPortico.Designer.cs">
+    <Compile Include="Ventana Principal\Nuevo Proyecto\F_EnumeracionPortico.Designer.cs">
       <DependentUpon>F_EnumeracionPortico.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_ModificarSeccion.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarSeccion.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_ModificarSeccion.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarSeccion.Designer.cs">
       <DependentUpon>F_ModificarSeccion.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_MomentosNervio.cs">
+    <Compile Include="Manipulación Proyecto\Flexión\F_MomentosNervio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_MomentosNervio.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Flexión\F_MomentosNervio.Designer.cs">
       <DependentUpon>F_MomentosNervio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_NervioEnPerfilLongitudinal.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_NervioEnPerfilLongitudinal.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_NervioEnPerfilLongitudinal.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_NervioEnPerfilLongitudinal.Designer.cs">
       <DependentUpon>F_NervioEnPerfilLongitudinal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_SeleccionBarras.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_SeleccionBarras.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_SeleccionBarras.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_SeleccionBarras.Designer.cs">
       <DependentUpon>F_SeleccionBarras.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_SelectCombinaciones.cs">
+    <Compile Include="Ventana Principal\Ventanas Emergentes\F_SelectCombinaciones.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_SelectCombinaciones.Designer.cs">
+    <Compile Include="Ventana Principal\Ventanas Emergentes\F_SelectCombinaciones.Designer.cs">
       <DependentUpon>F_SelectCombinaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_SelectNervio.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\F_SelectNervio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_SelectNervio.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\F_SelectNervio.Designer.cs">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_ModificacionEjes.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_ModificacionEjes.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.Designer.cs">
       <DependentUpon>F_ModificacionEjes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_Tendencia.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_Tendencia.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_Tendencia.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_Tendencia.Designer.cs">
       <DependentUpon>F_Tendencia.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_VentanaDiseno.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_VentanaDiseno.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\F_VentanaDiseno.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_VentanaDiseno.Designer.cs">
       <DependentUpon>F_VentanaDiseno.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -222,46 +249,55 @@
     <EmbeddedResource Include="Controles\Control_Barra.resx">
       <DependentUpon>Control_Barra.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fase Inicial\F_Base.resx">
+    <EmbeddedResource Include="Ventana Principal\F_Base.resx">
       <DependentUpon>F_Base.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fase Inicial\Nuevo Proyecto\F_NuevoProyecto.resx">
+    <EmbeddedResource Include="Ventana Principal\Nuevo Proyecto\F_NuevoProyecto.resx">
       <DependentUpon>F_NuevoProyecto.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Fase Inicial\Nuevo Proyecto\F_Pisos.resx">
+    <EmbeddedResource Include="Ventana Principal\Nuevo Proyecto\F_Pisos.resx">
       <DependentUpon>F_Pisos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_AreasMomentoNervio.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Cortante\F_AreasCortanteNervio.resx">
+      <DependentUpon>F_AreasCortanteNervio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\Cortante\F_CortanteNervio.resx">
+      <DependentUpon>F_CortanteNervio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventana Principal\Propiedades del Proyecto\F_PropiedadesProyecto.resx">
+      <DependentUpon>F_PropiedadesProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\Flexión\F_AreasMomentoNervio.resx">
       <DependentUpon>F_AreasMomentoNervio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_EnumeracionPortico.resx">
+    <EmbeddedResource Include="Ventana Principal\Nuevo Proyecto\F_EnumeracionPortico.resx">
       <DependentUpon>F_EnumeracionPortico.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_ModificarSeccion.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarSeccion.resx">
       <DependentUpon>F_ModificarSeccion.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_MomentosNervio.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Flexión\F_MomentosNervio.resx">
       <DependentUpon>F_MomentosNervio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_NervioEnPerfilLongitudinal.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_NervioEnPerfilLongitudinal.resx">
       <DependentUpon>F_NervioEnPerfilLongitudinal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_SeleccionBarras.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_SeleccionBarras.resx">
       <DependentUpon>F_SeleccionBarras.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_SelectCombinaciones.resx">
+    <EmbeddedResource Include="Ventana Principal\Ventanas Emergentes\F_SelectCombinaciones.resx">
       <DependentUpon>F_SelectCombinaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_SelectNervio.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\F_SelectNervio.resx">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_ModificacionEjes.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.resx">
       <DependentUpon>F_ModificacionEjes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_Tendencia.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_Tendencia.resx">
       <DependentUpon>F_Tendencia.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\F_VentanaDiseno.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas de Diseño\F_VentanaDiseno.resx">
       <DependentUpon>F_VentanaDiseno.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

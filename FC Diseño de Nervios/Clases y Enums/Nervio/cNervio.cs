@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
+using FC_BFunctionsAutoCAD;
 
 namespace FC_Diseño_de_Nervios
 {
@@ -16,34 +17,34 @@ namespace FC_Diseño_de_Nervios
         public string Prefijo { get; set; } = "N-";
         public int CantApoyos { get; set; } = 0;
 
-        public float d1_ = 4f;
+        public float r1_ = 4f;
 
-        public float d1
+        public float r1
         {
-            get { return d1_; }
+            get { return r1_; }
             set
             {
-                if (value != d1_)
+                if (value != r1_)
                 {
-                    d1_ = value;
+                    r1_ = value;
                     CrearEnvolvente();
-                    CrearAceroAsignado();
+                    CrearAceroAsignadoRefuerzoLongitudinal();
                 }
             }
         }
 
-        public float d2_;
+        public float r2_;
 
-        public float d2
+        public float r2
         {
-            get { return d2_; }
+            get { return r2_; }
             set
             {
-                if (value != d2_)
+                if (value != r2_)
                 {
-                    d2_ = value;
+                    r2_ = value;
                     CrearEnvolvente();
-                    CrearAceroAsignado();
+                    CrearAceroAsignadoRefuerzoLongitudinal();
                 }
             }
         }
@@ -67,6 +68,9 @@ namespace FC_Diseño_de_Nervios
         public cObjeto ObjetoSelect { get; set; }
         public cTendencia_Refuerzo Tendencia_Refuerzos { get; set; } = new cTendencia_Refuerzo();
         public cPiso PisoOrigen { get; set; }
+
+        public float PesoTotalRefuerzoTransversal { get; set; }
+
 
         private eCambioenAltura cambioenAltura;
         private eCambioenAncho cambioenAncho;
@@ -114,8 +118,8 @@ namespace FC_Diseño_de_Nervios
             CrearTramos();
             CrearElementos();
 
-            Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos)); Tendencia_Refuerzos.TInfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
-            Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos)); Tendencia_Refuerzos.TSupeSelect = Tendencia_Refuerzos.TendenciasSuperior.First();
+            Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos,eUbicacionRefuerzo.Inferior)); Tendencia_Refuerzos.TInfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
+            Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos, eUbicacionRefuerzo.Superior)); Tendencia_Refuerzos.TSupeSelect = Tendencia_Refuerzos.TendenciasSuperior.First();
 
             if (CantApoyos > 0)
             {
@@ -123,13 +127,13 @@ namespace FC_Diseño_de_Nervios
                 CrearCoordenadasPerfilLongitudinalAutoCAD();
                 ModificarGridsCoordenadasReales();
                 CrearEnvolvente();
-                CrearAceroAsignado();
+                CrearAceroAsignadoRefuerzoLongitudinal();
+                CrearAceroAsignadoRefuerzoTransversal();
             }
             if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
             {
                 Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud+ 2*cDiccionarios.G90[eNoBarra.B6];
                 Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud+ 2*cDiccionarios.G90[eNoBarra.B6];
-
             }
 
         }
@@ -311,6 +315,64 @@ namespace FC_Diseño_de_Nervios
             }
             int Contador = 0;
             Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; } ) ;
+        }
+
+
+        public void CrearApoyosAExtremos(bool ApoyoInicio=false,bool ApoyoFinal=false)
+        {
+            if (ApoyoInicio)
+            {
+                if (Lista_Elementos.First() is cSubTramo)
+                {
+                    int Contador = 0;
+                    Lista_Elementos.Insert(0,new cApoyo("Apoyo 0", new cSeccion("FC0", 40, Lista_Elementos.First().Seccion.H), this));
+                    Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; });
+                    CrearCoordenadasPerfilLongitudinalReales();
+                    CrearCoordenadasPerfilLongitudinalAutoCAD();
+                    CrearEnvolvente();
+                    CrearAceroAsignadoRefuerzoLongitudinal();
+                    CrearAceroAsignadoRefuerzoTransversal();
+                    Tendencia_Refuerzos.NervioOrigen = this;
+                    if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+                    {
+                        Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+                        Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+                    }
+
+                }
+
+            }
+
+            if (ApoyoFinal)
+            {
+                if (Lista_Elementos.Last() is cSubTramo)
+                {
+                    int Contador = 0;
+                    Lista_Elementos.Add(new cApoyo("ApoyoFinal", new cSeccion("FCFinal", 40, Lista_Elementos.Last().Seccion.H), this));
+                    Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; });
+                    CrearCoordenadasPerfilLongitudinalReales();
+                    CrearCoordenadasPerfilLongitudinalAutoCAD();
+                    CrearEnvolvente();
+                    CrearAceroAsignadoRefuerzoLongitudinal();
+                    CrearAceroAsignadoRefuerzoTransversal();
+                    Tendencia_Refuerzos.NervioOrigen = this;
+                    if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+                    {
+                        Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+                        Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+                    }
+                }
+
+            }
+
+
+        }
+
+        public float CalcularPesoTransversal()
+        {
+            PesoTotalRefuerzoTransversal = 0;
+            Lista_Tramos.ForEach(x => { x.CalcularPesoTransversal(); PesoTotalRefuerzoTransversal += x.PesoRefuerzoTransversal; });
+            return PesoTotalRefuerzoTransversal;
         }
 
 
@@ -666,8 +728,17 @@ namespace FC_Diseño_de_Nervios
                     SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales = new List<PointF>();
                     SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Reales = new List<PointF>();
                     SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Negativos.Reales = new List<PointF>();
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Reales = new List<PointF>();
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Negativos.Reales = new List<PointF>();
                     SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Reales= new List<PointF>();
                     SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Reales= new List<PointF>();
+
+                    SubtramoAux.Coordenadas_FI_Vc_Positivos.Reales = new List<PointF>();
+                    SubtramoAux.Coordenadas_FI_Vc_Negativos.Reales = new List<PointF>();
+                    SubtramoAux.Coordenadas_FI_Vc2_Positivos.Reales = new List<PointF>();
+                    SubtramoAux.Coordenadas_FI_Vc2_Negativos.Reales = new List<PointF>();
+
+
                     float CoordenaXMenor = SubtramoAux.Vistas.Perfil_Original.Reales.Min(X => X.X);
                     SubtramoAux.Estaciones.ForEach(Estacion =>
                     {
@@ -675,15 +746,102 @@ namespace FC_Diseño_de_Nervios
                         SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, -Estacion.Calculos.Envolvente.M3[1]));
                         SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Envolvente.V2[0]));
                         SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Envolvente.V2[1]));
+                        Estacion.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesInferior.Cortante = Estacion.Calculos.Envolvente.V2[0];
+                        Estacion.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesSuperior.Cortante = Estacion.Calculos.Envolvente.V2[1];
                         SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento));
                         SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, -Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Area_Momento));
+                        SubtramoAux.Coordenadas_FI_Vc_Positivos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Envolvente.FI_Vc));
+                        SubtramoAux.Coordenadas_FI_Vc_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, -Estacion.Calculos.Envolvente.FI_Vc));
+                        SubtramoAux.Coordenadas_FI_Vc2_Positivos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Envolvente.FI_Vc2));
+                        SubtramoAux.Coordenadas_FI_Vc2_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, -Estacion.Calculos.Envolvente.FI_Vc2));
                     });
                 }
             });
+            AgregarArea_S_Estaciones_Cortante();
+        }
+        private void AgregarArea_S_Estaciones_Cortante()
+        {
+
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    List<float> CoordXEntreFiVc_FiVc2_I = new List<float>();
+                    List<float> CoordXEntreFiVc_FiVc2_S = new List<float>();
+                    List<float> CoordXMayoresFiVc_I = new List<float>();
+                    List<float> CoordXMayoresFiVc_S = new List<float>();
+                    cSubTramo SubTramoAux = (cSubTramo)Elemento;
+                    float CoordenaXMenor = SubTramoAux.Vistas.Perfil_Original.Reales.Min(X => X.X);
+                    SubTramoAux.Estaciones.ForEach(Estacion =>
+                    {
+                        float CortanteI = Estacion.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesInferior.Cortante;
+                        float CortanteS = Estacion.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesSuperior.Cortante;
+                        float FiVc = Estacion.Calculos.Envolvente.FI_Vc;
+                        float FiVc2 = Estacion.Calculos.Envolvente.FI_Vc2;
+
+                        if (Math.Abs(CortanteI) >= FiVc)
+                            CoordXMayoresFiVc_I.Add(Estacion.CoordX);
+                        if (Math.Abs(CortanteI) < FiVc && Math.Abs(CortanteI) >= FiVc2)
+                            CoordXEntreFiVc_FiVc2_I.Add(Estacion.CoordX);
+                        if (Math.Abs(CortanteS) >= FiVc)
+                            CoordXMayoresFiVc_S.Add(Estacion.CoordX);
+                        if (Math.Abs(CortanteS) < FiVc && Math.Abs(CortanteS) >= FiVc2)
+                            CoordXEntreFiVc_FiVc2_S.Add(Estacion.CoordX);
+                    });
+
+                    float CoordXMaxFiVc = 99999f; float CoordXMaxFiVc2 = 99999f;
+                    float CoordYMaxFiVc = SubTramoAux.Estaciones.Max(y => y.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesInferior.Area_S);
+                    if (CoordXMayoresFiVc_I.Count > 0)
+                        CoordXMaxFiVc = CoordXMayoresFiVc_I.Min();
+                    if (CoordXEntreFiVc_FiVc2_I.Count > 0)
+                        CoordXMaxFiVc2 = CoordXEntreFiVc_FiVc2_I.Min();
+
+                    float CoordXMaxFiVc_S = -99999f; float CoordXMaxFiVc2_S = -99999f;
+                    float CoordYMaxFiVc2_S = SubTramoAux.Estaciones.Max(y => y.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesSuperior.Area_S);
+                    if (CoordXMayoresFiVc_S.Count > 0)
+                        CoordXMaxFiVc_S = CoordXMayoresFiVc_S.Max();
+                    if (CoordXEntreFiVc_FiVc2_S.Count > 0)
+                        CoordXMaxFiVc2_S = CoordXEntreFiVc_FiVc2_S.Max();
+
+
+
+
+                    SubTramoAux.Estaciones.ForEach(x =>
+                    {
+
+
+                        if (x.CoordX > CoordXMaxFiVc)
+                        {
+                            x.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesInferior.Area_S = CoordYMaxFiVc;
+                        }
+                        else if (x.CoordX <= CoordXMaxFiVc && x.CoordX >= CoordXMaxFiVc2)
+                        {
+                            x.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesInferior.Area_S = x.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesInferior.AreaMin;
+                        }
+
+
+                        if (x.CoordX < CoordXMaxFiVc_S)
+                        {
+                            x.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesSuperior.Area_S = CoordYMaxFiVc2_S;
+                        }
+                        else if (x.CoordX >= CoordXMaxFiVc_S && x.CoordX <= CoordXMaxFiVc2_S)
+                        {
+                            x.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesSuperior.Area_S = x.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesSuperior.AreaMin;
+                        }
+
+
+                        SubTramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Reales.Add(new PointF(CoordenaXMenor + x.CoordX, -x.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesInferior.Area_S));
+                        SubTramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Negativos.Reales.Add(new PointF(CoordenaXMenor + x.CoordX, x.Calculos.Solicitacion_Asignado_Cortante.SolicitacionesSuperior.Area_S));
+                    });
+
+                }
+            });
+
+
+
         }
 
-
-        public void CrearAceroAsignado()
+        public void CrearAceroAsignadoRefuerzoLongitudinal()
         {
 
             Lista_Elementos.ForEach(Elemento =>
@@ -695,15 +853,27 @@ namespace FC_Diseño_de_Nervios
                     {
                         Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento = 0f;
                         Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento = 0f;
+                        Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Momento = 0f;
+                        Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Momento = 0f;
+                        Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Superior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento;
+                        Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Superior = -100f;
+                        Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Area_Momento;
+                        Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior = -100f;
                         List<cBarra> BarrasSuperiores = Tendencia_Refuerzos.TSupeSelect.Barras.FindAll(x => x.EstacionEnBarra(Estacion, SubtramoAux));
                         List<cBarra> BarrasInferiores = Tendencia_Refuerzos.TInfeSelect.Barras.FindAll(x => x.EstacionEnBarra(Estacion, SubtramoAux));
                         if (BarrasSuperiores != null && BarrasSuperiores.Count>0)
                         {
-                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento = BarrasSuperiores.Sum(x => x.AreaTotal);
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento = BarrasSuperiores.Sum(x => x.AporteAceroAEstacion(Estacion, SubtramoAux));
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Superior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento;
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Momento = BarrasSuperiores.Sum(x => x.AporteMomentoAEstacion(Estacion, SubtramoAux));
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Superior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Superior / Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento * 100f;
                         }
                         if (BarrasInferiores != null && BarrasInferiores.Count > 0)
                         {
-                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento = BarrasInferiores.Sum(x => x.AreaTotal);
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento = BarrasInferiores.Sum(x => x.AporteAceroAEstacion(Estacion, SubtramoAux));
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Momento = BarrasInferiores.Sum(x => x.AporteMomentoAEstacion(Estacion, SubtramoAux));
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Area_Momento;
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior / Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento*100f;
                         }
 
                     });
@@ -728,16 +898,69 @@ namespace FC_Diseño_de_Nervios
                     {
                         SubtramoAux.CoordenadasCalculosAsignado.Momentos_Positivos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, -Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Momento));
                         SubtramoAux.CoordenadasCalculosAsignado.Momentos_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Momento));
-                        //SubtramoAux.CoordenadasCalculosAsignado.Cortante_Positvos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Envolvente.V2[0]));
-                        //SubtramoAux.CoordenadasCalculosAsignado.Cortante_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Envolvente.V2[1]));
-                        SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento));
-                        SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, -Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Area_Momento));
+                        SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento));
+                        SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, -Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento));
                     });
                 }
             });
 
 
         }
+
+        public void CrearAceroAsignadoRefuerzoTransversal()
+        {
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    float CoordenaXMenor = SubtramoAux.Vistas.Perfil_Original.Reales.Min(X => X.X);
+                    SubtramoAux.Estaciones.ForEach(Estacion =>
+                    {
+                        Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoSuperior.Area_S = 0f;
+                        Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoInferior.Area_S = 0f;
+
+                        if (SubtramoAux.TramoOrigen.EstribosIzquierda != null)
+                        {
+                            Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoSuperior.Area_S=SubtramoAux.TramoOrigen.EstribosIzquierda.IsArea_S(CoordenaXMenor + Estacion.CoordX);
+                        }
+
+                        if (SubtramoAux.TramoOrigen.EstribosDerecha != null)
+                        {
+                            Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoInferior.Area_S = SubtramoAux.TramoOrigen.EstribosDerecha.IsArea_S(CoordenaXMenor + Estacion.CoordX);
+                        }
+                    });
+                }
+            });
+            CrearCoordenadasDiagramaAreasCortante_Reales_Asigando();
+        }
+
+
+        public void CrearCoordenadasDiagramaAreasCortante_Reales_Asigando()
+        {
+
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Reales = new List<PointF>();
+                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Negativos.Reales = new List<PointF>();
+                    float CoordenaXMenor = SubtramoAux.Vistas.Perfil_Original.Reales.Min(X => X.X);
+                    SubtramoAux.Estaciones.ForEach(Estacion =>
+                    {
+                        SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoSuperior.Area_S));
+                        SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Negativos.Reales.Add(new PointF(CoordenaXMenor + Estacion.CoordX, -Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoInferior.Area_S));
+                    });
+                }
+            });
+
+        }
+
+
+
+
+
 
 
 
@@ -748,12 +971,13 @@ namespace FC_Diseño_de_Nervios
                if (Elemento is cSubTramo)
                {
                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
-                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
+                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                   SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
                }
            });
         }
+
         public void CrearCoordenadasDiagramaAreasMomentos_Escaladas_Envolvente(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
         {
             Lista_Elementos.ForEach(Elemento =>
@@ -761,12 +985,49 @@ namespace FC_Diseño_de_Nervios
                 if (Elemento is cSubTramo)
                 {
                     cSubTramo SubtramoAux = (cSubTramo)Elemento;
-                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
                 }
             });
         }
+
+
+
+
+        public void CrearCoordenadasDiagramaCortante_Escaladas_Envolvente(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
+        {
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.Coordenadas_FI_Vc_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.Coordenadas_FI_Vc_Positivos.Reales, out EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.Coordenadas_FI_Vc_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.Coordenadas_FI_Vc_Negativos.Reales, out EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.Coordenadas_FI_Vc2_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.Coordenadas_FI_Vc2_Positivos.Reales, out EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.Coordenadas_FI_Vc2_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.Coordenadas_FI_Vc2_Negativos.Reales, out EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                }
+            });
+        }
+
+        public void CrearCoordenadasDiagramaAreasCortante_Escaladas_Envolvente(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
+        {
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                }
+            });
+        }
+
+
 
         public void CrearCoordenadasDiagramaMomentos_Escaladas_Asignado(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
         {
@@ -775,9 +1036,9 @@ namespace FC_Diseño_de_Nervios
                 if (Elemento is cSubTramo)
                 {
                     cSubTramo SubtramoAux = (cSubTramo)Elemento;
-                    SubtramoAux.CoordenadasCalculosAsignado.Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                    SubtramoAux.CoordenadasCalculosAsignado.Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                    SubtramoAux.CoordenadasCalculosAsignado.Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
+                    SubtramoAux.CoordenadasCalculosAsignado.Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosAsignado.Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosAsignado.Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
                 }
             });
         }
@@ -788,14 +1049,27 @@ namespace FC_Diseño_de_Nervios
                 if (Elemento is cSubTramo)
                 {
                     cSubTramo SubtramoAux = (cSubTramo)Elemento;
-                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
-                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI);
+                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI,FactorReduccion:1.3f);
                 }
             });
         }
 
 
+        public void CrearCoordenadasDiagramaAreasCortante_Escalada_Asignado(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
+        {
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Reales, out float EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Negativos.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Negativos.Reales, out float EscalaMayorenY1, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                    SubtramoAux.CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Y0_Escalado = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(PuntosTodosObjetos, new PointF(0, 0), HeigthDraw, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
+                }
+            });
+        }
 
 
         #endregion Calculos
@@ -809,11 +1083,24 @@ namespace FC_Diseño_de_Nervios
 
         public void CrearCoordenadasLongitudinal_Elementos_Escalados_AutoCAD(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
         {
-            Lista_Elementos.ForEach(Elemento => Elemento.Vistas.Perfil_AutoCAD.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, Elemento.Vistas.Perfil_AutoCAD.Reales, out EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI));
+            Lista_Elementos.ForEach(Elemento => Elemento.Vistas.Perfil_AutoCAD.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, Elemento.Vistas.Perfil_AutoCAD.Reales, out EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI,FactorReduccion:1.3f));
             Tendencia_Refuerzos.TInfeSelect.Barras.ForEach(x => x.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI));
             Tendencia_Refuerzos.TSupeSelect.Barras.ForEach(x => x.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI));
-        }
+            Lista_Tramos.ForEach(Tramo=>{
+                if (Tramo.EstribosDerecha != null)
+                {
+                    Tramo.EstribosDerecha.Zona1.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI);
+                    Tramo.EstribosDerecha.Zona2.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI);
+                }
+                if (Tramo.EstribosIzquierda != null)
+                {
+                    Tramo.EstribosIzquierda.Zona1.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI);
+                    Tramo.EstribosIzquierda.Zona2.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI);
 
+                }
+            
+            });
+        }
 
 
         #region Metodos Mouse
@@ -957,6 +1244,10 @@ namespace FC_Diseño_de_Nervios
         {
             SolidBrush Brush_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(38, 86, 158)));
             SolidBrush Brush_Negativo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(227, 88, 88)));
+
+            SolidBrush Brush_Asignado_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(90,90,140)));
+            SolidBrush Brush_Asignado_Negativos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(90, 90, 140)));
+
             Pen PenBlack = new Pen(Brushes.Black, 1.5f); PenBlack.LineJoin = LineJoin.Round;
 
             #region Momentos Solicictaciones 
@@ -1002,12 +1293,12 @@ namespace FC_Diseño_de_Nervios
             });
 
             cSubTramo SubtramoAux2 = (cSubTramo)Lista_Elementos.Find(x => x is cSubTramo);
-            SolidBrush Brush_Asignado = new SolidBrush(Color.FromArgb(160, Color.FromArgb(90, 0, 219)));
+
 
             cFunctionsProgram.CerrarPoligonoParaMomentos(ref Momento_Negativos_Escalados2, Momento_Negativos_SinEscalados2, SubtramoAux2.CoordenadasCalculosAsignado.Momentos_Positivos.Y0_Escalado.Y);
             cFunctionsProgram.CerrarPoligonoParaMomentos(ref Momento_Positivos_Escalados2, Momento_Positivos_SinEscalados2, SubtramoAux2.CoordenadasCalculosAsignado.Momentos_Positivos.Y0_Escalado.Y);
-            e.FillPolygon(Brush_Asignado, Momento_Positivos_Escalados2.ToArray());
-            e.FillPolygon(Brush_Asignado, Momento_Negativos_Escalados2.ToArray());
+            e.FillPolygon(Brush_Asignado_Positivos, Momento_Positivos_Escalados2.ToArray());
+            e.FillPolygon(Brush_Asignado_Negativos, Momento_Negativos_Escalados2.ToArray());
             e.DrawLines(PenBlack, Momento_Positivos_Escalados2.ToArray());
             e.DrawLines(PenBlack, Momento_Negativos_Escalados2.ToArray());
 
@@ -1021,28 +1312,19 @@ namespace FC_Diseño_de_Nervios
             GraficarRectaApoyos(e, HeightForm);
 
             #region Muestra Valores de Momentos Solictados con el Mouse
-            if (PuntoInMouseMomentos_Escalado_Real != null && PuntoInMouseMomentos_Escalado_Real.Length != 0)
-            {
-                string Text = $"(X= {Math.Round(PuntoInMouseMomentos_Escalado_Real[1].X, 2)}m , M= {Math.Abs(Math.Round(PuntoInMouseMomentos_Escalado_Real[1].Y, 2))} Ton-m)";
-                SizeF MeasureString = e.MeasureString(Text, Font1);
-                float BordeRectangulo = 3f; float XString = PuntoInMouseMomentos_Escalado_Real[0].X + MeasureString.Width / 4; float YString = PuntoInMouseMomentos_Escalado_Real[0].Y;
-                PointF PuntoString = new PointF(XString, YString);
 
-                PointF[] PuntosRectangulo = new PointF[] { new PointF(XString-BordeRectangulo, YString+MeasureString.Height+ BordeRectangulo),
-                                                            new PointF(XString+ MeasureString.Width+BordeRectangulo, YString+MeasureString.Height+ BordeRectangulo),
-                                                            new PointF(XString+ MeasureString.Width+BordeRectangulo, YString- BordeRectangulo),
-                                                            new PointF(XString-BordeRectangulo, YString- BordeRectangulo) };
-                e.FillPolygon(new SolidBrush(Color.FromArgb(253, 255, 220)), PuntosRectangulo);
-                e.DrawPolygon(Pens.Black, PuntosRectangulo);
-                e.DrawString(Text, Font1, Brushes.Black, PuntoString);
-            }
-
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseMomentos_Escalado_Real, "M", "Ton-m");
             #endregion
+
+         
         }
         public void Paint_Longitudinal_DrawAreasMomentos(Graphics e, float Zoom, float HeightForm)
         {
             SolidBrush Brush_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(38, 86, 158)));
             SolidBrush Brush_Negativo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(227, 88, 88)));
+            Pen PenBlack = new Pen(Brushes.Black, 1.5f); PenBlack.LineJoin = LineJoin.Round;
+            SolidBrush Brush_Asignado_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(90, 90, 140)));
+            SolidBrush Brush_Asignado_Negativos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(90, 90, 140)));
 
             #region Areas Rqueridas
             Lista_Elementos.ForEach(Elemento =>
@@ -1061,7 +1343,7 @@ namespace FC_Diseño_de_Nervios
                     cFunctionsProgram.CerrarPoligonoParaMomentos(ref Areas_Momento_Positivos_Escalados, Areas_Momento_Positivos_SinEscalados, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Y0_Escalado.Y);
                     float YInicial = Areas_Momento_Negativos_Escalados[0].Y; float YFinal = Areas_Momento_Negativos_Escalados[0].Y;
 
-                    Pen PenBlack = new Pen(Brushes.Black, 1.5f); PenBlack.LineJoin = LineJoin.Round;
+                    
                     e.FillPolygon(Brush_Positivos, Areas_Momento_Positivos_Escalados.ToArray());
                     e.FillPolygon(Brush_Negativo, Areas_Momento_Negativos_Escalados.ToArray());
                     e.DrawLines(PenBlack, Areas_Momento_Positivos_Escalados.ToArray());
@@ -1072,22 +1354,258 @@ namespace FC_Diseño_de_Nervios
 
 
 
+            #region Areas Asignadas
+            List<PointF> Areas_Momento_Negativos_Escalados2 = new List<PointF>(); List<PointF> Areas_Momento_Positivos_Escalados2 = new List<PointF>();
+            List<PointF> Areas_Momento_Negativos_SinEscalados2 = new List<PointF>(); List<PointF> Areas_Momento_Positivos_SinEscalados2 = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    Areas_Momento_Negativos_SinEscalados2.AddRange(SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Reales);
+                    Areas_Momento_Positivos_SinEscalados2.AddRange(SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Reales);
+                    Areas_Momento_Negativos_Escalados2.AddRange(SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Escaladas);
+                    Areas_Momento_Positivos_Escalados2.AddRange(SubtramoAux.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Escaladas);
+                }
+            });
+
+            cSubTramo SubtramoAux2 = (cSubTramo)Lista_Elementos.Find(x => x is cSubTramo);
+
+            cFunctionsProgram.CerrarPoligonoParaMomentos(ref Areas_Momento_Negativos_Escalados2, Areas_Momento_Negativos_SinEscalados2, SubtramoAux2.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Y0_Escalado.Y);
+            cFunctionsProgram.CerrarPoligonoParaMomentos(ref Areas_Momento_Positivos_Escalados2, Areas_Momento_Positivos_SinEscalados2, SubtramoAux2.CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Y0_Escalado.Y);
+            e.FillPolygon(Brush_Asignado_Positivos, Areas_Momento_Positivos_Escalados2.ToArray());
+            e.FillPolygon(Brush_Asignado_Negativos, Areas_Momento_Negativos_Escalados2.ToArray());
+            e.DrawLines(PenBlack, Areas_Momento_Positivos_Escalados2.ToArray());
+            e.DrawLines(PenBlack, Areas_Momento_Negativos_Escalados2.ToArray());
+
+            #endregion
+
+
+
+
+
+            GraficarRectaApoyos(e, HeightForm);
+            #region Muestra Valores de Areas Requeridas con el Mouse
+
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentos_Escalado_Real, "A", "cm²");
+            #endregion
+            
+        }
+
+        public void Paint_Longitudinal_DrawCortante(Graphics e, float Zoom, float HeightForm)
+        {
+
+            #region Graficar Fi_Vc
+
+            SolidBrush BrushFiVc = new SolidBrush(Color.FromArgb(60, Color.FromArgb(0, 0, 0)));
+            SolidBrush BrushFiVc2 = new SolidBrush(Color.FromArgb(30, Color.FromArgb(10, 10, 10)));
+
+
+
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    List<PointF> Cortante_FiVc_Positivos_Escalados = new List<PointF>(); List<PointF> Cortante_FiVc_Negativos_Escalados = new List<PointF>();
+                    List<PointF> Cortante_FiVc_Positivos_Reales = new List<PointF>(); List<PointF> Cortante_FiVc_Negativos_Reales = new List<PointF>();
+
+
+                    List<PointF> Cortante_FiVc2_Positivos_Escalados = new List<PointF>(); List<PointF> Cortante_FiVc2_Negativos_Escalados = new List<PointF>();
+                    List<PointF> Cortante_FiVc2_Positivos_Reales = new List<PointF>(); List<PointF> Cortante_FiVc2_Negativos_Reales = new List<PointF>();
+
+
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+
+
+                    Cortante_FiVc2_Negativos_Escalados.AddRange(SubtramoAux.Coordenadas_FI_Vc2_Negativos.Escaladas);
+                    Cortante_FiVc2_Positivos_Escalados.AddRange(SubtramoAux.Coordenadas_FI_Vc2_Positivos.Escaladas);
+                    Cortante_FiVc2_Negativos_Reales.AddRange(SubtramoAux.Coordenadas_FI_Vc2_Negativos.Reales);
+                    Cortante_FiVc2_Positivos_Reales.AddRange(SubtramoAux.Coordenadas_FI_Vc2_Positivos.Reales);
+
+
+
+             
+
+                    List<PointF> PuntosFiVc2Auxiliar_Negativos = Cortante_FiVc2_Negativos_Escalados.ToList(); PuntosFiVc2Auxiliar_Negativos.Reverse();
+
+                    Cortante_FiVc_Negativos_Escalados.AddRange(SubtramoAux.Coordenadas_FI_Vc_Negativos.Escaladas);
+                    Cortante_FiVc_Negativos_Escalados.AddRange(PuntosFiVc2Auxiliar_Negativos);
+
+
+                    List<PointF> PuntosFiVc2Auxiliar_Positivos = Cortante_FiVc2_Positivos_Escalados.ToList(); PuntosFiVc2Auxiliar_Positivos.Reverse();
+                    Cortante_FiVc_Positivos_Escalados.AddRange(SubtramoAux.Coordenadas_FI_Vc_Positivos.Escaladas);
+                    Cortante_FiVc_Positivos_Escalados.AddRange(PuntosFiVc2Auxiliar_Positivos);
+
+
+
+
+                    Cortante_FiVc_Negativos_Reales.AddRange(SubtramoAux.Coordenadas_FI_Vc_Negativos.Reales);
+                    Cortante_FiVc_Positivos_Reales.AddRange(SubtramoAux.Coordenadas_FI_Vc_Positivos.Reales);
+
+
+
+
+                   cFunctionsProgram.CerrarPoligonoParaMomentos(ref Cortante_FiVc2_Negativos_Escalados, Cortante_FiVc2_Negativos_Reales, SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Y0_Escalado.Y);
+                    cFunctionsProgram.CerrarPoligonoParaMomentos(ref Cortante_FiVc2_Positivos_Escalados, Cortante_FiVc2_Positivos_Reales, SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Y0_Escalado.Y);
+
+                    e.FillPolygon(BrushFiVc, Cortante_FiVc_Positivos_Escalados.ToArray());
+                    e.FillPolygon(BrushFiVc, Cortante_FiVc_Negativos_Escalados.ToArray());
+
+                    e.FillPolygon(BrushFiVc2, Cortante_FiVc2_Negativos_Escalados.ToArray());
+                    e.FillPolygon(BrushFiVc2, Cortante_FiVc2_Positivos_Escalados.ToArray());
+
+
+                }
+            });
+
+
+
+            #endregion
+
+
+
+
+
+            SolidBrush Brush_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(38, 86, 158)));
+            SolidBrush Brush_Negativo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(227, 88, 88)));
+            Pen PenBlack = new Pen(Brushes.Black, 1.5f); PenBlack.LineJoin = LineJoin.Round;
+
+
+            #region Cortante Solicictaciones 
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    List<PointF> Cortante_Negativos_Escalados = new List<PointF>(); List<PointF> Cortante_Positivos_Escalados = new List<PointF>();
+                    List<PointF> Cortante_Negativos_SinEscalados = new List<PointF>(); List<PointF> Cortante_Positivos_SinEscalados = new List<PointF>();
+
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    Cortante_Negativos_SinEscalados.AddRange(SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Negativos.Reales);
+                    Cortante_Positivos_SinEscalados.AddRange(SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Reales);
+                    Cortante_Negativos_Escalados.AddRange(SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Negativos.Escaladas);
+                    Cortante_Positivos_Escalados.AddRange(SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Escaladas);
+
+                    cFunctionsProgram.CerrarPoligonoParaMomentos(ref Cortante_Negativos_Escalados, Cortante_Negativos_SinEscalados, SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Y0_Escalado.Y);
+                    cFunctionsProgram.CerrarPoligonoParaMomentos(ref Cortante_Positivos_Escalados, Cortante_Positivos_SinEscalados, SubtramoAux.CoordenadasCalculosSolicitaciones.Cortante_Positvos.Y0_Escalado.Y);
+                    e.FillPolygon(Brush_Positivos, Cortante_Positivos_Escalados.ToArray());
+                    e.FillPolygon(Brush_Negativo, Cortante_Negativos_Escalados.ToArray());
+
+                    e.DrawLines(PenBlack, Cortante_Positivos_Escalados.ToArray());
+                    e.DrawLines(PenBlack, Cortante_Negativos_Escalados.ToArray());
+                }
+            });
+
+            #endregion
+
+
+
+
+            GraficarRectaApoyos(e, HeightForm);
+            #region Muestra Valores de Cortante con el Mouse
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseCortante_Escalado_Real,"V","Ton");
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseFiCortante_Escalado_Real, "ΦVc", "Ton");
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseFiCortante2_Escalado_Real, "ΦVc/2", "Ton");
+            #endregion
+
+
+
+
+
+        }
+
+        public void Paint_Longitudinal_DrawAreasCortante(Graphics e, float Zoom, float HeightForm)
+        {
+            SolidBrush Brush_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(38, 86, 158)));
+            SolidBrush Brush_Negativo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(227, 88, 88)));
+            Pen PenBlack = new Pen(Brushes.Black, 1.5f); PenBlack.LineJoin = LineJoin.Round;
+            Pen PenPunteado_Black = new Pen(Brushes.Black, 1f); PenPunteado_Black.DashStyle = DashStyle.Dash;
+            Pen PenPunteado_Red = new Pen(Brushes.Red, 1f); PenPunteado_Red.DashStyle = DashStyle.Solid;
+            SolidBrush Brush_Asignado_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(90, 90, 140)));
+            SolidBrush Brush_Asignado_Negativos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(90, 90, 140)));
+
+            #region Areas Cortante Solicictaciones 
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    List<PointF> Areas_Cortante_Negativos_Escalados = new List<PointF>(); List<PointF> Areas_Cortante_Positivos_Escalados = new List<PointF>();
+                    List<PointF> Areas_Cortante_Negativos_SinEscalados = new List<PointF>(); List<PointF> Areas_Cortante_Positivos_SinEscalados = new List<PointF>();
+
+                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
+                    Areas_Cortante_Negativos_SinEscalados.AddRange(SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Negativos.Reales);
+                    Areas_Cortante_Positivos_SinEscalados.AddRange(SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Reales);
+                    Areas_Cortante_Negativos_Escalados.AddRange(SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Negativos.Escaladas);
+                    Areas_Cortante_Positivos_Escalados.AddRange(SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Escaladas);
+
+                    cFunctionsProgram.CerrarPoligonoParaMomentos(ref Areas_Cortante_Negativos_Escalados, Areas_Cortante_Negativos_SinEscalados, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Y0_Escalado.Y);
+                    cFunctionsProgram.CerrarPoligonoParaMomentos(ref Areas_Cortante_Positivos_Escalados, Areas_Cortante_Positivos_SinEscalados, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Y0_Escalado.Y);
+                    e.FillPolygon(Brush_Positivos, Areas_Cortante_Positivos_Escalados.ToArray());
+                    e.FillPolygon(Brush_Negativo, Areas_Cortante_Negativos_Escalados.ToArray());
+
+                    e.DrawLines(PenBlack, Areas_Cortante_Positivos_Escalados.ToArray());
+                    e.DrawLines(PenBlack, Areas_Cortante_Negativos_Escalados.ToArray());
+                }
+            });
+
+            #endregion
+
+
+            #region Areas Cortante Asignado
+
+            Lista_Tramos.ForEach(Tramo => {
+
+
+                List<PointF> Areas_Cortante_Negativos_Escalados = new List<PointF>(); List<PointF> Areas_Cortante_Positivos_Escalados = new List<PointF>();
+                List<PointF> Areas_Cortante_Negativos_SinEscalados = new List<PointF>(); List<PointF> Areas_Cortante_Positivos_SinEscalados = new List<PointF>();
+
+                Tramo.Lista_SubTramos.ForEach(SubTramo => {
+
+                    Areas_Cortante_Negativos_SinEscalados.AddRange(SubTramo.CoordenadasCalculosAsignado.Areas_Cortante_Negativos.Reales);
+                    Areas_Cortante_Positivos_SinEscalados.AddRange(SubTramo.CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Reales);
+                    Areas_Cortante_Negativos_Escalados.AddRange(SubTramo.CoordenadasCalculosAsignado.Areas_Cortante_Negativos.Escaladas);
+                    Areas_Cortante_Positivos_Escalados.AddRange(SubTramo.CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Escaladas);
+                });
+
+                cFunctionsProgram.CerrarPoligonoParaMomentos(ref Areas_Cortante_Negativos_Escalados, Areas_Cortante_Negativos_SinEscalados, Tramo.Lista_SubTramos.First().CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Y0_Escalado.Y);
+                cFunctionsProgram.CerrarPoligonoParaMomentos(ref Areas_Cortante_Positivos_Escalados, Areas_Cortante_Positivos_SinEscalados, Tramo.Lista_SubTramos.First().CoordenadasCalculosAsignado.Areas_Cortante_Positivos.Y0_Escalado.Y);
+                e.FillPolygon(Brush_Asignado_Positivos, Areas_Cortante_Positivos_Escalados.ToArray());
+                e.FillPolygon(Brush_Asignado_Negativos, Areas_Cortante_Negativos_Escalados.ToArray());
+
+                e.DrawLines(PenBlack, Areas_Cortante_Positivos_Escalados.ToArray());
+                e.DrawLines(PenBlack, Areas_Cortante_Negativos_Escalados.ToArray());
+
+            });
+
+
+            #endregion
 
 
 
 
 
 
+
+
+
+            GraficarRectaApoyos(e, HeightForm);
+            #region Muestra Valores de Cortante con el Mouse
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasCortante_Escalado_Real, "A/S", "cm²/cm",4);
+            #endregion
+
+          
+
+
+        }
+
+        private void CrearCuadrodeInfo(Graphics e, float Zoom, PointF[] Valores, string VariableEjeY,string UnidadesEjeY,int CantDecimales = 2)
+        {
             float TamanoLetra = Zoom > 0 ? 9 * Zoom : 1;
             Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
-            GraficarRectaApoyos(e, HeightForm);
-
-# region Muestra Valores de Areas Requeridas con el Mouse
-            if (PuntoInMouseAreasMomentos_Escalado_Real != null && PuntoInMouseAreasMomentos_Escalado_Real.Length != 0)
+            if (Valores != null && Valores.Length != 0)
             {
-                string Text = $"(X= {Math.Round(PuntoInMouseAreasMomentos_Escalado_Real[1].X, 2)}, A= {Math.Abs(Math.Round(PuntoInMouseAreasMomentos_Escalado_Real[1].Y, 2))}cm²)";
+                string Text = $"(X= {Math.Round(Valores[1].X, 2)}, {VariableEjeY}= {Math.Abs(Math.Round(Valores[1].Y, CantDecimales))}{UnidadesEjeY})";
                 SizeF MeasureString = e.MeasureString(Text, Font1);
-                float BordeRectangulo = 3f; float XString = PuntoInMouseAreasMomentos_Escalado_Real[0].X + MeasureString.Width / 4; float YString = PuntoInMouseAreasMomentos_Escalado_Real[0].Y;
+                float BordeRectangulo = 3f; float XString = Valores[0].X + MeasureString.Width / 4; float YString = Valores[0].Y;
                 PointF PuntoString = new PointF(XString, YString);
 
                 PointF[] PuntosRectangulo = new PointF[] { new PointF(XString-BordeRectangulo, YString+MeasureString.Height+ BordeRectangulo),
@@ -1099,8 +1617,8 @@ namespace FC_Diseño_de_Nervios
                 e.DrawString(Text, Font1, Brushes.Black, PuntoString);
             }
 
-            #endregion
         }
+
         public void Paint_Longitudinal_Elementos_Escalados_AutoCAD(Graphics e, float Zoom, float HeightForm)
         {
             
@@ -1132,9 +1650,21 @@ namespace FC_Diseño_de_Nervios
 
             Tendencia_Refuerzos.TSupeSelect.Barras.ForEach(x => x.Paint(e, Zoom, HeightForm));
             Tendencia_Refuerzos.TInfeSelect.Barras.ForEach(x => x.Paint(e, Zoom, HeightForm));
+            Lista_Tramos.ForEach(Tramo => {
+                if (Tramo.EstribosDerecha != null)
+                {
+                    Tramo.EstribosDerecha.Zona1.PaintEstribos(e,Zoom);
+                    Tramo.EstribosDerecha.Zona2.PaintEstribos(e, Zoom);
+                }
+                if (Tramo.EstribosIzquierda != null)
+                {
+                    Tramo.EstribosIzquierda.Zona1.PaintEstribos(e, Zoom);
+                    Tramo.EstribosIzquierda.Zona2.PaintEstribos(e,Zoom);
+
+                }
+
+            });
         }
-
-
 
         private void GraficarRectaApoyos(Graphics e, float HeightForm)
         {
@@ -1158,119 +1688,220 @@ namespace FC_Diseño_de_Nervios
 
         public void IsPointMouseMomentos(PointF Location)
         {
-            float Delta = 5f;
-
-            foreach (IElemento Elemento in Lista_Elementos)
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            List<PointF> RealesN = new List<PointF>(); List<PointF> EscaladasN = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
             {
                 if (Elemento is cSubTramo)
                 {
-                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
-                    int Indice = 0;
-                    foreach (PointF Punto in SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Escaladas)
-                    {
-                        PointF[] PointsPaths_Positivo = new PointF[] {new PointF( Punto.X-Delta,Punto.Y+Delta),
-                                           new PointF(Punto.X + Delta, Punto.Y+Delta),
-                                           new PointF(Punto.X + Delta, Punto.Y -Delta),
-                                           new PointF(Punto.X-Delta, Punto.Y - Delta) };
-                        GraphicsPath Path_Po = new GraphicsPath();
-                        Path_Po.AddPolygon(PointsPaths_Positivo);
-                        if (Path_Po.IsVisible(Location))
-                        {
-                            PuntoInMouseMomentos_Escalado_Real = new PointF[] { Punto, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Positivos.Reales[Indice] };
-                            return;
-                        }
-                        else
-                        {
-                            PuntoInMouseMomentos_Escalado_Real = new PointF[] { };
-                        }
-                        Indice++;
-                    }
-                    Indice = 0;
-                    foreach (PointF Punto in SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Escaladas)
-                    {
-                        PointF[] PointsPaths_Negativo = new PointF[] {new PointF( Punto.X-Delta,Punto.Y+Delta),
-                                           new PointF(Punto.X + Delta, Punto.Y+Delta),
-                                           new PointF(Punto.X + Delta, Punto.Y -Delta),
-                                           new PointF(Punto.X-Delta, Punto.Y - Delta) };
-                        GraphicsPath Path_Ne = new GraphicsPath();
-
-                        Path_Ne.AddPolygon(PointsPaths_Negativo);
-
-                        if (Path_Ne.IsVisible(Location))
-                        {
-                            PuntoInMouseMomentos_Escalado_Real = new PointF[] { Punto, SubtramoAux.CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales[Indice] };
-
-                            return;
-                        }
-                        else
-                        {
-                            PuntoInMouseMomentos_Escalado_Real = new PointF[] { };
-                        }
-                        Indice++;
-                    }
+                    RealesP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Momentos_Positivos.Reales);
+                    EscaladasP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Momentos_Positivos.Escaladas);
+                    RealesN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Momentos_Negativos.Reales);
+                    EscaladasN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Momentos_Negativos.Escaladas);
                 }
-            };
+            });
+
+            PuntoInMouseMomentos_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
+            if (PuntoInMouseMomentos_Escalado_Real == null | PuntoInMouseMomentos_Escalado_Real.Length == 0)
+                PuntoInMouseMomentos_Escalado_Real = IsMousePoint(Location, RealesN, EscaladasN);
         }
 
         private PointF[] PuntoInMouseAreasMomentos_Escalado_Real = new PointF[] { };
         public void IsPointMouseAreasMomentos(PointF Location)
         {
-            float Delta = 5f;
-
-            foreach (IElemento Elemento in Lista_Elementos)
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            List<PointF> RealesN = new List<PointF>(); List<PointF> EscaladasN = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
             {
                 if (Elemento is cSubTramo)
                 {
-                    cSubTramo SubtramoAux = (cSubTramo)Elemento;
-                    int Indice = 0;
-                    foreach (PointF Punto in SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Escaladas)
-                    {
-                        PointF[] PointsPaths_Positivo = new PointF[] {new PointF( Punto.X-Delta,Punto.Y+Delta),
-                                           new PointF(Punto.X + Delta, Punto.Y+Delta),
-                                           new PointF(Punto.X + Delta, Punto.Y -Delta),
-                                           new PointF(Punto.X-Delta, Punto.Y - Delta) };
-                        GraphicsPath Path_Po = new GraphicsPath();
-                        Path_Po.AddPolygon(PointsPaths_Positivo);
-                        if (Path_Po.IsVisible(Location))
-                        {
-                            PuntoInMouseAreasMomentos_Escalado_Real = new PointF[] { Punto, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Reales[Indice] };
-                            return;
-                        }
-                        else
-                        {
-                            PuntoInMouseAreasMomentos_Escalado_Real = new PointF[] { };
-                        }
-                        Indice++;
-                    }
-                    Indice = 0;
-                    foreach (PointF Punto in SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Escaladas)
-                    {
-                        PointF[] PointsPaths_Negativo = new PointF[] {new PointF( Punto.X-Delta,Punto.Y+Delta),
-                                           new PointF(Punto.X + Delta, Punto.Y+Delta),
-                                           new PointF(Punto.X + Delta, Punto.Y -Delta),
-                                           new PointF(Punto.X-Delta, Punto.Y - Delta) };
-                        GraphicsPath Path_Ne = new GraphicsPath();
-
-                        Path_Ne.AddPolygon(PointsPaths_Negativo);
-
-                        if (Path_Ne.IsVisible(Location))
-                        {
-                            PuntoInMouseAreasMomentos_Escalado_Real = new PointF[] { Punto, SubtramoAux.CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Reales[Indice] };
-
-                            return;
-                        }
-                        else
-                        {
-                            PuntoInMouseAreasMomentos_Escalado_Real = new PointF[] { };
-                        }
-                        Indice++;
-                    }
+                    RealesP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Reales);
+                    EscaladasP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Areas_Momentos_Positivos.Escaladas);
+                    RealesN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Reales);
+                    EscaladasN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Areas_Momentos_Negativos.Escaladas);
                 }
-            };
+            });
+
+            PuntoInMouseAreasMomentos_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
+            if (PuntoInMouseAreasMomentos_Escalado_Real == null | PuntoInMouseAreasMomentos_Escalado_Real.Length == 0)
+                PuntoInMouseAreasMomentos_Escalado_Real = IsMousePoint(Location, RealesN, EscaladasN);
+
+        }
+
+
+        private PointF[] PuntoInMouseCortante_Escalado_Real = new PointF[] { };
+
+        public void IsPointMouseCortante(PointF Location)
+        {
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            List<PointF> RealesN = new List<PointF>(); List<PointF> EscaladasN = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    RealesP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Cortante_Positvos.Reales);
+                    EscaladasP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Cortante_Positvos.Escaladas);
+                    RealesN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Cortante_Negativos.Reales);
+                    EscaladasN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Cortante_Negativos.Escaladas);
+                }
+            });
+
+            PuntoInMouseCortante_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
+            if(PuntoInMouseCortante_Escalado_Real == null | PuntoInMouseCortante_Escalado_Real.Length == 0)
+                PuntoInMouseCortante_Escalado_Real = IsMousePoint(Location, RealesN, EscaladasN);
+        }
+
+
+        private PointF[] PuntoInMouseFiCortante_Escalado_Real = new PointF[] { };
+        public void IsPointMouseFiCortante(PointF Location)
+        {
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            List<PointF> RealesN = new List<PointF>(); List<PointF> EscaladasN = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    RealesP.AddRange(((cSubTramo)Elemento).Coordenadas_FI_Vc_Positivos.Reales);
+                    EscaladasP.AddRange(((cSubTramo)Elemento).Coordenadas_FI_Vc_Positivos.Escaladas);
+                    RealesN.AddRange(((cSubTramo)Elemento).Coordenadas_FI_Vc_Negativos.Reales);
+                    EscaladasN.AddRange(((cSubTramo)Elemento).Coordenadas_FI_Vc_Negativos.Escaladas);
+                }
+            });
+
+            PuntoInMouseFiCortante_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
+            if (PuntoInMouseFiCortante_Escalado_Real == null | PuntoInMouseFiCortante_Escalado_Real.Length == 0)
+                PuntoInMouseFiCortante_Escalado_Real = IsMousePoint(Location, RealesN, EscaladasN);
+
+        }
+
+        private PointF[] PuntoInMouseFiCortante2_Escalado_Real = new PointF[] { };
+        public void IsPointMouseFiCortante2(PointF Location)
+        {
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            List<PointF> RealesN = new List<PointF>(); List<PointF> EscaladasN = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    RealesP.AddRange(((cSubTramo)Elemento).Coordenadas_FI_Vc2_Positivos.Reales);
+                    EscaladasP.AddRange(((cSubTramo)Elemento).Coordenadas_FI_Vc2_Positivos.Escaladas);
+                    RealesN.AddRange(((cSubTramo)Elemento).Coordenadas_FI_Vc2_Negativos.Reales);
+                    EscaladasN.AddRange(((cSubTramo)Elemento).Coordenadas_FI_Vc2_Negativos.Escaladas);
+                }
+            });
+
+            PuntoInMouseFiCortante2_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
+            if (PuntoInMouseFiCortante2_Escalado_Real == null | PuntoInMouseFiCortante2_Escalado_Real.Length == 0)
+                PuntoInMouseFiCortante2_Escalado_Real = IsMousePoint(Location, RealesN, EscaladasN);
+
+        }
+
+        private PointF[] PuntoInMouseAreasCortante_Escalado_Real = new PointF[] { };
+
+        public void IsPointMouseAreasCortanteSolicitado(PointF Location)
+        {
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            List<PointF> RealesN = new List<PointF>(); List<PointF> EscaladasN = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    RealesP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Reales);
+                    EscaladasP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Areas_Cortante_Positivos.Escaladas);
+                    RealesN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Areas_Cortante_Negativos.Reales);
+                    EscaladasN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosSolicitaciones.Areas_Cortante_Negativos.Escaladas);
+                }
+            });
+
+            PuntoInMouseAreasCortante_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
+            if (PuntoInMouseAreasCortante_Escalado_Real == null | PuntoInMouseAreasCortante_Escalado_Real.Length == 0)
+                PuntoInMouseAreasCortante_Escalado_Real = IsMousePoint(Location, RealesN, EscaladasN);
+
+        }
+
+        private PointF[] IsMousePoint(PointF Location, List<PointF> PuntosReales, List<PointF> PuntosEscalados)
+        {
+            float Delta = 5f; int Indice = 0;
+            foreach (PointF Punto in PuntosEscalados)
+            {
+                PointF[] PointsPaths_Positivo = new PointF[] {new PointF( Punto.X-Delta,Punto.Y+Delta),
+                                           new PointF(Punto.X + Delta, Punto.Y+Delta),
+                                           new PointF(Punto.X + Delta, Punto.Y -Delta),
+                                           new PointF(Punto.X-Delta, Punto.Y - Delta) };
+                GraphicsPath Path_Po = new GraphicsPath();
+                Path_Po.AddPolygon(PointsPaths_Positivo);
+                if (Path_Po.IsVisible(Location))
+                {
+                    return new PointF[] { Punto, PuntosReales[Indice] };
+                    
+                }
+          
+                Indice++;
+            }
+            return new PointF[] { };
         }
 
 
         #endregion Metodos Paint
+
+
+
+        #region Metodos Para Graficar en AutoCAD
+        public void GraficarEnAutoCAD(float XI,float YI)
+        {
+
+            GraficarAutoCADContornoDeNervio(XI, YI);
+        }
+
+
+        private void GraficarAutoCADContornoDeNervio(float X,float Y)
+        {
+            float LCuadroINFO = cVariables.Dimension_InfoNervio;
+
+            List<PointF> VerticesPoligono = new List<PointF>();
+            int C = 0;
+            Lista_Elementos.ForEach(Elemento => {
+
+                if (C == 0)
+                {
+                    PointF PuntoI = new PointF(0, Elemento.Vistas.Perfil_AutoCAD.Reales.Min(x => x.Y));
+                    PointF PuntoI2 = new PointF(0, Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
+                    PointF PuntoI3 = new PointF(LCuadroINFO, Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
+                    PointF PuntoI4 = new PointF(LCuadroINFO+Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
+                    VerticesPoligono.Add(PuntoI); VerticesPoligono.Add(PuntoI2); VerticesPoligono.Add(PuntoI3); VerticesPoligono.Add(PuntoI4);
+                }
+                //ParteArriba
+                PointF Punto = new PointF(LCuadroINFO + Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
+                VerticesPoligono.Add(Punto);
+                C += 1;
+            });
+
+            List<PointF> PuntosTrasladados = B_Operaciones_Matricialesl.Operaciones.Traslacion(VerticesPoligono, X, Y);
+
+            List<float> VerticesPoligonoF = ConvertirPuntosEnFloats(PuntosTrasladados);
+            FunctionsAutoCAD.AddPolyline2D(VerticesPoligonoF.ConvertAll(Convert.ToDouble).ToArray(), cVariables.C_Bordes);
+        }
+
+
+
+        private List<float> ConvertirPuntosEnFloats(List<PointF> Puntos)
+        {
+            List<float> PuntosF = new List<float>();
+            Puntos.ForEach(Punto => {
+                PuntosF.Add(Punto.X); PuntosF.Add(Punto.Y); });
+            return PuntosF;
+        }
+
+        
+
+
+        #endregion
+
+
+
+
+
+
     }
 
     [Serializable]
