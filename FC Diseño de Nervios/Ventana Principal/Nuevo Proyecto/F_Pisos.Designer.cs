@@ -41,6 +41,7 @@
             // 
             // LV_Pisos
             // 
+            this.LV_Pisos.HideSelection = false;
             this.LV_Pisos.Location = new System.Drawing.Point(10, 36);
             this.LV_Pisos.Name = "LV_Pisos";
             this.LV_Pisos.Size = new System.Drawing.Size(181, 299);
@@ -115,9 +116,10 @@
             this.Controls.Add(this.LV_Pisos);
             this.Controls.Add(this.P_Contenedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_Pisos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "F_Pisos";
+            this.Text = "Seleccionar Pisos";
             this.P_Title.ResumeLayout(false);
             this.P_Title.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Nuevo)).EndInit();

@@ -209,6 +209,7 @@
             this.Controls.Add(this.P_Contenedor);
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_NuevoProyecto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "F_NuevoProyecto";

@@ -47,6 +47,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>IconoPrograma.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="B_EscalaCoordenadas, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -146,6 +149,18 @@
     </Compile>
     <Compile Include="Ventana Principal\F_Base.Designer.cs">
       <DependentUpon>F_Base.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ventana Principal\F_Inicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventana Principal\F_Inicio.Designer.cs">
+      <DependentUpon>F_Inicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ventana Principal\Nuevo Proyecto\F_EditarPisos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventana Principal\Nuevo Proyecto\F_EditarPisos.Designer.cs">
+      <DependentUpon>F_EditarPisos.cs</DependentUpon>
     </Compile>
     <Compile Include="Ventana Principal\Nuevo Proyecto\F_NuevoProyecto.cs">
       <SubType>Form</SubType>
@@ -251,6 +266,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventana Principal\F_Base.resx">
       <DependentUpon>F_Base.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventana Principal\F_Inicio.resx">
+      <DependentUpon>F_Inicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventana Principal\Nuevo Proyecto\F_EditarPisos.resx">
+      <DependentUpon>F_EditarPisos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventana Principal\Nuevo Proyecto\F_NuevoProyecto.resx">
       <DependentUpon>F_NuevoProyecto.cs</DependentUpon>
@@ -390,6 +411,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\c3.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IconoPrograma.ico" />
+    <None Include="Resources\DiseñoNervios2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_NervioEnPerfilLongitudinal));
             this.P_1 = new System.Windows.Forms.Panel();
             this.PB_VistaPerfilLongitudinal = new System.Windows.Forms.PictureBox();
             this.CTMS_1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -129,6 +130,7 @@
             this.Controls.Add(this.P_1);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_NervioEnPerfilLongitudinal";
             this.Text = "Vista en Perfil Longitudinal | N-1";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.F_NervioEnPerfilLongitudinal_Paint);

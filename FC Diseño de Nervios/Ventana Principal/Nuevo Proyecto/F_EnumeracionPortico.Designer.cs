@@ -35,6 +35,8 @@
             this.PB_EnumeracionElementos = new System.Windows.Forms.PictureBox();
             this.LB_Title = new System.Windows.Forms.Label();
             this.LV_Stories = new System.Windows.Forms.ListView();
+            this.CMS_EditarPisos = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GB_1 = new System.Windows.Forms.GroupBox();
             this.GB_Nomenclatura = new System.Windows.Forms.GroupBox();
             this.CB_Nomenclatura_Vertical = new System.Windows.Forms.ComboBox();
@@ -66,6 +68,7 @@
             this.P_Contenedor = new System.Windows.Forms.Panel();
             this.P_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
+            this.CMS_EditarPisos.SuspendLayout();
             this.GB_1.SuspendLayout();
             this.GB_Nomenclatura.SuspendLayout();
             this.GB_3.SuspendLayout();
@@ -136,6 +139,7 @@
             // 
             // LV_Stories
             // 
+            this.LV_Stories.ContextMenuStrip = this.CMS_EditarPisos;
             this.LV_Stories.HideSelection = false;
             this.LV_Stories.Location = new System.Drawing.Point(6, 30);
             this.LV_Stories.MultiSelect = false;
@@ -145,6 +149,20 @@
             this.LV_Stories.UseCompatibleStateImageBehavior = false;
             this.LV_Stories.View = System.Windows.Forms.View.List;
             this.LV_Stories.SelectedIndexChanged += new System.EventHandler(this.LV_Stories_SelectedIndexChanged);
+            // 
+            // CMS_EditarPisos
+            // 
+            this.CMS_EditarPisos.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editarToolStripMenuItem});
+            this.CMS_EditarPisos.Name = "CMS_EditarPisos";
+            this.CMS_EditarPisos.Size = new System.Drawing.Size(105, 26);
+            // 
+            // editarToolStripMenuItem
+            // 
+            this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
+            this.editarToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
+            this.editarToolStripMenuItem.Text = "Editar";
+            this.editarToolStripMenuItem.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
             // 
             // GB_1
             // 
@@ -327,7 +345,7 @@
             // limpirarSeleccionToolStripMenuItem
             // 
             this.limpirarSeleccionToolStripMenuItem.Name = "limpirarSeleccionToolStripMenuItem";
-            this.limpirarSeleccionToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.limpirarSeleccionToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.limpirarSeleccionToolStripMenuItem.Text = "Limpiar Selección";
             this.limpirarSeleccionToolStripMenuItem.Click += new System.EventHandler(this.limpirarSeleccionToolStripMenuItem_Click);
             // 
@@ -496,6 +514,7 @@
             this.Controls.Add(this.P_Contenedor);
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_EnumeracionPortico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nuevo Proyecto";
@@ -505,6 +524,7 @@
             this.P_Title.ResumeLayout(false);
             this.P_Title.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).EndInit();
+            this.CMS_EditarPisos.ResumeLayout(false);
             this.GB_1.ResumeLayout(false);
             this.GB_1.PerformLayout();
             this.GB_Nomenclatura.ResumeLayout(false);
@@ -561,5 +581,7 @@
         private System.Windows.Forms.Label LB_2;
         private System.Windows.Forms.Label LB_1;
         private System.Windows.Forms.ComboBox CB_Nomenclatura_Hztal;
+        private System.Windows.Forms.ContextMenuStrip CMS_EditarPisos;
+        private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
     }
 }

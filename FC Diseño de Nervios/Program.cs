@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_Diseño_de_Nervios.Ventana_Principal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace FC_Diseño_de_Nervios
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new F_Base());
+            Application.Run(new F_Inicio());
         }
     }
 }

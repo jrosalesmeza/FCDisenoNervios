@@ -70,11 +70,12 @@
             this.TSB_Redo = new System.Windows.Forms.ToolStripButton();
             this.TS_S2 = new System.Windows.Forms.ToolStripSeparator();
             this.TSB_SelectCombinaciones = new FontAwesome.Sharp.IconToolStripButton();
-            this.TLS_DisenoNervios = new System.Windows.Forms.ToolStripDropDownButton();
-            this.diseñarNervioActualToolStripMenuItem = new FontAwesome.Sharp.IconMenuItem();
-            this.nerviosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.todosLosNerviosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TLS_ButtonProgramador = new FontAwesome.Sharp.IconToolStripButton();
+            this.TSB_DiseñarNervio = new System.Windows.Forms.ToolStripButton();
+            this.TSB_DiseñarNervios = new System.Windows.Forms.ToolStripButton();
+            this.TSB_DiseñarAllNervio = new System.Windows.Forms.ToolStripButton();
+            this.TLSB_GraficarNervioActual = new System.Windows.Forms.ToolStripButton();
+            this.TLSB_GraficarNerviosAutoCAD = new System.Windows.Forms.ToolStripButton();
+            this.TLSB_GraficarAllNervios = new System.Windows.Forms.ToolStripButton();
             this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
             this.BT_MaxRest = new System.Windows.Forms.Button();
@@ -83,7 +84,7 @@
             this.LB_NombreProyecto = new System.Windows.Forms.Label();
             this.PB_LogoPrincipal = new System.Windows.Forms.PictureBox();
             this.T_Timer = new System.Windows.Forms.Timer(this.components);
-            this.TLSB_GraficarAutoCAD = new System.Windows.Forms.ToolStripButton();
+            this.tendenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
             this.TS_Barra1.SuspendLayout();
@@ -103,7 +104,7 @@
             this.opcionesToolStripMenuItem});
             this.MS_BarraPrincipal.Location = new System.Drawing.Point(25, 0);
             this.MS_BarraPrincipal.Name = "MS_BarraPrincipal";
-            this.MS_BarraPrincipal.Size = new System.Drawing.Size(533, 24);
+            this.MS_BarraPrincipal.Size = new System.Drawing.Size(435, 24);
             this.MS_BarraPrincipal.TabIndex = 0;
             this.MS_BarraPrincipal.Text = "Barra Principal";
             this.MS_BarraPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MS_BarraPrincipal_MouseDown);
@@ -161,6 +162,7 @@
             // editarToolStripMenuItem
             // 
             this.editarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tendenciasToolStripMenuItem,
             this.deshacerToolStripMenuItem,
             this.rehacerToolStripMenuItem});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
@@ -380,9 +382,12 @@
             this.TSB_Redo,
             this.TS_S2,
             this.TSB_SelectCombinaciones,
-            this.TLS_DisenoNervios,
-            this.TLSB_GraficarAutoCAD,
-            this.TLS_ButtonProgramador});
+            this.TSB_DiseñarNervio,
+            this.TSB_DiseñarNervios,
+            this.TSB_DiseñarAllNervio,
+            this.TLSB_GraficarNervioActual,
+            this.TLSB_GraficarNerviosAutoCAD,
+            this.TLSB_GraficarAllNervios});
             this.TS_Barra1.Location = new System.Drawing.Point(0, 24);
             this.TS_Barra1.Name = "TS_Barra1";
             this.TS_Barra1.Size = new System.Drawing.Size(1252, 25);
@@ -477,58 +482,65 @@
             this.TSB_SelectCombinaciones.ToolTipText = "Selección de Combinaciones de Carga";
             this.TSB_SelectCombinaciones.Click += new System.EventHandler(this.TSB_SelectCombinaciones_Click);
             // 
-            // TLS_DisenoNervios
+            // TSB_DiseñarNervio
             // 
-            this.TLS_DisenoNervios.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TLS_DisenoNervios.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.diseñarNervioActualToolStripMenuItem,
-            this.nerviosToolStripMenuItem,
-            this.todosLosNerviosToolStripMenuItem});
-            this.TLS_DisenoNervios.Image = ((System.Drawing.Image)(resources.GetObject("TLS_DisenoNervios.Image")));
-            this.TLS_DisenoNervios.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLS_DisenoNervios.Name = "TLS_DisenoNervios";
-            this.TLS_DisenoNervios.Size = new System.Drawing.Size(29, 22);
-            this.TLS_DisenoNervios.Text = "Diseñar Nervios";
+            this.TSB_DiseñarNervio.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_DiseñarNervio.Image = ((System.Drawing.Image)(resources.GetObject("TSB_DiseñarNervio.Image")));
+            this.TSB_DiseñarNervio.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_DiseñarNervio.Name = "TSB_DiseñarNervio";
+            this.TSB_DiseñarNervio.Size = new System.Drawing.Size(23, 22);
+            this.TSB_DiseñarNervio.Text = "Diseñar Nervio Actual.";
+            this.TSB_DiseñarNervio.Click += new System.EventHandler(this.TSB_DiseñarNervio_Click);
             // 
-            // diseñarNervioActualToolStripMenuItem
+            // TSB_DiseñarNervios
             // 
-            this.diseñarNervioActualToolStripMenuItem.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.diseñarNervioActualToolStripMenuItem.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.diseñarNervioActualToolStripMenuItem.IconColor = System.Drawing.Color.Black;
-            this.diseñarNervioActualToolStripMenuItem.IconSize = 16;
-            this.diseñarNervioActualToolStripMenuItem.Name = "diseñarNervioActualToolStripMenuItem";
-            this.diseñarNervioActualToolStripMenuItem.Rotation = 0D;
-            this.diseñarNervioActualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.diseñarNervioActualToolStripMenuItem.Text = "Nervio Actual";
-            this.diseñarNervioActualToolStripMenuItem.Click += new System.EventHandler(this.diseñarNervioActualToolStripMenuItem_Click);
+            this.TSB_DiseñarNervios.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_DiseñarNervios.Image = ((System.Drawing.Image)(resources.GetObject("TSB_DiseñarNervios.Image")));
+            this.TSB_DiseñarNervios.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_DiseñarNervios.Name = "TSB_DiseñarNervios";
+            this.TSB_DiseñarNervios.Size = new System.Drawing.Size(23, 22);
+            this.TSB_DiseñarNervios.Text = "Diseñar Nervios.";
+            this.TSB_DiseñarNervios.Click += new System.EventHandler(this.TSB_DiseñarNervios_Click);
             // 
-            // nerviosToolStripMenuItem
+            // TSB_DiseñarAllNervio
             // 
-            this.nerviosToolStripMenuItem.Name = "nerviosToolStripMenuItem";
-            this.nerviosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.nerviosToolStripMenuItem.Text = "Nervios...";
-            this.nerviosToolStripMenuItem.Click += new System.EventHandler(this.nerviosToolStripMenuItem_Click);
+            this.TSB_DiseñarAllNervio.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_DiseñarAllNervio.Image = ((System.Drawing.Image)(resources.GetObject("TSB_DiseñarAllNervio.Image")));
+            this.TSB_DiseñarAllNervio.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_DiseñarAllNervio.Name = "TSB_DiseñarAllNervio";
+            this.TSB_DiseñarAllNervio.Size = new System.Drawing.Size(23, 22);
+            this.TSB_DiseñarAllNervio.Text = "Diseñar Todos los Nervios.";
+            this.TSB_DiseñarAllNervio.Click += new System.EventHandler(this.TSB_DiseñarAllNervio_Click);
             // 
-            // todosLosNerviosToolStripMenuItem
+            // TLSB_GraficarNervioActual
             // 
-            this.todosLosNerviosToolStripMenuItem.Name = "todosLosNerviosToolStripMenuItem";
-            this.todosLosNerviosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.todosLosNerviosToolStripMenuItem.Text = "Todos los Nervios";
-            this.todosLosNerviosToolStripMenuItem.Click += new System.EventHandler(this.todosLosNerviosToolStripMenuItem_Click);
+            this.TLSB_GraficarNervioActual.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_GraficarNervioActual.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_GraficarNervioActual.Image")));
+            this.TLSB_GraficarNervioActual.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_GraficarNervioActual.Name = "TLSB_GraficarNervioActual";
+            this.TLSB_GraficarNervioActual.Size = new System.Drawing.Size(23, 22);
+            this.TLSB_GraficarNervioActual.Text = "Graficar Nervio Actual en AutoCAD.";
+            this.TLSB_GraficarNervioActual.Click += new System.EventHandler(this.TLSB_GraficarNervioActual_Click);
             // 
-            // TLS_ButtonProgramador
+            // TLSB_GraficarNerviosAutoCAD
             // 
-            this.TLS_ButtonProgramador.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TLS_ButtonProgramador.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.TLS_ButtonProgramador.IconChar = FontAwesome.Sharp.IconChar.Hammer;
-            this.TLS_ButtonProgramador.IconColor = System.Drawing.Color.DarkRed;
-            this.TLS_ButtonProgramador.IconSize = 16;
-            this.TLS_ButtonProgramador.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLS_ButtonProgramador.Name = "TLS_ButtonProgramador";
-            this.TLS_ButtonProgramador.Rotation = 0D;
-            this.TLS_ButtonProgramador.Size = new System.Drawing.Size(23, 22);
-            this.TLS_ButtonProgramador.Text = "Programador";
-            this.TLS_ButtonProgramador.Click += new System.EventHandler(this.TLS_ButtonProgramador_Click);
+            this.TLSB_GraficarNerviosAutoCAD.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_GraficarNerviosAutoCAD.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_GraficarNerviosAutoCAD.Image")));
+            this.TLSB_GraficarNerviosAutoCAD.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_GraficarNerviosAutoCAD.Name = "TLSB_GraficarNerviosAutoCAD";
+            this.TLSB_GraficarNerviosAutoCAD.Size = new System.Drawing.Size(23, 22);
+            this.TLSB_GraficarNerviosAutoCAD.Text = "Graficar Nervios en AutoCAD.";
+            this.TLSB_GraficarNerviosAutoCAD.Click += new System.EventHandler(this.TLSB_GraficarNerviosAutoCAD_Click);
+            // 
+            // TLSB_GraficarAllNervios
+            // 
+            this.TLSB_GraficarAllNervios.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_GraficarAllNervios.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_GraficarAllNervios.Image")));
+            this.TLSB_GraficarAllNervios.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_GraficarAllNervios.Name = "TLSB_GraficarAllNervios";
+            this.TLSB_GraficarAllNervios.Size = new System.Drawing.Size(23, 22);
+            this.TLSB_GraficarAllNervios.Text = "Graficar Todos los Nervios en AutoCAD.";
+            this.TLSB_GraficarAllNervios.Click += new System.EventHandler(this.TLSB_GraficarAllNervios_Click);
             // 
             // P_Menu
             // 
@@ -606,7 +618,7 @@
             this.P_Menu2.Dock = System.Windows.Forms.DockStyle.Left;
             this.P_Menu2.Location = new System.Drawing.Point(0, 0);
             this.P_Menu2.Name = "P_Menu2";
-            this.P_Menu2.Size = new System.Drawing.Size(558, 24);
+            this.P_Menu2.Size = new System.Drawing.Size(460, 24);
             this.P_Menu2.TabIndex = 1;
             // 
             // LB_NombreProyecto
@@ -614,8 +626,8 @@
             this.LB_NombreProyecto.AutoSize = true;
             this.LB_NombreProyecto.BackColor = System.Drawing.Color.SandyBrown;
             this.LB_NombreProyecto.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LB_NombreProyecto.Location = new System.Drawing.Point(418, 6);
+            this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.LB_NombreProyecto.Location = new System.Drawing.Point(284, 5);
             this.LB_NombreProyecto.Name = "LB_NombreProyecto";
             this.LB_NombreProyecto.Size = new System.Drawing.Size(0, 14);
             this.LB_NombreProyecto.TabIndex = 2;
@@ -623,7 +635,7 @@
             // PB_LogoPrincipal
             // 
             this.PB_LogoPrincipal.Dock = System.Windows.Forms.DockStyle.Left;
-            this.PB_LogoPrincipal.Image = global::FC_Diseño_de_Nervios.Properties.Resources.DiseñoEfeCe;
+            this.PB_LogoPrincipal.Image = ((System.Drawing.Image)(resources.GetObject("PB_LogoPrincipal.Image")));
             this.PB_LogoPrincipal.Location = new System.Drawing.Point(0, 0);
             this.PB_LogoPrincipal.Name = "PB_LogoPrincipal";
             this.PB_LogoPrincipal.Size = new System.Drawing.Size(25, 24);
@@ -635,14 +647,14 @@
             // 
             this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
             // 
-            // TLSB_GraficarAutoCAD
+            // tendenciasToolStripMenuItem
             // 
-            this.TLSB_GraficarAutoCAD.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TLSB_GraficarAutoCAD.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_GraficarAutoCAD.Image")));
-            this.TLSB_GraficarAutoCAD.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLSB_GraficarAutoCAD.Name = "TLSB_GraficarAutoCAD";
-            this.TLSB_GraficarAutoCAD.Size = new System.Drawing.Size(23, 22);
-            this.TLSB_GraficarAutoCAD.Text = "Graficar Nervios en AutoCAD";
+            this.tendenciasToolStripMenuItem.Enabled = false;
+            this.tendenciasToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.tendenciasToolStripMenuItem.Name = "tendenciasToolStripMenuItem";
+            this.tendenciasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.tendenciasToolStripMenuItem.Text = "Tendencias";
+            this.tendenciasToolStripMenuItem.Click += new System.EventHandler(this.tendenciasToolStripMenuItem_Click);
             // 
             // F_Base
             // 
@@ -658,6 +670,7 @@
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.MS_BarraPrincipal;
             this.MinimumSize = new System.Drawing.Size(1061, 608);
@@ -718,7 +731,6 @@
         private WeifenLuo.WinFormsUI.Docking.DockPanel DP_ContenedorPrincipal;
         private System.Windows.Forms.ToolStripMenuItem selecciónDeNerviosToolStripMenuItem;
         private FontAwesome.Sharp.IconToolStripButton TSB_SelectCombinaciones;
-        private FontAwesome.Sharp.IconToolStripButton TLS_ButtonProgramador;
         private System.Windows.Forms.ToolStripMenuItem enumeraciónDeElementosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem diagramasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem opcionesToolStripMenuItem;
@@ -729,10 +741,12 @@
         private System.Windows.Forms.ToolStripMenuItem cortanteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem diagramaCortanteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem diagramaDeAreasCortanteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripDropDownButton TLS_DisenoNervios;
-        private FontAwesome.Sharp.IconMenuItem diseñarNervioActualToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem nerviosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem todosLosNerviosToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton TLSB_GraficarAutoCAD;
+        private System.Windows.Forms.ToolStripButton TLSB_GraficarAllNervios;
+        private System.Windows.Forms.ToolStripButton TSB_DiseñarNervio;
+        private System.Windows.Forms.ToolStripButton TSB_DiseñarNervios;
+        private System.Windows.Forms.ToolStripButton TSB_DiseñarAllNervio;
+        private System.Windows.Forms.ToolStripButton TLSB_GraficarNervioActual;
+        private System.Windows.Forms.ToolStripButton TLSB_GraficarNerviosAutoCAD;
+        private System.Windows.Forms.ToolStripMenuItem tendenciasToolStripMenuItem;
     }
 }

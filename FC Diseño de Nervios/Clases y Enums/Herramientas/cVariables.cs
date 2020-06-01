@@ -69,8 +69,34 @@ namespace FC_Diseño_de_Nervios
         public const string C_Bordes = "FC_BORDES";
         public const string C_Proyeccion = "FC_PROYECCION";
         public const string C_Cotas = "FC_COTAS";
+        public const string C_Ejes = "FC_EJES";
+        public const string C_Refuerzo = "FC_REFUERZO";
+        public const string C_TextRefuerzo = "FC_R-80";
+        public const string C_Texto1 = "FC_R-175";
+        public const string Estilo_Texto = "FC_TEXT";
+        public const string Estilo_Cotas = "FC_TEXT1";
+        public const string C_Estribos = "FC_R-60";
+
+
+        public const float H_TextoTituloViga = 0.255f;
+        public const float H_TextoBarra = 0.15f;
+        public const float H_TextoEstribos = 0.1125f;
+        public const float H_CuadroTextoBarra = 0.20f;
+        public const float W_TextoTituloViga = 0.5f;
+        public const float Desplazamiento_Cotas = 0.3f;
+        public const float Desplazamiento_Cotas_RefuerzoInferior = 0.15f;
+        public const float Desplazamiento_Cotas_RefuerzoSuperior = 0.25f;
+        public const float DesplazamientoTexto_Cotas = 0.15f;
+        public const float H1_Eje = 0.95f;
+        public const float HCentro_Eje = 1.29f;
+        public const float DeltaEntreNervios = 3f;
+
+        public const float Ancho_Cajon_Titulo = 1f;
 
         public const float Dimension_InfoNervio = 2.90f;
+        public const float W_LetraAutoCADTitle = 0.08f;
+        public const float W_LetraAutoCADEstribos= 0.1f;
+        public const float W_LetraAutoCADTextRefuerzo = 0.30f;
         #endregion
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -1847,52 +1848,246 @@ namespace FC_Diseño_de_Nervios
 
 
         #region Metodos Para Graficar en AutoCAD
-        public void GraficarEnAutoCAD(float XI,float YI)
-        {
-
-            GraficarAutoCADContornoDeNervio(XI, YI);
-        }
-
-
-        private void GraficarAutoCADContornoDeNervio(float X,float Y)
+        public void GraficarEnAutoCAD(float X,float Y)
         {
             float LCuadroINFO = cVariables.Dimension_InfoNervio;
+            GraficarAutoCADEjes(X + LCuadroINFO, Y);
+            GraficarAutoCADContornoDeNervioyProyecciones(X, Y,LCuadroINFO);
+            Tendencia_Refuerzos.TInfeSelect.Paint_AutoCAD(X + LCuadroINFO, Y);
+            Tendencia_Refuerzos.TSupeSelect.Paint_AutoCAD(X + LCuadroINFO, Y);
+            GraficarAutoCADCotasBordes(X + LCuadroINFO, Y);
+            GraficarAutoCADEstribos(X + LCuadroINFO, Y);
+        }
+
+        private void GraficarAutoCADContornoDeNervioyProyecciones(float X, float Y, float LCuadroINFO)
+        {
 
             List<PointF> VerticesPoligono = new List<PointF>();
             int C = 0;
-            Lista_Elementos.ForEach(Elemento => {
 
+            //Puntos de Polilinea Parte Superior
+            Lista_Elementos.ForEach(Elemento => {
                 if (C == 0)
                 {
                     PointF PuntoI = new PointF(0, Elemento.Vistas.Perfil_AutoCAD.Reales.Min(x => x.Y));
                     PointF PuntoI2 = new PointF(0, Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
                     PointF PuntoI3 = new PointF(LCuadroINFO, Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
-                    PointF PuntoI4 = new PointF(LCuadroINFO+Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
+                    PointF PuntoI4 = new PointF(LCuadroINFO + Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
                     VerticesPoligono.Add(PuntoI); VerticesPoligono.Add(PuntoI2); VerticesPoligono.Add(PuntoI3); VerticesPoligono.Add(PuntoI4);
                 }
-                //ParteArriba
-                PointF Punto = new PointF(LCuadroINFO + Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
-                VerticesPoligono.Add(Punto);
+                else
+                {
+                    PointF Punto1 = new PointF(LCuadroINFO + Elemento.Vistas.Perfil_AutoCAD.Reales.Min(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
+                    PointF Punto2 = new PointF(LCuadroINFO + Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y));
+                    VerticesPoligono.Add(Punto1);
+                    VerticesPoligono.Add(Punto2);
+                }
                 C += 1;
             });
 
-            List<PointF> PuntosTrasladados = B_Operaciones_Matricialesl.Operaciones.Traslacion(VerticesPoligono, X, Y);
+            //Puntos de Polilinea Parte Inferior
+            for (int i = Lista_Elementos.Count - 1; i >= 0; i--)
+            {
+                IElemento Elemento = Lista_Elementos[i];
+                PointF Punto1 = new PointF(LCuadroINFO + Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Min(x => x.Y));
+                PointF Punto2 = new PointF(LCuadroINFO + Elemento.Vistas.Perfil_AutoCAD.Reales.Min(x => x.X), Elemento.Vistas.Perfil_AutoCAD.Reales.Min(x => x.Y));
+                VerticesPoligono.Add(Punto1);
+                VerticesPoligono.Add(Punto2);
+            }
+            List<PointF> PuntosTrasladadosF = B_Operaciones_Matricialesl.Operaciones.Traslacion(VerticesPoligono, X, Y);
+            FunctionsAutoCAD.AddPolyline2D(PuntosTrasladadosF.ToArray(), cVariables.C_Bordes);
 
-            List<float> VerticesPoligonoF = ConvertirPuntosEnFloats(PuntosTrasladados);
-            FunctionsAutoCAD.AddPolyline2D(VerticesPoligonoF.ConvertAll(Convert.ToDouble).ToArray(), cVariables.C_Bordes);
+            //Crear Lineas de Proyección de Apoyos
+
+            C = 0;
+            Lista_Elementos.ForEach(Elemento => {
+                if (Elemento is cApoyo)
+                {
+
+                    List<PointF> PuntosLinea1 = new List<PointF>();
+                    PuntosLinea1.Add(Elemento.Vistas.Perfil_AutoCAD.Reales.First());
+                    PuntosLinea1.Add(Elemento.Vistas.Perfil_AutoCAD.Reales[1]);
+                    List<PointF> PuntosLinea2 = new List<PointF>();
+                    PuntosLinea2.Add(Elemento.Vistas.Perfil_AutoCAD.Reales[3]);
+                    PuntosLinea2.Add(Elemento.Vistas.Perfil_AutoCAD.Reales[2]);
+                    FunctionsAutoCAD.AddPolyline2D(B_Operaciones_Matricialesl.Operaciones.Traslacion(PuntosLinea1, X + LCuadroINFO, Y).ToArray(), cVariables.C_Proyeccion, false);
+                    if (C != Lista_Elementos.Count - 1)
+                        FunctionsAutoCAD.AddPolyline2D(B_Operaciones_Matricialesl.Operaciones.Traslacion(PuntosLinea2, X + LCuadroINFO, Y).ToArray(), cVariables.C_Proyeccion, false);
+                }
+                C++;
+            });
+
+            //Crear Linea Inicial
+
+            if (!(Lista_Elementos.First() is cApoyo))
+            {
+                PointF[] Puntos = new PointF[] { Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.First(), Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales[1] };
+                FunctionsAutoCAD.AddPolyline2D(B_Operaciones_Matricialesl.Operaciones.Traslacion(Puntos.ToList(), X + LCuadroINFO, Y).ToArray(), cVariables.C_Bordes, false);
+            }
+
+
+            //Agregar Nombre de Nervio y Dimensiones 
+
+            string TituloNervio_AutoCAD = @"{\L" + Nombre + "}";
+            float MinY = Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.First().Y;
+            float MaxY = Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales[1].Y;
+            float LargoTexto = TituloNervio_AutoCAD.Length * cVariables.W_LetraAutoCADTextRefuerzo;
+            double[] PString = new double[] { X + LCuadroINFO / 2f - LargoTexto / 2, Y + MinY + (MaxY - MinY) * 0.70f, 0 };
+            FunctionsAutoCAD.AddText(TituloNervio_AutoCAD, PString, cVariables.W_TextoTituloViga,
+                                     cVariables.H_TextoTituloViga, cVariables.C_Texto1, cVariables.Estilo_Texto, 0, Width2: LargoTexto, JustifyText: JustifyText.Center);
+
+            string TextB, TextH,TextoFinal;
+
+            cSubTramo Subtramo1 = (cSubTramo)Lista_Elementos.First(x => x is cSubTramo);
+
+            TextB = Bool_CambioAncho ? "Vble" : Subtramo1.Seccion.B.ToString();
+            TextH = Bool_CambioAncho ? "Vble" : Subtramo1.Seccion.H.ToString();
+
+            cPiso PisoOrigen1 = F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == PisoOrigen.Nombre);
+
+            TextoFinal = $@"({TextB}x{TextH})\P{PisoOrigen1.NombreReal}\P{PisoOrigen1.Nivel}";
+            LargoTexto = cVariables.Ancho_Cajon_Titulo; ;
+             PointF P = new PointF(X + LCuadroINFO / 2f - LargoTexto/2f, Y + MinY + (MaxY - MinY) * 0.55f);
+          
+             FunctionsAutoCAD.AddText(TextoFinal, P, cVariables.W_TextoTituloViga,
+                            cVariables.H_TextoBarra, cVariables.C_TextRefuerzo, cVariables.Estilo_Texto, 0, 
+                            Width2: LargoTexto, JustifyText: JustifyText.Center);
+
+
+
         }
 
-
-
-        private List<float> ConvertirPuntosEnFloats(List<PointF> Puntos)
+        private void GraficarAutoCADCotasBordes(float X, float Y)
         {
-            List<float> PuntosF = new List<float>();
-            Puntos.ForEach(Punto => {
-                PuntosF.Add(Punto.X); PuntosF.Add(Punto.Y); });
-            return PuntosF;
+            //Cotas Superiores 
+
+
+            Lista_Elementos.ForEach(Elemento => {
+
+                PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(Elemento.Vistas.Perfil_AutoCAD.Reales[1],X,Y);
+                PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(Elemento.Vistas.Perfil_AutoCAD.Reales[2], X, Y);
+                FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, cVariables.Desplazamiento_Cotas,
+                                         DeplazaTextY: cVariables.DesplazamientoTexto_Cotas);          
+            });
+
+            //Cotas Inferiores por Cambio de Sección
+
+            if (Bool_CambioAltura | Bool_CambioAncho)
+            {
+                float YminCota = Lista_Elementos.Min(x => x.Vistas.Perfil_AutoCAD.Reales.Min(y => y.Y));
+
+                List<List<IElemento>> Lista_Elementos1 =cFunctionsProgram.CrearListaElementos(this, true, false, true, true,false);
+
+                foreach(List<IElemento> elementos in Lista_Elementos1)
+                {
+                    float DesplaCota = -cVariables.Desplazamiento_Cotas;
+                    PointF P1 = elementos.First().Vistas.Perfil_AutoCAD.Reales[0];
+                    PointF P2= elementos.Last().Vistas.Perfil_AutoCAD.Reales[3];
+                    cSubTramo SubTramo = (cSubTramo)elementos.First(x => x is cSubTramo);
+                    string Text = $"({SubTramo.Seccion.B}x{SubTramo.Seccion.H})";
+
+                    if (P1.Y != YminCota)
+                    {
+                        P1 = new PointF(P1.X, YminCota);
+                        P2= new PointF(P2.X, YminCota );
+                    }
+                        
+
+                    FunctionsAutoCAD.AddCota(B_Operaciones_Matricialesl.Operaciones.Traslacion(P1,X,Y),
+                                             B_Operaciones_Matricialesl.Operaciones.Traslacion(P2, X, Y), 
+                                             cVariables.C_Cotas, cVariables.Estilo_Cotas, DesplaCota,Text: Text);
+                }
+
+            }
+
         }
 
-        
+
+        private void GraficarAutoCADEjes(float X,float Y)
+        {
+            float Ymax = Lista_Elementos.Max(x => x.Vistas.Perfil_AutoCAD.Reales.Max(y => y.Y));
+            Grids.ForEach(Grid => {
+
+                //Graficar Circulos
+                float CoordX = Grid.Recta_Real.First().X;
+                PointF Punto = new PointF(X+ CoordX, Y + Ymax + cVariables.HCentro_Eje);
+                FunctionsAutoCAD.B_Ejes(Punto, Grid.Nombre, cVariables.C_Texto1, 75, 75, 75, 0);
+
+                float YminEje;
+                IElemento Elemento = Lista_Elementos.Find(x => x.IsVisibleCoordAutoCAD(CoordX));
+                YminEje = Elemento is cApoyo ? Elemento.Vistas.Perfil_AutoCAD.Reales.Min(x => x.Y) : Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.Y);
+
+                PointF Punto1 =  B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(CoordX, Ymax+cVariables.H1_Eje),X,Y);
+                PointF Punto2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(CoordX, YminEje),X,Y);
+                PointF[] Puntos = new PointF[] { Punto1, Punto2 };
+                FunctionsAutoCAD.AddPolyline2D(Puntos, cVariables.C_Ejes, false);
+            });
+
+            Grids = Grids.OrderBy(x => x.CoordenadaInicial).ToList();
+
+            //Cotas
+
+            void AgregarCotas(float X1, float X2)
+            {
+                PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(X1, Ymax+cVariables.Desplazamiento_Cotas*2f), X, Y);
+                PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(X2,Ymax+ cVariables.Desplazamiento_Cotas * 2f), X, Y);
+                FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, 0,
+                                         DeplazaTextY: cVariables.DesplazamientoTexto_Cotas,TextHeight:0.002f);
+
+            }
+
+
+            for(int i=0; i< Grids.Count; i++)
+            {
+                float X1, X2;
+                cGrid Grid = Grids[i];
+                if (i == 0)
+                {
+                    X1 = Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales[0].X;
+                    X2 = Grid.CoordenadaInicial;
+                    AgregarCotas(X1, X2);
+                }
+                if(i== Grids.Count-1)
+                {
+                    X1 = Grid.CoordenadaInicial;
+                    X2 = Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales[2].X;
+                    AgregarCotas(X1, X2);
+                }
+
+                if(i+1< Grids.Count)
+                {
+                    X1 = Grid.CoordenadaInicial;
+                    X2 = Grids[i + 1].CoordenadaInicial;
+                    AgregarCotas(X1, X2);
+                }
+
+
+            }
+
+
+
+        }
+
+        private void GraficarAutoCADEstribos(float X,float Y)
+        {
+
+            Lista_Tramos.ForEach(Tramo => {
+
+                if (Tramo.EstribosDerecha != null)
+                {
+                    Tramo.EstribosDerecha.Zona1.PaintAutoCAD(X, Y);
+                    Tramo.EstribosDerecha.Zona2.PaintAutoCAD(X, Y);
+                }
+
+                if (Tramo.EstribosIzquierda != null)
+                {
+                    Tramo.EstribosIzquierda.Zona1.PaintAutoCAD(X, Y);
+                    Tramo.EstribosIzquierda.Zona2.PaintAutoCAD(X, Y);
+                }
+            });
+
+
+        }
 
 
         #endregion

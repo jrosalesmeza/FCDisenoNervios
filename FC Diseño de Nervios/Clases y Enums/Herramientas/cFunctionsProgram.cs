@@ -1,4 +1,5 @@
-﻿using FC_Diseño_de_Nervios.Controles;
+﻿using FC_BFunctionsAutoCAD;
+using FC_Diseño_de_Nervios.Controles;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -42,10 +43,15 @@ namespace FC_Diseño_de_Nervios
 
         public const string Empresa = "efe Prima Ce";
         public const string Ext = ".nrv";
-        public const string NombrePrograma = "FC-JOISTS";
+        public const string NombrePrograma = "Diseño de Nervios.";
         public const string Ext_ConfigVentana = "ConfigVentanaNervios.config";
         public static string Ruta_CarpetaLocal = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),Empresa, NombrePrograma);
 
+
+        public static void Notificar(string Text)
+        {
+            Notificador?.Invoke(Text);
+        }
 
         /// <summary>
         /// Tuple(string, List(String))
@@ -1784,7 +1790,7 @@ namespace FC_Diseño_de_Nervios
             }
 
 
-            List<eNoBarra> NoBarras2 = NoBarras; NoBarras2.Remove(eNoBarra.BNone); NoBarras2.Remove(eNoBarra.B2);
+            List<eNoBarra> NoBarras2 = NoBarras.ToList(); ; NoBarras2.Remove(eNoBarra.BNone);
            
             if (PuntosInfexion2.Count > 0)
             {
@@ -2315,11 +2321,11 @@ namespace FC_Diseño_de_Nervios
             return RemoverCondicion ? true : Nervio.CambioenAncho != eCambioenAncho.Central && Nervio.CambioenAltura == eCambioenAltura.Inferior && Seccion1.B== Seccion2.B ; //Condicion para colocar 2 Barras superiores en anchos > 12cm
            //solo aplica si no hay barras en el nervio.
         }
-        private static bool CondicionTotal4(cSeccion Seccion1, cSeccion Seccion2, cNervio Nervio, bool RemoverCondicion)
+        private static bool CondicionTotal4(cSeccion Seccion1, cSeccion Seccion2, bool RemoverCondicion)
         {
             return RemoverCondicion ? true : Seccion1.B != Seccion2.B;//Condicion para colocar solo una barra continua y luego con otro metodo se agregará la faltante
         }
-        private static List<List<IElemento>> CrearListaElementos(cNervio Nervio,bool RCondicion1= false, bool RCondicion2 = false, bool RCondicion3 = false, bool RCondicion4 = false)
+        public static List<List<IElemento>> CrearListaElementos(cNervio Nervio,bool RCondicion1= false, bool RCondicion2 = false, bool RCondicion3 = false, bool RCondicion4 = false,bool AgregarApoyos = true)
         {
             List<List<IElemento>> ListaElementos = new List<List<IElemento>>();
             Nervio.Lista_Elementos.ForEach(Elem => {
@@ -2337,7 +2343,7 @@ namespace FC_Diseño_de_Nervios
 
                         if (subTramo1 != null)
                         {
-                            if (CondicionTotal1(subTramo1.Seccion,Elem.Seccion,Nervio, RCondicion1) && CondicionTotal2(subTramo1.Seccion,Elem.Seccion,RCondicion2) && CondicionTotal3(subTramo1.Seccion, Elem.Seccion, Nervio, RCondicion3) && CondicionTotal4(subTramo1.Seccion,Elem.Seccion,Nervio, RCondicion4))
+                            if (CondicionTotal1(subTramo1.Seccion,Elem.Seccion,Nervio, RCondicion1) && CondicionTotal2(subTramo1.Seccion,Elem.Seccion,RCondicion2) && CondicionTotal3(subTramo1.Seccion, Elem.Seccion, Nervio, RCondicion3) && CondicionTotal4(subTramo1.Seccion,Elem.Seccion, RCondicion4))
                             {
                                 List<IElemento> Elementos = new List<IElemento>();
                                 Elementos.Add(Elem); ListaElementos.Add(Elementos);
@@ -2376,24 +2382,25 @@ namespace FC_Diseño_de_Nervios
 
 
             //Agregar Apoyos Faltantes
-
-            if (ListaElementos.Count > 1)
+            if (AgregarApoyos)
             {
-                for(int i=1;i< ListaElementos.Count; i++)
+                if (ListaElementos.Count > 1)
                 {
-                    List<IElemento> Elementos = ListaElementos[i];
-                    IElemento PrimeElemento = Elementos.First();
-                    if(!(PrimeElemento is cApoyo))
+                    for (int i = 1; i < ListaElementos.Count; i++)
                     {
-                        IElemento UltimoElemento = ListaElementos[i - 1].Last();
-                        if(UltimoElemento is cApoyo)
+                        List<IElemento> Elementos = ListaElementos[i];
+                        IElemento PrimeElemento = Elementos.First();
+                        if (!(PrimeElemento is cApoyo))
                         {
-                            Elementos.Insert(0, UltimoElemento);
+                            IElemento UltimoElemento = ListaElementos[i - 1].Last();
+                            if (UltimoElemento is cApoyo)
+                            {
+                                Elementos.Insert(0, UltimoElemento);
+                            }
                         }
                     }
                 }
             }
-           
 
             
 
@@ -2710,12 +2717,55 @@ namespace FC_Diseño_de_Nervios
 
         #endregion
 
-        public static void GraficarNervioAutoCAD(cNervio Nervio)
+        private static void GraficarNervioAutoCAD(cNervio Nervio, float X, float Y)
         {
-
-           // Nervio.GraficarEnAutoCAD()
+            Nervio.GraficarEnAutoCAD(X, Y);
 
         }
+        public static void GraficarNervios(List<cNervio> Nervios)
+        {
+            double[] CoordXYZ = new double[] { };
+            FunctionsAutoCAD.OpenAutoCAD();
+            EventoVentanaEmergente("Posicione el puntero en AutoCAD.", MessageBoxIcon.Information);
+            FunctionsAutoCAD.GetPoint(ref CoordXYZ);
+            FunctionsAutoCAD.SetScale("1:75");
+            if (CoordXYZ.Length > 0)
+            {
+                
+                float Y = (float)CoordXYZ[1];
+                foreach (cNervio Nervio in Nervios)
+                {
+                    F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = Nervio;
+                    GraficarNervioAutoCAD(Nervio, (float)CoordXYZ[0], Y);
+                    float H = Nervio.Lista_Elementos.Max(x => x.Vistas.Perfil_AutoCAD.Reales.Max(y => y.Y))- Nervio.Lista_Elementos.Min(x => x.Vistas.Perfil_AutoCAD.Reales.Min(y => y.Y));
+                    Y += -H - cVariables.DeltaEntreNervios;
+                }
+                if (Nervios.Count > 1)
+                {
+                    EventoVentanaEmergente("Nervios graficados con Éxito.", MessageBoxIcon.Information);
+                }
+                else
+                {
+                    EventoVentanaEmergente("Nervio graficado con Éxito.", MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        public static void DiseñarNervios(List<cNervio> Nervios)
+        {
+            foreach (cNervio Nervio in Nervios)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = Nervio;
+                DiseñarNervio(Nervio);
+            }
+
+            EventoVentanaEmergente("Nervios Diseñados con Éxito.", MessageBoxIcon.Information);
+        }
+
+
+
+
+
 
 
 

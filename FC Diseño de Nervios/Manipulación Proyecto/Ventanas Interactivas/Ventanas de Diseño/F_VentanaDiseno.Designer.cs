@@ -32,10 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_VentanaDiseno));
             this.P_1 = new System.Windows.Forms.Panel();
             this.TS_1 = new System.Windows.Forms.ToolStrip();
-            this.TSB_AgregarInferior = new FontAwesome.Sharp.IconToolStripButton();
-            this.TSB_AgregarSuperior = new FontAwesome.Sharp.IconToolStripButton();
             this.TSB_CopiarRefuerzo = new System.Windows.Forms.ToolStripButton();
-            this.TSB_Eliminar = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton3 = new System.Windows.Forms.ToolStripSeparator();
             this.TSL_Tendencias = new System.Windows.Forms.ToolStripLabel();
             this.TSL_RSupeiror = new System.Windows.Forms.ToolStripLabel();
@@ -49,6 +46,9 @@
             this.PB_VistaPerfilLongitudinalDiseno = new System.Windows.Forms.PictureBox();
             this.Herramientas1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eliminarBarraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSB_AgregarInferior = new System.Windows.Forms.ToolStripButton();
+            this.TSB_AgregarSuperior = new System.Windows.Forms.ToolStripButton();
+            this.TSB_Eliminar = new System.Windows.Forms.ToolStripButton();
             this.P_1.SuspendLayout();
             this.TS_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_VistaPerfilLongitudinalDiseno)).BeginInit();
@@ -89,38 +89,6 @@
             this.TS_1.TabIndex = 2;
             this.TS_1.Text = "toolStrip1";
             // 
-            // TSB_AgregarInferior
-            // 
-            this.TSB_AgregarInferior.AutoSize = false;
-            this.TSB_AgregarInferior.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TSB_AgregarInferior.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.TSB_AgregarInferior.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
-            this.TSB_AgregarInferior.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
-            this.TSB_AgregarInferior.IconSize = 40;
-            this.TSB_AgregarInferior.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.TSB_AgregarInferior.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TSB_AgregarInferior.Name = "TSB_AgregarInferior";
-            this.TSB_AgregarInferior.Rotation = 0D;
-            this.TSB_AgregarInferior.Size = new System.Drawing.Size(25, 22);
-            this.TSB_AgregarInferior.Text = "Agregar Refuerzo Inferior";
-            this.TSB_AgregarInferior.Click += new System.EventHandler(this.TSB_AgregarInferior_Click);
-            // 
-            // TSB_AgregarSuperior
-            // 
-            this.TSB_AgregarSuperior.AutoSize = false;
-            this.TSB_AgregarSuperior.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TSB_AgregarSuperior.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.TSB_AgregarSuperior.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
-            this.TSB_AgregarSuperior.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
-            this.TSB_AgregarSuperior.IconSize = 40;
-            this.TSB_AgregarSuperior.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.TSB_AgregarSuperior.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TSB_AgregarSuperior.Name = "TSB_AgregarSuperior";
-            this.TSB_AgregarSuperior.Rotation = 0D;
-            this.TSB_AgregarSuperior.Size = new System.Drawing.Size(25, 22);
-            this.TSB_AgregarSuperior.Text = "Agregar Refuerzo Superior";
-            this.TSB_AgregarSuperior.Click += new System.EventHandler(this.TSB_AgregarSuperior_Click);
-            // 
             // TSB_CopiarRefuerzo
             // 
             this.TSB_CopiarRefuerzo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -130,17 +98,6 @@
             this.TSB_CopiarRefuerzo.Size = new System.Drawing.Size(23, 22);
             this.TSB_CopiarRefuerzo.Text = "Copiar Refuerzo";
             this.TSB_CopiarRefuerzo.Click += new System.EventHandler(this.TSB_CopiarRefuerzo_Click);
-            // 
-            // TSB_Eliminar
-            // 
-            this.TSB_Eliminar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TSB_Eliminar.Image = ((System.Drawing.Image)(resources.GetObject("TSB_Eliminar.Image")));
-            this.TSB_Eliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TSB_Eliminar.Name = "TSB_Eliminar";
-            this.TSB_Eliminar.Size = new System.Drawing.Size(23, 22);
-            this.TSB_Eliminar.Text = "Eliminar Barra";
-            this.TSB_Eliminar.ToolTipText = "Eliminar Barra";
-            this.TSB_Eliminar.Click += new System.EventHandler(this.TSB_Eliminar_Click);
             // 
             // toolStripButton3
             // 
@@ -241,6 +198,41 @@
             this.eliminarBarraToolStripMenuItem.Text = "Eliminar Barra";
             this.eliminarBarraToolStripMenuItem.Click += new System.EventHandler(this.eliminarBarraToolStripMenuItem_Click_1);
             // 
+            // TSB_AgregarInferior
+            // 
+            this.TSB_AgregarInferior.AutoSize = false;
+            this.TSB_AgregarInferior.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_AgregarInferior.Image = ((System.Drawing.Image)(resources.GetObject("TSB_AgregarInferior.Image")));
+            this.TSB_AgregarInferior.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.TSB_AgregarInferior.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_AgregarInferior.Name = "TSB_AgregarInferior";
+            this.TSB_AgregarInferior.Size = new System.Drawing.Size(25, 22);
+            this.TSB_AgregarInferior.Text = "Agregar Refuerzo Inferior";
+            this.TSB_AgregarInferior.Click += new System.EventHandler(this.TSB_AgregarInferior_Click);
+            // 
+            // TSB_AgregarSuperior
+            // 
+            this.TSB_AgregarSuperior.AutoSize = false;
+            this.TSB_AgregarSuperior.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_AgregarSuperior.Image = ((System.Drawing.Image)(resources.GetObject("TSB_AgregarSuperior.Image")));
+            this.TSB_AgregarSuperior.ImageAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.TSB_AgregarSuperior.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_AgregarSuperior.Name = "TSB_AgregarSuperior";
+            this.TSB_AgregarSuperior.Size = new System.Drawing.Size(25, 22);
+            this.TSB_AgregarSuperior.Text = "Agregar Refuerzo Superior";
+            this.TSB_AgregarSuperior.Click += new System.EventHandler(this.TSB_AgregarSuperior_Click);
+            // 
+            // TSB_Eliminar
+            // 
+            this.TSB_Eliminar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_Eliminar.Image = ((System.Drawing.Image)(resources.GetObject("TSB_Eliminar.Image")));
+            this.TSB_Eliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_Eliminar.Name = "TSB_Eliminar";
+            this.TSB_Eliminar.Size = new System.Drawing.Size(23, 22);
+            this.TSB_Eliminar.Text = "Eliminar Barra";
+            this.TSB_Eliminar.ToolTipText = "Eliminar Barra";
+            this.TSB_Eliminar.Click += new System.EventHandler(this.TSB_Eliminar_Click);
+            // 
             // F_VentanaDiseno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -250,6 +242,7 @@
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_VentanaDiseno";
             this.Text = "F_VentanaDiseno";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.F_VentanaDiseno_Paint);
@@ -274,16 +267,16 @@
         private System.Windows.Forms.ToolStripComboBox TSCB_RSuperior;
         private System.Windows.Forms.ToolStripLabel TSL_RInferior;
         private System.Windows.Forms.ToolStripComboBox TSCB_RInferior;
-        private FontAwesome.Sharp.IconToolStripButton TSB_AgregarInferior;
         private System.Windows.Forms.ToolStripButton TSB_CopiarRefuerzo;
         private System.Windows.Forms.ToolStripSeparator toolStripButton3;
-        private System.Windows.Forms.ToolStripButton TSB_Eliminar;
-        private FontAwesome.Sharp.IconToolStripButton TSB_AgregarSuperior;
         private System.Windows.Forms.ContextMenuStrip Herramientas1;
         private System.Windows.Forms.ToolStripMenuItem eliminarBarraToolStripMenuItem;
         private System.Windows.Forms.ToolStripLabel TSL_PesoLongitudinalText;
         private System.Windows.Forms.ToolStripLabel TSL_PesoLongitudinalValue;
         private System.Windows.Forms.ToolStripLabel TSL_PesoTransversalText;
         private System.Windows.Forms.ToolStripLabel TSL_PesoTranseversalValue;
+        private System.Windows.Forms.ToolStripButton TSB_AgregarInferior;
+        private System.Windows.Forms.ToolStripButton TSB_AgregarSuperior;
+        private System.Windows.Forms.ToolStripButton TSB_Eliminar;
     }
 }

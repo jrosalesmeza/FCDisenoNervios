@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_SelectCombinaciones));
             this.P_1 = new System.Windows.Forms.Panel();
             this.BT_Seleccionar = new System.Windows.Forms.Button();
             this.BT_1 = new System.Windows.Forms.Button();
@@ -176,6 +177,7 @@
             this.Controls.Add(this.P_1);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(318, 376);
             this.MinimumSize = new System.Drawing.Size(318, 376);
             this.Name = "F_SelectCombinaciones";

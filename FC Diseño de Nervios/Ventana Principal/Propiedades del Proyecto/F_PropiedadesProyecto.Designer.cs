@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_PropiedadesProyecto));
             this.P_1 = new System.Windows.Forms.Panel();
             this.LB_Title = new FontAwesome.Sharp.IconButton();
             this.P_2 = new System.Windows.Forms.Panel();
@@ -35,10 +36,10 @@
             this.TC_Control = new System.Windows.Forms.TabControl();
             this.TP1_General = new System.Windows.Forms.TabPage();
             this.GB_1 = new System.Windows.Forms.GroupBox();
+            this.CKB_CotaInteligente = new System.Windows.Forms.CheckBox();
             this.CKB_LabelsBarras = new System.Windows.Forms.CheckBox();
             this.BT_1 = new System.Windows.Forms.Button();
             this.BT_Agregar = new FontAwesome.Sharp.IconButton();
-            this.CKB_CotaInteligente = new System.Windows.Forms.CheckBox();
             this.P_1.SuspendLayout();
             this.P_2.SuspendLayout();
             this.TC_Control.SuspendLayout();
@@ -134,6 +135,16 @@
             this.GB_1.TabStop = false;
             this.GB_1.Text = "Propiedades de Barras";
             // 
+            // CKB_CotaInteligente
+            // 
+            this.CKB_CotaInteligente.AutoSize = true;
+            this.CKB_CotaInteligente.Location = new System.Drawing.Point(16, 66);
+            this.CKB_CotaInteligente.Name = "CKB_CotaInteligente";
+            this.CKB_CotaInteligente.Size = new System.Drawing.Size(158, 18);
+            this.CKB_CotaInteligente.TabIndex = 8;
+            this.CKB_CotaInteligente.Text = "Acotamiento de la Barra";
+            this.CKB_CotaInteligente.UseVisualStyleBackColor = true;
+            // 
             // CKB_LabelsBarras
             // 
             this.CKB_LabelsBarras.AutoSize = true;
@@ -171,16 +182,6 @@
             this.BT_Agregar.TabIndex = 8;
             this.BT_Agregar.UseVisualStyleBackColor = false;
             // 
-            // CKB_CotaInteligente
-            // 
-            this.CKB_CotaInteligente.AutoSize = true;
-            this.CKB_CotaInteligente.Location = new System.Drawing.Point(16, 66);
-            this.CKB_CotaInteligente.Name = "CKB_CotaInteligente";
-            this.CKB_CotaInteligente.Size = new System.Drawing.Size(158, 18);
-            this.CKB_CotaInteligente.TabIndex = 8;
-            this.CKB_CotaInteligente.Text = "Acotamiento de la Barra";
-            this.CKB_CotaInteligente.UseVisualStyleBackColor = true;
-            // 
             // F_PropiedadesProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -189,8 +190,9 @@
             this.Controls.Add(this.P_1);
             this.Controls.Add(this.P_2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_PropiedadesProyecto";
-            this.Text = "F_PropiedadesProyecto";
+            this.Text = "Opciones";
             this.Load += new System.EventHandler(this.F_PropiedadesProyecto_Load);
             this.P_1.ResumeLayout(false);
             this.P_2.ResumeLayout(false);

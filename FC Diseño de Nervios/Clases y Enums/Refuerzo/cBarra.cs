@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_BFunctionsAutoCAD;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -24,6 +25,8 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+        public bool CotaParaAutoCADIzquierda { get; set; } = false;
+        public bool CotaParaAutoCADDerecha{ get; set; } = false;
         private eNoBarra noBarra;
         public eNoBarra NoBarra {
 
@@ -238,7 +241,6 @@ namespace FC_Diseño_de_Nervios
         public cTendencia TendenciaOrigen {
             get
             {
-                FindTendeciaOrgien();
                 return tendenciaOrigen;
             }
             set {
@@ -250,20 +252,6 @@ namespace FC_Diseño_de_Nervios
             }
         
         }
-        private void FindTendeciaOrgien()
-        {
-            //if (UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
-            //{
-            //    tendenciaOrigen = tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Tendencia_Refuerzos.TendenciasInferior.Find(x => x.Nombre == tendenciaOrigen.Nombre);
-            //}
-            //else
-            //{
-            //    tendenciaOrigen = tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Tendencia_Refuerzos.TendenciasSuperior.Find(x => x.Nombre == tendenciaOrigen.Nombre);
-
-            //}
-        }
-
-
         public cCoordenadas C_Barra { get; set; } = new cCoordenadas();
         public cCoordenadas C_F_Izquierda { get; set; } = new cCoordenadas();
         public cCoordenadas C_F_Central { get; set; } = new cCoordenadas();
@@ -734,14 +722,55 @@ namespace FC_Diseño_de_Nervios
         #endregion
 
 
-
-
         public bool IsVisible(IElemento Elemento)
         {
             float Xmax = Elemento.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X);
             float Xmin = Elemento.Vistas.Perfil_AutoCAD.Reales.Min(x => x.X);
             return Xmin >= xi && Xmax <= xf || Xmin <= xi && Xmax >= xi || Xmin <= xf && Xmax >= xf || Xmin <= xi && Xmax >= xf;
         }
+
+
+
+
+
+
+
+
+        public void Paint_AutoCAD(float X, float Y)
+        {
+            string TextBarra = $"{CantBarra}#{NoBarra.ToString().Replace("B", "")} L=";
+            float LargoTexto = TextBarra.Length*cVariables.W_LetraAutoCADTextRefuerzo;
+            float Xmin = C_Barra.Reales.Min(x => x.X); float Xmax = C_Barra.Reales.Max(x => x.X);
+            float Ymax = C_Barra.Reales.Max(x => x.Y);
+            float Ymin = C_Barra.Reales.Min(x => x.Y);
+            float XString = X + Xmin + (Xmax - Xmin) / 2f - LargoTexto/2f;
+            float YString = ubicacionRefuerzo == eUbicacionRefuerzo.Inferior ? Y + Ymin + cVariables.H_CuadroTextoBarra : Y + Ymax + cVariables.H_CuadroTextoBarra;
+            double[] P_String = new double[] { XString,YString, 0 };
+            FunctionsAutoCAD.AddPolyline2DWithLengthText(B_Operaciones_Matricialesl.Operaciones.Traslacion(C_Barra.Reales, X, Y).ToArray(),
+                                                            cVariables.C_Refuerzo, TextBarra, P_String, cVariables.W_LetraAutoCADTextRefuerzo, cVariables.H_TextoBarra,
+                                                            cVariables.C_TextRefuerzo, cVariables.Estilo_Texto, 0, LargoTexto, JustifyText.Center);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

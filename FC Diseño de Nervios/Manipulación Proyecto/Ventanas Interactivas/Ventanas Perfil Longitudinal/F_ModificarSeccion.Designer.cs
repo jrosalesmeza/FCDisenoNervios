@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_ModificarSeccion));
             this.BT_Cerrar = new System.Windows.Forms.Button();
             this.P_1 = new System.Windows.Forms.Panel();
             this.LB_1 = new System.Windows.Forms.Label();
@@ -46,12 +47,12 @@
             this.LB_Altura = new System.Windows.Forms.Label();
             this.GB_2 = new System.Windows.Forms.GroupBox();
             this.P_3 = new System.Windows.Forms.Panel();
+            this.LB_kgf = new System.Windows.Forms.Label();
             this.LB_kgf1 = new System.Windows.Forms.Label();
             this.TB_fy = new System.Windows.Forms.TextBox();
             this.TB_fc = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.LB_fc = new System.Windows.Forms.Label();
-            this.LB_kgf = new System.Windows.Forms.Label();
             this.P_1.SuspendLayout();
             this.GB_1.SuspendLayout();
             this.P_2.SuspendLayout();
@@ -272,6 +273,17 @@
             this.P_3.Size = new System.Drawing.Size(278, 50);
             this.P_3.TabIndex = 0;
             // 
+            // LB_kgf
+            // 
+            this.LB_kgf.AutoSize = true;
+            this.LB_kgf.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_kgf.ForeColor = System.Drawing.Color.Black;
+            this.LB_kgf.Location = new System.Drawing.Point(88, 19);
+            this.LB_kgf.Name = "LB_kgf";
+            this.LB_kgf.Size = new System.Drawing.Size(47, 14);
+            this.LB_kgf.TabIndex = 13;
+            this.LB_kgf.Text = "kgf/cm²";
+            // 
             // LB_kgf1
             // 
             this.LB_kgf1.AutoSize = true;
@@ -321,17 +333,6 @@
             this.LB_fc.TabIndex = 4;
             this.LB_fc.Text = "f\'c:";
             // 
-            // LB_kgf
-            // 
-            this.LB_kgf.AutoSize = true;
-            this.LB_kgf.Font = new System.Drawing.Font("Calibri", 9F);
-            this.LB_kgf.ForeColor = System.Drawing.Color.Black;
-            this.LB_kgf.Location = new System.Drawing.Point(88, 19);
-            this.LB_kgf.Name = "LB_kgf";
-            this.LB_kgf.Size = new System.Drawing.Size(47, 14);
-            this.LB_kgf.TabIndex = 13;
-            this.LB_kgf.Text = "kgf/cm²";
-            // 
             // F_ModificarSeccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,6 +343,7 @@
             this.Controls.Add(this.GB_1);
             this.Controls.Add(this.P_1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_ModificarSeccion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "F_ModificarSeccion";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_AreasMomentoNervio));
             this.P_1 = new System.Windows.Forms.Panel();
             this.PB_VistaPerfilLongitudinalAreas = new System.Windows.Forms.PictureBox();
             this.P_1.SuspendLayout();
@@ -66,6 +67,7 @@
             this.Controls.Add(this.P_1);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_AreasMomentoNervio";
             this.Text = "Area de Momentos";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.F_AreasMomentoNervio_Paint);

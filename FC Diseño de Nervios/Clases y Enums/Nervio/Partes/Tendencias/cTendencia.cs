@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FC_BFunctionsAutoCAD;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -186,6 +188,7 @@ namespace FC_Diseño_de_Nervios
             
         }
 
+
         private bool XiPerteneceaX0X1(float X0, float X1, float Xi)
         {
             if (X1 >= Xi && X0 <= Xi)
@@ -202,6 +205,145 @@ namespace FC_Diseño_de_Nervios
         }
 
 
+
+        public void Paint_AutoCAD(float X, float Y)
+        {
+            Barras.ForEach(x => x.Paint_AutoCAD(X, Y));
+
+
+            //Agregar Cotas
+
+            if (UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
+            {
+                Barras.ForEach(Barra =>
+                {
+
+                    if (!Barra.TraslpaoDerecha && !Barra.TraslapoIzquierda)
+                    {
+                        cSubTramo SubTramo = (cSubTramo)Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x.IsVisibleCoordAutoCAD(Barra.XF) && x is cSubTramo);
+
+                        if (SubTramo != null)
+                        {
+                            float Ymax = Barra.C_Barra.Reales.Max(x => x.Y);
+
+                            PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.XF, Ymax), X, Y);
+                            PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(SubTramo.Vistas.Perfil_AutoCAD.Reales[2].X, Ymax), X, Y);
+                            FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, cVariables.Desplazamiento_Cotas_RefuerzoInferior,
+                              DeplazaTextY: cVariables.DesplazamientoTexto_Cotas);
+                        }
+                    }
+                });
+
+            }
+            else
+            {
+                void AgregarCotaBarrasIndependietes(cBarra Barra, IElemento ElementoXF)
+                {
+                    float Ymax = Barra.C_Barra.Reales.Max(x => x.Y);
+                    PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(ElementoXF.Vistas.Perfil_AutoCAD.Reales[0].X, Ymax), X, Y);
+                    PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.XF, Ymax), X, Y);
+                    FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, -cVariables.Desplazamiento_Cotas_RefuerzoSuperior,
+                      DeplazaTextY: cVariables.DesplazamientoTexto_Cotas);
+                }
+
+                int MaximoNivelBarras = Barras.Max(x => x.Nivel);
+                Barras.ForEach(Barra =>
+                {
+
+                    IElemento ElementoXI = Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x.IsVisibleCoordAutoCAD(Barra.XI));
+                    IElemento ElementoXF = Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x.IsVisibleCoordAutoCAD(Barra.XF));
+
+                    if (!(ElementoXI is cApoyo) && !(ElementoXF is cApoyo) && Barra.GanchoDerecha == eTipoGancho.None && Barra.GanchoIzquierda == eTipoGancho.None)
+                    {
+
+                        if (Barra.Nivel == MaximoNivelBarras)
+                        {
+                            AgregarCotaBarrasIndependietes(Barra, ElementoXF);
+                        }
+                        else
+                        {
+                            cBarra BarraNivelPosterior = EncontrarBarraConentedora(Barra);
+                            if (BarraNivelPosterior == null)
+                            {
+                                AgregarCotaBarrasIndependietes(Barra, ElementoXF);
+                            }
+                            else
+                            {
+
+                                float Ymax = BarraNivelPosterior.C_Barra.Reales.Max(x => x.Y);
+                                float DespCota = Barra.C_Barra.Reales.Min(x => x.Y) - Ymax;
+                                PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(BarraNivelPosterior.XF, Ymax), X, Y);
+                                PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.XF, Barra.C_Barra.Reales.Min(x => x.Y)), X, Y);
+                                FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, -DespCota - 0.13f,
+                                DeplazaTextY: cVariables.DesplazamientoTexto_Cotas, RA: false);
+                            }
+                        }
+
+
+                    }
+
+
+
+
+                });
+            }
+
+            Barras.ForEach(x => { x.CotaParaAutoCADIzquierda = false;x.CotaParaAutoCADDerecha = false; }) ;
+            Barras.ForEach(Barra => {
+
+                if (Barra.TraslpaoDerecha && !Barra.CotaParaAutoCADDerecha)
+                {
+                    List<cBarra> Barras1 = Barras.FindAll(x => x.TraslapoIzquierda);
+                    foreach(cBarra barra in Barras1)
+                    {
+                        if (barra!= Barra && XiPerteneceaX0X1(Barra.XI, Barra.XF, barra.XI))
+                        {
+                            Barra.CotaParaAutoCADDerecha = true;
+                            barra.CotaParaAutoCADIzquierda = true;
+                            cBarra BarraPredominante = barra.C_Barra.Reales.Max(x => x.Y) > Barra.C_Barra.Reales.Max(x => x.Y) ? barra : Barra;
+                            float Ymax = BarraPredominante.C_Barra.Reales.Min(x => x.Y);
+                            float DespCota= cVariables.Desplazamiento_Cotas_RefuerzoInferior;
+                            if (UbicacionRefuerzo == eUbicacionRefuerzo.Superior)
+                            {
+                                DespCota = -cVariables.Desplazamiento_Cotas_RefuerzoSuperior;
+                            }
+                            PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(barra.XI, Ymax), X, Y);
+                            PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.XF, Ymax), X, Y);
+                            FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, DespCota,
+                            DeplazaTextY: cVariables.DesplazamientoTexto_Cotas, RA: false);
+                        }
+                    }
+
+
+                }
+   
+
+            });
+
+
+
+        }
+
+
+
+        public cBarra EncontrarBarraConentedora(cBarra BarraMadre)
+        {
+            foreach (cBarra barra in Barras)
+            {
+                if (BarraMadre != barra) {
+                    if (Barra1ContieneBarra2(BarraMadre, barra)) {
+                        return barra;
+                    } 
+               }
+            }
+            return null;
+        }
+
+
+        public bool Barra1ContieneBarra2(cBarra Barra1, cBarra Barra2)
+        {
+            return Barra1.XI <= Barra2.XI && Barra1.XF >= Barra2.XF;
+        }
 
         public override string ToString()
         {

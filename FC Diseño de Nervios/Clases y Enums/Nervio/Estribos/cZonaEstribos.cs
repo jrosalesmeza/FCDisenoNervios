@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_BFunctionsAutoCAD;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -151,7 +152,18 @@ namespace FC_Diseño_de_Nervios
             //e.DrawPath(PenEstribo, Path);
         }
 
+        public void PaintAutoCAD(float X,float Y)
+        {
+            if(NoBarra!= eNoBarra.BNone)
+            {
+                string Text = $"{Cantidad}{cFunctionsProgram.ConvertireNoBarraToString(NoBarra)}/{Math.Round(separacion * cConversiones.Dimension_m_to_cm, 2)}";
+                float LargoTexto = Text.Length * cVariables.W_LetraAutoCADEstribos;
+                FunctionsAutoCAD.AddText(Text, B_Operaciones_Matricialesl.Operaciones.Traslacion(CoordenadasPuntoString.Reales.First(), X-LargoTexto/2, Y),
+                                         cVariables.W_LetraAutoCADTextRefuerzo, cVariables.H_TextoEstribos, cVariables.C_Estribos, cVariables.Estilo_Texto, 0,
+                                         Width2: LargoTexto, JustifyText: JustifyText.Center);
+            }
 
+        }
 
         public override string ToString()
         {

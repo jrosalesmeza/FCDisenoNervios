@@ -58,7 +58,7 @@ namespace FC_Diseño_de_Nervios
         private void F_MomentosNervio_Paint(object sender, PaintEventArgs e)
         {
             PB_VistaPerfilLongitudinalMomentos.Invalidate();
-            Text = $"Momentos | {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre}";
+            Text = $"Momentos | {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | Unidades [Ton-m]";
         }
 
         private void PB_VistaPerfilLongitudinalMomentos_MouseMove(object sender, MouseEventArgs e)

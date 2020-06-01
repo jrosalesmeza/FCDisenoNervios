@@ -1,6 +1,9 @@
 ﻿using Autodesk.AutoCAD.Interop;
 using Autodesk.AutoCAD.Interop.Common;
 using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -85,6 +88,14 @@ namespace FC_BFunctionsAutoCAD
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="Alert"></param>
+    public delegate void DelegateNotificadorErrores(string Alert);
+
+
+
+    /// <summary>
     /// Funciones basicas para la manipulación de AutoCAD - efe Prima Ce, Por: José Luis Rosales Meza
     /// </summary>
     public class FunctionsAutoCAD
@@ -93,7 +104,12 @@ namespace FC_BFunctionsAutoCAD
         private static AcadDocument AcadDoc;
 
         /// <summary>
-        ///
+        /// Notifica errores en la librería.
+        /// </summary>
+        public static event DelegateNotificadorErrores NotificadorErrores;
+
+        /// <summary>
+        /// 
         /// </summary>
         public static void OpenAutoCAD()
         {
@@ -104,16 +120,24 @@ namespace FC_BFunctionsAutoCAD
             }
             catch
             {
-                AcadApp = new AcadApplication();
-                AcadApp.Visible = true;
-                OpenFileDialog openFileDialog = new OpenFileDialog()
-                { Multiselect = true, Filter = "Abrir Plantilla|*.dwg", Title = "Archivo dwg" };
-                openFileDialog.ShowDialog();
-
-                if (openFileDialog != null)
+                try
                 {
-                    AcadDoc = AcadApp.Documents.Add(openFileDialog.FileName);
+                    AcadApp = new AcadApplication();
+                    AcadApp.Visible = true;
+                    OpenFileDialog openFileDialog = new OpenFileDialog()
+                    { Multiselect = true, Filter = "Abrir Plantilla|*.dwg", Title = "Archivo dwg" };
+                    openFileDialog.ShowDialog();
+
+                    if (openFileDialog != null)
+                    {
+                        AcadDoc = AcadApp.Documents.Add(openFileDialog.FileName);
+                    }
                 }
+                catch {
+
+                    NotificadorErrores?.Invoke("Error inesperado.");
+                }
+
             }
         }
 
@@ -123,9 +147,16 @@ namespace FC_BFunctionsAutoCAD
         /// <param name="Scale">Escala especificada, ejemplo: "1:25"</param>
         public static void SetScale(string Scale)
         {
-            if (AcadDoc != null)
+            try
             {
-                AcadDoc.SetVariable("CANNOSCALE", Scale);
+                if (AcadDoc != null)
+                {
+                    AcadDoc.SetVariable("CANNOSCALE", Scale);
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
             }
         }
 
@@ -168,7 +199,7 @@ namespace FC_BFunctionsAutoCAD
         /// Obtiene un punto del documento actual.
         /// </summary>
         /// <param name="Msg">Mensaje a mostrar en el documento actual.</param>
-        /// <param name="Array">Coordenadas del punto.</param>
+        /// <param name="Array">Coordenadas del punto [X,Y,Z].</param>
         public static void GetPoint(ref double[] Array, string Msg = "Posicionar")
         {
             if (AcadDoc != null)
@@ -177,7 +208,10 @@ namespace FC_BFunctionsAutoCAD
                 {
                     Array = AcadDoc.Utility.GetPoint(Prompt: Msg);
                 }
-                catch { }
+                catch (Exception ex) {
+
+                    NotificadorErrores?.Invoke("Error inesperado.");
+                }
             }
         }
 
@@ -193,23 +227,73 @@ namespace FC_BFunctionsAutoCAD
         /// <param name="Rotation">Ángulo de rotación del texto en grados.</param>
         /// <param name="LineTypeSacale">Tipo de escala de la linea.</param>
         /// <param name="Width2">Ancho del cuadro de Texto.</param>
-        /// <param name="justifyText">Justificación del Texto.</param>
+        /// <param name="JustifyText">Justificación del Texto.</param>
 
-        public static void AddText(string TextString, double[] P_XYZ, double Width, double Height, string Layer, string Style, float Rotation, double LineTypeSacale = 1, double Width2 = 1.3, JustifyText justifyText = JustifyText.Left)
+        public static void AddText(string TextString, double[] P_XYZ, double Width, double Height, string Layer, string Style, float Rotation, double LineTypeSacale = 1, double Width2 = 1.3, JustifyText JustifyText = JustifyText.Left)
+        {
+            try
+            {
+                if (AcadDoc != null)
+                {
+
+                    AcadMText text = AcadDoc.ModelSpace.AddMText(P_XYZ, Width, TextString);
+                    text.Layer = Layer;
+                    text.StyleName = Style;
+                    text.Height = Height;
+                    text.Rotation = Rotation * Math.PI / 180;
+                    text.LinetypeScale = LineTypeSacale;
+                    text.Width = Width2;
+                    text.AttachmentPoint = Clasf_JustyText(JustifyText);
+                    text.Update();
+                }
+            }
+            catch (Exception ex)
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
+            }
+        }
+
+
+        /// <summary>
+        /// Agrega un nuevo texto al documento actual.
+        /// </summary>
+        /// <param name="TextString">Texto a mostrar</param>
+        /// <param name="P_XY">Coordenadas del texto (X,Y) [System.Drawing].</param>
+        /// <param name="Width">Ancho del texto.</param>
+        ///  <param name="Height">Alto del texto.</param>
+        /// <param name="Layer">Capa del texto.</param>
+        /// <param name="Style">Estilo del texto.</param>
+        /// <param name="Rotation">Ángulo de rotación del texto en grados.</param>
+        /// <param name="LineTypeSacale">Tipo de escala de la linea.</param>
+        /// <param name="Width2">Ancho del cuadro de Texto.</param>
+        /// <param name="JustifyText">Justificación del Texto.</param>
+
+        public static void AddText(string TextString, PointF P_XY, double Width, double Height, string Layer, string Style, float Rotation, double LineTypeSacale = 1, double Width2 = 1.3, JustifyText JustifyText = JustifyText.Left)
         {
             if (AcadDoc != null)
             {
-                AcadMText text = AcadDoc.ModelSpace.AddMText(P_XYZ, Width, TextString);
-                text.Layer = Layer;
-                text.StyleName = Style;
-                text.Height = Height;
-                text.Rotation = Rotation * Math.PI / 180;
-                text.LinetypeScale = LineTypeSacale;
-                text.Width = Width2;
-                text.AttachmentPoint = Clasf_JustyText(justifyText);
-                text.Update();
+                try
+                {
+
+                    AcadMText text = AcadDoc.ModelSpace.AddMText(ConvertirPuntoEnDobules3D(P_XY), Width, TextString);
+                    text.Layer = Layer;
+                    text.StyleName = Style;
+                    text.Height = Height;
+                    text.Rotation = Rotation * Math.PI / 180;
+                    text.LinetypeScale = LineTypeSacale;
+                    text.Width = Width2;
+                    text.AttachmentPoint = Clasf_JustyText(JustifyText);
+                    text.Update();
+
+                }
+                catch (Exception ex)
+                {
+                    NotificadorErrores?.Invoke("Error inesperado.");
+                }
             }
         }
+
+
 
         /// <summary>
         /// Añadir nueva cota al documento actual.
@@ -231,43 +315,128 @@ namespace FC_BFunctionsAutoCAD
         public static void AddCota(double[] P1_XYZ, double[] P2_XYZ, string Layer, string Style, float DesplazCota = 0, float DeplazaTextX = 0, float DeplazaTextY = 0, PrecisionCota Precision = PrecisionCota.Dos, string Text = "", double TextHeight = 0.0015,
             double ArrowheadSize = 0.001, ArrowHeadType headType1 = ArrowHeadType.ArrowDot, ArrowHeadType headType2 = ArrowHeadType.ArrowDot, double TextRotation = 0)
         {
-            if (AcadDoc != null && P1_XYZ.Length == 3 && P2_XYZ.Length == 3)
+            try
             {
-                double Rotation_Rad;
-                double X = P2_XYZ[0] - P1_XYZ[0];
-                double Y = P2_XYZ[1] - P1_XYZ[1];
-                //Encontrar Angulo
-                Rotation_Rad = Math.Abs(Math.Atan(Y / X));
-                double DesX = (Distancia(P1_XYZ, P2_XYZ) / 2) * Math.Cos(Rotation_Rad);
-                double DesY = (Distancia(P1_XYZ, P2_XYZ) / 2) * Math.Sin(Rotation_Rad);
-                double DesplazarXCota = DesplazCota * Math.Sin(Rotation_Rad);
-                double DesplazarYCota = DesplazCota * Math.Cos(Rotation_Rad);
-
-                double[] LocationText = new double[] { P1_XYZ[0] + DesX + DesplazarXCota, P1_XYZ[1] + DesY + DesplazarYCota, P1_XYZ[2] + (P2_XYZ[2] - P1_XYZ[2]) / 2 };
-                double[] TextPosition = new double[] { LocationText[0] + DeplazaTextX, LocationText[1] + DeplazaTextY, LocationText[2] };
-
-                AcadDimRotated cota = AcadDoc.ModelSpace.AddDimRotated(P1_XYZ, P2_XYZ, LocationText, Rotation_Rad);
-
-                //Cotas siempre con Puntas Redondas
-
-                cota.Layer = Layer;
-                cota.StyleName = Layer;
-                cota.TextStyle = Style;
-                cota.TextHeight = TextHeight;
-                cota.ArrowheadSize = ArrowheadSize;
-                cota.PrimaryUnitsPrecision = Clasf_precision(Precision);
-                cota.TextPosition = TextPosition;
-                cota.Arrowhead1Type = Clasf_ArrowHeadType(headType1);
-                cota.Arrowhead2Type = Clasf_ArrowHeadType(headType2);
-                cota.TextRotation = TextRotation * Math.PI / 180;
-                if (Text != "")
+                if (AcadDoc != null && P1_XYZ.Length == 3 && P2_XYZ.Length == 3)
                 {
-                    cota.TextOverride = Text;
-                }
+                    double Rotation_Rad;
+                    double X = P2_XYZ[0] - P1_XYZ[0];
+                    double Y = P2_XYZ[1] - P1_XYZ[1];
+                    //Encontrar Angulo
+                    Rotation_Rad = Math.Abs(Math.Atan(Y / X));
+                    double DesX = (Distancia(P1_XYZ, P2_XYZ) / 2) * Math.Cos(Rotation_Rad);
+                    double DesY = (Distancia(P1_XYZ, P2_XYZ) / 2) * Math.Sin(Rotation_Rad);
+                    double DesplazarXCota = DesplazCota * Math.Sin(Rotation_Rad);
+                    double DesplazarYCota = DesplazCota * Math.Cos(Rotation_Rad);
 
-                cota.Update();
+                    double[] LocationText = new double[] { P1_XYZ[0] + DesX + DesplazarXCota, P1_XYZ[1] + DesY + DesplazarYCota, P1_XYZ[2] + (P2_XYZ[2] - P1_XYZ[2]) / 2 };
+                    double[] TextPosition = new double[] { LocationText[0] + DeplazaTextX, LocationText[1] + DeplazaTextY, LocationText[2] };
+
+                    AcadDimRotated cota = AcadDoc.ModelSpace.AddDimRotated(P1_XYZ, P2_XYZ, LocationText, Rotation_Rad);
+
+                    //Cotas siempre con Puntas Redondas
+
+                    cota.Layer = Layer;
+                    cota.StyleName = Layer;
+                    cota.TextStyle = Style;
+                    cota.TextHeight = TextHeight;
+                    cota.ArrowheadSize = ArrowheadSize;
+                    cota.PrimaryUnitsPrecision = Clasf_precision(Precision);
+                    cota.TextPosition = TextPosition;
+                    cota.Arrowhead1Type = Clasf_ArrowHeadType(headType1);
+                    cota.Arrowhead2Type = Clasf_ArrowHeadType(headType2);
+                    cota.TextRotation = TextRotation * Math.PI / 180;
+                    if (Text != "")
+                    {
+                        cota.TextOverride = Text;
+                    }
+
+                    cota.Update();
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
             }
         }
+
+        /// <summary>
+        /// Añadir nueva cota al documento actual.
+        /// </summary>
+        /// <param name="P1_XY">Punto Inicial [System.Drawing]</param>
+        /// <param name="P2_XY">Punto Final [System.Drawing]</param>
+        /// <param name="Layer">Capa de la cota.</param>
+        /// <param name="Style">Estilo de la cota.</param>
+        /// <param name="DesplazCota">Desplazamiento de la Cota perpendicularmente a la línea formada.</param>
+        /// <param name="DeplazaTextX">Desplazamiento en X del texto asociado a la cota</param>
+        /// <param name="DeplazaTextY">Desplazamiento en Y del texto asociado a la cota</param>
+        /// <param name="Precision">Cantidad de decimales de la cota. Ejemplo: (0,0.0,0.00,0.000)</param>
+        /// <param name="Text">Cambia la medición original al texto establecido.</param>
+        /// <param name="TextHeight">Alto del texto.</param>
+        /// <param name="ArrowheadSize">Tamaño de las puntas de la cota.</param>
+        /// <param name="headType1">Tipo de cabeza de la cota en la punta inicial.</param>
+        /// <param name="headType2">Tipo de cabeza de la cota en la punta final.</param>
+        /// <param name="TextRotation">Angulo de rotación en grados del texto.</param>
+        /// <param name="RA">Aplicar rotación automatica.</param>
+        public static void AddCota(PointF P1_XY, PointF P2_XY, string Layer, string Style, float DesplazCota = 0, float DeplazaTextX = 0, float DeplazaTextY = 0, PrecisionCota Precision = PrecisionCota.Dos, string Text = "", double TextHeight = 0.0015,
+            double ArrowheadSize = 0.001, ArrowHeadType headType1 = ArrowHeadType.ArrowDot, ArrowHeadType headType2 = ArrowHeadType.ArrowDot, double TextRotation = 0, bool RA = true)
+        {
+            try
+            {
+                double[] P1_XYZ = ConvertirPuntoEnDobules3D(P1_XY);
+                double[] P2_XYZ = ConvertirPuntoEnDobules3D(P2_XY);
+                if (AcadDoc != null && P1_XYZ.Length == 3 && P2_XYZ.Length == 3)
+                {
+                    double Rotation_Rad;
+                    double X = P2_XYZ[0] - P1_XYZ[0];
+                    double Y = P2_XYZ[1] - P1_XYZ[1];
+                    //Encontrar Angulo
+                    Rotation_Rad = Math.Abs(Math.Atan(Y / X));
+                    double DesX = (Distancia(P1_XYZ, P2_XYZ) / 2) * Math.Cos(Rotation_Rad);
+                    double DesY = (Distancia(P1_XYZ, P2_XYZ) / 2) * Math.Sin(Rotation_Rad);
+                    double DesplazarXCota = DesplazCota * Math.Sin(Rotation_Rad);
+                    double DesplazarYCota = DesplazCota * Math.Cos(Rotation_Rad);
+
+                    double[] LocationText = new double[] { P1_XYZ[0] + DesX + DesplazarXCota, P1_XYZ[1] + DesY + DesplazarYCota, P1_XYZ[2] + (P2_XYZ[2] - P1_XYZ[2]) / 2 };
+                    double[] TextPosition = new double[] { LocationText[0] + DeplazaTextX, LocationText[1] + DeplazaTextY, LocationText[2] };
+                    if (!RA)
+                        Rotation_Rad = 0;
+                    AcadDimRotated cota = AcadDoc.ModelSpace.AddDimRotated(P1_XYZ, P2_XYZ, LocationText, Rotation_Rad);
+
+                    //Cotas siempre con Puntas Redondas
+
+                    cota.Layer = Layer;
+                    cota.StyleName = Layer;
+                    cota.TextStyle = Style;
+                    cota.TextHeight = TextHeight;
+                    cota.ArrowheadSize = ArrowheadSize;
+                    cota.PrimaryUnitsPrecision = Clasf_precision(Precision);
+                    cota.TextPosition = TextPosition;
+                    cota.Arrowhead1Type = Clasf_ArrowHeadType(headType1);
+                    cota.Arrowhead2Type = Clasf_ArrowHeadType(headType2);
+                    cota.TextRotation = TextRotation * Math.PI / 180;
+                    if (Text != "")
+                    {
+                        cota.TextOverride = Text;
+                    }
+
+                    cota.Update();
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
+            }
+        }
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Crear un nuevo Polígono en 2D.
@@ -277,14 +446,47 @@ namespace FC_BFunctionsAutoCAD
         /// <param name="Closed">Establece si el polígono es cerrado</param>
         public static void AddPolyline2D(double[] VerticesList, string Layer, bool Closed = true)
         {
-            if (AcadDoc != null)
+            try
             {
-                AcadLWPolyline polyline = AcadDoc.ModelSpace.AddLightWeightPolyline(VerticesList);
-                polyline.Layer = Layer;
-                polyline.Closed = Closed;
-                polyline.Update();
+                if (AcadDoc != null)
+                {
+                    AcadLWPolyline polyline = AcadDoc.ModelSpace.AddLightWeightPolyline(VerticesList);
+                    polyline.Layer = Layer;
+                    polyline.Closed = Closed;
+                    polyline.Update();
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
             }
         }
+
+
+        /// <summary>
+        /// Crear un nuevo Polígono en 2D.
+        /// </summary>
+        /// <param name="VerticesList">Vertices del polígono. [System.Drawing]</param>
+        /// <param name="Layer">Capa del Polígono</param>
+        /// <param name="Closed">Establece si el polígono es cerrado</param>
+        public static void AddPolyline2D(PointF[] VerticesList, string Layer, bool Closed = true)
+        {
+            try
+            {
+                if (AcadDoc != null)
+                {
+                    AcadLWPolyline polyline = AcadDoc.ModelSpace.AddLightWeightPolyline(ConvertirPuntosEnDoubles(VerticesList));
+                    polyline.Layer = Layer;
+                    polyline.Closed = Closed;
+                    polyline.Update();
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
+            }
+        }
+
 
         /// <summary>
         /// Crear una circunferencia
@@ -292,13 +494,20 @@ namespace FC_BFunctionsAutoCAD
         /// <param name="Center">Insertion point del cirvulo. Ejemplo: (x,y,z)</param>
         /// <param name="Layer">Capa del Polígono</param>
         /// <param name="Radio">Radio de la circunferencia</param>
-        public static void AddCircle(double [] Center, double Radio,string Layer)
+        public static void AddCircle(double[] Center, double Radio, string Layer)
         {
-            if (AcadDoc != null)
+            try
             {
-                AcadCircle acadCircle = AcadDoc.ModelSpace.AddCircle(Center, Radio);
-                acadCircle.Layer = Layer;
-                acadCircle.Update();
+                if (AcadDoc != null)
+                {
+                    AcadCircle acadCircle = AcadDoc.ModelSpace.AddCircle(Center, Radio);
+                    acadCircle.Layer = Layer;
+                    acadCircle.Update();
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
             }
         }
 
@@ -316,15 +525,31 @@ namespace FC_BFunctionsAutoCAD
         /// <param name="PatternAngle">Angulo del tipo de Hatch</param>
         public static void AddPolyline2D(double[] VerticesList, string Layer, string Pattern, string LayerHatch, double ScaleHacth, double PatternScale = 0.009, float PatternAngle = 45)
         {
-            if (AcadDoc != null)
+            try
             {
-                AcadLWPolyline polyline = AcadDoc.ModelSpace.AddLightWeightPolyline(VerticesList);
-                polyline.Layer = Layer;
-                polyline.Closed = true;
-                AddHatch((AcadEntity)polyline, Pattern, LayerHatch, ScaleHacth, PatternScale, PatternAngle);
-                polyline.Update();
+                if (AcadDoc != null)
+                {
+                    AcadLWPolyline polyline = AcadDoc.ModelSpace.AddLightWeightPolyline(VerticesList);
+                    polyline.Layer = Layer;
+                    polyline.Closed = true;
+                    AddHatch((AcadEntity)polyline, Pattern, LayerHatch, ScaleHacth, PatternScale, PatternAngle);
+                    polyline.Update();
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
             }
         }
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         ///  Añadir un nuevo Poligono y un texto representado el largo de este.
@@ -342,15 +567,57 @@ namespace FC_BFunctionsAutoCAD
 
         public static void AddPolyline2DWithLengthText(double[] VerticesPolyline, string LayerPolyline, string TextString, double[] PText_XYZ, double Width, double Height, string LayerText, string StyleText, float Rotation, double Width2 = 1.3)
         {
-            if (AcadDoc != null)
+            try
             {
-                AcadLWPolyline polyline = AcadDoc.ModelSpace.AddLightWeightPolyline(VerticesPolyline);
-                polyline.Layer = LayerPolyline;
-                polyline.Update();
-                TextString += @"%<\AcObjProp Object(%<\_ObjId " + polyline.ObjectID + @">%).Length \f " + (char)(34) + "%lu2%pr2" + (char)(34) + ">%";
-                AddText(TextString, PText_XYZ, Width, Height, LayerText, StyleText, Rotation, Width2: Width2);
+                if (AcadDoc != null)
+                {
+                    AcadLWPolyline polyline = AcadDoc.ModelSpace.AddLightWeightPolyline(VerticesPolyline);
+                    polyline.Layer = LayerPolyline;
+                    polyline.Update();
+                    TextString += @"%<\AcObjProp Object(%<\_ObjId " + polyline.ObjectID + @">%).Length \f " + (char)(34) + "%lu2%pr2" + (char)(34) + ">%";
+                    AddText(TextString, PText_XYZ, Width, Height, LayerText, StyleText, Rotation, Width2: Width2);
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
             }
         }
+
+
+
+        /// <summary>
+        ///  Añadir un nuevo Poligono y un texto representado el largo de este.
+        /// </summary>
+        /// <param name="VerticesPolyline">Vertices del polígono. [System.Drawing]</param>
+        /// <param name="LayerPolyline">Capa del Polígono</param>
+        /// <param name="TextString">Texto adicional al largo del Polígono</param>
+        /// <param name="PText_XYZ">Coordenadas del texto (X,Y,Z).</param>
+        /// <param name="Width">Alto del Texto.</param>
+        /// <param name="Height">Ancho del Texto.</param>
+        /// <param name="LayerText">Capa del Texto.</param>
+        /// <param name="StyleText">Estilo del Texto</param>
+        /// <param name="Rotation">Ángulo de rotación del texto en grados </param>
+        /// <param name="Width2">Ancho del cuadro de Texto.</param>
+        /// <param name="JustifyText">Justificación del Texto.</param>
+        public static void AddPolyline2DWithLengthText(PointF[] VerticesPolyline, string LayerPolyline, string TextString, double[] PText_XYZ, double Width, double Height, string LayerText, string StyleText, float Rotation, double Width2 = 1.3, JustifyText JustifyText = JustifyText.Left)
+        {
+            try {
+                if (AcadDoc != null)
+                {
+                    AcadLWPolyline polyline = AcadDoc.ModelSpace.AddLightWeightPolyline(ConvertirPuntosEnDoubles(VerticesPolyline));
+                    polyline.Layer = LayerPolyline;
+                    polyline.Update();
+                    TextString += @"%<\AcObjProp Object(%<\_ObjId " + polyline.ObjectID + @">%).Length \f " + (char)(34) + "%lu2%pr2" + (char)(34) + ">%";
+                    AddText(TextString, PText_XYZ, Width, Height, LayerText, StyleText, Rotation, Width2: Width2, JustifyText: JustifyText);
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
+            }
+        }
+
 
         //BLOQUES ESPECIFICOS DE EFE PRIMA CE
 
@@ -370,55 +637,70 @@ namespace FC_BFunctionsAutoCAD
 
         public static void B_NivelSeccion(double[] P_XYZ, string Nivel, double Distance1, double Distance2, bool FlipSate1, string Layer, double Xscale, double Yscale, double Zscale, float Rotation)
         {
-            if (AcadDoc != null)
+
+            try
             {
-                AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(P_XYZ, "FC_B_Nivel seccion", Xscale, Yscale, Zscale, Rotation);
-                blockReference.Layer = Layer;
-
-                var referenceProperty = blockReference.GetDynamicBlockProperties();
-                var attributeReference = blockReference.GetAttributes();
-
-                referenceProperty[0].Value = Distance1;
-                referenceProperty[2].Value = Distance2;
-
-                if (FlipSate1 == true)
+                if (AcadDoc != null)
                 {
-                    referenceProperty[4].Value = Convert.ToInt16(1);
-                }
+                    AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(P_XYZ, "FC_B_Nivel seccion", Xscale, Yscale, Zscale, Rotation);
+                    blockReference.Layer = Layer;
 
-                attributeReference[0].TextString = Nivel;
-                blockReference.Update();
+                    var referenceProperty = blockReference.GetDynamicBlockProperties();
+                    var attributeReference = blockReference.GetAttributes();
+
+                    referenceProperty[0].Value = Distance1;
+                    referenceProperty[2].Value = Distance2;
+
+                    if (FlipSate1 == true)
+                    {
+                        referenceProperty[4].Value = Convert.ToInt16(1);
+                    }
+
+                    attributeReference[0].TextString = Nivel;
+                    blockReference.Update();
+                }
+            }
+            catch (Exception ex)
+            {
+                NotificadorErrores?.Invoke(ex.Message);
             }
         }
 
         /// <summary>
         /// Bloque: Nombre de Sección - Efe Prima Ce
         /// </summary>
-        public static void B_NombreSeccion(double[] P_XYZ, string Seccion,string Escala, string Layer, double Xscale, double Yscale, double Zscale, float Rotation)
+        public static void B_NombreSeccion(double[] P_XYZ, string Seccion, string Escala, string Layer, double Xscale, double Yscale, double Zscale, float Rotation)
         {
-            if (AcadDoc != null)
+
+            try
             {
-                AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(P_XYZ, "FC_B_Titulo 1", Xscale, Yscale, Zscale, Rotation);
-                blockReference.Layer = Layer;
-
-                
-                var attributeReference = blockReference.GetAttributes();
-
-                double Distance1 = (Seccion.Length - 3) * 0.05f;
-
-                attributeReference[0].TextString = Seccion;
-                attributeReference[1].TextString = Escala;
+                if (AcadDoc != null)
+                {
+                    AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(P_XYZ, "FC_B_Titulo 1", Xscale, Yscale, Zscale, Rotation);
+                    blockReference.Layer = Layer;
 
 
+                    var attributeReference = blockReference.GetAttributes();
 
-                var referenceProperty = blockReference.GetDynamicBlockProperties();
-                referenceProperty[0].Value = Distance1;
+                    double Distance1 = (Seccion.Length - 3) * 0.05f;
 
-                blockReference.Update();
+                    attributeReference[0].TextString = Seccion;
+                    attributeReference[1].TextString = Escala;
+
+
+
+                    var referenceProperty = blockReference.GetDynamicBlockProperties();
+                    referenceProperty[0].Value = Distance1;
+
+                    blockReference.Update();
+                }
             }
-
+            catch (Exception ex)
+            {
+                NotificadorErrores?.Invoke(ex.Message);
+            }
         }
-        
+
         /// <summary>
         /// Bloque: Corte de Sección - Efe Prima Ce
         /// </summary>
@@ -462,6 +744,38 @@ namespace FC_BFunctionsAutoCAD
                 blockReference.Update();
             }
         }
+
+
+        /// <summary>
+        /// Bloque: Eje en Vigas y Nervios - efe Prima Ce
+        /// </summary>
+        /// <param name="P_XY">Coordenadas del Bloque [Sytem.Drawing]</param>
+        /// <param name="Texto">Texto correspondiente al eje.</param>
+        /// <param name="Layer">Capa del Bloque.</param>
+        /// <param name="Xscale">Escala en X del Bloque.</param>
+        /// <param name="Yscale">Escala en Y del Bloque.</param>
+        /// <param name="Zscale">Escala en Z del Bloque.</param>
+        /// <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        public static void B_Ejes(PointF P_XY, string Texto, string Layer, double Xscale, double Yscale, double Zscale, double Rotation)
+        {
+            try
+            {
+                if (AcadDoc != null)
+                {
+                    double[] P_XYZ = ConvertirPuntoEnDobules3D(P_XY);
+                    AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(P_XYZ, "FC_B_Eje", Xscale, Yscale, Zscale, Rotation);
+                    blockReference.Layer = Layer;
+                    var attributeReference = blockReference.GetAttributes();
+                    attributeReference[0].TextString = Texto;
+                    blockReference.Update();
+                }
+            }
+            catch (Exception ex)
+            {
+                NotificadorErrores?.Invoke(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// Bloque: Estibo de Sección - Efe Prima Ce
@@ -526,8 +840,6 @@ namespace FC_BFunctionsAutoCAD
             blockReference.Layer = Layer;
             blockReference.Update();
         }
-
-        
 
         private static void AddHatch(AcadEntity entity, string Pattern, string LayerHatch, double ScaleHacth, double PatternScale, double PatternAngle)
         {
@@ -611,5 +923,22 @@ namespace FC_BFunctionsAutoCAD
                 return 0;
             }
         }
+
+        private static double[] ConvertirPuntosEnDoubles(PointF[] Puntos)
+        {
+            List<double> PuntosF = new List<double>();
+            foreach (PointF Punto in Puntos)
+            {
+                PuntosF.Add(Punto.X); PuntosF.Add(Punto.Y);
+            }
+            return PuntosF.ToArray();
+        }
+
+        private static double[] ConvertirPuntoEnDobules3D(PointF XY)
+        {
+            return new double[] { XY.X, XY.Y,0 };
+        }
+
+
     }
 }

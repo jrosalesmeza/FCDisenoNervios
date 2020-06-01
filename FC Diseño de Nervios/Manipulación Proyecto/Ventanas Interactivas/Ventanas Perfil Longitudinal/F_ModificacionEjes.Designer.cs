@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_ModificacionEjes));
             this.P_1 = new System.Windows.Forms.Panel();
             this.LB_ModEjes = new FontAwesome.Sharp.IconButton();
             this.DGV_1 = new System.Windows.Forms.DataGridView();
@@ -226,6 +227,7 @@
             this.Controls.Add(this.P_1);
             this.Controls.Add(this.P_2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(264, 318);
             this.MinimumSize = new System.Drawing.Size(264, 318);
             this.Name = "F_ModificacionEjes";

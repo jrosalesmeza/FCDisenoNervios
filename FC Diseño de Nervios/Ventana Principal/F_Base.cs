@@ -1,4 +1,5 @@
 ﻿using B_FC_DiseñoVigas;
+using FC_BFunctionsAutoCAD;
 using FC_Diseño_de_Nervios.Manipulación_Proyecto;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,7 @@ namespace FC_Diseño_de_Nervios
             cFunctionsProgram.Notificador += CFunctionsProgram_Notificador;
             DiseñoYRevisonVigasRectangulares.Notificador += NotificadorDeCalculos;
             cFunctionsProgram.EventoVentanaEmergente += CFunctionsProgram_EventoVentanaEmergente;
+            FunctionsAutoCAD.NotificadorErrores += FunctionsAutoCAD_NotificadorErrores;
             new cDiccionarios();
             DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
             T_Timer.Start();
@@ -63,6 +65,8 @@ namespace FC_Diseño_de_Nervios
 
             F_Base_ = this;
         }
+
+ 
         #region Proyecto
         public static cProyecto Proyecto;
 
@@ -397,7 +401,10 @@ namespace FC_Diseño_de_Nervios
         {
             
         }
-
+        private void FunctionsAutoCAD_NotificadorErrores(string Alert)
+        {
+            MessageBox.Show(Alert, cFunctionsProgram.Empresa, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
         private void CFunctionsProgram_EventoVentanaEmergente(string Alert, MessageBoxIcon Icono)
         {
             MessageBox.Show(Alert, cFunctionsProgram.Empresa, MessageBoxButtons.OK, Icono);
@@ -436,25 +443,49 @@ namespace FC_Diseño_de_Nervios
                 if (Proyecto.Edificio != null && Proyecto.Edificio.PisoSelect != null && Proyecto.Edificio.PisoSelect.Nervios != null)
                 {
                     selecciónDeNerviosToolStripMenuItem.Enabled = true;
+
+                    
                     if (Proyecto.Edificio.PisoSelect.NervioSelect != null)
                     {
                         esquemaToolStripMenuItem.Enabled = true;
                         diagramasToolStripMenuItem.Enabled = true;
                         TSB_SelectCombinaciones.Enabled = true;
+                        tendenciasToolStripMenuItem.Enabled = true;
+                        TSB_DiseñarNervio.Enabled = true;
+                        TSB_DiseñarNervios.Enabled = true;
+                        TSB_DiseñarAllNervio.Enabled = true;
+                        TLSB_GraficarNervioActual.Enabled = true;
+                        TLSB_GraficarNerviosAutoCAD.Enabled = true;
+                        TLSB_GraficarAllNervios.Enabled = true;
                     }
                     else
                     {
+                        tendenciasToolStripMenuItem.Enabled = false;
                         esquemaToolStripMenuItem.Enabled = false;
                         diagramasToolStripMenuItem.Enabled = false;
                         TSB_SelectCombinaciones.Enabled = false;
+                        TSB_DiseñarNervio.Enabled = false;
+                        TSB_DiseñarNervios.Enabled = false;
+                        TSB_DiseñarAllNervio.Enabled = false;
+                        TLSB_GraficarNervioActual.Enabled = false;
+                        TLSB_GraficarNerviosAutoCAD.Enabled = false;
+                        TLSB_GraficarAllNervios.Enabled = false;
                     }
                 }
                 else
                 {
+                    tendenciasToolStripMenuItem.Enabled = false;
                     esquemaToolStripMenuItem.Enabled = false;
                     diagramasToolStripMenuItem.Enabled = false;
                     selecciónDeNerviosToolStripMenuItem.Enabled = false;
                     TSB_SelectCombinaciones.Enabled = false;
+                    TSB_SelectCombinaciones.Enabled = false;
+                    TSB_DiseñarNervio.Enabled = false;
+                    TSB_DiseñarNervios.Enabled = false;
+                    TSB_DiseñarAllNervio.Enabled = false;
+                    TLSB_GraficarNervioActual.Enabled = false;
+                    TLSB_GraficarNerviosAutoCAD.Enabled = false;
+                    TLSB_GraficarAllNervios.Enabled = false;
                 }
                 CambiosTimer_3_F_EnumeracionPortico_Proyecto();
                 BloqueoDesbloqueoBotones(true);
@@ -472,6 +503,15 @@ namespace FC_Diseño_de_Nervios
                 esquemaToolStripMenuItem.Enabled = false;
                 diagramasToolStripMenuItem.Enabled = false;
                 selecciónDeNerviosToolStripMenuItem.Enabled = false;
+                TSB_SelectCombinaciones.Enabled = false;
+                TSB_SelectCombinaciones.Enabled = false;
+                TSB_DiseñarNervio.Enabled = false;
+                TSB_DiseñarNervios.Enabled = false;
+                TSB_DiseñarAllNervio.Enabled = false;
+                TLSB_GraficarNervioActual.Enabled = false;
+                TLSB_GraficarNerviosAutoCAD.Enabled = false;
+                TLSB_GraficarAllNervios.Enabled = false;
+                tendenciasToolStripMenuItem.Enabled = false;
                 BloqueoDesbloqueoBotones(false);
             }
         }
@@ -756,44 +796,46 @@ namespace FC_Diseño_de_Nervios
             VentanaEmergente(ref F_PropiedadesProyecto);
         }
       
-        private void diseñarNervioActualToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TSB_DiseñarNervio_Click(object sender, EventArgs e)
         {
             cFunctionsProgram.DiseñarNervio(Proyecto.Edificio.PisoSelect.NervioSelect);
             ActualizarTodosLasVentanas();
         }
-        private void nerviosToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void TSB_DiseñarNervios_Click(object sender, EventArgs e)
         {
 
         }
-        private void todosLosNerviosToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void TSB_DiseñarAllNervio_Click(object sender, EventArgs e)
         {
-            foreach (cNervio Nervio in Proyecto.Edificio.PisoSelect.Nervios)
-            {
-                Proyecto.Edificio.PisoSelect.NervioSelect = Nervio;
-                cFunctionsProgram.DiseñarNervio(Nervio);
-            }
+            cFunctionsProgram.DiseñarNervios(Proyecto.Edificio.PisoSelect.Nervios);
             ActualizarTodosLasVentanas();
         }
-        private void TLS_ButtonProgramador_Click(object sender, EventArgs e)
+
+        private void TLSB_GraficarNervioActual_Click(object sender, EventArgs e)
+        {
+            cFunctionsProgram.GraficarNervios(new List<cNervio>() { Proyecto.Edificio.PisoSelect.NervioSelect});
+        }
+
+        private void TLSB_GraficarNerviosAutoCAD_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void TLSB_GraficarAllNervios_Click(object sender, EventArgs e)
+        {
+            cFunctionsProgram.GraficarNervios(Proyecto.Edificio.PisoSelect.Nervios);
+        }
+
+        private void tendenciasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_Tendencia F_Tendencia = new F_Tendencia();
+            F_Tendencia.ShowDialog();
         }
 
 
         #endregion Eventos de MenuStrip y ToolStrip
-
-
-
-        //private void SerializarConfigVentana()
-        //{
-
-        //    string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "FC Nervios Ventanas.config");
-        //    DP_ContenedorPrincipal.SaveAsXml(path);
-
-        //}
-
-
-
 
 
 
@@ -847,6 +889,6 @@ namespace FC_Diseño_de_Nervios
 
         }
 
-
+  
     }
 }

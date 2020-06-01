@@ -45,25 +45,25 @@
             this.BT_Der = new FontAwesome.Sharp.IconButton();
             this.TB_2 = new System.Windows.Forms.TextBox();
             this.BT_Izq = new FontAwesome.Sharp.IconButton();
+            this.RB_0D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.TB_Longitud = new System.Windows.Forms.TextBox();
             this.LB_3 = new System.Windows.Forms.Label();
+            this.RB_90D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.Barra_1 = new FC_Diseño_de_Nervios.Controles.Control_Barra();
+            this.RB_180D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.LB_13 = new System.Windows.Forms.Label();
             this.LB_8 = new System.Windows.Forms.Label();
+            this.RB_180I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.LB_9 = new System.Windows.Forms.Label();
             this.LB_6 = new System.Windows.Forms.Label();
             this.LB_10 = new System.Windows.Forms.Label();
             this.LB_5 = new System.Windows.Forms.Label();
+            this.RB_0I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.LB_4 = new System.Windows.Forms.Label();
+            this.RB_90I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.LB_12 = new System.Windows.Forms.Label();
             this.LB_Presición = new System.Windows.Forms.Label();
             this.LB_11 = new System.Windows.Forms.Label();
-            this.RB_0D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
-            this.RB_90D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
-            this.Barra_1 = new FC_Diseño_de_Nervios.Controles.Control_Barra();
-            this.RB_180D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
-            this.RB_180I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
-            this.RB_0I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
-            this.RB_90I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.P_2.SuspendLayout();
             this.P_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUP_Cantidad)).BeginInit();
@@ -288,6 +288,19 @@
             this.BT_Izq.UseVisualStyleBackColor = true;
             this.BT_Izq.Click += new System.EventHandler(this.BT_Izq_Click);
             // 
+            // RB_0D
+            // 
+            this.RB_0D.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_0D.GroupName = "1";
+            this.RB_0D.Image = ((System.Drawing.Image)(resources.GetObject("RB_0D.Image")));
+            this.RB_0D.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_0D.Location = new System.Drawing.Point(291, 171);
+            this.RB_0D.Name = "RB_0D";
+            this.RB_0D.Size = new System.Drawing.Size(30, 17);
+            this.RB_0D.TabIndex = 54;
+            this.RB_0D.UseVisualStyleBackColor = true;
+            this.RB_0D.CheckedChanged += new System.EventHandler(this.RB_0D_CheckedChanged);
+            // 
             // TB_Longitud
             // 
             this.TB_Longitud.Location = new System.Drawing.Point(189, 17);
@@ -305,119 +318,6 @@
             this.LB_3.Size = new System.Drawing.Size(48, 14);
             this.LB_3.TabIndex = 14;
             this.LB_3.Text = "Derecha";
-            // 
-            // LB_13
-            // 
-            this.LB_13.AutoSize = true;
-            this.LB_13.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_13.Location = new System.Drawing.Point(98, 20);
-            this.LB_13.Name = "LB_13";
-            this.LB_13.Size = new System.Drawing.Size(83, 14);
-            this.LB_13.TabIndex = 41;
-            this.LB_13.Text = "Longitud Recta:";
-            // 
-            // LB_8
-            // 
-            this.LB_8.AutoSize = true;
-            this.LB_8.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_8.Location = new System.Drawing.Point(216, 191);
-            this.LB_8.Name = "LB_8";
-            this.LB_8.Size = new System.Drawing.Size(29, 14);
-            this.LB_8.TabIndex = 49;
-            this.LB_8.Text = "180°";
-            // 
-            // LB_9
-            // 
-            this.LB_9.AutoSize = true;
-            this.LB_9.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_9.Location = new System.Drawing.Point(259, 191);
-            this.LB_9.Name = "LB_9";
-            this.LB_9.Size = new System.Drawing.Size(23, 14);
-            this.LB_9.TabIndex = 50;
-            this.LB_9.Text = "90°";
-            // 
-            // LB_6
-            // 
-            this.LB_6.AutoSize = true;
-            this.LB_6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_6.Location = new System.Drawing.Point(108, 191);
-            this.LB_6.Name = "LB_6";
-            this.LB_6.Size = new System.Drawing.Size(17, 14);
-            this.LB_6.TabIndex = 22;
-            this.LB_6.Text = "0°";
-            // 
-            // LB_10
-            // 
-            this.LB_10.AutoSize = true;
-            this.LB_10.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_10.Location = new System.Drawing.Point(298, 191);
-            this.LB_10.Name = "LB_10";
-            this.LB_10.Size = new System.Drawing.Size(17, 14);
-            this.LB_10.TabIndex = 51;
-            this.LB_10.Text = "0°";
-            // 
-            // LB_5
-            // 
-            this.LB_5.AutoSize = true;
-            this.LB_5.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_5.Location = new System.Drawing.Point(69, 191);
-            this.LB_5.Name = "LB_5";
-            this.LB_5.Size = new System.Drawing.Size(23, 14);
-            this.LB_5.TabIndex = 21;
-            this.LB_5.Text = "90°";
-            // 
-            // LB_4
-            // 
-            this.LB_4.AutoSize = true;
-            this.LB_4.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_4.Location = new System.Drawing.Point(26, 191);
-            this.LB_4.Name = "LB_4";
-            this.LB_4.Size = new System.Drawing.Size(29, 14);
-            this.LB_4.TabIndex = 20;
-            this.LB_4.Text = "180°";
-            // 
-            // LB_12
-            // 
-            this.LB_12.AutoSize = true;
-            this.LB_12.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_12.Location = new System.Drawing.Point(132, 265);
-            this.LB_12.Name = "LB_12";
-            this.LB_12.Size = new System.Drawing.Size(43, 14);
-            this.LB_12.TabIndex = 39;
-            this.LB_12.Text = "# Barra";
-            // 
-            // LB_Presición
-            // 
-            this.LB_Presición.AutoSize = true;
-            this.LB_Presición.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_Presición.Location = new System.Drawing.Point(266, 265);
-            this.LB_Presición.Name = "LB_Presición";
-            this.LB_Presición.Size = new System.Drawing.Size(54, 14);
-            this.LB_Presición.TabIndex = 34;
-            this.LB_Presición.Text = "Precisión:";
-            // 
-            // LB_11
-            // 
-            this.LB_11.AutoSize = true;
-            this.LB_11.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_11.Location = new System.Drawing.Point(15, 265);
-            this.LB_11.Name = "LB_11";
-            this.LB_11.Size = new System.Drawing.Size(53, 14);
-            this.LB_11.TabIndex = 36;
-            this.LB_11.Text = "Cantidad:";
-            // 
-            // RB_0D
-            // 
-            this.RB_0D.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_0D.GroupName = "1";
-            this.RB_0D.Image = ((System.Drawing.Image)(resources.GetObject("RB_0D.Image")));
-            this.RB_0D.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_0D.Location = new System.Drawing.Point(291, 171);
-            this.RB_0D.Name = "RB_0D";
-            this.RB_0D.Size = new System.Drawing.Size(30, 17);
-            this.RB_0D.TabIndex = 54;
-            this.RB_0D.UseVisualStyleBackColor = true;
-            this.RB_0D.CheckedChanged += new System.EventHandler(this.RB_0D_CheckedChanged);
             // 
             // RB_90D
             // 
@@ -462,6 +362,26 @@
             this.RB_180D.UseVisualStyleBackColor = true;
             this.RB_180D.CheckedChanged += new System.EventHandler(this.RB_180D_CheckedChanged);
             // 
+            // LB_13
+            // 
+            this.LB_13.AutoSize = true;
+            this.LB_13.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_13.Location = new System.Drawing.Point(98, 20);
+            this.LB_13.Name = "LB_13";
+            this.LB_13.Size = new System.Drawing.Size(83, 14);
+            this.LB_13.TabIndex = 41;
+            this.LB_13.Text = "Longitud Recta:";
+            // 
+            // LB_8
+            // 
+            this.LB_8.AutoSize = true;
+            this.LB_8.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_8.Location = new System.Drawing.Point(216, 191);
+            this.LB_8.Name = "LB_8";
+            this.LB_8.Size = new System.Drawing.Size(29, 14);
+            this.LB_8.TabIndex = 49;
+            this.LB_8.Text = "180°";
+            // 
             // RB_180I
             // 
             this.RB_180I.Appearance = System.Windows.Forms.Appearance.Button;
@@ -476,6 +396,46 @@
             this.RB_180I.UseVisualStyleBackColor = true;
             this.RB_180I.CheckedChanged += new System.EventHandler(this.RB_180I_CheckedChanged);
             // 
+            // LB_9
+            // 
+            this.LB_9.AutoSize = true;
+            this.LB_9.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_9.Location = new System.Drawing.Point(259, 191);
+            this.LB_9.Name = "LB_9";
+            this.LB_9.Size = new System.Drawing.Size(23, 14);
+            this.LB_9.TabIndex = 50;
+            this.LB_9.Text = "90°";
+            // 
+            // LB_6
+            // 
+            this.LB_6.AutoSize = true;
+            this.LB_6.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_6.Location = new System.Drawing.Point(108, 191);
+            this.LB_6.Name = "LB_6";
+            this.LB_6.Size = new System.Drawing.Size(17, 14);
+            this.LB_6.TabIndex = 22;
+            this.LB_6.Text = "0°";
+            // 
+            // LB_10
+            // 
+            this.LB_10.AutoSize = true;
+            this.LB_10.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_10.Location = new System.Drawing.Point(298, 191);
+            this.LB_10.Name = "LB_10";
+            this.LB_10.Size = new System.Drawing.Size(17, 14);
+            this.LB_10.TabIndex = 51;
+            this.LB_10.Text = "0°";
+            // 
+            // LB_5
+            // 
+            this.LB_5.AutoSize = true;
+            this.LB_5.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_5.Location = new System.Drawing.Point(69, 191);
+            this.LB_5.Name = "LB_5";
+            this.LB_5.Size = new System.Drawing.Size(23, 14);
+            this.LB_5.TabIndex = 21;
+            this.LB_5.Text = "90°";
+            // 
             // RB_0I
             // 
             this.RB_0I.Appearance = System.Windows.Forms.Appearance.Button;
@@ -488,6 +448,16 @@
             this.RB_0I.TabIndex = 48;
             this.RB_0I.UseVisualStyleBackColor = true;
             this.RB_0I.CheckedChanged += new System.EventHandler(this.RB_0I_CheckedChanged);
+            // 
+            // LB_4
+            // 
+            this.LB_4.AutoSize = true;
+            this.LB_4.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_4.Location = new System.Drawing.Point(26, 191);
+            this.LB_4.Name = "LB_4";
+            this.LB_4.Size = new System.Drawing.Size(29, 14);
+            this.LB_4.TabIndex = 20;
+            this.LB_4.Text = "180°";
             // 
             // RB_90I
             // 
@@ -502,6 +472,36 @@
             this.RB_90I.UseVisualStyleBackColor = true;
             this.RB_90I.CheckedChanged += new System.EventHandler(this.RB_90I_CheckedChanged);
             // 
+            // LB_12
+            // 
+            this.LB_12.AutoSize = true;
+            this.LB_12.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_12.Location = new System.Drawing.Point(132, 265);
+            this.LB_12.Name = "LB_12";
+            this.LB_12.Size = new System.Drawing.Size(43, 14);
+            this.LB_12.TabIndex = 39;
+            this.LB_12.Text = "# Barra";
+            // 
+            // LB_Presición
+            // 
+            this.LB_Presición.AutoSize = true;
+            this.LB_Presición.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_Presición.Location = new System.Drawing.Point(266, 265);
+            this.LB_Presición.Name = "LB_Presición";
+            this.LB_Presición.Size = new System.Drawing.Size(54, 14);
+            this.LB_Presición.TabIndex = 34;
+            this.LB_Presición.Text = "Precisión:";
+            // 
+            // LB_11
+            // 
+            this.LB_11.AutoSize = true;
+            this.LB_11.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_11.Location = new System.Drawing.Point(15, 265);
+            this.LB_11.Name = "LB_11";
+            this.LB_11.Size = new System.Drawing.Size(53, 14);
+            this.LB_11.TabIndex = 36;
+            this.LB_11.Text = "Cantidad:";
+            // 
             // F_SeleccionBarras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -510,6 +510,7 @@
             this.Controls.Add(this.P_2);
             this.Controls.Add(this.P_1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_SeleccionBarras";
             this.Text = "F_SeleccionBarras";
             this.P_2.ResumeLayout(false);

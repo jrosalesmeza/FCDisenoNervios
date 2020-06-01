@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_Diseño_de_Nervios.Ventana_Principal.Nuevo_Proyecto;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -39,7 +40,7 @@ namespace FC_Diseño_de_Nervios
         public void CargarListView()
         {
             cDatosEtabs DatosEtabs = F_Base.Proyecto.DatosEtabs;
-            LV_Stories.Clear();
+            LV_Stories.Clear(); 
             foreach (cPiso Piso in DatosEtabs.Lista_Pisos)
             {
                 ListViewItem item = new ListViewItem(Piso.Nombre); item.Name = Piso.Nombre;
@@ -335,6 +336,7 @@ namespace FC_Diseño_de_Nervios
 
         private void BT_Enumerar_Click(object sender, EventArgs e)
         {
+            cFunctionsProgram.Notificar("Cargando, Creando Nervios.");
             F_Base.EnviarEstado(F_Base.Proyecto);
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => x.IndiceConjuntoSeleccion = 0);
             List<cLine> LineasSeleccionadas = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(x => x.Select == true).ToList();
@@ -471,6 +473,12 @@ namespace FC_Diseño_de_Nervios
         {
             CB_Nomenclatura_Hztal.SelectedItem = F_Base.Proyecto.Nomenclatura_Vert.ToString();
             F_Base.Proyecto.Nomenclatura_Vert = cFunctionsProgram.ConvertirStringtoeNomenclatura(CB_Nomenclatura_Vertical.Text);
+        }
+
+        private void editarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_EditarPisos f_EditarPisos = new F_EditarPisos(F_Base.Proyecto.Edificio.Lista_Pisos);
+            f_EditarPisos.ShowDialog();
         }
     }
 }
