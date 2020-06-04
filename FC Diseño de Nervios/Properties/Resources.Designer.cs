@@ -73,6 +73,16 @@ namespace FC_Diseño_de_Nervios.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap B {
+            get {
+                object obj = ResourceManager.GetObject("B", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap c3 {
             get {
                 object obj = ResourceManager.GetObject("c3", resourceCulture);
@@ -87,16 +97,6 @@ namespace FC_Diseño_de_Nervios.Properties {
             get {
                 object obj = ResourceManager.GetObject("DefaultCursor2x16", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap DiseñoEfeCe {
-            get {
-                object obj = ResourceManager.GetObject("DiseñoEfeCe", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -176,6 +176,16 @@ namespace FC_Diseño_de_Nervios.Properties {
         internal static System.Drawing.Bitmap undo1 {
             get {
                 object obj = ResourceManager.GetObject("undo1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap X {
+            get {
+                object obj = ResourceManager.GetObject("X", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

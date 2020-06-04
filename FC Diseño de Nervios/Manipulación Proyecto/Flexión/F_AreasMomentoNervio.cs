@@ -20,7 +20,9 @@ namespace FC_Diseño_de_Nervios
         public F_AreasMomentoNervio()
         {
             InitializeComponent();
+            PB_VistaPerfilLongitudinalAreas.MouseMove += PB_VistaPerfilLongitudinalAreas_MouseMove1;
         }
+
 
         private void PB_VistaPerfilLongitudinalAreas_Paint(object sender, PaintEventArgs e)
         {
@@ -66,6 +68,11 @@ namespace FC_Diseño_de_Nervios
         private void PB_VistaPerfilLongitudinalAreas_MouseMove(object sender, MouseEventArgs e)
         {
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.IsPointMouseAreasMomentos(e.Location);
+            PB_VistaPerfilLongitudinalAreas.Invalidate();
+        }
+        private void PB_VistaPerfilLongitudinalAreas_MouseMove1(object sender, MouseEventArgs e)
+        {
+            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.IsPointMouseAreasMomentosAsignado(e.Location);
             PB_VistaPerfilLongitudinalAreas.Invalidate();
         }
     }

@@ -59,6 +59,7 @@ namespace FC_Diseño_de_Nervios
                 });
             }
             nervioSelect.CrearEnvolvente();
+            nervioSelect.CrearAceroAsignadoRefuerzoLongitudinal();
         }
 
         private void DGV_1_CellEndEdit(object sender, DataGridViewCellEventArgs e)

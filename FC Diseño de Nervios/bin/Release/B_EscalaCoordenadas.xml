@@ -103,7 +103,7 @@
             <param name="EscalaMayor">Devuelve la Escala Mayor</param>
             <returns></returns>
         </member>
-        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single@,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(System.Collections.Generic.List{System.Drawing.PointF},System.Collections.Generic.List{System.Drawing.PointF},System.Single@,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Establece la escala a una Lista de Puntos en ambos ejes, dependiendo en el sentido X de una escala dada y el dibujo se centra en el eje Y.
             </summary>
@@ -117,9 +117,10 @@
             <param name="Dy">Factor de desplazamiento en Y.</param>
             <param name="XI">Coordenada en X inicial en pixeles.</param>
             <param name="YI">Coordenada en Y inicial en pixeles</param>
+            <param name="FactorReduccion">Aumenta la escala en el eje Y.</param>
             <returns></returns>
         </member>
-        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+        <member name="M:B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntoConEscalasDependientes(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Establece la escala a un Punto en ambos ejes, dependiendo en el sentido X de una escala dada y el dibujo se centra en el eje Y.
             </summary>
@@ -133,6 +134,7 @@
             <param name="Dy">Factor de desplazamiento en Y.</param>
             <param name="XI">Coordenada en X inicial en pixeles.</param>
             <param name="YI">Coordenada en Y inicial en pixeles</param>
+            <param name="FactorReduccion">Aumenta la escala en el eje Y.</param>
             <returns></returns>
         </member>
     </members>

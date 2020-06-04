@@ -37,3 +37,13 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_Tendencia.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_VentanaDiseno.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC Diseño de Nervios.csproj.CoreCompileInputs.cache
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\FunctionsAutoCAD.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\FunctionsAutoCAD.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\FunctionsAutoCAD.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.F_AcercaDe.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.F_Inicio.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.F_PesoTotal.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Nuevo_Proyecto.F_EditarPisos.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_AreasCortanteNervio.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_CortanteNervio.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.F_Informe.resources

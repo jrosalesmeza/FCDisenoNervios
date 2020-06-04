@@ -103,6 +103,8 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+        public cResultados Resultados { get; set; } = new cResultados();
+
         public cNervio(int ID, string Prefijo, List<cObjeto> Lista_Objetos, eDireccion Direccion, List<cGrid> Grids, cPiso PisoOrigen)
         {
             this.ID = ID;
@@ -119,8 +121,8 @@ namespace FC_Diseño_de_Nervios
             CrearTramos();
             CrearElementos();
 
-            Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos,eUbicacionRefuerzo.Inferior)); Tendencia_Refuerzos.TInfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
-            Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos, eUbicacionRefuerzo.Superior)); Tendencia_Refuerzos.TSupeSelect = Tendencia_Refuerzos.TendenciasSuperior.First();
+            Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos,eUbicacionRefuerzo.Inferior)); Tendencia_Refuerzos.t_InfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
+            Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos, eUbicacionRefuerzo.Superior)); Tendencia_Refuerzos.t_Supeselect = Tendencia_Refuerzos.TendenciasSuperior.First();
 
             if (CantApoyos > 0)
             {
@@ -130,12 +132,9 @@ namespace FC_Diseño_de_Nervios
                 CrearEnvolvente();
                 CrearAceroAsignadoRefuerzoLongitudinal();
                 CrearAceroAsignadoRefuerzoTransversal();
+                AsignarMaximaLongitudTendencias();
             }
-            if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
-            {
-                Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud+ 2*cDiccionarios.G90[eNoBarra.B6];
-                Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud+ 2*cDiccionarios.G90[eNoBarra.B6];
-            }
+            
 
         }
 
@@ -319,6 +318,22 @@ namespace FC_Diseño_de_Nervios
         }
 
 
+        public void AsignarMaximaLongitudTendencias()
+        {
+        
+            if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+            {
+                if (longitud + 2 * cDiccionarios.G90[eNoBarra.B6] < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+                {
+
+                    Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+                    Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+                }
+              
+            }
+
+        }
+
         public void CrearApoyosAExtremos(bool ApoyoInicio=false,bool ApoyoFinal=false)
         {
             if (ApoyoInicio)
@@ -333,13 +348,8 @@ namespace FC_Diseño_de_Nervios
                     CrearEnvolvente();
                     CrearAceroAsignadoRefuerzoLongitudinal();
                     CrearAceroAsignadoRefuerzoTransversal();
-                    Tendencia_Refuerzos.NervioOrigen = this;
-                    if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
-                    {
-                        Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
-                        Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
-                    }
-
+                    Tendencia_Refuerzos.NervioOrigen = this; Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = cVariables.MaximaLongitud;
+                    AsignarMaximaLongitudTendencias();
                 }
 
             }
@@ -356,12 +366,8 @@ namespace FC_Diseño_de_Nervios
                     CrearEnvolvente();
                     CrearAceroAsignadoRefuerzoLongitudinal();
                     CrearAceroAsignadoRefuerzoTransversal();
-                    Tendencia_Refuerzos.NervioOrigen = this;
-                    if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
-                    {
-                        Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
-                        Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
-                    }
+                    Tendencia_Refuerzos.NervioOrigen = this; Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = cVariables.MaximaLongitud;
+                    AsignarMaximaLongitudTendencias();
                 }
 
             }
@@ -856,25 +862,28 @@ namespace FC_Diseño_de_Nervios
                         Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento = 0f;
                         Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Momento = 0f;
                         Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Momento = 0f;
-                        Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Superior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento;
+                        Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior = -100f;
                         Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Superior = -100f;
                         Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Area_Momento;
-                        Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior = -100f;
+                        Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Superior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento;
                         List<cBarra> BarrasSuperiores = Tendencia_Refuerzos.TSupeSelect.Barras.FindAll(x => x.EstacionEnBarra(Estacion, SubtramoAux));
                         List<cBarra> BarrasInferiores = Tendencia_Refuerzos.TInfeSelect.Barras.FindAll(x => x.EstacionEnBarra(Estacion, SubtramoAux));
                         if (BarrasSuperiores != null && BarrasSuperiores.Count>0)
                         {
                             Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento = BarrasSuperiores.Sum(x => x.AporteAceroAEstacion(Estacion, SubtramoAux));
                             Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Superior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesSuperior.Area_Momento;
-                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Momento = BarrasSuperiores.Sum(x => x.AporteMomentoAEstacion(Estacion, SubtramoAux));
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.CalcularMomento(cFunctionsProgram.CalcularDCentroide(BarrasSuperiores,eUbicacionRefuerzo.Superior,this));
+                            //Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Momento = BarrasSuperiores.Sum(x => x.AporteMomentoAEstacion(Estacion, SubtramoAux));
                             Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Superior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Superior / Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoSuperior.Area_Momento * 100f;
                         }
                         if (BarrasInferiores != null && BarrasInferiores.Count > 0)
                         {
                             Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento = BarrasInferiores.Sum(x => x.AporteAceroAEstacion(Estacion, SubtramoAux));
-                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Momento = BarrasInferiores.Sum(x => x.AporteMomentoAEstacion(Estacion, SubtramoAux));
+                            Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.CalcularMomento(cFunctionsProgram.CalcularDCentroide(BarrasInferiores, eUbicacionRefuerzo.Inferior, this));
+                            //Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Momento = BarrasInferiores.Sum(x => x.AporteMomentoAEstacion(Estacion, SubtramoAux));
                             Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento - Estacion.Calculos.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Area_Momento;
                             Estacion.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior = Estacion.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior / Estacion.Calculos.Solicitacion_Asignado_Momentos.AsignadoInferior.Area_Momento*100f;
+                            
                         }
 
                     });
@@ -1313,8 +1322,8 @@ namespace FC_Diseño_de_Nervios
             GraficarRectaApoyos(e, HeightForm);
 
             #region Muestra Valores de Momentos Solictados con el Mouse
-
             CrearCuadrodeInfo(e, Zoom, PuntoInMouseMomentos_Escalado_Real, "M", "Ton-m");
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentosAsignado_Escalado_Real, "M", "Ton-m");
             #endregion
 
          
@@ -1381,14 +1390,11 @@ namespace FC_Diseño_de_Nervios
 
             #endregion
 
-
-
-
-
             GraficarRectaApoyos(e, HeightForm);
             #region Muestra Valores de Areas Requeridas con el Mouse
 
             CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentos_Escalado_Real, "A", "cm²");
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentosAsignado_Escaldo_Real, "A", "cm²");
             #endregion
             
         }
@@ -1820,6 +1826,56 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+
+        private PointF[] PuntoInMouseAreasMomentosAsignado_Escaldo_Real = new PointF[] { };
+        public void IsPointMouseAreasMomentosAsignado(PointF Location)
+        {
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            List<PointF> RealesN = new List<PointF>(); List<PointF> EscaladasN = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    RealesP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Reales);
+                    EscaladasP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosAsignado.Areas_Momentos_Positivos.Escaladas);
+                    RealesN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Reales);
+                    EscaladasN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosAsignado.Areas_Momentos_Negativos.Escaladas);
+                }
+            });
+
+            PuntoInMouseAreasMomentosAsignado_Escaldo_Real = IsMousePoint(Location, RealesP, EscaladasP);
+            if (PuntoInMouseAreasMomentosAsignado_Escaldo_Real == null | PuntoInMouseAreasMomentosAsignado_Escaldo_Real.Length == 0)
+                PuntoInMouseAreasMomentosAsignado_Escaldo_Real = IsMousePoint(Location, RealesN, EscaladasN);
+
+        }
+
+
+        private PointF[] PuntoInMouseAreasMomentosAsignado_Escalado_Real = new PointF[] { };
+        public void IsPointMouseMomentosAsignado(PointF Location)
+        {
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            List<PointF> RealesN = new List<PointF>(); List<PointF> EscaladasN = new List<PointF>();
+            Lista_Elementos.ForEach(Elemento =>
+            {
+                if (Elemento is cSubTramo)
+                {
+                    RealesP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosAsignado.Momentos_Positivos.Reales);
+                    EscaladasP.AddRange(((cSubTramo)Elemento).CoordenadasCalculosAsignado.Momentos_Positivos.Escaladas);
+                    RealesN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosAsignado.Momentos_Negativos.Reales);
+                    EscaladasN.AddRange(((cSubTramo)Elemento).CoordenadasCalculosAsignado.Momentos_Negativos.Escaladas);
+                }
+            });
+
+            PuntoInMouseAreasMomentosAsignado_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
+            if (PuntoInMouseAreasMomentosAsignado_Escalado_Real == null | PuntoInMouseAreasMomentosAsignado_Escalado_Real.Length == 0)
+                PuntoInMouseAreasMomentosAsignado_Escalado_Real = IsMousePoint(Location, RealesN, EscaladasN);
+        }
+
+
+
+
+
+
         private PointF[] IsMousePoint(PointF Location, List<PointF> PuntosReales, List<PointF> PuntosEscalados)
         {
             float Delta = 5f; int Indice = 0;
@@ -1841,6 +1897,12 @@ namespace FC_Diseño_de_Nervios
             }
             return new PointF[] { };
         }
+
+
+
+
+
+
 
 
         #endregion Metodos Paint

@@ -15,6 +15,7 @@ namespace FC_Diseño_de_Nervios
         public cTendencia(int ID, cTendencia_Refuerzo Tendencia_Refuerzo_Origen)
         {
             this.ID = ID;
+            Nombre = $"Tendencia {ID}";
             this.Tendencia_Refuerzo_Origen = Tendencia_Refuerzo_Origen;
         }
         public int ID { get; set; }
@@ -48,6 +49,12 @@ namespace FC_Diseño_de_Nervios
         public eUbicacionRefuerzo UbicacionRefuerzo { get; set; }
 
 
+        public void LimpiarTendencia()
+        {
+            EliminarBarras();
+            pesoRefuerzo = 0f;
+
+        }
         public void EliminarBarra(cBarra Barra)
         {
             Barras.Remove(Barra);
@@ -210,7 +217,6 @@ namespace FC_Diseño_de_Nervios
         {
             Barras.ForEach(x => x.Paint_AutoCAD(X, Y));
 
-
             //Agregar Cotas
 
             if (UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
@@ -348,7 +354,7 @@ namespace FC_Diseño_de_Nervios
         public override string ToString()
         {
             Nombre = $"Tendencia {ID}";
-            return $"{Nombre} | {Barras.Count}";
+            return $"{Nombre} | {Barras.Count} | Lmax={MaximaLongitud}";
         }
     }
 }

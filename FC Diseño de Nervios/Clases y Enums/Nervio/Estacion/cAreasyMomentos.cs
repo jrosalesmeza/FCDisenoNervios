@@ -23,6 +23,14 @@ namespace FC_Diseño_de_Nervios
         }
         public float Momento { get; set; }
 
+        public void CalcularMomento(float d2)
+        {
+            cSubTramo SubTramo = Solicitacion_Asignado_Momentos.CalculosOrigen.SubtramoOrigen;
+            float B = SubTramo.Seccion.B; float H = SubTramo.Seccion.H; float fc = SubTramo.Seccion.Material.fc;
+            float fy = SubTramo.Seccion.Material.fy;
+            Momento = B_FC_DiseñoVigas.DiseñoYRevisonVigasRectangulares.Revision(B, H, d2, d2, fc, fy, area_momento, 0f)[0] * cConversiones.Momento__kgf_cm_to_Ton_m;
+
+        }
         public cSolicitacion_Asignado_Momentos Solicitacion_Asignado_Momentos { get; set; }
 
         public cAreasyMomentos(cSolicitacion_Asignado_Momentos Solicitacion_Asignado_Momentos)

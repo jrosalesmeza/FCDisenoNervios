@@ -36,6 +36,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
 
         private void LoadWindow()
         {
+            Text = "Modificar Barra";
             CB_NoBarra.Items.Clear();
             cFunctionsProgram.NoBarras.Remove(eNoBarra.BNone);
             cFunctionsProgram.NoBarras.ForEach(x => CB_NoBarra.Items.Add(cFunctionsProgram.ConvertireNoBarraToString(x)));
@@ -230,29 +231,51 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
 
         private void BT_Der_Click(object sender, EventArgs e)
         {
-            float.TryParse(TB_2.Text, out float Dist);
+            float.TryParse(TB_C.Text, out float Dist);
             barraSelect.XF += Dist;
             TB_Longitud.Text = string.Format("{0:0.00}", barraSelect.XF - barraSelect.XI);
             F_Base.ActualizarVentanaF_VentanaDiseno();
         }
 
-        private void BT_Izq_Click(object sender, EventArgs e)
+          private void BT_Centro_Click(object sender, EventArgs e)
         {
-            float.TryParse(TB_2.Text, out float Dist);
-            barraSelect.XI -= Dist;
-            TB_Longitud.Text = string.Format("{0:0.00}", barraSelect.XF - barraSelect.XI);
-            F_Base.ActualizarVentanaF_VentanaDiseno();
-        }
-
-        private void BT_Centro_Click(object sender, EventArgs e)
-        {
-            float.TryParse(TB_2.Text, out float Dist);
+            float.TryParse(TB_C.Text, out float Dist);
             barraSelect.XI -= Dist/2f;
             barraSelect.XF += Dist / 2f;
             TB_Longitud.Text = string.Format("{0:0.00}", barraSelect.XF - barraSelect.XI);
             F_Base.ActualizarVentanaF_VentanaDiseno();
         }
 
-  
+        private void BT_II_Click(object sender, EventArgs e)
+        {
+            float.TryParse(TB_I.Text, out float Dist);
+            barraSelect.XI -= Math.Abs(Dist);
+            TB_Longitud.Text = string.Format("{0:0.00}", barraSelect.XF - barraSelect.XI);
+            F_Base.ActualizarVentanaF_VentanaDiseno();
+        }
+
+        private void BT_ID_Click(object sender, EventArgs e)
+        {
+            float.TryParse(TB_I.Text, out float Dist);
+            barraSelect.XI += Math.Abs(Dist);
+            TB_Longitud.Text = string.Format("{0:0.00}", barraSelect.XF - barraSelect.XI);
+            F_Base.ActualizarVentanaF_VentanaDiseno();
+        }
+
+        private void BT_DI_Click(object sender, EventArgs e)
+        {
+            float.TryParse(TB_D.Text, out float Dist);
+            barraSelect.XF -= Math.Abs(Dist);
+            TB_Longitud.Text = string.Format("{0:0.00}", barraSelect.XF - barraSelect.XI);
+            F_Base.ActualizarVentanaF_VentanaDiseno();
+        }
+
+        private void BT_DD_Click(object sender, EventArgs e)
+        {
+            float.TryParse(TB_D.Text, out float Dist);
+            barraSelect.XF += Math.Abs(Dist);
+            TB_Longitud.Text = string.Format("{0:0.00}", barraSelect.XF - barraSelect.XI);
+            F_Base.ActualizarVentanaF_VentanaDiseno();
+        }
     }
 }

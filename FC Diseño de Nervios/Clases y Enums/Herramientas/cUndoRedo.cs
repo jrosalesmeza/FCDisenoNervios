@@ -40,6 +40,11 @@ namespace FC_Diseño_de_Nervios
            return Bool_EstadosActivos;
         }
 
+        public void EnviarEstadoVacio()
+        {
+            Lista_Estados.Push(0);
+            SaberCuandoSeHabilitaEstados();
+        }
         public void EnviarEstado(T Estado)
         {
             Lista_CtrlZ.Push(DeepClone(Estado));

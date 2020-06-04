@@ -57,7 +57,6 @@
             this.PB_VistaPerfilLongitudinalCortante.TabIndex = 0;
             this.PB_VistaPerfilLongitudinalCortante.TabStop = false;
             this.PB_VistaPerfilLongitudinalCortante.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_VistaPerfilLongitudinalCortante_Paint);
-            this.PB_VistaPerfilLongitudinalCortante.MouseMove += new System.Windows.Forms.MouseEventHandler(this.PB_VistaPerfilLongitudinalCortante_MouseMove);
             // 
             // F_CortanteNervio
             // 

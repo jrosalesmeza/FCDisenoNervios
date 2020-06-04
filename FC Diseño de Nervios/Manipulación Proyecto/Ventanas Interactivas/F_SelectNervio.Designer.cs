@@ -78,13 +78,12 @@
             this.P_1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_1.Location = new System.Drawing.Point(0, 0);
             this.P_1.Name = "P_1";
-            this.P_1.Size = new System.Drawing.Size(656, 700);
+            this.P_1.Size = new System.Drawing.Size(750, 614);
             this.P_1.TabIndex = 1;
             // 
             // GB_Propiedades
             // 
-            this.GB_Propiedades.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.GB_Propiedades.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GB_Propiedades.BackColor = System.Drawing.Color.LightGray;
             this.GB_Propiedades.Controls.Add(this.PB_Info);
             this.GB_Propiedades.Controls.Add(this.TB_r2);
@@ -100,9 +99,9 @@
             this.GB_Propiedades.Controls.Add(this.CB_SeccionAltura);
             this.GB_Propiedades.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_Propiedades.ForeColor = System.Drawing.Color.Black;
-            this.GB_Propiedades.Location = new System.Drawing.Point(170, 3);
+            this.GB_Propiedades.Location = new System.Drawing.Point(3, 444);
             this.GB_Propiedades.Name = "GB_Propiedades";
-            this.GB_Propiedades.Size = new System.Drawing.Size(483, 77);
+            this.GB_Propiedades.Size = new System.Drawing.Size(161, 163);
             this.GB_Propiedades.TabIndex = 10;
             this.GB_Propiedades.TabStop = false;
             this.GB_Propiedades.Text = "N - X | Piso X ";
@@ -114,7 +113,7 @@
             this.PB_Info.IconChar = FontAwesome.Sharp.IconChar.InfoCircle;
             this.PB_Info.IconColor = System.Drawing.SystemColors.Highlight;
             this.PB_Info.IconSize = 21;
-            this.PB_Info.Location = new System.Drawing.Point(415, 48);
+            this.PB_Info.Location = new System.Drawing.Point(126, 116);
             this.PB_Info.Name = "PB_Info";
             this.PB_Info.Size = new System.Drawing.Size(21, 21);
             this.PB_Info.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -124,17 +123,17 @@
             // 
             // TB_r2
             // 
-            this.TB_r2.Location = new System.Drawing.Point(349, 48);
+            this.TB_r2.Location = new System.Drawing.Point(48, 136);
             this.TB_r2.Name = "TB_r2";
-            this.TB_r2.Size = new System.Drawing.Size(39, 22);
+            this.TB_r2.Size = new System.Drawing.Size(45, 22);
             this.TB_r2.TabIndex = 17;
             this.TB_r2.TextChanged += new System.EventHandler(this.TB_d2_TextChanged);
             // 
             // TB_r1
             // 
-            this.TB_r1.Location = new System.Drawing.Point(274, 48);
+            this.TB_r1.Location = new System.Drawing.Point(47, 108);
             this.TB_r1.Name = "TB_r1";
-            this.TB_r1.Size = new System.Drawing.Size(32, 22);
+            this.TB_r1.Size = new System.Drawing.Size(45, 22);
             this.TB_r1.TabIndex = 16;
             this.TB_r1.TextChanged += new System.EventHandler(this.TB_d1_TextChanged);
             // 
@@ -142,7 +141,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 9F);
-            this.label1.Location = new System.Drawing.Point(387, 52);
+            this.label1.Location = new System.Drawing.Point(99, 140);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(22, 14);
             this.label1.TabIndex = 19;
@@ -152,7 +151,7 @@
             // 
             this.LB_cm0.AutoSize = true;
             this.LB_cm0.Font = new System.Drawing.Font("Calibri", 9F);
-            this.LB_cm0.Location = new System.Drawing.Point(305, 52);
+            this.LB_cm0.Location = new System.Drawing.Point(98, 112);
             this.LB_cm0.Name = "LB_cm0";
             this.LB_cm0.Size = new System.Drawing.Size(22, 14);
             this.LB_cm0.TabIndex = 18;
@@ -161,7 +160,7 @@
             // LB_r1
             // 
             this.LB_r1.AutoSize = true;
-            this.LB_r1.Location = new System.Drawing.Point(251, 52);
+            this.LB_r1.Location = new System.Drawing.Point(18, 112);
             this.LB_r1.Name = "LB_r1";
             this.LB_r1.Size = new System.Drawing.Size(20, 14);
             this.LB_r1.TabIndex = 14;
@@ -170,7 +169,7 @@
             // LB_r2
             // 
             this.LB_r2.AutoSize = true;
-            this.LB_r2.Location = new System.Drawing.Point(326, 52);
+            this.LB_r2.Location = new System.Drawing.Point(16, 140);
             this.LB_r2.Name = "LB_r2";
             this.LB_r2.Size = new System.Drawing.Size(20, 14);
             this.LB_r2.TabIndex = 15;
@@ -185,7 +184,7 @@
             this.P_4.ForeColor = System.Drawing.Color.Transparent;
             this.P_4.Location = new System.Drawing.Point(3, 17);
             this.P_4.Name = "P_4";
-            this.P_4.Size = new System.Drawing.Size(477, 21);
+            this.P_4.Size = new System.Drawing.Size(155, 21);
             this.P_4.TabIndex = 6;
             // 
             // LB_3
@@ -194,7 +193,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.LB_3.Location = new System.Drawing.Point(2, 3);
             this.LB_3.Name = "LB_3";
-            this.LB_3.Size = new System.Drawing.Size(470, 18);
+            this.LB_3.Size = new System.Drawing.Size(148, 18);
             this.LB_3.TabIndex = 1;
             this.LB_3.Text = "CAMBIO SECCIÓN";
             this.LB_3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -208,7 +207,7 @@
             "Superior",
             "Central",
             "Inferior"});
-            this.CB_SeccionAncho.Location = new System.Drawing.Point(170, 48);
+            this.CB_SeccionAncho.Location = new System.Drawing.Point(47, 80);
             this.CB_SeccionAncho.Name = "CB_SeccionAncho";
             this.CB_SeccionAncho.Size = new System.Drawing.Size(75, 22);
             this.CB_SeccionAncho.TabIndex = 13;
@@ -226,7 +225,7 @@
             // LB_7
             // 
             this.LB_7.AutoSize = true;
-            this.LB_7.Location = new System.Drawing.Point(128, 51);
+            this.LB_7.Location = new System.Drawing.Point(5, 83);
             this.LB_7.Name = "LB_7";
             this.LB_7.Size = new System.Drawing.Size(40, 14);
             this.LB_7.TabIndex = 11;
@@ -255,9 +254,9 @@
             this.GB_4.Controls.Add(this.PB_Nervios);
             this.GB_4.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_4.ForeColor = System.Drawing.Color.White;
-            this.GB_4.Location = new System.Drawing.Point(170, 81);
+            this.GB_4.Location = new System.Drawing.Point(170, 3);
             this.GB_4.Name = "GB_4";
-            this.GB_4.Size = new System.Drawing.Size(483, 609);
+            this.GB_4.Size = new System.Drawing.Size(568, 604);
             this.GB_4.TabIndex = 11;
             this.GB_4.TabStop = false;
             this.GB_4.Text = "Nervios";
@@ -269,7 +268,7 @@
             this.PB_Nervios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PB_Nervios.Location = new System.Drawing.Point(3, 18);
             this.PB_Nervios.Name = "PB_Nervios";
-            this.PB_Nervios.Size = new System.Drawing.Size(477, 588);
+            this.PB_Nervios.Size = new System.Drawing.Size(562, 583);
             this.PB_Nervios.TabIndex = 4;
             this.PB_Nervios.TabStop = false;
             this.PB_Nervios.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_Nervios_Paint);
@@ -286,9 +285,9 @@
             this.GB_Nervios.Controls.Add(this.P_2);
             this.GB_Nervios.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_Nervios.ForeColor = System.Drawing.Color.Black;
-            this.GB_Nervios.Location = new System.Drawing.Point(3, 175);
+            this.GB_Nervios.Location = new System.Drawing.Point(3, 172);
             this.GB_Nervios.Name = "GB_Nervios";
-            this.GB_Nervios.Size = new System.Drawing.Size(161, 515);
+            this.GB_Nervios.Size = new System.Drawing.Size(161, 266);
             this.GB_Nervios.TabIndex = 9;
             this.GB_Nervios.TabStop = false;
             // 
@@ -327,7 +326,7 @@
             this.LV_Nervios.Location = new System.Drawing.Point(6, 69);
             this.LV_Nervios.MultiSelect = false;
             this.LV_Nervios.Name = "LV_Nervios";
-            this.LV_Nervios.Size = new System.Drawing.Size(149, 434);
+            this.LV_Nervios.Size = new System.Drawing.Size(149, 185);
             this.LV_Nervios.TabIndex = 4;
             this.LV_Nervios.UseCompatibleStateImageBehavior = false;
             this.LV_Nervios.View = System.Windows.Forms.View.SmallIcon;
@@ -406,7 +405,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(656, 700);
+            this.ClientSize = new System.Drawing.Size(750, 614);
             this.Controls.Add(this.P_1);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft)));
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

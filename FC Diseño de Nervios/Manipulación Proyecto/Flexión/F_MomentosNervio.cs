@@ -19,6 +19,17 @@ namespace FC_Diseño_de_Nervios
         public F_MomentosNervio()
         {
             InitializeComponent();
+            PB_VistaPerfilLongitudinalMomentos.MouseMove += PB_VistaPerfilLongitudinalMomentos_MouseMove1;
+        }
+
+        private void PB_VistaPerfilLongitudinalMomentos_MouseMove1(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.IsPointMouseMomentosAsignado(e.Location);
+                PB_VistaPerfilLongitudinalMomentos.Invalidate();
+            }
+            catch { }
         }
 
         private void PB_VistaPerfilLongitudinalMomentos_Paint(object sender, PaintEventArgs e)
@@ -63,8 +74,12 @@ namespace FC_Diseño_de_Nervios
 
         private void PB_VistaPerfilLongitudinalMomentos_MouseMove(object sender, MouseEventArgs e)
         {
-            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.IsPointMouseMomentos(e.Location);
-            PB_VistaPerfilLongitudinalMomentos.Invalidate();
+            try
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.IsPointMouseMomentos(e.Location);
+                PB_VistaPerfilLongitudinalMomentos.Invalidate();
+            }
+            catch { }
         }
     }
 }

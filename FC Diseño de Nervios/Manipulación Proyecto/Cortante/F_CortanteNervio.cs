@@ -98,9 +98,5 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             Text = $"Cortante | {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | Unidades [Ton]";
         }
 
-        private void PB_VistaPerfilLongitudinalCortante_MouseMove(object sender, MouseEventArgs e)
-        {
-
-        }
     }
 }

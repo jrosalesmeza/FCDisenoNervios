@@ -85,3 +85,6 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\Funct
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\FunctionsAutoCAD.xml
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Ventana_Principal.Nuevo_Proyecto.F_EditarPisos.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Ventana_Principal.F_Inicio.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Ventana_Principal.F_AcercaDe.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.F_Informe.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Ventana_Principal.F_PesoTotal.resources

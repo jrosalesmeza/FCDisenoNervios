@@ -37,17 +37,21 @@
             this.CB_NoBarra = new System.Windows.Forms.ComboBox();
             this.NUP_Cantidad = new System.Windows.Forms.NumericUpDown();
             this.GB_1 = new System.Windows.Forms.GroupBox();
+            this.TB_D = new System.Windows.Forms.TextBox();
+            this.BT_DD = new FontAwesome.Sharp.IconButton();
+            this.BT_DI = new FontAwesome.Sharp.IconButton();
+            this.LB_3 = new System.Windows.Forms.Label();
+            this.TB_I = new System.Windows.Forms.TextBox();
+            this.BT_ID = new FontAwesome.Sharp.IconButton();
+            this.BT_II = new FontAwesome.Sharp.IconButton();
             this.LB_1 = new System.Windows.Forms.Label();
             this.BT_Centro = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.LB_7 = new System.Windows.Forms.Label();
             this.LB_2 = new System.Windows.Forms.Label();
-            this.BT_Der = new FontAwesome.Sharp.IconButton();
-            this.TB_2 = new System.Windows.Forms.TextBox();
-            this.BT_Izq = new FontAwesome.Sharp.IconButton();
+            this.TB_C = new System.Windows.Forms.TextBox();
             this.RB_0D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.TB_Longitud = new System.Windows.Forms.TextBox();
-            this.LB_3 = new System.Windows.Forms.Label();
             this.RB_90D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.Barra_1 = new FC_Diseño_de_Nervios.Controles.Control_Barra();
             this.RB_180D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
@@ -168,17 +172,21 @@
             // 
             // GB_1
             // 
+            this.GB_1.Controls.Add(this.TB_D);
+            this.GB_1.Controls.Add(this.BT_DD);
+            this.GB_1.Controls.Add(this.BT_DI);
+            this.GB_1.Controls.Add(this.LB_3);
+            this.GB_1.Controls.Add(this.TB_I);
+            this.GB_1.Controls.Add(this.BT_ID);
+            this.GB_1.Controls.Add(this.BT_II);
             this.GB_1.Controls.Add(this.LB_1);
             this.GB_1.Controls.Add(this.BT_Centro);
             this.GB_1.Controls.Add(this.panel1);
             this.GB_1.Controls.Add(this.LB_7);
             this.GB_1.Controls.Add(this.LB_2);
-            this.GB_1.Controls.Add(this.BT_Der);
-            this.GB_1.Controls.Add(this.TB_2);
-            this.GB_1.Controls.Add(this.BT_Izq);
+            this.GB_1.Controls.Add(this.TB_C);
             this.GB_1.Controls.Add(this.RB_0D);
             this.GB_1.Controls.Add(this.TB_Longitud);
-            this.GB_1.Controls.Add(this.LB_3);
             this.GB_1.Controls.Add(this.RB_90D);
             this.GB_1.Controls.Add(this.Barra_1);
             this.GB_1.Controls.Add(this.RB_180D);
@@ -199,11 +207,101 @@
             this.GB_1.TabStop = false;
             this.GB_1.Text = "Modificaciones";
             // 
+            // TB_D
+            // 
+            this.TB_D.Location = new System.Drawing.Point(263, 104);
+            this.TB_D.Name = "TB_D";
+            this.TB_D.Size = new System.Drawing.Size(29, 20);
+            this.TB_D.TabIndex = 62;
+            this.TB_D.Text = "0.10";
+            // 
+            // BT_DD
+            // 
+            this.BT_DD.FlatAppearance.BorderSize = 0;
+            this.BT_DD.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_DD.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.BT_DD.IconChar = FontAwesome.Sharp.IconChar.AngleDoubleRight;
+            this.BT_DD.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
+            this.BT_DD.IconSize = 20;
+            this.BT_DD.Location = new System.Drawing.Point(298, 104);
+            this.BT_DD.Name = "BT_DD";
+            this.BT_DD.Rotation = 0D;
+            this.BT_DD.Size = new System.Drawing.Size(18, 20);
+            this.BT_DD.TabIndex = 61;
+            this.BT_DD.UseVisualStyleBackColor = true;
+            this.BT_DD.Click += new System.EventHandler(this.BT_DD_Click);
+            // 
+            // BT_DI
+            // 
+            this.BT_DI.FlatAppearance.BorderSize = 0;
+            this.BT_DI.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_DI.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.BT_DI.IconChar = FontAwesome.Sharp.IconChar.AngleDoubleLeft;
+            this.BT_DI.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
+            this.BT_DI.IconSize = 20;
+            this.BT_DI.Location = new System.Drawing.Point(240, 104);
+            this.BT_DI.Name = "BT_DI";
+            this.BT_DI.Rotation = 0D;
+            this.BT_DI.Size = new System.Drawing.Size(17, 20);
+            this.BT_DI.TabIndex = 60;
+            this.BT_DI.UseVisualStyleBackColor = true;
+            this.BT_DI.Click += new System.EventHandler(this.BT_DI_Click);
+            // 
+            // LB_3
+            // 
+            this.LB_3.AutoSize = true;
+            this.LB_3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_3.Location = new System.Drawing.Point(251, 86);
+            this.LB_3.Name = "LB_3";
+            this.LB_3.Size = new System.Drawing.Size(48, 14);
+            this.LB_3.TabIndex = 59;
+            this.LB_3.Text = "Derecha";
+            // 
+            // TB_I
+            // 
+            this.TB_I.Location = new System.Drawing.Point(50, 105);
+            this.TB_I.Name = "TB_I";
+            this.TB_I.Size = new System.Drawing.Size(29, 20);
+            this.TB_I.TabIndex = 58;
+            this.TB_I.Text = "0.10";
+            // 
+            // BT_ID
+            // 
+            this.BT_ID.FlatAppearance.BorderSize = 0;
+            this.BT_ID.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_ID.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.BT_ID.IconChar = FontAwesome.Sharp.IconChar.AngleDoubleRight;
+            this.BT_ID.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
+            this.BT_ID.IconSize = 20;
+            this.BT_ID.Location = new System.Drawing.Point(85, 105);
+            this.BT_ID.Name = "BT_ID";
+            this.BT_ID.Rotation = 0D;
+            this.BT_ID.Size = new System.Drawing.Size(18, 20);
+            this.BT_ID.TabIndex = 57;
+            this.BT_ID.UseVisualStyleBackColor = true;
+            this.BT_ID.Click += new System.EventHandler(this.BT_ID_Click);
+            // 
+            // BT_II
+            // 
+            this.BT_II.FlatAppearance.BorderSize = 0;
+            this.BT_II.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_II.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.BT_II.IconChar = FontAwesome.Sharp.IconChar.AngleDoubleLeft;
+            this.BT_II.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
+            this.BT_II.IconSize = 20;
+            this.BT_II.Location = new System.Drawing.Point(27, 105);
+            this.BT_II.Name = "BT_II";
+            this.BT_II.Rotation = 0D;
+            this.BT_II.Size = new System.Drawing.Size(17, 20);
+            this.BT_II.TabIndex = 56;
+            this.BT_II.UseVisualStyleBackColor = true;
+            this.BT_II.Click += new System.EventHandler(this.BT_II_Click);
+            // 
             // LB_1
             // 
             this.LB_1.AutoSize = true;
             this.LB_1.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_1.Location = new System.Drawing.Point(72, 97);
+            this.LB_1.Location = new System.Drawing.Point(38, 87);
             this.LB_1.Name = "LB_1";
             this.LB_1.Size = new System.Drawing.Size(52, 14);
             this.LB_1.TabIndex = 12;
@@ -249,44 +347,13 @@
             this.LB_2.TabIndex = 13;
             this.LB_2.Text = "Centro";
             // 
-            // BT_Der
+            // TB_C
             // 
-            this.BT_Der.FlatAppearance.BorderSize = 0;
-            this.BT_Der.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BT_Der.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.BT_Der.IconChar = FontAwesome.Sharp.IconChar.AngleDoubleRight;
-            this.BT_Der.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
-            this.BT_Der.IconSize = 20;
-            this.BT_Der.Location = new System.Drawing.Point(202, 97);
-            this.BT_Der.Name = "BT_Der";
-            this.BT_Der.Rotation = 0D;
-            this.BT_Der.Size = new System.Drawing.Size(18, 20);
-            this.BT_Der.TabIndex = 10;
-            this.BT_Der.UseVisualStyleBackColor = true;
-            this.BT_Der.Click += new System.EventHandler(this.BT_Der_Click);
-            // 
-            // TB_2
-            // 
-            this.TB_2.Location = new System.Drawing.Point(154, 96);
-            this.TB_2.Name = "TB_2";
-            this.TB_2.Size = new System.Drawing.Size(41, 20);
-            this.TB_2.TabIndex = 8;
-            // 
-            // BT_Izq
-            // 
-            this.BT_Izq.FlatAppearance.BorderSize = 0;
-            this.BT_Izq.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BT_Izq.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
-            this.BT_Izq.IconChar = FontAwesome.Sharp.IconChar.AngleDoubleLeft;
-            this.BT_Izq.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
-            this.BT_Izq.IconSize = 20;
-            this.BT_Izq.Location = new System.Drawing.Point(128, 97);
-            this.BT_Izq.Name = "BT_Izq";
-            this.BT_Izq.Rotation = 0D;
-            this.BT_Izq.Size = new System.Drawing.Size(17, 20);
-            this.BT_Izq.TabIndex = 1;
-            this.BT_Izq.UseVisualStyleBackColor = true;
-            this.BT_Izq.Click += new System.EventHandler(this.BT_Izq_Click);
+            this.TB_C.Location = new System.Drawing.Point(154, 97);
+            this.TB_C.Name = "TB_C";
+            this.TB_C.Size = new System.Drawing.Size(41, 20);
+            this.TB_C.TabIndex = 8;
+            this.TB_C.Text = "0.10";
             // 
             // RB_0D
             // 
@@ -308,16 +375,6 @@
             this.TB_Longitud.Size = new System.Drawing.Size(55, 20);
             this.TB_Longitud.TabIndex = 42;
             this.TB_Longitud.TextChanged += new System.EventHandler(this.TB_Longitud_TextChanged);
-            // 
-            // LB_3
-            // 
-            this.LB_3.AutoSize = true;
-            this.LB_3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_3.Location = new System.Drawing.Point(230, 98);
-            this.LB_3.Name = "LB_3";
-            this.LB_3.Size = new System.Drawing.Size(48, 14);
-            this.LB_3.TabIndex = 14;
-            this.LB_3.Text = "Derecha";
             // 
             // RB_90D
             // 
@@ -512,6 +569,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_SeleccionBarras";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "F_SeleccionBarras";
             this.P_2.ResumeLayout(false);
             this.P_1.ResumeLayout(false);
@@ -528,11 +586,8 @@
         private System.Windows.Forms.Panel P_2;
         private FontAwesome.Sharp.IconButton LB_Encabezado;
         private System.Windows.Forms.Panel P_1;
-        private System.Windows.Forms.TextBox TB_2;
-        private FontAwesome.Sharp.IconButton BT_Izq;
-        private FontAwesome.Sharp.IconButton BT_Der;
+        private System.Windows.Forms.TextBox TB_C;
         private System.Windows.Forms.Label LB_7;
-        private System.Windows.Forms.Label LB_3;
         private System.Windows.Forms.Label LB_2;
         private System.Windows.Forms.Label LB_1;
         private System.Windows.Forms.Label LB_4;
@@ -560,5 +615,12 @@
         private Controles.Control_Barra Barra_1;
         private System.Windows.Forms.GroupBox GB_1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox TB_D;
+        private FontAwesome.Sharp.IconButton BT_DD;
+        private FontAwesome.Sharp.IconButton BT_DI;
+        private System.Windows.Forms.Label LB_3;
+        private System.Windows.Forms.TextBox TB_I;
+        private FontAwesome.Sharp.IconButton BT_ID;
+        private FontAwesome.Sharp.IconButton BT_II;
     }
 }

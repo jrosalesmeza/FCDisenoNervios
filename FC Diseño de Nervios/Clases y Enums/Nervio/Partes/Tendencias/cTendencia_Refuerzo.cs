@@ -27,7 +27,7 @@ namespace FC_Diseño_de_Nervios
             }
             set
             {
-                if (nervioOrigen != null)
+                if (value != null)
                 {
                     nervioOrigen = value;
                 }
@@ -42,19 +42,24 @@ namespace FC_Diseño_de_Nervios
         public List<cTendencia> TendenciasSuperior = new List<cTendencia>();
         public List<cTendencia> TendenciasInferior = new List<cTendencia>();
 
-        private cTendencia t_supeselect;
+        public cTendencia t_Supeselect;
         public cTendencia TSupeSelect
         {
-            get { return t_supeselect; }
+            get { return t_Supeselect; }
             set
             {
-                if (t_supeselect != value)
+                if (t_Supeselect != value)
                 {
-                    t_supeselect = value;
+                    t_Supeselect = value;
+
+                    if (t_InfeSelect != null)
+                    {
+                        NervioOrigen.CrearAceroAsignadoRefuerzoLongitudinal();
+                    }
                 }
             }
         }
-        private cTendencia t_InfeSelect;
+        public cTendencia t_InfeSelect;
         public cTendencia TInfeSelect
         {
             get { return t_InfeSelect; }
@@ -63,7 +68,10 @@ namespace FC_Diseño_de_Nervios
                 if (t_InfeSelect != value)
                 {
                     t_InfeSelect = value;
-                    //t_InfeSelect.Tendencia_Refuerzo_Origen.NervioOrigen.CrearCoordenadasDiagramaMomentosyAreas_Reales_Asignado();
+                    if (t_Supeselect != null)
+                    {
+                        NervioOrigen.CrearAceroAsignadoRefuerzoLongitudinal();
+                    }
                 }
             }
         }

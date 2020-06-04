@@ -212,7 +212,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_NuevoProyecto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "F_NuevoProyecto";
+            this.Text = "Nuevo Proyecto";
             this.P_Contenedor.ResumeLayout(false);
             this.GB_1.ResumeLayout(false);
             this.GB_1.PerformLayout();

@@ -169,6 +169,7 @@ namespace FC_Diseño_de_Nervios
         }
         private void BT_Cerrar_Click(object sender, EventArgs e)
         {
+            F_Base.EnviarEstadoVacio();
             List<cPiso> PisosConNervios = F_Base.Proyecto.Edificio.Lista_Pisos.FindAll(x => x.Nervios != null && x.Nervios.Count > 0);
             if (PisosConNervios!=null && PisosConNervios.Count>0)
             {
@@ -336,7 +337,6 @@ namespace FC_Diseño_de_Nervios
 
         private void BT_Enumerar_Click(object sender, EventArgs e)
         {
-            cFunctionsProgram.Notificar("Cargando, Creando Nervios.");
             F_Base.EnviarEstado(F_Base.Proyecto);
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => x.IndiceConjuntoSeleccion = 0);
             List<cLine> LineasSeleccionadas = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(x => x.Select == true).ToList();
@@ -454,6 +454,7 @@ namespace FC_Diseño_de_Nervios
 
         private void BT_CrtierioFC_Click(object sender, EventArgs e)
         {
+            cFunctionsProgram.Notificar("Cargando, Creando Nervios.");
             F_Base.EnviarEstado(F_Base.Proyecto);
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => { x.IndiceConjuntoSeleccion = 0; x.isSelect = true; });
             F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre).Nervios = new List<cNervio>();
@@ -461,6 +462,7 @@ namespace FC_Diseño_de_Nervios
             CreaNervios("N-", LineasSeleccionadas);
             PB_ElementosEnumerados.Invalidate();
             PB_ElementosNoEnumerados.Invalidate();
+            cFunctionsProgram.Notificar("Listo.");
         }
 
         private void CB_Nomenclatura_Hztal_SelectedIndexChanged(object sender, EventArgs e)

@@ -64,7 +64,7 @@ namespace FC_Diseño_de_Nervios
 
 
             //Peso Refuerzo Transversal
-            TSL_PesoTranseversalValue.Text = string.Format("{0:0.00}", F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CalcularPesoTransversal()) + "kg";
+            TSL_PesoTranseversalValue.Text = string.Format("{0:0.00}", F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.PesoTotalRefuerzoTransversal) + "kg";
         
         
         }
@@ -98,12 +98,13 @@ namespace FC_Diseño_de_Nervios
         private void TSCB_RSuperior_SelectedIndexChanged(object sender, EventArgs e)
         {
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasSuperior.Find(x => x.ID.ToString() == TSCB_RSuperior.Text);
+            PB_VistaPerfilLongitudinalDiseno.Invalidate();
         }
 
         private void TSCB_RInferior_SelectedIndexChanged(object sender, EventArgs e)
         {
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasInferior.Find(x => x.ID.ToString() == TSCB_RInferior.Text);
-
+            PB_VistaPerfilLongitudinalDiseno.Invalidate();
         }
 
 
@@ -216,7 +217,8 @@ namespace FC_Diseño_de_Nervios
 
                 PB_VistaPerfilLongitudinalDiseno.Invalidate();
             }
-            Activate();
+           // PB_VistaPerfilLongitudinalDiseno.Focus();
+           // Activate();
         }
 
 
