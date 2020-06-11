@@ -29,7 +29,7 @@ namespace FC_Diseño_de_Nervios
         {
             if (ElementoSeleccionado.Vistas.SelectPerfilLongitudinal)
             {
-
+                F_Base.EnviarEstadoVacio();
                 if(ElementoSeleccionado is cApoyo)
                 {
                     cSeccion Seccion =ElementoSeleccionado.Seccion;

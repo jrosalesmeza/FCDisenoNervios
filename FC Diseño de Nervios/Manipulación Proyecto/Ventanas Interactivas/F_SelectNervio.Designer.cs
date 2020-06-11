@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_SelectNervio));
             this.P_1 = new System.Windows.Forms.Panel();
             this.GB_Propiedades = new System.Windows.Forms.GroupBox();
+            this.CKB_NervioBorde = new System.Windows.Forms.CheckBox();
             this.PB_Info = new FontAwesome.Sharp.IconPictureBox();
             this.TB_r2 = new System.Windows.Forms.TextBox();
             this.TB_r1 = new System.Windows.Forms.TextBox();
@@ -46,6 +48,9 @@
             this.CB_SeccionAltura = new System.Windows.Forms.ComboBox();
             this.GB_4 = new System.Windows.Forms.GroupBox();
             this.PB_Nervios = new System.Windows.Forms.PictureBox();
+            this.CMS_1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.modificarEjesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reasignarEjesANerviosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GB_Nervios = new System.Windows.Forms.GroupBox();
             this.LB_4 = new System.Windows.Forms.Label();
             this.CB_Direccion = new System.Windows.Forms.ComboBox();
@@ -56,16 +61,23 @@
             this.LV_Stories = new System.Windows.Forms.ListView();
             this.P_3 = new System.Windows.Forms.Panel();
             this.LB_1 = new System.Windows.Forms.Label();
+            this.GB_1 = new System.Windows.Forms.GroupBox();
+            this.GB_2 = new System.Windows.Forms.GroupBox();
+            this.CKB_Maestro = new System.Windows.Forms.CheckBox();
+            this.LB_NervioSimilarA = new System.Windows.Forms.Label();
             this.P_1.SuspendLayout();
             this.GB_Propiedades.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Info)).BeginInit();
             this.P_4.SuspendLayout();
             this.GB_4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Nervios)).BeginInit();
+            this.CMS_1.SuspendLayout();
             this.GB_Nervios.SuspendLayout();
             this.P_2.SuspendLayout();
             this.GB_Pisos.SuspendLayout();
             this.P_3.SuspendLayout();
+            this.GB_1.SuspendLayout();
+            this.GB_2.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_1
@@ -85,6 +97,8 @@
             // 
             this.GB_Propiedades.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GB_Propiedades.BackColor = System.Drawing.Color.LightGray;
+            this.GB_Propiedades.Controls.Add(this.GB_2);
+            this.GB_Propiedades.Controls.Add(this.CKB_NervioBorde);
             this.GB_Propiedades.Controls.Add(this.PB_Info);
             this.GB_Propiedades.Controls.Add(this.TB_r2);
             this.GB_Propiedades.Controls.Add(this.TB_r1);
@@ -93,18 +107,27 @@
             this.GB_Propiedades.Controls.Add(this.LB_r1);
             this.GB_Propiedades.Controls.Add(this.LB_r2);
             this.GB_Propiedades.Controls.Add(this.P_4);
-            this.GB_Propiedades.Controls.Add(this.CB_SeccionAncho);
-            this.GB_Propiedades.Controls.Add(this.LB_6);
-            this.GB_Propiedades.Controls.Add(this.LB_7);
-            this.GB_Propiedades.Controls.Add(this.CB_SeccionAltura);
+            this.GB_Propiedades.Controls.Add(this.GB_1);
             this.GB_Propiedades.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_Propiedades.ForeColor = System.Drawing.Color.Black;
-            this.GB_Propiedades.Location = new System.Drawing.Point(3, 444);
+            this.GB_Propiedades.Location = new System.Drawing.Point(3, 337);
             this.GB_Propiedades.Name = "GB_Propiedades";
-            this.GB_Propiedades.Size = new System.Drawing.Size(161, 163);
+            this.GB_Propiedades.Size = new System.Drawing.Size(161, 270);
             this.GB_Propiedades.TabIndex = 10;
             this.GB_Propiedades.TabStop = false;
             this.GB_Propiedades.Text = "N - X | Piso X ";
+            // 
+            // CKB_NervioBorde
+            // 
+            this.CKB_NervioBorde.AutoSize = true;
+            this.CKB_NervioBorde.Font = new System.Drawing.Font("Calibri", 9F);
+            this.CKB_NervioBorde.Location = new System.Drawing.Point(12, 188);
+            this.CKB_NervioBorde.Name = "CKB_NervioBorde";
+            this.CKB_NervioBorde.Size = new System.Drawing.Size(113, 18);
+            this.CKB_NervioBorde.TabIndex = 0;
+            this.CKB_NervioBorde.Text = "Nervio de Borde";
+            this.CKB_NervioBorde.UseVisualStyleBackColor = true;
+            this.CKB_NervioBorde.CheckedChanged += new System.EventHandler(this.RB_NervioBorde_CheckedChanged);
             // 
             // PB_Info
             // 
@@ -113,7 +136,7 @@
             this.PB_Info.IconChar = FontAwesome.Sharp.IconChar.InfoCircle;
             this.PB_Info.IconColor = System.Drawing.SystemColors.Highlight;
             this.PB_Info.IconSize = 21;
-            this.PB_Info.Location = new System.Drawing.Point(126, 116);
+            this.PB_Info.Location = new System.Drawing.Point(132, 132);
             this.PB_Info.Name = "PB_Info";
             this.PB_Info.Size = new System.Drawing.Size(21, 21);
             this.PB_Info.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -123,7 +146,7 @@
             // 
             // TB_r2
             // 
-            this.TB_r2.Location = new System.Drawing.Point(48, 136);
+            this.TB_r2.Location = new System.Drawing.Point(48, 160);
             this.TB_r2.Name = "TB_r2";
             this.TB_r2.Size = new System.Drawing.Size(45, 22);
             this.TB_r2.TabIndex = 17;
@@ -131,7 +154,7 @@
             // 
             // TB_r1
             // 
-            this.TB_r1.Location = new System.Drawing.Point(47, 108);
+            this.TB_r1.Location = new System.Drawing.Point(47, 132);
             this.TB_r1.Name = "TB_r1";
             this.TB_r1.Size = new System.Drawing.Size(45, 22);
             this.TB_r1.TabIndex = 16;
@@ -141,7 +164,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Calibri", 9F);
-            this.label1.Location = new System.Drawing.Point(99, 140);
+            this.label1.Location = new System.Drawing.Point(99, 164);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(22, 14);
             this.label1.TabIndex = 19;
@@ -151,7 +174,7 @@
             // 
             this.LB_cm0.AutoSize = true;
             this.LB_cm0.Font = new System.Drawing.Font("Calibri", 9F);
-            this.LB_cm0.Location = new System.Drawing.Point(98, 112);
+            this.LB_cm0.Location = new System.Drawing.Point(98, 136);
             this.LB_cm0.Name = "LB_cm0";
             this.LB_cm0.Size = new System.Drawing.Size(22, 14);
             this.LB_cm0.TabIndex = 18;
@@ -160,7 +183,7 @@
             // LB_r1
             // 
             this.LB_r1.AutoSize = true;
-            this.LB_r1.Location = new System.Drawing.Point(18, 112);
+            this.LB_r1.Location = new System.Drawing.Point(18, 136);
             this.LB_r1.Name = "LB_r1";
             this.LB_r1.Size = new System.Drawing.Size(20, 14);
             this.LB_r1.TabIndex = 14;
@@ -169,7 +192,7 @@
             // LB_r2
             // 
             this.LB_r2.AutoSize = true;
-            this.LB_r2.Location = new System.Drawing.Point(16, 140);
+            this.LB_r2.Location = new System.Drawing.Point(16, 164);
             this.LB_r2.Name = "LB_r2";
             this.LB_r2.Size = new System.Drawing.Size(20, 14);
             this.LB_r2.TabIndex = 15;
@@ -195,7 +218,7 @@
             this.LB_3.Name = "LB_3";
             this.LB_3.Size = new System.Drawing.Size(148, 18);
             this.LB_3.TabIndex = 1;
-            this.LB_3.Text = "CAMBIO SECCIÓN";
+            this.LB_3.Text = "PROPIEDADES";
             this.LB_3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // CB_SeccionAncho
@@ -207,7 +230,7 @@
             "Superior",
             "Central",
             "Inferior"});
-            this.CB_SeccionAncho.Location = new System.Drawing.Point(47, 80);
+            this.CB_SeccionAncho.Location = new System.Drawing.Point(53, 51);
             this.CB_SeccionAncho.Name = "CB_SeccionAncho";
             this.CB_SeccionAncho.Size = new System.Drawing.Size(75, 22);
             this.CB_SeccionAncho.TabIndex = 13;
@@ -216,7 +239,7 @@
             // LB_6
             // 
             this.LB_6.AutoSize = true;
-            this.LB_6.Location = new System.Drawing.Point(6, 51);
+            this.LB_6.Location = new System.Drawing.Point(12, 22);
             this.LB_6.Name = "LB_6";
             this.LB_6.Size = new System.Drawing.Size(40, 14);
             this.LB_6.TabIndex = 10;
@@ -225,7 +248,7 @@
             // LB_7
             // 
             this.LB_7.AutoSize = true;
-            this.LB_7.Location = new System.Drawing.Point(5, 83);
+            this.LB_7.Location = new System.Drawing.Point(11, 54);
             this.LB_7.Name = "LB_7";
             this.LB_7.Size = new System.Drawing.Size(40, 14);
             this.LB_7.TabIndex = 11;
@@ -240,7 +263,7 @@
             "Superior",
             "Central",
             "Inferior"});
-            this.CB_SeccionAltura.Location = new System.Drawing.Point(48, 48);
+            this.CB_SeccionAltura.Location = new System.Drawing.Point(54, 19);
             this.CB_SeccionAltura.Name = "CB_SeccionAltura";
             this.CB_SeccionAltura.Size = new System.Drawing.Size(75, 22);
             this.CB_SeccionAltura.TabIndex = 12;
@@ -265,6 +288,7 @@
             // 
             this.PB_Nervios.BackColor = System.Drawing.Color.White;
             this.PB_Nervios.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PB_Nervios.ContextMenuStrip = this.CMS_1;
             this.PB_Nervios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PB_Nervios.Location = new System.Drawing.Point(3, 18);
             this.PB_Nervios.Name = "PB_Nervios";
@@ -273,6 +297,30 @@
             this.PB_Nervios.TabStop = false;
             this.PB_Nervios.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_Nervios_Paint);
             this.PB_Nervios.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PB_Nervios_MouseDown_SelectNervio);
+            // 
+            // CMS_1
+            // 
+            this.CMS_1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.modificarEjesToolStripMenuItem,
+            this.reasignarEjesANerviosToolStripMenuItem});
+            this.CMS_1.Name = "CMS_1";
+            this.CMS_1.Size = new System.Drawing.Size(201, 48);
+            // 
+            // modificarEjesToolStripMenuItem
+            // 
+            this.modificarEjesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("modificarEjesToolStripMenuItem.Image")));
+            this.modificarEjesToolStripMenuItem.Name = "modificarEjesToolStripMenuItem";
+            this.modificarEjesToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.modificarEjesToolStripMenuItem.Text = "Modificar Ejes";
+            this.modificarEjesToolStripMenuItem.Click += new System.EventHandler(this.modificarEjesToolStripMenuItem_Click);
+            // 
+            // reasignarEjesANerviosToolStripMenuItem
+            // 
+            this.reasignarEjesANerviosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("reasignarEjesANerviosToolStripMenuItem.Image")));
+            this.reasignarEjesANerviosToolStripMenuItem.Name = "reasignarEjesANerviosToolStripMenuItem";
+            this.reasignarEjesANerviosToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.reasignarEjesANerviosToolStripMenuItem.Text = "Reasignar Ejes a Nervios";
+            this.reasignarEjesANerviosToolStripMenuItem.Click += new System.EventHandler(this.reasignarEjesANerviosToolStripMenuItem_Click);
             // 
             // GB_Nervios
             // 
@@ -285,9 +333,9 @@
             this.GB_Nervios.Controls.Add(this.P_2);
             this.GB_Nervios.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_Nervios.ForeColor = System.Drawing.Color.Black;
-            this.GB_Nervios.Location = new System.Drawing.Point(3, 172);
+            this.GB_Nervios.Location = new System.Drawing.Point(3, 144);
             this.GB_Nervios.Name = "GB_Nervios";
-            this.GB_Nervios.Size = new System.Drawing.Size(161, 266);
+            this.GB_Nervios.Size = new System.Drawing.Size(161, 187);
             this.GB_Nervios.TabIndex = 9;
             this.GB_Nervios.TabStop = false;
             // 
@@ -326,7 +374,7 @@
             this.LV_Nervios.Location = new System.Drawing.Point(6, 69);
             this.LV_Nervios.MultiSelect = false;
             this.LV_Nervios.Name = "LV_Nervios";
-            this.LV_Nervios.Size = new System.Drawing.Size(149, 185);
+            this.LV_Nervios.Size = new System.Drawing.Size(149, 106);
             this.LV_Nervios.TabIndex = 4;
             this.LV_Nervios.UseCompatibleStateImageBehavior = false;
             this.LV_Nervios.View = System.Windows.Forms.View.SmallIcon;
@@ -360,7 +408,7 @@
             this.GB_Pisos.ForeColor = System.Drawing.Color.White;
             this.GB_Pisos.Location = new System.Drawing.Point(3, 3);
             this.GB_Pisos.Name = "GB_Pisos";
-            this.GB_Pisos.Size = new System.Drawing.Size(161, 166);
+            this.GB_Pisos.Size = new System.Drawing.Size(161, 135);
             this.GB_Pisos.TabIndex = 6;
             this.GB_Pisos.TabStop = false;
             // 
@@ -375,7 +423,7 @@
             this.LV_Stories.Location = new System.Drawing.Point(6, 39);
             this.LV_Stories.MultiSelect = false;
             this.LV_Stories.Name = "LV_Stories";
-            this.LV_Stories.Size = new System.Drawing.Size(149, 124);
+            this.LV_Stories.Size = new System.Drawing.Size(149, 93);
             this.LV_Stories.TabIndex = 3;
             this.LV_Stories.UseCompatibleStateImageBehavior = false;
             this.LV_Stories.View = System.Windows.Forms.View.List;
@@ -400,6 +448,53 @@
             this.LB_1.TabIndex = 0;
             this.LB_1.Text = "PISOS";
             // 
+            // GB_1
+            // 
+            this.GB_1.Controls.Add(this.CB_SeccionAncho);
+            this.GB_1.Controls.Add(this.CB_SeccionAltura);
+            this.GB_1.Controls.Add(this.LB_7);
+            this.GB_1.Controls.Add(this.LB_6);
+            this.GB_1.Location = new System.Drawing.Point(6, 46);
+            this.GB_1.Name = "GB_1";
+            this.GB_1.Size = new System.Drawing.Size(147, 79);
+            this.GB_1.TabIndex = 21;
+            this.GB_1.TabStop = false;
+            this.GB_1.Text = "Sección";
+            // 
+            // GB_2
+            // 
+            this.GB_2.Controls.Add(this.LB_NervioSimilarA);
+            this.GB_2.Controls.Add(this.CKB_Maestro);
+            this.GB_2.Location = new System.Drawing.Point(9, 215);
+            this.GB_2.Name = "GB_2";
+            this.GB_2.Size = new System.Drawing.Size(144, 49);
+            this.GB_2.TabIndex = 22;
+            this.GB_2.TabStop = false;
+            this.GB_2.Text = "Similitud";
+            // 
+            // CKB_Maestro
+            // 
+            this.CKB_Maestro.AutoSize = true;
+            this.CKB_Maestro.Enabled = false;
+            this.CKB_Maestro.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CKB_Maestro.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.CKB_Maestro.Location = new System.Drawing.Point(10, 21);
+            this.CKB_Maestro.Name = "CKB_Maestro";
+            this.CKB_Maestro.Size = new System.Drawing.Size(79, 18);
+            this.CKB_Maestro.TabIndex = 0;
+            this.CKB_Maestro.Text = "Maestro  |";
+            this.CKB_Maestro.UseVisualStyleBackColor = true;
+            // 
+            // LB_NervioSimilarA
+            // 
+            this.LB_NervioSimilarA.AutoSize = true;
+            this.LB_NervioSimilarA.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.LB_NervioSimilarA.Location = new System.Drawing.Point(83, 23);
+            this.LB_NervioSimilarA.Name = "LB_NervioSimilarA";
+            this.LB_NervioSimilarA.Size = new System.Drawing.Size(25, 14);
+            this.LB_NervioSimilarA.TabIndex = 1;
+            this.LB_NervioSimilarA.Text = "N-1";
+            // 
             // F_SelectNervio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -423,11 +518,16 @@
             this.P_4.ResumeLayout(false);
             this.GB_4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_Nervios)).EndInit();
+            this.CMS_1.ResumeLayout(false);
             this.GB_Nervios.ResumeLayout(false);
             this.GB_Nervios.PerformLayout();
             this.P_2.ResumeLayout(false);
             this.GB_Pisos.ResumeLayout(false);
             this.P_3.ResumeLayout(false);
+            this.GB_1.ResumeLayout(false);
+            this.GB_1.PerformLayout();
+            this.GB_2.ResumeLayout(false);
+            this.GB_2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -461,5 +561,13 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label LB_cm0;
         private FontAwesome.Sharp.IconPictureBox PB_Info;
+        private System.Windows.Forms.ContextMenuStrip CMS_1;
+        private System.Windows.Forms.ToolStripMenuItem modificarEjesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reasignarEjesANerviosToolStripMenuItem;
+        private System.Windows.Forms.CheckBox CKB_NervioBorde;
+        private System.Windows.Forms.GroupBox GB_2;
+        private System.Windows.Forms.Label LB_NervioSimilarA;
+        private System.Windows.Forms.CheckBox CKB_Maestro;
+        private System.Windows.Forms.GroupBox GB_1;
     }
 }

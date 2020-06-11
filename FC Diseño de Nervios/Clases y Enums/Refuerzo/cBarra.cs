@@ -36,10 +36,9 @@ namespace FC_Diseño_de_Nervios
                 {
                     noBarra = value;
                     traslapo = cDiccionarios.FindTraslapo(NoBarra, TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x is cSubTramo).Seccion.Material.fc, true);
-                    AreaTotalBarra();
-                    CrearCoordenadasReales();
-                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.CrearAceroAsignadoRefuerzoLongitudinal();
-                    CalcularPeso();
+                    AreaTotalBarra(); CalcularPeso();
+                    tendenciaOrigen.AsignarNivelABarras();
+                
                 }
 
             }
@@ -53,9 +52,9 @@ namespace FC_Diseño_de_Nervios
                 if (cantBarra != value)
                 {
                     cantBarra = value;
-                    AreaTotalBarra();
-                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.CrearAceroAsignadoRefuerzoLongitudinal();
-                    CalcularPeso();
+                    AreaTotalBarra();CalcularPeso();
+                    tendenciaOrigen.AsignarNivelABarras();
+
                 }
             }
         }
@@ -124,7 +123,7 @@ namespace FC_Diseño_de_Nervios
             set
             {
 
-                if (xf != value && AplicarCambiosXFiXI(value - xi) && value <= LimiteDerecho)
+                if (xf != value && AplicarCambiosXFiXI(value - xi) && (float)Math.Round(value, cVariables.CifrasDeciLongBarra) <= LimiteDerecho)
                 {
                     xf = value;
                     longitudRecta = (float)Math.Round(xf - xi, cVariables.CifrasDeciLongBarra);
@@ -282,29 +281,31 @@ namespace FC_Diseño_de_Nervios
             C_F_Izquierda.Reales.Add(new PointF(xi, y)); C_F_Izquierda.Reales.Add(new PointF(xi + R, y));
             C_F_Derecha.Reales.Add(new PointF(xf, y)); C_F_Derecha.Reales.Add(new PointF(xf + R, y));
 
+            float LG90 = cDiccionarios.G90[noBarra];
+            float LG180 = cDiccionarios.G180[noBarra].Item1;
+            float DG180 = cDiccionarios.G180[noBarra].Item2;
+
             switch (ubicacionRefuerzo)
             {
                 case eUbicacionRefuerzo.Inferior:
                     switch (ganchoIzquierdo)
                     {
                         case eTipoGancho.G90:
-                            C_Barra.Reales.Insert(0, new PointF(xi, y + cDiccionarios.G90[noBarra]));
+                            C_Barra.Reales.Insert(0, new PointF(xi, y + LG90));
                             break;
                         case eTipoGancho.G180:
-                            float L = cDiccionarios.G180[noBarra].Item1; float D = cDiccionarios.G180[noBarra].Item2;
-                            C_Barra.Reales.Insert(0, new PointF(xi + L - D, y + D));
-                            C_Barra.Reales.Insert(1, new PointF(xi, y + D));
+                            C_Barra.Reales.Insert(0, new PointF(xi + LG180 - DG180, y + DG180));
+                            C_Barra.Reales.Insert(1, new PointF(xi, y + DG180));
                             break;
                     }
                     switch (ganchoDerecha)
                     {
                         case eTipoGancho.G90:
-                            C_Barra.Reales.Add(new PointF(xf, y + cDiccionarios.G90[noBarra]));
+                            C_Barra.Reales.Add(new PointF(xf, y + LG90));
                             break;
                         case eTipoGancho.G180:
-                            float L = cDiccionarios.G180[noBarra].Item1; float D = cDiccionarios.G180[noBarra].Item2;
-                            C_Barra.Reales.Add(new PointF(xf, y + D));
-                            C_Barra.Reales.Add(new PointF(xf - L + D, y + D));
+                            C_Barra.Reales.Add(new PointF(xf, y + DG180));
+                            C_Barra.Reales.Add(new PointF(xf - LG180 + DG180, y + DG180));
                             break;
                     }
                     break;
@@ -312,33 +313,112 @@ namespace FC_Diseño_de_Nervios
                     switch (ganchoIzquierdo)
                     {
                         case eTipoGancho.G90:
-                            C_Barra.Reales.Insert(0, new PointF(xi, y - cDiccionarios.G90[noBarra]));
+                            C_Barra.Reales.Insert(0, new PointF(xi, y - LG90));
                             break;
                         case eTipoGancho.G180:
-                            float L = cDiccionarios.G180[noBarra].Item1; float D = cDiccionarios.G180[noBarra].Item2;
-                            C_Barra.Reales.Insert(0, new PointF(xi + L - D, y - D));
-                            C_Barra.Reales.Insert(1, new PointF(xi, y - D));
+                            C_Barra.Reales.Insert(0, new PointF(xi + LG180 - DG180, y - DG180));
+                            C_Barra.Reales.Insert(1, new PointF(xi, y - DG180));
                             break;
                     }
                     switch (ganchoDerecha)
                     {
                         case eTipoGancho.G90:
-                            C_Barra.Reales.Add(new PointF(xf, y - cDiccionarios.G90[noBarra]));
+                            C_Barra.Reales.Add(new PointF(xf, y - LG90));
                             break;
                         case eTipoGancho.G180:
-                            float L = cDiccionarios.G180[noBarra].Item1; float D = cDiccionarios.G180[noBarra].Item2;
-                            C_Barra.Reales.Add(new PointF(xf, y - D));
-                            C_Barra.Reales.Add(new PointF(xf - L + D, y - D));
+                            C_Barra.Reales.Add(new PointF(xf, y - DG180));
+                            C_Barra.Reales.Add(new PointF(xf - LG180 + DG180, y - DG180));
                             break;
                     }
                     break;
             }
 
             Longitud = (float)Math.Round(cFunctionsProgram.Long(C_Barra.Reales), cVariables.CifrasDeciLongBarra);
-            CalcularPeso();
+
             LimiteDerecho = TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Last().X - TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.r1 * cConversiones.Dimension_cm_to_m;
             LimiteDerecho = (float)Math.Round(LimiteDerecho, cVariables.CifrasDeciLongBarra);
             LimiteIzquierdo = (TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.r1) * cConversiones.Dimension_cm_to_m;
+
+            if (F_Base.Proyecto.RedondearBarra)
+            {
+                if (!(Math.Round(longitud % cVariables.DeltaAlargamitoBarras, cVariables.CifrasDeciLongBarra) == 0))//Si es difierente de multiplos de 0.05
+                {
+                    float Residuo = cFunctionsProgram.DevolverResiduoRedondeado(longitud, cVariables.DeltaAlargamitoBarras, cVariables.CifrasDeciLongBarra);
+                    PointF PuntoI = C_Barra.Reales.First(); PointF PuntoD = C_Barra.Reales.Last();
+                    //Hay que Redondear
+                    if (ganchoDerecha != eTipoGancho.None && ganchoIzquierdo != eTipoGancho.None)//No es Recta la Barra
+                    {
+                        if (ubicacionRefuerzo== eUbicacionRefuerzo.Inferior) //Inferior
+                        {
+                            if (ganchoDerecha == eTipoGancho.G180)
+                            {
+                                PuntoD.X -= Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoD;
+                            }
+                            else if (ganchoDerecha == eTipoGancho.G90)
+                            {
+                                PuntoD.Y += Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoD;
+                            }
+                            if (ganchoIzquierdo == eTipoGancho.G180)
+                            {
+                                PuntoI.X += Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.First())] = PuntoI;
+                            }
+                            else if (ganchoIzquierdo == eTipoGancho.G90)
+                            {
+                                PuntoI.Y+= Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.First())] = PuntoI;
+                            }
+                        }
+                        else //Superior
+                        {
+                            if (ganchoDerecha == eTipoGancho.G180)
+                            {
+                                PuntoI.X -= Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoI;
+
+                            }
+                            else if (ganchoDerecha == eTipoGancho.G90)
+                            {
+                                PuntoD.Y -= Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoD;
+                            }
+                            if (ganchoIzquierdo == eTipoGancho.G180)
+                            {
+                                PuntoI.X += Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.First())] = PuntoI;
+                            }
+                            else if (ganchoIzquierdo == eTipoGancho.G90)
+                            {
+                                PuntoI.Y -= Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.First())] = PuntoI;
+                            }
+                        }
+                    }
+                    else if(ganchoDerecha==eTipoGancho.None && ganchoIzquierdo!=eTipoGancho.None)
+                    {
+                        PuntoD.X += Residuo;
+                        C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoD;
+                    }else if (ganchoDerecha != eTipoGancho.None && ganchoIzquierdo == eTipoGancho.None)
+                    {
+                        PuntoI.X -= Residuo;
+                        C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.First())] = PuntoI;
+                    }else if (ganchoDerecha == eTipoGancho.None && ganchoIzquierdo == eTipoGancho.None)
+                    {
+                        PuntoI.X -= Residuo/2f;
+                        C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.First())] = PuntoI;
+                        PuntoD.X += Residuo/2f;
+                        C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoD;
+                    }
+                }
+          
+            }
+
+
+            Longitud = (float)Math.Round(cFunctionsProgram.Long(C_Barra.Reales), cVariables.CifrasDeciLongBarra);
+            CalcularPeso();
+
         }
 
         private void CalcularPeso()

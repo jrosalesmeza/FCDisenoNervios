@@ -8,9 +8,14 @@ namespace FC_Diseño_de_Nervios
 {
     public static class cVariables
     {
-
+        public const float BubblesizePlano = 1.25f;
         public const float ToleranciaVentanaDiseno = 5f;
 
+        public const float BNervioBorde = 12f;
+        /// <summary>
+        /// Tolerancia de longitud para similitud entre Nervios
+        /// </summary>
+        public const float ToleranciaLSimilar = 0.2f;
 
 
 

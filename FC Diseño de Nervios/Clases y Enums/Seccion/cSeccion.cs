@@ -29,7 +29,7 @@ namespace FC_Diseño_de_Nervios
             {
                 if (b != value && b!=0)
                 {
-                    F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
+                    //F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
                     CambioB =true;
                 }
                 else
@@ -47,7 +47,7 @@ namespace FC_Diseño_de_Nervios
             {
                 if (h != value && h != 0)
                 {
-                    F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
+                    //F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
                     CambioH = true;
                 }
                 else

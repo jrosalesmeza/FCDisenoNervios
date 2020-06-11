@@ -25,10 +25,20 @@ namespace FC_Diseño_de_Nervios
             PB_Nervios.MouseWheel += PB_Nervios_MouseWheel;
             PB_Nervios.MouseDown += PB_Nervios_MouseDown;
             PB_Nervios.MouseMove += PB_Nervios_MouseMove;
+            PB_Nervios.MouseMove += PB_Nervios_MouseMove1;
             CustomizedToolTip ToolTipPerzonalizado = new CustomizedToolTip(); ToolTipPerzonalizado.AutoSize = false; ToolTipPerzonalizado.Size = new Size(150,150);
             ToolTipPerzonalizado.SetToolTip(PB_Info, $" "); PB_Info.Tag = Properties.Resources.c3;
         }
 
+        private void PB_Nervios_MouseMove1(object sender, MouseEventArgs e)
+        {
+            if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null && F_Base.Proyecto.CoordenadasPInterseccion)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.IsPointMousePointLines(e.Location));
+                PB_Nervios.Invalidate();
+            }
+            
+        }
 
         private void CargarListViewStories()
         {
@@ -95,7 +105,7 @@ namespace FC_Diseño_de_Nervios
             {
 
                 F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB, HeightPB, Dx, Dy, Zoom))); ;
-                F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.Paint_Planta_ElementosEnumerados(e.Graphics));
+                F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.Paint_Planta_ElementosEnumerados(e.Graphics, PB_Nervios.Width, Zoom));
             }
         }
 
@@ -143,6 +153,27 @@ namespace FC_Diseño_de_Nervios
 
 
         }
+        private void Habilitar_DeshabilitarNevioBorde()
+        {
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.ActivarBoolNervioBorde)
+            {
+                CKB_NervioBorde.Checked = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.NervioBorde;
+                CKB_NervioBorde.Enabled = true;
+            }
+            else
+            {
+                CKB_NervioBorde.Enabled = false;
+                CKB_NervioBorde.Checked = false;
+
+            }
+        }
+        private void HabilitarMaestroSimilarA()
+        {
+             LB_NervioSimilarA.Text=  F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Maestro.SoySimiarA;
+            CKB_Maestro.Checked = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Maestro.IsMaestroGeometria;
+        }
+
+
 
         private void PB_Nervios_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -224,6 +255,7 @@ namespace FC_Diseño_de_Nervios
                 CB_SeccionAncho.SelectedItem = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAncho.ToString();
                 TB_r1.Text =string.Format("{0:0.00}",F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.r1);
                 TB_r2.Text = string.Format("{0:0.00}", F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.r2);
+                Habilitar_DeshabilitarNevioBorde(); HabilitarMaestroSimilarA();
             }
             else
             {
@@ -320,6 +352,24 @@ namespace FC_Diseño_de_Nervios
                 if (r2 == 0) { r2 = 4f; }
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.r2 = r2;
 
+            }
+        }
+
+        private void modificarEjesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_Base.FuncionVentanaEditarEJesGlobales();
+        }
+
+        private void reasignarEjesANerviosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_Base.FuncionReasignarEjesaNervios();
+        }
+
+        private void RB_NervioBorde_CheckedChanged(object sender, EventArgs e)
+        {
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.ActivarBoolNervioBorde)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.NervioBorde = CKB_NervioBorde.Checked;
             }
         }
     }

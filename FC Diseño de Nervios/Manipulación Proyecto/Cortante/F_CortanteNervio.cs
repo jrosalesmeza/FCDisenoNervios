@@ -83,7 +83,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             //Crear Coordenadas Escaladas de Elementos
 
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasDiagramaCortante_Escaladas_Envolvente(PuntosNoEscalados, HeightPB, HeightPB, Dx, Dy, Zoom, XI);
-            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_DrawCortante(e.Graphics, Zoom, PB_VistaPerfilLongitudinalCortante.Height);
+            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_DrawCortante(e.Graphics, Zoom, PB_VistaPerfilLongitudinalCortante.Height, WidthPB);
 
         }
 

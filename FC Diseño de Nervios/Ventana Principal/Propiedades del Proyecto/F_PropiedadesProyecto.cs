@@ -39,6 +39,8 @@ namespace FC_Diseño_de_Nervios
         {
             CKB_LabelsBarras.Checked = F_Base.Proyecto.EtiquetasDeBarras;
             CKB_CotaInteligente.Checked = F_Base.Proyecto.AcotamientoInteligente;
+            CK_Redondear.Checked = F_Base.Proyecto.RedondearBarra;
+            CKB_CoorPI.Checked = F_Base.Proyecto.CoordenadasPInterseccion;
         }
 
 
@@ -48,6 +50,8 @@ namespace FC_Diseño_de_Nervios
             {
                 F_Base.Proyecto.EtiquetasDeBarras = CKB_LabelsBarras.Checked;
                 F_Base.Proyecto.AcotamientoInteligente = CKB_CotaInteligente.Checked;
+                F_Base.Proyecto.RedondearBarra = CK_Redondear.Checked;
+                 F_Base.Proyecto.CoordenadasPInterseccion= CKB_CoorPI.Checked;
             }
             F_Base.ActualizarTodosLasVentanas();
         }

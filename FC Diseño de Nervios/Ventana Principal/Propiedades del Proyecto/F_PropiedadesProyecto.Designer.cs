@@ -36,15 +36,19 @@
             this.TC_Control = new System.Windows.Forms.TabControl();
             this.TP1_General = new System.Windows.Forms.TabPage();
             this.GB_1 = new System.Windows.Forms.GroupBox();
+            this.CK_Redondear = new System.Windows.Forms.CheckBox();
             this.CKB_CotaInteligente = new System.Windows.Forms.CheckBox();
             this.CKB_LabelsBarras = new System.Windows.Forms.CheckBox();
             this.BT_1 = new System.Windows.Forms.Button();
             this.BT_Agregar = new FontAwesome.Sharp.IconButton();
+            this.GB_2 = new System.Windows.Forms.GroupBox();
+            this.CKB_CoorPI = new System.Windows.Forms.CheckBox();
             this.P_1.SuspendLayout();
             this.P_2.SuspendLayout();
             this.TC_Control.SuspendLayout();
             this.TP1_General.SuspendLayout();
             this.GB_1.SuspendLayout();
+            this.GB_2.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_1
@@ -116,6 +120,7 @@
             // TP1_General
             // 
             this.TP1_General.BackColor = System.Drawing.SystemColors.Control;
+            this.TP1_General.Controls.Add(this.GB_2);
             this.TP1_General.Controls.Add(this.GB_1);
             this.TP1_General.Location = new System.Drawing.Point(4, 23);
             this.TP1_General.Name = "TP1_General";
@@ -126,14 +131,25 @@
             // 
             // GB_1
             // 
+            this.GB_1.Controls.Add(this.CK_Redondear);
             this.GB_1.Controls.Add(this.CKB_CotaInteligente);
             this.GB_1.Controls.Add(this.CKB_LabelsBarras);
             this.GB_1.Location = new System.Drawing.Point(6, 6);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(371, 104);
+            this.GB_1.Size = new System.Drawing.Size(371, 125);
             this.GB_1.TabIndex = 8;
             this.GB_1.TabStop = false;
             this.GB_1.Text = "Propiedades de Barras";
+            // 
+            // CK_Redondear
+            // 
+            this.CK_Redondear.AutoSize = true;
+            this.CK_Redondear.Location = new System.Drawing.Point(16, 101);
+            this.CK_Redondear.Name = "CK_Redondear";
+            this.CK_Redondear.Size = new System.Drawing.Size(192, 18);
+            this.CK_Redondear.TabIndex = 9;
+            this.CK_Redondear.Text = "Redondear a múltiplos de 5cm";
+            this.CK_Redondear.UseVisualStyleBackColor = true;
             // 
             // CKB_CotaInteligente
             // 
@@ -182,6 +198,26 @@
             this.BT_Agregar.TabIndex = 8;
             this.BT_Agregar.UseVisualStyleBackColor = false;
             // 
+            // GB_2
+            // 
+            this.GB_2.Controls.Add(this.CKB_CoorPI);
+            this.GB_2.Location = new System.Drawing.Point(6, 137);
+            this.GB_2.Name = "GB_2";
+            this.GB_2.Size = new System.Drawing.Size(371, 64);
+            this.GB_2.TabIndex = 10;
+            this.GB_2.TabStop = false;
+            this.GB_2.Text = "Planta de Ejes";
+            // 
+            // CKB_CoorPI
+            // 
+            this.CKB_CoorPI.AutoSize = true;
+            this.CKB_CoorPI.Location = new System.Drawing.Point(16, 30);
+            this.CKB_CoorPI.Name = "CKB_CoorPI";
+            this.CKB_CoorPI.Size = new System.Drawing.Size(245, 18);
+            this.CKB_CoorPI.TabIndex = 7;
+            this.CKB_CoorPI.Text = "Coordenadas de Puntos de Intersección ";
+            this.CKB_CoorPI.UseVisualStyleBackColor = true;
+            // 
             // F_PropiedadesProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,6 +236,8 @@
             this.TP1_General.ResumeLayout(false);
             this.GB_1.ResumeLayout(false);
             this.GB_1.PerformLayout();
+            this.GB_2.ResumeLayout(false);
+            this.GB_2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -217,5 +255,8 @@
         private System.Windows.Forms.GroupBox GB_1;
         private System.Windows.Forms.Button BT_1;
         private System.Windows.Forms.CheckBox CKB_CotaInteligente;
+        private System.Windows.Forms.CheckBox CK_Redondear;
+        private System.Windows.Forms.GroupBox GB_2;
+        private System.Windows.Forms.CheckBox CKB_CoorPI;
     }
 }

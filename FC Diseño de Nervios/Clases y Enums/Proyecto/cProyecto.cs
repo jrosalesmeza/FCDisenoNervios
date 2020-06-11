@@ -18,6 +18,8 @@ namespace FC_Diseño_de_Nervios
         public cEdificio Edificio { get; set; }
         public bool EtiquetasDeBarras { get; set; } = true;
         public bool AcotamientoInteligente { get; set; } = true;
+        public bool RedondearBarra { get; set; } = true;
+        public bool CoordenadasPInterseccion { get; set; } = false;
 
         public eNomenclatura Nomenclatura_Hztal { get; set; } = eNomenclatura.Alfabética;
         public eNomenclatura Nomenclatura_Vert { get; set; } = eNomenclatura.Numérica;

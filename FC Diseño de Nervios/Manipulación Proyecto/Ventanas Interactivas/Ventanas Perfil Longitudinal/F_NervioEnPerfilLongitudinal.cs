@@ -38,7 +38,7 @@ namespace FC_Diseño_de_Nervios
             e.Graphics.Clear(Color.White);
             if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
             {
-                CambiosToolStrip();
+                CambiosConteMenuStrip();
                 e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
                 float XI = 15f; float YI = 15f;
                 float WidthPB = PB_VistaPerfilLongitudinal.Width - XI * 3;
@@ -170,7 +170,7 @@ namespace FC_Diseño_de_Nervios
             PB_VistaPerfilLongitudinal.Invalidate();
         }
 
-        private void CambiosToolStrip()
+        private void CambiosConteMenuStrip()
         {
             if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
             {
@@ -193,12 +193,14 @@ namespace FC_Diseño_de_Nervios
 
         private void TLSM_ApoyoInicio_Click(object sender, EventArgs e)
         {
+            F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearApoyosAExtremos(true);
             PB_VistaPerfilLongitudinal.Invalidate();
         }
 
         private void TLSM_ApoyoFinal_Click(object sender, EventArgs e)
         {
+            F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearApoyosAExtremos(ApoyoFinal:true);
             PB_VistaPerfilLongitudinal.Invalidate();
         }

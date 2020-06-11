@@ -61,7 +61,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
 
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasDiagramaAreasCortante_Escaladas_Envolvente(PuntosNoEscalados, HeightPB, HeightPB, Dx, Dy, Zoom, XI);
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasDiagramaAreasCortante_Escalada_Asignado(PuntosNoEscalados, HeightPB, HeightPB, Dx, Dy, Zoom, XI);
-            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_DrawAreasCortante(e.Graphics, Zoom, PB_VistaPerfilLongitudinalAreasCortante.Height);
+            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_DrawAreasCortante(e.Graphics, Zoom, PB_VistaPerfilLongitudinalAreasCortante.Height, WidthPB);
 
 
 

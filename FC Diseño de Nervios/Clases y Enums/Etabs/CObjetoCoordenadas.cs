@@ -81,13 +81,11 @@ namespace FC_Diseño_de_Nervios
         }
 
 
-
         public bool MouseInLineEtabs(Point Point)
         {
 
             if (Planta_Escalado != null)
             {
-
                 GraphicsPath graphicsPath = new GraphicsPath();
                 float Espesor = 5;
                 graphicsPath.AddLine(Planta_Escalado[0].X - Espesor, Planta_Escalado[0].Y - Espesor, Planta_Escalado[1].X - Espesor, Planta_Escalado[1].Y - Espesor);

@@ -113,6 +113,16 @@ namespace FC_Diseño_de_Nervios.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logoefeprimace {
+            get {
+                object obj = ResourceManager.GetObject("logoefeprimace", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Maximizar14X11 {
             get {
                 object obj = ResourceManager.GetObject("Maximizar14X11", resourceCulture);

@@ -70,9 +70,10 @@ namespace FC_Diseño_de_Nervios
 
 
         #endregion
-        public cTramo(string Nombre, List<cObjeto> Lista_Objetos, cNervio NervioOrigen)
+        public cTramo(int ID, List<cObjeto> Lista_Objetos, cNervio NervioOrigen)
         {
-            this.Nombre = Nombre;
+            this.ID = ID; 
+            this.Nombre = "Tramo "+ (ID+1);
             this.Lista_Objetos = Lista_Objetos;
             this.NervioOrigen = NervioOrigen;
             CrearSubTramos();

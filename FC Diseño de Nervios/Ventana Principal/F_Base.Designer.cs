@@ -37,6 +37,7 @@
             this.guardarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gurdarComoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.similitudDeNerviosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.combinacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tendenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,13 +86,16 @@
             this.TS_S2 = new System.Windows.Forms.ToolStripSeparator();
             this.TLSB_SeleccionNervios = new System.Windows.Forms.ToolStripButton();
             this.TLS_Refuerzo = new System.Windows.Forms.ToolStripButton();
+            this.TLS_5 = new System.Windows.Forms.ToolStripSeparator();
+            this.TLSB_ModificarEjes = new System.Windows.Forms.ToolStripButton();
+            this.TSB_ReasignarEjesNervios = new System.Windows.Forms.ToolStripButton();
             this.TLS_S6 = new System.Windows.Forms.ToolStripSeparator();
             this.TLSB_Momentos = new System.Windows.Forms.ToolStripButton();
             this.TLSB_AreasMomentos = new System.Windows.Forms.ToolStripButton();
             this.TLSB_S5 = new System.Windows.Forms.ToolStripSeparator();
             this.TLB_Cortante = new System.Windows.Forms.ToolStripButton();
             this.TLSB_AreasCortante = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.TSB_SelectCombinaciones = new FontAwesome.Sharp.IconToolStripButton();
             this.TLB_Tendencias = new System.Windows.Forms.ToolStripButton();
             this.TTLS_S2 = new System.Windows.Forms.ToolStripSeparator();
@@ -101,8 +105,12 @@
             this.TLS_3 = new System.Windows.Forms.ToolStripSeparator();
             this.TLSB_GraficarNervioActual = new System.Windows.Forms.ToolStripButton();
             this.TLSB_GraficarNerviosAutoCAD = new System.Windows.Forms.ToolStripButton();
-            this.TLS_S3 = new System.Windows.Forms.ToolStripSeparator();
             this.TLSB_GraficarAllNervios = new System.Windows.Forms.ToolStripButton();
+            this.TLS_S3 = new System.Windows.Forms.ToolStripSeparator();
+            this.TLSB_AgregaApoyo = new System.Windows.Forms.ToolStripSplitButton();
+            this.TLSN_ApoyoInicio = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSN_ApoyoFinal = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripButton1 = new FontAwesome.Sharp.IconToolStripButton();
             this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
             this.BT_MaxRest = new System.Windows.Forms.Button();
@@ -190,6 +198,7 @@
             // editarToolStripMenuItem
             // 
             this.editarToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.similitudDeNerviosToolStripMenuItem,
             this.combinacionesToolStripMenuItem,
             this.tendenciasToolStripMenuItem,
             this.deshacerToolStripMenuItem,
@@ -198,6 +207,14 @@
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.editarToolStripMenuItem.Text = "Editar";
+            // 
+            // similitudDeNerviosToolStripMenuItem
+            // 
+            this.similitudDeNerviosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.similitudDeNerviosToolStripMenuItem.Name = "similitudDeNerviosToolStripMenuItem";
+            this.similitudDeNerviosToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.similitudDeNerviosToolStripMenuItem.Text = "Similitud de Nervios";
+            this.similitudDeNerviosToolStripMenuItem.Click += new System.EventHandler(this.similitudDeNerviosToolStripMenuItem_Click);
             // 
             // combinacionesToolStripMenuItem
             // 
@@ -391,7 +408,7 @@
             this.todosLosNerviosToolStripMenuItem});
             this.diseñarToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.diseñarToolStripMenuItem.Name = "diseñarToolStripMenuItem";
-            this.diseñarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.diseñarToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.diseñarToolStripMenuItem.Text = "Diseñar";
             // 
             // nervioToolStripMenuItem
@@ -427,7 +444,7 @@
             this.todsToolStripMenuItem});
             this.autoCADToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.autoCADToolStripMenuItem.Name = "autoCADToolStripMenuItem";
-            this.autoCADToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autoCADToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.autoCADToolStripMenuItem.Text = "AutoCAD";
             // 
             // nervioToolStripMenuItem1
@@ -459,7 +476,7 @@
             // 
             this.pesoTotalToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.pesoTotalToolStripMenuItem.Name = "pesoTotalToolStripMenuItem";
-            this.pesoTotalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pesoTotalToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.pesoTotalToolStripMenuItem.Text = "Peso Total";
             this.pesoTotalToolStripMenuItem.Click += new System.EventHandler(this.pesoTotalToolStripMenuItem_Click);
             // 
@@ -544,13 +561,16 @@
             this.TS_S2,
             this.TLSB_SeleccionNervios,
             this.TLS_Refuerzo,
+            this.TLS_5,
+            this.TLSB_ModificarEjes,
+            this.TSB_ReasignarEjesNervios,
             this.TLS_S6,
             this.TLSB_Momentos,
             this.TLSB_AreasMomentos,
             this.TLSB_S5,
             this.TLB_Cortante,
             this.TLSB_AreasCortante,
-            this.toolStripSeparator1,
+            this.toolStripSeparator2,
             this.TSB_SelectCombinaciones,
             this.TLB_Tendencias,
             this.TTLS_S2,
@@ -561,7 +581,9 @@
             this.TLSB_GraficarNervioActual,
             this.TLSB_GraficarNerviosAutoCAD,
             this.TLSB_GraficarAllNervios,
-            this.TLS_S3});
+            this.TLS_S3,
+            this.TLSB_AgregaApoyo,
+            this.toolStripButton1});
             this.TS_Barra1.Location = new System.Drawing.Point(0, 24);
             this.TS_Barra1.Name = "TS_Barra1";
             this.TS_Barra1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -663,6 +685,31 @@
             this.TLS_Refuerzo.Text = "Pestaña de Esquema de Refuerzo (F3)";
             this.TLS_Refuerzo.Click += new System.EventHandler(this.refuerzoToolStripMenuItem_Click);
             // 
+            // TLS_5
+            // 
+            this.TLS_5.Name = "TLS_5";
+            this.TLS_5.Size = new System.Drawing.Size(6, 28);
+            // 
+            // TLSB_ModificarEjes
+            // 
+            this.TLSB_ModificarEjes.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_ModificarEjes.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_ModificarEjes.Image")));
+            this.TLSB_ModificarEjes.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_ModificarEjes.Name = "TLSB_ModificarEjes";
+            this.TLSB_ModificarEjes.Size = new System.Drawing.Size(23, 25);
+            this.TLSB_ModificarEjes.Text = "Modificar Ejes Globales";
+            this.TLSB_ModificarEjes.Click += new System.EventHandler(this.BT_ModificarEjes_Click);
+            // 
+            // TSB_ReasignarEjesNervios
+            // 
+            this.TSB_ReasignarEjesNervios.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_ReasignarEjesNervios.Image = ((System.Drawing.Image)(resources.GetObject("TSB_ReasignarEjesNervios.Image")));
+            this.TSB_ReasignarEjesNervios.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_ReasignarEjesNervios.Name = "TSB_ReasignarEjesNervios";
+            this.TSB_ReasignarEjesNervios.Size = new System.Drawing.Size(23, 25);
+            this.TSB_ReasignarEjesNervios.Text = "Reasignar ejes a Nervios";
+            this.TSB_ReasignarEjesNervios.Click += new System.EventHandler(this.TSB_ReasignarEjesNervios_Click);
+            // 
             // TLS_S6
             // 
             this.TLS_S6.Name = "TLS_S6";
@@ -717,10 +764,10 @@
             this.TLSB_AreasCortante.Text = "Diagrama de áreas de Cortante (F8).";
             this.TLSB_AreasCortante.Click += new System.EventHandler(this.diagramaDeCortanteToolStripMenuItem_Click);
             // 
-            // toolStripSeparator1
+            // toolStripSeparator2
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
             // 
             // TSB_SelectCombinaciones
             // 
@@ -815,11 +862,6 @@
             this.TLSB_GraficarNerviosAutoCAD.Text = "Graficar Nervios en AutoCAD (Ctrl + Mayús+D)";
             this.TLSB_GraficarNerviosAutoCAD.Click += new System.EventHandler(this.TLSB_GraficarNerviosAutoCAD_Click);
             // 
-            // TLS_S3
-            // 
-            this.TLS_S3.Name = "TLS_S3";
-            this.TLS_S3.Size = new System.Drawing.Size(6, 28);
-            // 
             // TLSB_GraficarAllNervios
             // 
             this.TLSB_GraficarAllNervios.AutoSize = false;
@@ -830,6 +872,51 @@
             this.TLSB_GraficarAllNervios.Size = new System.Drawing.Size(23, 25);
             this.TLSB_GraficarAllNervios.Text = "Graficar Todos los Nervios en AutoCAD (Ctrl + F8)";
             this.TLSB_GraficarAllNervios.Click += new System.EventHandler(this.TLSB_GraficarAllNervios_Click);
+            // 
+            // TLS_S3
+            // 
+            this.TLS_S3.Name = "TLS_S3";
+            this.TLS_S3.Size = new System.Drawing.Size(6, 28);
+            // 
+            // TLSB_AgregaApoyo
+            // 
+            this.TLSB_AgregaApoyo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_AgregaApoyo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TLSN_ApoyoInicio,
+            this.TLSN_ApoyoFinal});
+            this.TLSB_AgregaApoyo.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_AgregaApoyo.Image")));
+            this.TLSB_AgregaApoyo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_AgregaApoyo.Name = "TLSB_AgregaApoyo";
+            this.TLSB_AgregaApoyo.Size = new System.Drawing.Size(32, 25);
+            this.TLSB_AgregaApoyo.Text = "Agregar Apoyos";
+            // 
+            // TLSN_ApoyoInicio
+            // 
+            this.TLSN_ApoyoInicio.Name = "TLSN_ApoyoInicio";
+            this.TLSN_ApoyoInicio.Size = new System.Drawing.Size(143, 22);
+            this.TLSN_ApoyoInicio.Text = "Apoyo Inicial";
+            this.TLSN_ApoyoInicio.Click += new System.EventHandler(this.TLSN_ApoyoInicio_Click);
+            // 
+            // TLSN_ApoyoFinal
+            // 
+            this.TLSN_ApoyoFinal.Name = "TLSN_ApoyoFinal";
+            this.TLSN_ApoyoFinal.Size = new System.Drawing.Size(143, 22);
+            this.TLSN_ApoyoFinal.Text = "Apoyo Final";
+            this.TLSN_ApoyoFinal.Click += new System.EventHandler(this.TLSN_ApoyoFinal_Click);
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.toolStripButton1.IconChar = FontAwesome.Sharp.IconChar.Tools;
+            this.toolStripButton1.IconColor = System.Drawing.Color.Maroon;
+            this.toolStripButton1.IconSize = 16;
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Rotation = 0D;
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 25);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // P_Menu
             // 
@@ -916,7 +1003,7 @@
             this.LB_NombreProyecto.BackColor = System.Drawing.Color.SandyBrown;
             this.LB_NombreProyecto.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LB_NombreProyecto.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.LB_NombreProyecto.Location = new System.Drawing.Point(315, 5);
+            this.LB_NombreProyecto.Location = new System.Drawing.Point(366, 5);
             this.LB_NombreProyecto.Name = "LB_NombreProyecto";
             this.LB_NombreProyecto.Size = new System.Drawing.Size(0, 14);
             this.LB_NombreProyecto.TabIndex = 2;
@@ -1020,7 +1107,6 @@
         private System.Windows.Forms.ToolStripMenuItem cortanteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem diagramaCortanteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem diagramaDeAreasCortanteToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton TLSB_GraficarAllNervios;
         private System.Windows.Forms.ToolStripButton TSB_DiseñarNervio;
         private System.Windows.Forms.ToolStripButton TSB_DiseñarNervios;
         private System.Windows.Forms.ToolStripButton TSB_DiseñarAllNervio;
@@ -1040,7 +1126,7 @@
         private System.Windows.Forms.ToolStripButton TLSB_AreasCortante;
         private System.Windows.Forms.ToolStripButton TLSB_SeleccionNervios;
         private System.Windows.Forms.ToolStripButton TLB_Tendencias;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator TLS_5;
         private System.Windows.Forms.ToolStripButton TLS_Refuerzo;
         private System.Windows.Forms.ToolStripMenuItem diseñoToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator TLS_S6;
@@ -1055,5 +1141,14 @@
         private System.Windows.Forms.ToolStripMenuItem todsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem combinacionesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pesoTotalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton TLSB_ModificarEjes;
+        private System.Windows.Forms.ToolStripButton TSB_ReasignarEjesNervios;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripButton TLSB_GraficarAllNervios;
+        private System.Windows.Forms.ToolStripSplitButton TLSB_AgregaApoyo;
+        private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoInicio;
+        private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoFinal;
+        private System.Windows.Forms.ToolStripMenuItem similitudDeNerviosToolStripMenuItem;
+        private FontAwesome.Sharp.IconToolStripButton toolStripButton1;
     }
 }

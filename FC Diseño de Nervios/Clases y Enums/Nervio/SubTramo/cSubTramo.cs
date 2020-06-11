@@ -22,7 +22,7 @@ namespace FC_Diseño_de_Nervios
             {
                 if (longitud != value && longitud!=0)
                 {
-                    F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
+                    //F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
                     longitud = value;
                     ReasignarEstaciones();
                     TramoOrigen.CalcularLongitud();
@@ -30,6 +30,7 @@ namespace FC_Diseño_de_Nervios
                     TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalAutoCAD();
                     TramoOrigen.NervioOrigen.CrearEnvolvente();
                     TramoOrigen.NervioOrigen.CrearAceroAsignadoRefuerzoLongitudinal();
+                    TramoOrigen.NervioOrigen.AsignarCambiosANerviosSimilares(TramoOrigen.ID,Index);
                 }
                 longitud = value;
             }
@@ -52,6 +53,7 @@ namespace FC_Diseño_de_Nervios
                         TramoOrigen.NervioOrigen.AsignarCambioAlturayCambioAnchoElementos();
                         TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalReales();
                         TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalAutoCAD();
+                        TramoOrigen.NervioOrigen.AsignarCambiosANerviosSimilares(TramoOrigen.ID, Index);
                     }
                     seccion = value;
                 }

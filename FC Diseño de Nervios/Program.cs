@@ -17,7 +17,7 @@ namespace FC_Diseño_de_Nervios
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new F_Inicio());
+            Application.Run(new F_Base());
         }
     }
 }

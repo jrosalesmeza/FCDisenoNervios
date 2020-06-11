@@ -36,6 +36,7 @@ namespace FC_Diseño_de_Nervios
                         NervioOrigen.CrearCoordenadasDiagramaMomentosyCortantesyAreas_Reales_Envolvente();
                         NervioOrigen.CrearCoordenadasDiagramaMomentosyAreas_Reales_Asignado();
                         NervioOrigen.CrearCoordenadasDiagramaAreasCortante_Reales_Asigando();
+                        NervioOrigen.AsignarCambiosANerviosSimilares(Indice);
                         Longitud = seccion.B * cConversiones.Dimension_cm_to_m;
                     }
                 }

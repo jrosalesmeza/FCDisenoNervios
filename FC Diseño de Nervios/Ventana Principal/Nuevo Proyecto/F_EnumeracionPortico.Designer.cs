@@ -66,6 +66,12 @@
             this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.P_Contenedor = new System.Windows.Forms.Panel();
+            this.TLS_1 = new System.Windows.Forms.ToolStrip();
+            this.TLSB_Deshacer = new System.Windows.Forms.ToolStripButton();
+            this.TLSB_Rehacer = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.TLB_EditarPiso = new System.Windows.Forms.ToolStripButton();
+            this.TLSB_LimpiarSeleccion = new System.Windows.Forms.ToolStripButton();
             this.P_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
             this.CMS_EditarPisos.SuspendLayout();
@@ -81,6 +87,8 @@
             this.GB_Controles.SuspendLayout();
             this.GB_Enumerar.SuspendLayout();
             this.CMS_Undo_Redo.SuspendLayout();
+            this.P_Contenedor.SuspendLayout();
+            this.TLS_1.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_Title
@@ -94,7 +102,7 @@
             this.P_Title.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.P_Title.Location = new System.Drawing.Point(0, 0);
             this.P_Title.Name = "P_Title";
-            this.P_Title.Size = new System.Drawing.Size(1195, 23);
+            this.P_Title.Size = new System.Drawing.Size(1291, 23);
             this.P_Title.TabIndex = 1;
             this.P_Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Title_MouseDown);
             // 
@@ -108,7 +116,7 @@
             this.BT_Cerrar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Cerrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Cerrar.Image = global::FC_Diseño_de_Nervios.Properties.Resources.x16Blanca;
-            this.BT_Cerrar.Location = new System.Drawing.Point(1155, 0);
+            this.BT_Cerrar.Location = new System.Drawing.Point(1251, 0);
             this.BT_Cerrar.Name = "BT_Cerrar";
             this.BT_Cerrar.Size = new System.Drawing.Size(40, 23);
             this.BT_Cerrar.TabIndex = 28;
@@ -159,6 +167,7 @@
             // 
             // editarToolStripMenuItem
             // 
+            this.editarToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("editarToolStripMenuItem.Image")));
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.editarToolStripMenuItem.Text = "Editar";
@@ -175,9 +184,9 @@
             this.GB_1.Controls.Add(this.LB_Pisos);
             this.GB_1.Controls.Add(this.GB_Controles);
             this.GB_1.Controls.Add(this.LV_Stories);
-            this.GB_1.Location = new System.Drawing.Point(10, 24);
+            this.GB_1.Location = new System.Drawing.Point(10, 51);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(1178, 592);
+            this.GB_1.Size = new System.Drawing.Size(1274, 640);
             this.GB_1.TabIndex = 3;
             this.GB_1.TabStop = false;
             // 
@@ -252,16 +261,16 @@
             this.GB_3.Controls.Add(this.PB_ElementosEnumerados);
             this.GB_3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_3.ForeColor = System.Drawing.Color.DarkRed;
-            this.GB_3.Location = new System.Drawing.Point(678, 13);
+            this.GB_3.Location = new System.Drawing.Point(732, 13);
             this.GB_3.Name = "GB_3";
-            this.GB_3.Size = new System.Drawing.Size(500, 570);
+            this.GB_3.Size = new System.Drawing.Size(536, 623);
             this.GB_3.TabIndex = 8;
             this.GB_3.TabStop = false;
             this.GB_3.Text = "Elementos Enumerados";
             // 
             // PB_InfoElementos_Enumerados
             // 
-            this.PB_InfoElementos_Enumerados.Location = new System.Drawing.Point(9, 532);
+            this.PB_InfoElementos_Enumerados.Location = new System.Drawing.Point(23, 583);
             this.PB_InfoElementos_Enumerados.Name = "PB_InfoElementos_Enumerados";
             this.PB_InfoElementos_Enumerados.Size = new System.Drawing.Size(76, 27);
             this.PB_InfoElementos_Enumerados.TabIndex = 5;
@@ -274,9 +283,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.PB_ElementosEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PB_ElementosEnumerados.Location = new System.Drawing.Point(6, 15);
+            this.PB_ElementosEnumerados.Location = new System.Drawing.Point(6, 18);
             this.PB_ElementosEnumerados.Name = "PB_ElementosEnumerados";
-            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(491, 546);
+            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(527, 599);
             this.PB_ElementosEnumerados.TabIndex = 4;
             this.PB_ElementosEnumerados.TabStop = false;
             this.PB_ElementosEnumerados.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosEnumerados_MouseDown);
@@ -293,14 +302,14 @@
             this.GB_2.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_2.Location = new System.Drawing.Point(172, 13);
             this.GB_2.Name = "GB_2";
-            this.GB_2.Size = new System.Drawing.Size(500, 570);
+            this.GB_2.Size = new System.Drawing.Size(554, 623);
             this.GB_2.TabIndex = 7;
             this.GB_2.TabStop = false;
             this.GB_2.Text = "Elementos sin Enumerar";
             // 
             // PB_InfoElementosNoEnumerados
             // 
-            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(7, 532);
+            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(17, 583);
             this.PB_InfoElementosNoEnumerados.Name = "PB_InfoElementosNoEnumerados";
             this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(126, 29);
             this.PB_InfoElementosNoEnumerados.TabIndex = 4;
@@ -318,7 +327,7 @@
             this.PB_ElementosNoEnumerados.ContextMenuStrip = this.CMS_1;
             this.PB_ElementosNoEnumerados.Location = new System.Drawing.Point(4, 18);
             this.PB_ElementosNoEnumerados.Name = "PB_ElementosNoEnumerados";
-            this.PB_ElementosNoEnumerados.Size = new System.Drawing.Size(491, 547);
+            this.PB_ElementosNoEnumerados.Size = new System.Drawing.Size(545, 600);
             this.PB_ElementosNoEnumerados.TabIndex = 3;
             this.PB_ElementosNoEnumerados.TabStop = false;
             this.PB_ElementosNoEnumerados.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_ElementosNoEnumerados_Paint);
@@ -344,6 +353,7 @@
             // 
             // limpirarSeleccionToolStripMenuItem
             // 
+            this.limpirarSeleccionToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("limpirarSeleccionToolStripMenuItem.Image")));
             this.limpirarSeleccionToolStripMenuItem.Name = "limpirarSeleccionToolStripMenuItem";
             this.limpirarSeleccionToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.limpirarSeleccionToolStripMenuItem.Text = "Limpiar Selección";
@@ -372,7 +382,7 @@
             this.GB_Controles.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_Controles.Location = new System.Drawing.Point(6, 288);
             this.GB_Controles.Name = "GB_Controles";
-            this.GB_Controles.Size = new System.Drawing.Size(160, 295);
+            this.GB_Controles.Size = new System.Drawing.Size(160, 343);
             this.GB_Controles.TabIndex = 5;
             this.GB_Controles.TabStop = false;
             this.GB_Controles.Text = "Controles";
@@ -387,7 +397,7 @@
             this.GB_Enumerar.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_Enumerar.Location = new System.Drawing.Point(4, 168);
             this.GB_Enumerar.Name = "GB_Enumerar";
-            this.GB_Enumerar.Size = new System.Drawing.Size(150, 118);
+            this.GB_Enumerar.Size = new System.Drawing.Size(150, 169);
             this.GB_Enumerar.TabIndex = 9;
             this.GB_Enumerar.TabStop = false;
             this.GB_Enumerar.Text = "Enumerar";
@@ -424,7 +434,7 @@
             this.BT_CrtierioFC.ForeColor = System.Drawing.Color.Black;
             this.BT_CrtierioFC.Image = ((System.Drawing.Image)(resources.GetObject("BT_CrtierioFC.Image")));
             this.BT_CrtierioFC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BT_CrtierioFC.Location = new System.Drawing.Point(15, 55);
+            this.BT_CrtierioFC.Location = new System.Drawing.Point(15, 58);
             this.BT_CrtierioFC.Name = "BT_CrtierioFC";
             this.BT_CrtierioFC.Size = new System.Drawing.Size(120, 47);
             this.BT_CrtierioFC.TabIndex = 5;
@@ -479,6 +489,7 @@
             // 
             // deshacerToolStripMenuItem
             // 
+            this.deshacerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deshacerToolStripMenuItem.Image")));
             this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
             this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
             this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
@@ -487,6 +498,7 @@
             // 
             // rehacerToolStripMenuItem
             // 
+            this.rehacerToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("rehacerToolStripMenuItem.Image")));
             this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
             this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
@@ -496,22 +508,86 @@
             // P_Contenedor
             // 
             this.P_Contenedor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.P_Contenedor.Controls.Add(this.TLS_1);
             this.P_Contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.P_Contenedor.Location = new System.Drawing.Point(0, 0);
+            this.P_Contenedor.Location = new System.Drawing.Point(0, 23);
             this.P_Contenedor.Name = "P_Contenedor";
-            this.P_Contenedor.Size = new System.Drawing.Size(1195, 619);
+            this.P_Contenedor.Size = new System.Drawing.Size(1291, 677);
             this.P_Contenedor.TabIndex = 4;
+            // 
+            // TLS_1
+            // 
+            this.TLS_1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TLSB_Deshacer,
+            this.TLSB_Rehacer,
+            this.toolStripSeparator1,
+            this.TLB_EditarPiso,
+            this.TLSB_LimpiarSeleccion});
+            this.TLS_1.Location = new System.Drawing.Point(0, 0);
+            this.TLS_1.Name = "TLS_1";
+            this.TLS_1.Size = new System.Drawing.Size(1289, 28);
+            this.TLS_1.TabIndex = 12;
+            this.TLS_1.Text = "TLS";
+            // 
+            // TLSB_Deshacer
+            // 
+            this.TLSB_Deshacer.AutoSize = false;
+            this.TLSB_Deshacer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_Deshacer.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_Deshacer.Image")));
+            this.TLSB_Deshacer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_Deshacer.Name = "TLSB_Deshacer";
+            this.TLSB_Deshacer.Size = new System.Drawing.Size(23, 25);
+            this.TLSB_Deshacer.Text = "Deshacer (Ctrl + Z)";
+            this.TLSB_Deshacer.Click += new System.EventHandler(this.deshacerToolStripMenuItem_Click);
+            // 
+            // TLSB_Rehacer
+            // 
+            this.TLSB_Rehacer.AutoSize = false;
+            this.TLSB_Rehacer.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_Rehacer.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_Rehacer.Image")));
+            this.TLSB_Rehacer.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_Rehacer.Name = "TLSB_Rehacer";
+            this.TLSB_Rehacer.Size = new System.Drawing.Size(23, 25);
+            this.TLSB_Rehacer.Text = "Rehacer (Ctrl Y)";
+            this.TLSB_Rehacer.Click += new System.EventHandler(this.rehacerToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
+            // 
+            // TLB_EditarPiso
+            // 
+            this.TLB_EditarPiso.AutoSize = false;
+            this.TLB_EditarPiso.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLB_EditarPiso.Image = ((System.Drawing.Image)(resources.GetObject("TLB_EditarPiso.Image")));
+            this.TLB_EditarPiso.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLB_EditarPiso.Name = "TLB_EditarPiso";
+            this.TLB_EditarPiso.Size = new System.Drawing.Size(23, 25);
+            this.TLB_EditarPiso.Text = "Modificar Pisos";
+            this.TLB_EditarPiso.Click += new System.EventHandler(this.editarToolStripMenuItem_Click);
+            // 
+            // TLSB_LimpiarSeleccion
+            // 
+            this.TLSB_LimpiarSeleccion.AutoSize = false;
+            this.TLSB_LimpiarSeleccion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_LimpiarSeleccion.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_LimpiarSeleccion.Image")));
+            this.TLSB_LimpiarSeleccion.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_LimpiarSeleccion.Name = "TLSB_LimpiarSeleccion";
+            this.TLSB_LimpiarSeleccion.Size = new System.Drawing.Size(23, 25);
+            this.TLSB_LimpiarSeleccion.Text = "Limpiar Selección";
+            this.TLSB_LimpiarSeleccion.Click += new System.EventHandler(this.limpirarSeleccionToolStripMenuItem_Click);
             // 
             // F_EnumeracionPortico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1195, 619);
+            this.ClientSize = new System.Drawing.Size(1291, 700);
             this.ContextMenuStrip = this.CMS_Undo_Redo;
             this.Controls.Add(this.GB_1);
-            this.Controls.Add(this.P_Title);
             this.Controls.Add(this.P_Contenedor);
+            this.Controls.Add(this.P_Title);
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -540,6 +616,10 @@
             this.GB_Controles.PerformLayout();
             this.GB_Enumerar.ResumeLayout(false);
             this.CMS_Undo_Redo.ResumeLayout(false);
+            this.P_Contenedor.ResumeLayout(false);
+            this.P_Contenedor.PerformLayout();
+            this.TLS_1.ResumeLayout(false);
+            this.TLS_1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -583,5 +663,11 @@
         private System.Windows.Forms.ComboBox CB_Nomenclatura_Hztal;
         private System.Windows.Forms.ContextMenuStrip CMS_EditarPisos;
         private System.Windows.Forms.ToolStripMenuItem editarToolStripMenuItem;
+        private System.Windows.Forms.ToolStrip TLS_1;
+        private System.Windows.Forms.ToolStripButton TLB_EditarPiso;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        internal System.Windows.Forms.ToolStripButton TLSB_Deshacer;
+        internal System.Windows.Forms.ToolStripButton TLSB_Rehacer;
+        private System.Windows.Forms.ToolStripButton TLSB_LimpiarSeleccion;
     }
 }

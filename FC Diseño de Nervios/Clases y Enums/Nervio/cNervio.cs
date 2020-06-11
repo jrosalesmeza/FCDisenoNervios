@@ -18,8 +18,21 @@ namespace FC_Diseño_de_Nervios
         public string Prefijo { get; set; } = "N-";
         public int CantApoyos { get; set; } = 0;
 
-        public float r1_ = 4f;
+        public bool ActivarBoolNervioBorde { get; set; }
+        private bool nervioBorde=false;
+        public bool NervioBorde
+        {
+            get { return nervioBorde; }
+            set
+            {
+                if (nervioBorde != value)
+                {
+                    nervioBorde = value;
+                }
+            }
+        }
 
+        public float r1_ = 4f;
         public float r1
         {
             get { return r1_; }
@@ -30,6 +43,7 @@ namespace FC_Diseño_de_Nervios
                     r1_ = value;
                     CrearEnvolvente();
                     CrearAceroAsignadoRefuerzoLongitudinal();
+                    AsignarCambiosANerviosRecubrimientoSimilares();
                 }
             }
         }
@@ -46,20 +60,32 @@ namespace FC_Diseño_de_Nervios
                     r2_ = value;
                     CrearEnvolvente();
                     CrearAceroAsignadoRefuerzoLongitudinal();
+                    AsignarCambiosANerviosRecubrimientoSimilares();
                 }
             }
         }
-
-        private float longitud;
-        public float Longitud {
-            get { return longitud; }
-            set { longitud = value; }
-        
-        }
+        public float Longitud { get; set; }
         public eDireccion Direccion { get; set; }
         public List<cTramo> Lista_Tramos { get; set; }
         public List<cObjeto> Lista_Objetos { get; set; }
-        public List<cGrid> Grids { get; set; }
+        private List<cGrid> grid;
+        public List<cGrid> Grids {
+
+            get { return grid; }
+            set
+            {
+                if (value != grid)
+                {
+                    if (CantApoyos > 0)
+                    {
+                        grid = value;
+                        ModificarGridsCoordenadasReales();
+                    }
+                }
+            }
+           
+        
+        }
         public List<IElemento> Lista_Elementos { get; set; }
         public bool Bool_CambioAltura { get; set; }
         public bool Bool_CambioAncho { get; set; }
@@ -72,6 +98,7 @@ namespace FC_Diseño_de_Nervios
 
         public float PesoTotalRefuerzoTransversal { get; set; }
 
+        public cMaestro Maestro { get; set; } = new cMaestro();
 
         private eCambioenAltura cambioenAltura;
         private eCambioenAncho cambioenAncho;
@@ -86,6 +113,7 @@ namespace FC_Diseño_de_Nervios
                     cambioenAltura = value;
                     CrearCoordenadasPerfilLongitudinalReales();
                     CrearCoordenadasPerfilLongitudinalAutoCAD();
+                    AsignarCambiosANerviosSimilares();
                 }
             }
         }
@@ -115,11 +143,10 @@ namespace FC_Diseño_de_Nervios
             this.Lista_Objetos = Lista_Objetos;
             this.Lista_Objetos.ForEach(x => { if (x.Soporte == eSoporte.Apoyo) { CantApoyos += 1; } });
             this.Direccion = Direccion;
-            this.Grids = Grids;
             this.PisoOrigen = PisoOrigen; Tendencia_Refuerzos.NervioOrigen = this; 
             AsignarCambioAlturayCambioAnchoObjetos();
             CrearTramos();
-            CrearElementos();
+            CrearElementos(); 
 
             Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos,eUbicacionRefuerzo.Inferior)); Tendencia_Refuerzos.t_InfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
             Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos, eUbicacionRefuerzo.Superior)); Tendencia_Refuerzos.t_Supeselect = Tendencia_Refuerzos.TendenciasSuperior.First();
@@ -128,7 +155,7 @@ namespace FC_Diseño_de_Nervios
             {
                 CrearCoordenadasPerfilLongitudinalReales();
                 CrearCoordenadasPerfilLongitudinalAutoCAD();
-                ModificarGridsCoordenadasReales();
+                this.Grids = Grids;
                 CrearEnvolvente();
                 CrearAceroAsignadoRefuerzoLongitudinal();
                 CrearAceroAsignadoRefuerzoTransversal();
@@ -144,7 +171,7 @@ namespace FC_Diseño_de_Nervios
             Tendencia_Refuerzos.NombreNervioOrigen = Nombre;
         }
 
-        public void ModificarGridsCoordenadasReales(float BubbleSize = 0.25f)
+        private void ModificarGridsCoordenadasReales(float BubbleSize = 0.25f)
         {
             Grids.ForEach(Grid =>
             {
@@ -263,7 +290,7 @@ namespace FC_Diseño_de_Nervios
                     if (Objetos.Count != 0)
                     {
                         Contador += 1;
-                        cTramo Tramo = new cTramo("Tramo " + Contador, Objetos, this);
+                        cTramo Tramo = new cTramo(Contador-1, Objetos, this);
                         Lista_Tramos.Add(Tramo);
                     }
                     Objetos = new List<cObjeto>();
@@ -277,7 +304,7 @@ namespace FC_Diseño_de_Nervios
                         if (Objetos.Count != 0)
                         {
                             Contador += 1;
-                            cTramo Tramo = new cTramo("Tramo " + Contador, Objetos, this);
+                            cTramo Tramo = new cTramo(Contador-1, Objetos, this);
                             Lista_Tramos.Add(Tramo);
                         }
                     }
@@ -317,17 +344,16 @@ namespace FC_Diseño_de_Nervios
             Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; } ) ;
         }
 
-
         public void AsignarMaximaLongitudTendencias()
         {
         
-            if (longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+            if (Longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
             {
-                if (longitud + 2 * cDiccionarios.G90[eNoBarra.B6] < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+                if (Longitud + 2 * cDiccionarios.G90[eNoBarra.B6] < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
                 {
 
-                    Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
-                    Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+                    Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = Longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+                    Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = Longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
                 }
               
             }
@@ -372,7 +398,7 @@ namespace FC_Diseño_de_Nervios
 
             }
 
-
+            Maestro.NerviosSimilares.ForEach(y => y.CrearApoyosAExtremos(ApoyoInicio, ApoyoFinal));
         }
 
         public float CalcularPesoTransversal()
@@ -580,7 +606,12 @@ namespace FC_Diseño_de_Nervios
                 CrearCoordenadasLongitudinal_Reales(ElementoAnterior, Lista_Elementos[i], Elemento_Posterior, 1);
             }
 
-            longitud = Lista_Elementos.Sum(x => x.Longitud);
+            Longitud = Lista_Elementos.Sum(x => x.Longitud);
+            IElemento E1= Lista_Elementos.FindAll(x => x is cSubTramo).Find(x => x.Seccion.B >= cVariables.BNervioBorde);
+            if (E1 != null)
+                ActivarBoolNervioBorde = true;
+            else
+                ActivarBoolNervioBorde = false;
         }
         private void AsignarAlturaVitual_PerfilLongitudinalReal(IElemento ElementoAnterior, IElemento ElementoActual, IElemento ElementoPosterior)
         {
@@ -1002,9 +1033,6 @@ namespace FC_Diseño_de_Nervios
             });
         }
 
-
-
-
         public void CrearCoordenadasDiagramaCortante_Escaladas_Envolvente(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
         {
             Lista_Elementos.ForEach(Elemento =>
@@ -1199,9 +1227,10 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public void Paint_Planta_ElementosEnumerados(Graphics e)
+        public void Paint_Planta_ElementosEnumerados(Graphics e, float WidthW, float Zoom=1)
         {
             Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(z => z.Line.PaintPlantaEscaladaEtabsLine(e)));
+            CrearCuadrodeInfo(e, Zoom, PuntoInMousePointLines_Escalado_Real, "Y", "", WidthW);
         }
 
         public void Paint_Longitudinal_Elementos_Escalados_Original(Graphics e, float Zoom, float HeightForm)
@@ -1250,7 +1279,7 @@ namespace FC_Diseño_de_Nervios
             GraficarRectaApoyos(e, HeightForm);
         }
 
-        public void Paint_Longitudinal_DrawMomentos(Graphics e, float Zoom, float HeightForm)
+        public void Paint_Longitudinal_DrawMomentos(Graphics e, float Zoom, float HeightForm,float WidthW)
         {
             SolidBrush Brush_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(38, 86, 158)));
             SolidBrush Brush_Negativo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(227, 88, 88)));
@@ -1322,13 +1351,13 @@ namespace FC_Diseño_de_Nervios
             GraficarRectaApoyos(e, HeightForm);
 
             #region Muestra Valores de Momentos Solictados con el Mouse
-            CrearCuadrodeInfo(e, Zoom, PuntoInMouseMomentos_Escalado_Real, "M", "Ton-m");
-            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentosAsignado_Escalado_Real, "M", "Ton-m");
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseMomentos_Escalado_Real, "M", "Ton-m", WidthW);
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentosAsignado_Escalado_Real, "M", "Ton-m", WidthW);
             #endregion
 
          
         }
-        public void Paint_Longitudinal_DrawAreasMomentos(Graphics e, float Zoom, float HeightForm)
+        public void Paint_Longitudinal_DrawAreasMomentos(Graphics e, float Zoom, float HeightForm, float WidthW)
         {
             SolidBrush Brush_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(38, 86, 158)));
             SolidBrush Brush_Negativo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(227, 88, 88)));
@@ -1393,13 +1422,13 @@ namespace FC_Diseño_de_Nervios
             GraficarRectaApoyos(e, HeightForm);
             #region Muestra Valores de Areas Requeridas con el Mouse
 
-            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentos_Escalado_Real, "A", "cm²");
-            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentosAsignado_Escaldo_Real, "A", "cm²");
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentos_Escalado_Real, "A", "cm²", WidthW);
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasMomentosAsignado_Escaldo_Real, "A", "cm²", WidthW);
             #endregion
             
         }
 
-        public void Paint_Longitudinal_DrawCortante(Graphics e, float Zoom, float HeightForm)
+        public void Paint_Longitudinal_DrawCortante(Graphics e, float Zoom, float HeightForm,float WidthW)
         {
 
             #region Graficar Fi_Vc
@@ -1509,9 +1538,9 @@ namespace FC_Diseño_de_Nervios
 
             GraficarRectaApoyos(e, HeightForm);
             #region Muestra Valores de Cortante con el Mouse
-            CrearCuadrodeInfo(e, Zoom, PuntoInMouseCortante_Escalado_Real,"V","Ton");
-            CrearCuadrodeInfo(e, Zoom, PuntoInMouseFiCortante_Escalado_Real, "ΦVc", "Ton");
-            CrearCuadrodeInfo(e, Zoom, PuntoInMouseFiCortante2_Escalado_Real, "ΦVc/2", "Ton");
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseCortante_Escalado_Real,"V","Ton", WidthW);
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseFiCortante_Escalado_Real, "ΦVc", "Ton", WidthW);
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseFiCortante2_Escalado_Real, "ΦVc/2", "Ton", WidthW);
             #endregion
 
 
@@ -1520,7 +1549,7 @@ namespace FC_Diseño_de_Nervios
 
         }
 
-        public void Paint_Longitudinal_DrawAreasCortante(Graphics e, float Zoom, float HeightForm)
+        public void Paint_Longitudinal_DrawAreasCortante(Graphics e, float Zoom, float HeightForm,float WidthW)
         {
             SolidBrush Brush_Positivos = new SolidBrush(Color.FromArgb(160, Color.FromArgb(38, 86, 158)));
             SolidBrush Brush_Negativo = new SolidBrush(Color.FromArgb(160, Color.FromArgb(227, 88, 88)));
@@ -1588,15 +1617,9 @@ namespace FC_Diseño_de_Nervios
 
 
 
-
-
-
-
-
-
             GraficarRectaApoyos(e, HeightForm);
             #region Muestra Valores de Cortante con el Mouse
-            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasCortante_Escalado_Real, "A/S", "cm²/cm",4);
+            CrearCuadrodeInfo(e, Zoom, PuntoInMouseAreasCortante_Escalado_Real, "A/S", "cm²/cm", WidthW, 4);
             #endregion
 
           
@@ -1604,15 +1627,20 @@ namespace FC_Diseño_de_Nervios
 
         }
 
-        private void CrearCuadrodeInfo(Graphics e, float Zoom, PointF[] Valores, string VariableEjeY,string UnidadesEjeY,int CantDecimales = 2)
+        private void CrearCuadrodeInfo(Graphics e, float Zoom, PointF[] Valores, string VariableEjeY,string UnidadesEjeY, float WidthW, int CantDecimales = 2)
         {
             float TamanoLetra = Zoom > 0 ? 9 * Zoom : 1;
             Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
             if (Valores != null && Valores.Length != 0)
             {
+
                 string Text = $"(X= {Math.Round(Valores[1].X, 2)}, {VariableEjeY}= {Math.Abs(Math.Round(Valores[1].Y, CantDecimales))}{UnidadesEjeY})";
-                SizeF MeasureString = e.MeasureString(Text, Font1);
-                float BordeRectangulo = 3f; float XString = Valores[0].X + MeasureString.Width / 4; float YString = Valores[0].Y;
+                SizeF MeasureString = e.MeasureString(Text, Font1); float BordeRectangulo = 3f;
+                if (Valores[0].X + MeasureString.Width + BordeRectangulo >= WidthW)
+                {
+                    Valores[0].X = Valores[0].X - 1.3f*MeasureString.Width -BordeRectangulo;
+                }
+               float XString = Valores[0].X + MeasureString.Width / 4; float YString = Valores[0].Y;
                 PointF PuntoString = new PointF(XString, YString);
 
                 PointF[] PuntosRectangulo = new PointF[] { new PointF(XString-BordeRectangulo, YString+MeasureString.Height+ BordeRectangulo),
@@ -1869,6 +1897,19 @@ namespace FC_Diseño_de_Nervios
             PuntoInMouseAreasMomentosAsignado_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
             if (PuntoInMouseAreasMomentosAsignado_Escalado_Real == null | PuntoInMouseAreasMomentosAsignado_Escalado_Real.Length == 0)
                 PuntoInMouseAreasMomentosAsignado_Escalado_Real = IsMousePoint(Location, RealesN, EscaladasN);
+        }
+
+
+        private PointF[] PuntoInMousePointLines_Escalado_Real= new PointF[] { };
+        public void IsPointMousePointLines(PointF Location)
+        {
+            List<PointF> RealesP = new List<PointF>(); List<PointF> EscaladasP = new List<PointF>();
+            Lista_Objetos.ForEach(Objeto =>
+            {
+                RealesP.AddRange(Objeto.Line.Planta_Real);
+                EscaladasP.AddRange(Objeto.Line.Planta_Escalado);
+            });
+            PuntoInMousePointLines_Escalado_Real = IsMousePoint(Location, RealesP, EscaladasP);
         }
 
 
@@ -2155,8 +2196,61 @@ namespace FC_Diseño_de_Nervios
         #endregion
 
 
+        #region Metodos Similares
 
+        public void AsignarCambiosANerviosSimilares(int IndiceTramo,int IndiceSubTramo)
+        {
+            Maestro.NerviosSimilares.ForEach(N => {
+                cSeccion Seccion = N.Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Seccion;
+                Seccion.B = Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Seccion.B; Seccion.H = Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Seccion.H;
+                N.Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Seccion = Seccion;
+                N.Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Longitud = Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Longitud;
+            });
+        }
 
+        public void AsignarCambiosANerviosSimilares()
+        {
+            Maestro.NerviosSimilares.ForEach(N => {
+                N.CambioenAncho = CambioenAncho;
+                N.CambioenAltura = CambioenAltura;
+            });
+        }
+        public void AsignarCambiosANerviosSimilares(int IndiceApoyo)
+        {
+            Maestro.NerviosSimilares.ForEach(N => 
+            {
+
+                if (N.Lista_Elementos.Count-1 >= IndiceApoyo)
+                {
+                    if (N.Lista_Elementos[IndiceApoyo] is cApoyo)
+                    {
+                        cSeccion Seccion = N.Lista_Elementos[IndiceApoyo].Seccion;
+                        Seccion.B = Lista_Elementos[IndiceApoyo].Seccion.B; Seccion.H = Lista_Elementos[IndiceApoyo].Seccion.H;
+                        N.Lista_Elementos[IndiceApoyo].Seccion = Seccion;
+
+                    }
+                    else
+                    {
+                        cFunctionsProgram.VentanaEmergenteError($"No se puede modificar el apoyo de los nervios similares. Verifique que {N.Nombre} tenga la misma cantidad de apoyos.");
+                    }
+
+                }
+                else
+                {
+                    cFunctionsProgram.VentanaEmergenteError($"No se puede modificar el apoyo de los nervios similares. Verifique que {N.Nombre} tenga la misma cantidad de apoyos.");
+                }
+            });
+
+         }
+
+        public void AsignarCambiosANerviosRecubrimientoSimilares()
+        {
+            Maestro.NerviosSimilares.ForEach(N => {
+                N.r1 = r1;
+                N.r2 = r2;
+            });
+        }
+        #endregion
 
 
     }

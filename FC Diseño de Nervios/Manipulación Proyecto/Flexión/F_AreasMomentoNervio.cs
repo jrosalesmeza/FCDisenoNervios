@@ -50,7 +50,7 @@ namespace FC_Diseño_de_Nervios
             PuntosNoEscalados.Add(new PointF(0, 0));
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasDiagramaAreasMomentos_Escaladas_Envolvente(PuntosNoEscalados, HeightPB, HeightPB, Dx, Dy, Zoom, XI);
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasDiagramaAreasMomentos_Escaladas_Asignado(PuntosNoEscalados, HeightPB, HeightPB, Dx, Dy, Zoom, XI);
-            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_DrawAreasMomentos(e.Graphics, Zoom, PB_VistaPerfilLongitudinalAreas.Height);
+            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_DrawAreasMomentos(e.Graphics, Zoom, PB_VistaPerfilLongitudinalAreas.Height, WidthPB);
 
         }
 

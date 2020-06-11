@@ -67,6 +67,9 @@
     <Reference Include="FunctionsAutoCAD">
       <HintPath>..\Bibliotecas para Nervios\FunctionsAutoCAD\bin\Debug\FunctionsAutoCAD.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -88,6 +91,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases y Enums\Herramientas\cDiccionarios.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cPDF.cs" />
+    <Compile Include="Clases y Enums\Nervio\cMaestro.cs" />
     <Compile Include="Clases y Enums\Nervio\cResultados.cs" />
     <Compile Include="Clases y Enums\Nervio\Estribos\cLadoDeEstribos.cs" />
     <Compile Include="Clases y Enums\Nervio\Estribos\cZonaEstribos.cs" />
@@ -146,6 +151,12 @@
     <Compile Include="Controles\RichTextBoxPrinter.cs" />
     <Compile Include="Controles\ToolTipPersonalizado.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.Designer.cs">
+      <DependentUpon>F_ModificarEjesGlobales.cs</DependentUpon>
     </Compile>
     <Compile Include="Ventana Principal\F_AcercaDe.cs">
       <SubType>Form</SubType>
@@ -268,6 +279,12 @@
     <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.Designer.cs">
       <DependentUpon>F_ModificacionEjes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ventana Principal\Ventanas Emergentes\F_SimilitudNervios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventana Principal\Ventanas Emergentes\F_SimilitudNervios.Designer.cs">
+      <DependentUpon>F_SimilitudNervios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ventana Principal\Ventanas Emergentes\F_Tendencia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -284,6 +301,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Controles\Control_Barra.resx">
       <DependentUpon>Control_Barra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.resx">
+      <DependentUpon>F_ModificarEjesGlobales.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventana Principal\F_AcercaDe.resx">
       <DependentUpon>F_AcercaDe.cs</DependentUpon>
@@ -344,6 +364,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.resx">
       <DependentUpon>F_ModificacionEjes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventana Principal\Ventanas Emergentes\F_SimilitudNervios.resx">
+      <DependentUpon>F_SimilitudNervios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventana Principal\Ventanas Emergentes\F_Tendencia.resx">
       <DependentUpon>F_Tendencia.cs</DependentUpon>
@@ -444,6 +467,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="IconoPrograma.ico" />
+    <None Include="Resources\Logo efe Prima Ce  - Largo.png" />
     <None Include="Resources\tick.png" />
     <None Include="Resources\close.png" />
     <None Include="Resources\DiseñoNervios2.png" />
