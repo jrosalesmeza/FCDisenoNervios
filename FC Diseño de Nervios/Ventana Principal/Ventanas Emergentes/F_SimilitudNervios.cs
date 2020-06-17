@@ -13,6 +13,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
     public partial class F_SimilitudNervios : Form
     {
 
+        bool CambiosDGV1Vez = true;
         public List<cNervio> Nervios;
 
         public F_SimilitudNervios(List<cNervio> Nervios)
@@ -51,7 +52,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
 
 
             });
-
+            CambiosDGV1Vez = false;
             cFunctionsProgram.EstiloDatGridView(data);
         }
 
@@ -68,21 +69,24 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
 
         private void DGV_1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex>=0 && e.ColumnIndex== C_Maestro.Index)
+            if (!CambiosDGV1Vez)
             {
-                if ((bool)DGV_1.Rows[e.RowIndex].Cells[C_Maestro.Index].Value)
+                if (e.RowIndex >= 0 && e.ColumnIndex == C_Maestro.Index)
                 {
-                    DGV_1.Rows[e.RowIndex].Cells[C_Similara.Index].ReadOnly = true;
-                    DataGridViewComboBoxCell boxCell = (DataGridViewComboBoxCell)DGV_1.Rows[e.RowIndex].Cells[C_Similara.Index];
-                    boxCell.Items.Clear(); boxCell.Items.Add(" ");
-                    DGV_1.Rows[e.RowIndex].Cells[C_Similara.Index].Value = " ";
+                    if ((bool)DGV_1.Rows[e.RowIndex].Cells[C_Maestro.Index].Value)
+                    {
+                        DGV_1.Rows[e.RowIndex].Cells[C_Similara.Index].ReadOnly = true;
+                        DataGridViewComboBoxCell boxCell = (DataGridViewComboBoxCell)DGV_1.Rows[e.RowIndex].Cells[C_Similara.Index];
+                        boxCell.Items.Clear(); boxCell.Items.Add(" ");
+                        DGV_1.Rows[e.RowIndex].Cells[C_Similara.Index].Value = " ";
+                    }
+                    else
+                    {
+                        DGV_1.Rows[e.RowIndex].Cells[C_Similara.Index].ReadOnly = false;
+
+                    }
+                    MaestrosEnDGV(DGV_1);
                 }
-                else
-                {
-                    DGV_1.Rows[e.RowIndex].Cells[C_Similara.Index].ReadOnly = false;
-                    
-                }
-                MaestrosEnDGV(DGV_1);
             }
         }
 
@@ -120,6 +124,8 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
         private void ConfirmarSimilitudes(DataGridView data)
         {
             List<string> MensajeAlerta = new List<string>();
+
+            Nervios.ForEach(x => { x.Maestro.SimilaresG_String = null; x.Maestro.BoolSoySimiarA = false; });
             foreach (DataGridViewRow row in data.Rows)
             {
                 string NombreNervio = row.Cells[C_NombreNervio.Index].Value.ToString();
@@ -129,6 +135,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
                     SoySimilarA = row.Cells[C_Similara.Index].Value.ToString();
                 cNervio NervioMaestro = Nervios.Find(x => x.Nombre == SoySimilarA);
                 cNervio NervioSimilar = Nervios.Find(x => x.Nombre == NombreNervio);
+                
                 cFunctionsProgram.AsignarSimilitud(NervioMaestro, NervioSimilar, ref MensajeAlerta);
 
             }

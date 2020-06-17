@@ -172,6 +172,8 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+        public float LGanchoIzquierda { get; set; }
+        public float LGanchoDerecha{ get; set; }
 
         private eUbicacionRefuerzo ubicacionRefuerzo;
         public eUbicacionRefuerzo UbicacionRefuerzo
@@ -375,8 +377,8 @@ namespace FC_Diseño_de_Nervios
                         {
                             if (ganchoDerecha == eTipoGancho.G180)
                             {
-                                PuntoI.X -= Residuo / 2f;
-                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoI;
+                                PuntoD.X -= Residuo / 2f;
+                                C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoD;
 
                             }
                             else if (ganchoDerecha == eTipoGancho.G90)
@@ -414,13 +416,27 @@ namespace FC_Diseño_de_Nervios
                 }
           
             }
-
-
+            CalcularGanchos();
             Longitud = (float)Math.Round(cFunctionsProgram.Long(C_Barra.Reales), cVariables.CifrasDeciLongBarra);
             CalcularPeso();
 
         }
 
+        private void CalcularGanchos()
+        {
+            if (ganchoIzquierdo == eTipoGancho.G90)
+                LGanchoIzquierda = C_Barra.Reales.Max(x => x.Y) - C_Barra.Reales.Min(x => x.Y);
+            if(ganchoDerecha== eTipoGancho.G90)
+                LGanchoDerecha = C_Barra.Reales.Max(x => x.Y) - C_Barra.Reales.Min(x => x.Y);
+            if (ganchoIzquierdo == eTipoGancho.G180)
+                LGanchoIzquierda = cFunctionsProgram.Long(PuntosGancho180(C_Barra.Reales, eLadoDeZona.Izquierda));
+            if (ganchoDerecha == eTipoGancho.G180)
+                LGanchoDerecha=cFunctionsProgram.Long(PuntosGancho180(C_Barra.Reales,eLadoDeZona.Derecha));
+            if (ganchoIzquierdo == eTipoGancho.None)
+                LGanchoIzquierda = 0f;
+            if (ganchoDerecha == eTipoGancho.None)
+                LGanchoDerecha = 0f;
+        }
         private void CalcularPeso()
         {
             Peso = cantBarra * cDiccionarios.PesoBarras[noBarra] * longitud;
@@ -824,11 +840,6 @@ namespace FC_Diseño_de_Nervios
 
 
 
-
-
-
-
-
         public void Paint_AutoCAD(float X, float Y)
         {
             string TextBarra = $"{CantBarra}#{NoBarra.ToString().Replace("B", "")} L=";
@@ -846,31 +857,6 @@ namespace FC_Diseño_de_Nervios
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public override string ToString()
         {
             return $"{CantBarra}#{NoBarra.ToString().Replace("B","")} L={Longitud}";
@@ -879,7 +865,26 @@ namespace FC_Diseño_de_Nervios
 
 
 
+        private List<PointF> PuntosGancho180(List<PointF> Puntos,eLadoDeZona Lado)
+        {
+            List<PointF> Puntos180 = new List<PointF>();
+            if(Lado== eLadoDeZona.Izquierda)
+            {
+                for(int i = 0; i <=2; i++)
+                {
+                    Puntos180.Add(Puntos[i]);
+                }
+            }
+            else
+            {
+                for (int i = Puntos.FindLastIndex(x=>x==Puntos.Last()); i <= Puntos.FindLastIndex(x => x == Puntos.Last())-2; i++)
+                {
+                    Puntos180.Add(Puntos[i]);
+                }
+            }
+            return Puntos180;
 
+        }
 
 
     }

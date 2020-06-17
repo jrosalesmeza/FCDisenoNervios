@@ -26,6 +26,7 @@ namespace FC_Diseño_de_Nervios
 
         private string Ruta_ConfigVentanasDefault = Path.Combine(Application.StartupPath,cFunctionsProgram.Ext_ConfigVentana);
         private string Ruta_ConfigVentanasUsuario = Path.Combine(cFunctionsProgram.Ruta_CarpetaLocal, cFunctionsProgram.Ext_ConfigVentana);
+        private string Ruta_MemoriaCalculo = Path.Combine(cFunctionsProgram.Ruta_CarpetaLocal, cFunctionsProgram.Ext_MemoriaCalculos);
         #endregion
 
         #region Ventanas Emergentes
@@ -146,7 +147,6 @@ namespace FC_Diseño_de_Nervios
         private void VentanaEmergente(ref F_SelectCombinaciones Form)
         {
             if (!Form.Created) { Form = new F_SelectCombinaciones(); }
-            Form.NervioSelect = Proyecto.Edificio.PisoSelect.NervioSelect;
             Form.StartPosition = FormStartPosition.CenterScreen;
             Form.ShowDialog();
         }
@@ -159,6 +159,48 @@ namespace FC_Diseño_de_Nervios
         #endregion
 
         #region Funciones para Abrir, Crear, Guardar Proyecto 
+
+
+        private void FuncionGenerarArchivoDLLNet()
+        {
+
+            SaveFileDialog SaveFileDialog = new SaveFileDialog();
+            SaveFileDialog.Title = "Exportar Cantidades | Archivo TXT DL-NET";
+            SaveFileDialog.Filter = $"Archivo TXT |*.txt"; SaveFileDialog.FileOk += SaveFileDialog_FileOk;
+            if (Proyecto.Ruta != "")
+            {
+                SaveFileDialog.InitialDirectory = Proyecto.Ruta;
+                SaveFileDialog.FileName = $"Cantidades DLL NET_{Proyecto.Nombre}";
+            }
+            SaveFileDialog.ShowDialog();
+
+            void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+            {
+                cFunctionsProgram.CrearArhivotxtDLNET(Proyecto.Edificio.PisoSelect.Nervios,SaveFileDialog.FileName);
+            }
+            
+        }
+
+        private void FuncionGenerarMemoriaCalculosPDF()
+        {
+            SaveFileDialog SaveFileDialog = new SaveFileDialog();
+            SaveFileDialog.Title = "Exportar Memorias de Cálculo";
+            SaveFileDialog.Filter= $"Memorias de Cálculo |*.pdf"; SaveFileDialog.FileOk += SaveFileDialog_FileOk;
+            if (Proyecto.Ruta != "")
+            {
+                SaveFileDialog.InitialDirectory = Proyecto.Ruta;
+                SaveFileDialog.FileName = $"Memorias de Cálculo_{Proyecto.Nombre}";
+            }
+            SaveFileDialog.ShowDialog();
+            
+            void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+            {
+                cPDF.CrearPDF(Ruta_MemoriaCalculo, SaveFileDialog.FileName, Proyecto.Edificio.PisoSelect.Nervios);
+            }
+
+        }
+
+
 
         private void VerificarGuardadodeProyecto()
         {
@@ -270,6 +312,7 @@ namespace FC_Diseño_de_Nervios
         }
         public static void FuncionDiseñarNervios(List<cNervio> Nervios)
         {
+            EnviarEstadoVacio();
             cFunctionsProgram.DiseñarNervios(Nervios);
             if (F_Informe != null && F_Informe.Created)
                 try { F_Informe.Close(); } catch { }
@@ -474,10 +517,7 @@ namespace FC_Diseño_de_Nervios
                 ActivarDesacitvarBotonesDeRehaceryDeshacer();
                 if (Proyecto.Edificio != null && Proyecto.Edificio.PisoSelect != null && Proyecto.Edificio.PisoSelect.Nervios != null)
                 {
-                    pesoTotalToolStripMenuItem.Enabled = true;
-                    selecciónDeNerviosToolStripMenuItem.Enabled = true;
-                    TLSB_ModificarEjes.Enabled = true;
-                    TSB_ReasignarEjesNervios.Enabled = true;
+                    ActivarDesactivarBotonesNervios(true);
                     if (Proyecto.Edificio.PisoSelect.NervioSelect != null)
                     {
                         ActivarDesactivarBotonesNervioSelect(true);
@@ -491,9 +531,7 @@ namespace FC_Diseño_de_Nervios
                 }
                 else
                 {
-                    TSB_ReasignarEjesNervios.Enabled = false;
-                    TLSB_ModificarEjes.Enabled = false;
-                    pesoTotalToolStripMenuItem.Enabled = false;
+                    ActivarDesactivarBotonesNervios(false);
                     ActivarDesactivarBotonesNervioSelect(false);
                 }
                 CambiosTimer_3_F_EnumeracionPortico_Proyecto();
@@ -502,14 +540,24 @@ namespace FC_Diseño_de_Nervios
 
             else
             {
-                TSB_ReasignarEjesNervios.Enabled = false;
-                TLSB_ModificarEjes.Enabled = false;
+                ActivarDesactivarBotonesNervios(false);
                 Text = cFunctionsProgram.NombrePrograma;
                 ActivarVentanaEmergenteGuardarCambios = false;
-                pesoTotalToolStripMenuItem.Enabled = false;
                 ActivarDesactivarBotonesNervioSelect(false);
                 BloqueoDesbloqueoBotones(false);
             }
+        }
+
+
+        private void ActivarDesactivarBotonesNervios(bool Bool)
+        {
+            TLS_RevisarProyecto.Enabled = Bool;
+            TLSB_PesoTotal.Enabled = Bool;
+            pesoTotalToolStripMenuItem.Enabled = Bool;
+            selecciónDeNerviosToolStripMenuItem.Enabled = Bool;
+            TLSB_ModificarEjes.Enabled = Bool;
+            TSB_ReasignarEjesNervios.Enabled = Bool;
+            exportarDLNETNIMBUSToolStripMenuItem.Enabled = Bool;
         }
 
 
@@ -517,7 +565,10 @@ namespace FC_Diseño_de_Nervios
         {
 
             /////------------------PESTAÑAS----------------------
+            ///Archivo
+            exportarToolStripMenuItem.Enabled = Bool;
             //Editar
+            similitudDeNerviosToolStripMenuItem.Enabled = Bool;
             combinacionesToolStripMenuItem.Enabled = Bool;
             tendenciasToolStripMenuItem.Enabled = Bool;
 
@@ -529,6 +580,7 @@ namespace FC_Diseño_de_Nervios
             //Diseño
             diseñarToolStripMenuItem.Enabled = Bool;
             autoCADToolStripMenuItem.Enabled = Bool;
+            revisarProyectoToolStripMenuItem.Enabled = Bool;
 
             /////------------------BOTONES--------------------------------------
 
@@ -546,6 +598,7 @@ namespace FC_Diseño_de_Nervios
             TLSB_GraficarNerviosAutoCAD.Enabled = Bool;
             TLSB_GraficarAllNervios.Enabled = Bool;
             TSB_DiseñarAllNervio.Enabled = Bool;
+            TLSB_ExportarPDF.Enabled = Bool;
 
             TLSB_AgregaApoyo.Enabled = Bool;
         }
@@ -851,6 +904,7 @@ namespace FC_Diseño_de_Nervios
 
         private void TSB_DiseñarAllNervio_Click(object sender, EventArgs e)
         {
+            EnviarEstadoVacio();
             FuncionDiseñarNervios(Proyecto.Edificio.PisoSelect.Nervios);
             ActualizarTodosLasVentanas();
         }
@@ -901,6 +955,32 @@ namespace FC_Diseño_de_Nervios
             EnviarEstado_Nervio(Proyecto.Edificio.PisoSelect.NervioSelect);
             Proyecto.Edificio.PisoSelect.NervioSelect.CrearApoyosAExtremos(ApoyoFinal: true);
             ActualizarVentanaF_NervioEnPerfilLongitudinal();
+        }
+        private void TLSB_ExportarPDF_Click(object sender, EventArgs e)
+        {
+            FuncionGenerarMemoriaCalculosPDF();
+        }
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        private void similitudDeNerviosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            F_SimilitudNervios F_SimilitudNervios = new F_SimilitudNervios(Proyecto.Edificio.PisoSelect.Nervios);
+            F_SimilitudNervios.ShowDialog();
+        }
+        private void revisarProyectoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cFunctionsProgram.RevisarNervios(Proyecto.Edificio.PisoSelect.Nervios);
+            if (F_Informe != null && F_Informe.Created)
+                try { F_Informe.Close(); } catch { }
+            F_Informe = new F_Informe(Proyecto.Edificio.PisoSelect.Nervios);
+            F_Informe.Show();
+
+        }
+        private void exportarDLNETNIMBUSToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FuncionGenerarArchivoDLLNet();
         }
         #endregion Eventos de MenuStrip y ToolStrip
 
@@ -965,15 +1045,8 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        private void similitudDeNerviosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            F_SimilitudNervios F_SimilitudNervios = new F_SimilitudNervios(Proyecto.Edificio.PisoSelect.Nervios);
-            F_SimilitudNervios.ShowDialog();
-        }
+ 
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            cPDF.CrearPDF(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Prueba.pdf"), new List<cNervio>() { Proyecto.Edificio.PisoSelect.NervioSelect});
-        }
+  
     }
 }

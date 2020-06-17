@@ -46,8 +46,7 @@ namespace FC_Diseño_de_Nervios
         public const string NombrePrograma = "Diseño de Nervios";
         public const string Ext_ConfigVentana = "ConfigVentanaNervios.config";
         public static string Ruta_CarpetaLocal = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),Empresa, NombrePrograma);
-
-
+        public const string Ext_MemoriaCalculos = "MemoriaCalculos.pdf";
         public static void Notificar(string Text)
         {
             Notificador?.Invoke(Text);
@@ -55,6 +54,10 @@ namespace FC_Diseño_de_Nervios
         public static void VentanaEmergenteError(string Text)
         {
             EventoVentanaEmergente?.Invoke(Text, MessageBoxIcon.Error);
+        }
+        public static void VentanaEmergenteExclamacion(string Text)
+        {
+            EventoVentanaEmergente?.Invoke(Text, MessageBoxIcon.Exclamation);
         }
         /// <summary>
         /// Tuple(string, List(String))
@@ -1752,6 +1755,7 @@ namespace FC_Diseño_de_Nervios
 
 
             ControlErroresDiseño(Nervio, Nervio.Tendencia_Refuerzos.TInfeSelect);
+            ControlErroresApoyos(Nervio);
 
         }
 
@@ -2927,7 +2931,6 @@ namespace FC_Diseño_de_Nervios
         private static void ControlErroresDiseño(cNervio Nervio, cTendencia tendencia)
         {
             bool FaltaI = false; bool FaltaS = false;
-
             foreach(IElemento Eleme in Nervio.Lista_Elementos)
             {
                 if (Eleme is cSubTramo)
@@ -2953,7 +2956,6 @@ namespace FC_Diseño_de_Nervios
                         break;
                 }
             }
-
             if (FaltaI)
             {
                 Nervio.Resultados.Diseñado = false;
@@ -2965,13 +2967,56 @@ namespace FC_Diseño_de_Nervios
                 Nervio.Resultados.Diseñado = false;
                 Nervio.Resultados.Errores.Add($"Se debe suplir mayor cantidad de refuerzo, {tendencia.Nombre}, Superior");
             }
+        }
+        private static void ControlErroresApoyos(cNervio Nervio)
+        {
+            if(Nervio.Lista_Elementos.First() is cSubTramo) // Voladizo
+            {
+                cSubTramo Subtramo = (cSubTramo)Nervio.Lista_Elementos.First();
+                bool Voladizo = false;
+                foreach(cEstacion Estacion in Subtramo.Estaciones)
+                {
+                    if ((float)Math.Round(Estacion.Calculos.Envolvente.M3[0],2) == 0)
+                    {
+                        Voladizo = true;
+                    }
+                    else
+                    {
+                        Voladizo = false;break;
+                    }
+                }
 
+                if (!Voladizo)
+                {
+                    Nervio.Resultados.Errores.Add($"Se debe asignar el primer apoyo.");
+                    Nervio.Resultados.Diseñado = false;
+                }
 
+            }
+            if (Nervio.Lista_Elementos.Last() is cSubTramo) // Voladizo
+            {
+                cSubTramo Subtramo = (cSubTramo)Nervio.Lista_Elementos.Last();
+                bool Voladizo = false;
+                foreach (cEstacion Estacion in Subtramo.Estaciones)
+                {
+                    if ((float)Math.Round(Estacion.Calculos.Envolvente.M3[0], 2) == 0)
+                    {
+                        Voladizo = true;
+                    }
+                    else
+                    {
+                        Voladizo = false; break;
+                    }
+                }
+                if (!Voladizo)
+                {
+                    Nervio.Resultados.Errores.Add($"Se debe asignar el último apoyo.");
+                    Nervio.Resultados.Diseñado = false;
+                }
+               
+            }
 
         }
-
-
-
 
         #endregion
 
@@ -3046,6 +3091,19 @@ namespace FC_Diseño_de_Nervios
             Notificador("Listo");
         }
 
+        public static void RevisarNervios(List<cNervio> Nervios)
+        {
+            Nervios.ForEach(Nervio => { Nervio.Resultados.Diseñado = true; Nervio.Resultados.Errores.Clear(); });
+            foreach (cNervio Nervio in Nervios)
+            {
+                foreach (cTendencia tendencia in Nervio.Tendencia_Refuerzos.TendenciasInferior)
+                {
+                    ControlErroresDiseño(Nervio, tendencia);
+                }
+                ControlErroresApoyos(Nervio);
+            }
+        }
+
         public static void AsignarSimilitud(cNervio NervioMaestro, cNervio NervioSimilar, ref List<string> MensajeAlerta)
         {
             if (NervioMaestro != null)
@@ -3082,7 +3140,7 @@ namespace FC_Diseño_de_Nervios
                     
                     NervioMaestro.Maestro.SimilaresG_String.Add(NervioSimilar.Nombre);
                     NervioSimilar.Maestro.SoySimiarA = NervioMaestro.Nombre;
-                    NervioMaestro.Maestro.BoolSoySimiarA = true;
+                    NervioSimilar.Maestro.BoolSoySimiarA = true;
                 }
                 else
                 {
@@ -3094,15 +3152,134 @@ namespace FC_Diseño_de_Nervios
             else
             {
                 NervioSimilar.Maestro.BoolSoySimiarA = false;
-                NervioSimilar.Maestro.SimilaresG_String = null;
+                //NervioSimilar.Maestro.SimilaresG_String = null;
             }
         }
-       
 
 
 
- 
+        #region Exportar DL NET NIMBUS
+        public static void CrearArhivotxtDLNET(List<cNervio> Nervios,string Ruta)
+        {
+            if (Ruta != "")
+            {
+                List<string> Archivo = new List<string>();
 
+                Archivo.Add(Nervios.Count.ToString());
+                Nervios.ForEach(Nervio =>
+                {
+                    Archivo.Add(Nervio.Nombre);
+                    Archivo.Add(1.ToString());//Cantidad de Estribos
+                    List<string> Barras = NomenclaturaDLNETBarrasNervio(Nervio);
+                    List<string> Estribos = NomenclaturaDLNETEstribosNervio(Nervio);
+                    int FilasRefuerzos = Barras.Count + Estribos.Count;
+                    Archivo.Add(FilasRefuerzos.ToString());
+                    Archivo.AddRange(Barras);
+                    Archivo.AddRange(Estribos);
+                });
+
+                //Escritor
+                StreamWriter Writer = new StreamWriter(Ruta);
+                Archivo.ForEach(Line => Writer.WriteLine(Line));
+                Writer.Close();
+                System.Diagnostics.Process Process = new System.Diagnostics.Process();
+                Process.StartInfo.FileName = Ruta;
+                Process.Start();
+            }
+        }
+
+
+        private static List<string> NomenclaturaDLNETEstribosNervio(cNervio Nervio)
+        {
+            List<Tuple<int, string>> ListaaDepurar = new List<Tuple<int, string>>();
+            List<string> ListaFinal = new List<string>();
+            Nervio.Lista_Tramos.ForEach(Tramo => {
+
+                if (Tramo.EstribosDerecha != null)
+                {
+                    Tramo.EstribosDerecha.Zona1.Estribos.ForEach(x => ListaaDepurar.Add(new Tuple<int, string>(1, NomenclaturaDLNETEstribo(x))));
+                    Tramo.EstribosDerecha.Zona2.Estribos.ForEach(x => ListaaDepurar.Add(new Tuple<int, string>(1, NomenclaturaDLNETEstribo(x))));
+                }
+                if (Tramo.EstribosIzquierda != null)
+                {
+                    Tramo.EstribosIzquierda.Zona1.Estribos.ForEach(x => ListaaDepurar.Add(new Tuple<int, string>(1, NomenclaturaDLNETEstribo(x))));
+                    Tramo.EstribosIzquierda.Zona2.Estribos.ForEach(x => ListaaDepurar.Add(new Tuple<int, string>(1, NomenclaturaDLNETEstribo(x))));
+                }
+            });
+
+            RetornarListaDepurada(ref ListaFinal, ListaaDepurar);
+            return ListaFinal;
+        }
+
+        private static string NomenclaturaDLNETEstribo(cEstribo Estribo)
+        {
+            string Text = "";
+            if (Estribo.Ramas == 1)
+            {
+                Text = $" G  {ConvertireNoBarraToString(Estribo.NoBarra)}  {string.Format("{0:0.00}",Estribo.H)}   G{string.Format("{0:0.00}", Estribo.LGancho)}   F0/0";
+            }
+            else if (Estribo.Ramas==2)
+            {
+                Text = $" E  {ConvertireNoBarraToString(Estribo.NoBarra)}  {string.Format("{0:0.00}", Estribo.B)}*{string.Format("{0:0.00}", Estribo.H)}   G{string.Format("{0:0.00}", Estribo.LGancho)}  F0/45";
+            }
+            return Text;
+        }
+
+        private static List<string> NomenclaturaDLNETBarrasNervio(cNervio Nervio)
+        {
+            List<Tuple<int, string>> ListaaDepurar = new List<Tuple<int, string>>();
+            List<string> ListaFinal = new List<string>();
+            Nervio.Tendencia_Refuerzos.TInfeSelect.Barras.ForEach(x => ListaaDepurar.Add(new Tuple<int, string>(1, NomenclaturaDLNETBarra(x))));
+            Nervio.Tendencia_Refuerzos.TSupeSelect.Barras.ForEach(x => ListaaDepurar.Add(new Tuple<int, string>(1, NomenclaturaDLNETBarra(x))));
+            RetornarListaDepurada(ref ListaFinal, ListaaDepurar);
+            return ListaFinal;
+        }
+        private static string NomenclaturaDLNETBarra(cBarra Barra)
+        {
+            return $" {ConvertireNoBarraToString(Barra.NoBarra)}  " +
+                $"{string.Format("{0:0.00}", Barra.Longitud)}" +
+                $"{NomenclaturaDLNETBarra(Barra.GanchoIzquierda, Barra.LGanchoIzquierda)}" +
+                $"{NomenclaturaDLNETBarra(Barra.GanchoDerecha, Barra.LGanchoDerecha)}";
+        }
+        private static string NomenclaturaDLNETBarra(eTipoGancho Gancho,float LG)
+        {
+            if (Gancho == eTipoGancho.G180)
+                return $"  L{string.Format("{0:0.00}", LG)}";
+            else if (Gancho == eTipoGancho.G90)
+                return $"  U{string.Format("{0:0.00}", LG)}";
+            else
+                return $"";
+        }
+
+
+        private static void RetornarListaDepurada(ref List<string> Lista_DllNetFinal, List<Tuple<int, string>> ListaaDepurar)
+        {
+            List<int> VectorIndices = new List<int>();
+
+            for (int i = 0; i < ListaaDepurar.Count; i++)
+            {
+                int Cantidad1 = ListaaDepurar[i].Item1;
+                string Nomenclatura1 = ListaaDepurar[i].Item2;
+
+                if (VectorIndices.Exists(x => x == i) == false)
+                {
+                    for (int j = i + 1; j < ListaaDepurar.Count; j++)
+                    {
+                        string Nomenclatura2 = ListaaDepurar[j].Item2;
+                        if (Nomenclatura1 == Nomenclatura2)
+                        {
+                            Cantidad1 += ListaaDepurar[j].Item1;
+                            VectorIndices.Add(j);
+                        }
+                    }
+                    if (Cantidad1 != 0)
+                    {
+                        Lista_DllNetFinal.Add(Cantidad1 + Nomenclatura1);
+                    }
+                }
+            }
+        }
+        #endregion
 
     }
 }

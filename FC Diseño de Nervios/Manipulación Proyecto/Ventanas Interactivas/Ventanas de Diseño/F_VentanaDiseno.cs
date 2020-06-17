@@ -59,14 +59,15 @@ namespace FC_Diseño_de_Nervios
             F_Base.ActualizarVentanaF_AreasMomentoNervio(Zoom, Dx, Dy);
 
             //Peso Refuerzo Longitudinal
-            TSL_PesoLongitudinalValue.Text = string.Format("{0:0.00}", F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo + F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo)+" kg";
-
-
-
+            float PesoLong = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo + F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo;
+            TSL_PesoLongitudinalValue.Text = string.Format("{0:0.00}", PesoLong) +" kg";
             //Peso Refuerzo Transversal
-            TSL_PesoTranseversalValue.Text = string.Format("{0:0.00}", F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.PesoTotalRefuerzoTransversal) + "kg";
-        
-        
+            float PesoTransv = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.PesoTotalRefuerzoTransversal;
+            TSL_PesoTranseversalValue.Text = string.Format("{0:0.00}", PesoTransv) + " kg";
+            //Peso Total
+            TSL_PesoTotalValue.Text = string.Format("{0:0.00}", PesoLong+PesoTransv) + " kg";
+
+
         }
 
         private void F_VentanaDiseno_Paint(object sender, PaintEventArgs e)

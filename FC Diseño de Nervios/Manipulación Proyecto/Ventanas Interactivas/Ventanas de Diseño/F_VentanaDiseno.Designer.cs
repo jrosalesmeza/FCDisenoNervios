@@ -49,6 +49,8 @@
             this.PB_VistaPerfilLongitudinalDiseno = new System.Windows.Forms.PictureBox();
             this.Herramientas1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eliminarBarraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSL_PesoTotalText = new System.Windows.Forms.ToolStripLabel();
+            this.TSL_PesoTotalValue = new System.Windows.Forms.ToolStripLabel();
             this.P_1.SuspendLayout();
             this.TS_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_VistaPerfilLongitudinalDiseno)).BeginInit();
@@ -82,7 +84,9 @@
             this.TSL_PesoLongitudinalText,
             this.TSL_PesoLongitudinalValue,
             this.TSL_PesoTransversalText,
-            this.TSL_PesoTranseversalValue});
+            this.TSL_PesoTranseversalValue,
+            this.TSL_PesoTotalText,
+            this.TSL_PesoTotalValue});
             this.TS_1.Location = new System.Drawing.Point(0, 0);
             this.TS_1.Name = "TS_1";
             this.TS_1.Size = new System.Drawing.Size(1088, 25);
@@ -178,8 +182,9 @@
             // 
             this.TSL_PesoLongitudinalText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TSL_PesoLongitudinalText.Name = "TSL_PesoLongitudinalText";
-            this.TSL_PesoLongitudinalText.Size = new System.Drawing.Size(165, 22);
-            this.TSL_PesoLongitudinalText.Text = "Peso Refuerzo Longitudinal: ";
+            this.TSL_PesoLongitudinalText.Size = new System.Drawing.Size(51, 22);
+            this.TSL_PesoLongitudinalText.Text = "P. Long: ";
+            this.TSL_PesoLongitudinalText.ToolTipText = "Peso Refuerzo Longitudinal";
             // 
             // TSL_PesoLongitudinalValue
             // 
@@ -193,8 +198,9 @@
             // 
             this.TSL_PesoTransversalText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TSL_PesoTransversalText.Name = "TSL_PesoTransversalText";
-            this.TSL_PesoTransversalText.Size = new System.Drawing.Size(156, 22);
-            this.TSL_PesoTransversalText.Text = "Peso Refuerzo Transversal:";
+            this.TSL_PesoTransversalText.Size = new System.Drawing.Size(57, 22);
+            this.TSL_PesoTransversalText.Text = "P. Transv:";
+            this.TSL_PesoTransversalText.ToolTipText = "Peso Refuerzo Transversal";
             // 
             // TSL_PesoTranseversalValue
             // 
@@ -232,6 +238,22 @@
             this.eliminarBarraToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.eliminarBarraToolStripMenuItem.Text = "Eliminar Barra";
             this.eliminarBarraToolStripMenuItem.Click += new System.EventHandler(this.eliminarBarraToolStripMenuItem_Click_1);
+            // 
+            // TSL_PesoTotalText
+            // 
+            this.TSL_PesoTotalText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TSL_PesoTotalText.Name = "TSL_PesoTotalText";
+            this.TSL_PesoTotalText.Size = new System.Drawing.Size(48, 22);
+            this.TSL_PesoTotalText.Text = "P. Total:";
+            this.TSL_PesoTotalText.ToolTipText = "Peso Total";
+            // 
+            // TSL_PesoTotalValue
+            // 
+            this.TSL_PesoTotalValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TSL_PesoTotalValue.ForeColor = System.Drawing.Color.DarkBlue;
+            this.TSL_PesoTotalValue.Name = "TSL_PesoTotalValue";
+            this.TSL_PesoTotalValue.Size = new System.Drawing.Size(55, 22);
+            this.TSL_PesoTotalValue.Text = "10.45 kg";
             // 
             // F_VentanaDiseno
             // 
@@ -278,5 +300,7 @@
         private System.Windows.Forms.ToolStripButton TSB_AgregarInferior;
         private System.Windows.Forms.ToolStripButton TSB_AgregarSuperior;
         private System.Windows.Forms.ToolStripButton TSB_Eliminar;
+        private System.Windows.Forms.ToolStripLabel TSL_PesoTotalText;
+        private System.Windows.Forms.ToolStripLabel TSL_PesoTotalValue;
     }
 }

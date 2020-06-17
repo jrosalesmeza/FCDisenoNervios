@@ -2126,7 +2126,7 @@ namespace FC_Diseño_de_Nervios
                 FunctionsAutoCAD.AddPolyline2D(Puntos, cVariables.C_Ejes, false);
             });
 
-            Grids = Grids.OrderBy(x => x.CoordenadaInicial).ToList();
+            grid = Grids.OrderBy(x => x.CoordenadaInicial).ToList();
 
             //Cotas
 

@@ -34,7 +34,6 @@
             this.BT_1 = new System.Windows.Forms.Button();
             this.BT_2 = new System.Windows.Forms.Button();
             this.P_2 = new System.Windows.Forms.Panel();
-            this.LB_Nervio = new System.Windows.Forms.Label();
             this.LB_Encabezado = new FontAwesome.Sharp.IconButton();
             this.DGV_1 = new System.Windows.Forms.DataGridView();
             this.C_NombreCombinacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,7 +92,6 @@
             // P_2
             // 
             this.P_2.BackColor = System.Drawing.Color.Gray;
-            this.P_2.Controls.Add(this.LB_Nervio);
             this.P_2.Controls.Add(this.LB_Encabezado);
             this.P_2.Dock = System.Windows.Forms.DockStyle.Top;
             this.P_2.Location = new System.Drawing.Point(0, 0);
@@ -101,18 +99,6 @@
             this.P_2.Size = new System.Drawing.Size(316, 31);
             this.P_2.TabIndex = 5;
             this.P_2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_2_MouseDown);
-            // 
-            // LB_Nervio
-            // 
-            this.LB_Nervio.AutoSize = true;
-            this.LB_Nervio.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_Nervio.ForeColor = System.Drawing.Color.White;
-            this.LB_Nervio.Location = new System.Drawing.Point(196, 7);
-            this.LB_Nervio.Name = "LB_Nervio";
-            this.LB_Nervio.Size = new System.Drawing.Size(44, 15);
-            this.LB_Nervio.TabIndex = 4;
-            this.LB_Nervio.Text = "Nervio";
-            this.LB_Nervio.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_2_MouseDown);
             // 
             // LB_Encabezado
             // 
@@ -132,7 +118,7 @@
             this.LB_Encabezado.Rotation = 0D;
             this.LB_Encabezado.Size = new System.Drawing.Size(205, 27);
             this.LB_Encabezado.TabIndex = 3;
-            this.LB_Encabezado.Text = "     Selección de Combinaciones |";
+            this.LB_Encabezado.Text = "     Selección de Combinaciones";
             this.LB_Encabezado.UseVisualStyleBackColor = true;
             this.LB_Encabezado.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_2_MouseDown);
             // 
@@ -182,9 +168,9 @@
             this.MinimumSize = new System.Drawing.Size(318, 376);
             this.Name = "F_SelectCombinaciones";
             this.Text = "F_SelectCombinaciones";
+            this.Load += new System.EventHandler(this.F_SelectCombinaciones_Load);
             this.P_1.ResumeLayout(false);
             this.P_2.ResumeLayout(false);
-            this.P_2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_1)).EndInit();
             this.ResumeLayout(false);
 
@@ -197,7 +183,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn C_NombreCombinacion;
         private System.Windows.Forms.DataGridViewCheckBoxColumn C_CheckCombinacion;
         private System.Windows.Forms.Panel P_2;
-        private System.Windows.Forms.Label LB_Nervio;
         private FontAwesome.Sharp.IconButton LB_Encabezado;
         private System.Windows.Forms.Button BT_1;
         private System.Windows.Forms.Button BT_2;

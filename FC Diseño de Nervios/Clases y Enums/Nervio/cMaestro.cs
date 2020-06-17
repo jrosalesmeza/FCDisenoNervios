@@ -18,7 +18,7 @@ namespace FC_Diseño_de_Nervios
             set
             {
                 similaresG_String = value;
-                if (similaresG_String != null && similaresG_String.Count==0)
+                if (similaresG_String != null && similaresG_String.Count>=0)
                     IsMaestroGeometria = true;
                 else
                     IsMaestroGeometria = false;

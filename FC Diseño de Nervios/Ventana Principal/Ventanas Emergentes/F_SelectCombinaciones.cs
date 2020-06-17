@@ -12,21 +12,6 @@ namespace FC_Diseño_de_Nervios
 {
     public partial class F_SelectCombinaciones : Form
     {
-
-        private cNervio nervioSelect;
-        public cNervio NervioSelect
-        {
-            get { return nervioSelect; }
-            set
-            {
-                if (nervioSelect != value && value != null)
-                {
-                    nervioSelect = value;
-                    LB_Nervio.Text = nervioSelect.Nombre;
-                    CargarDGV();
-                }
-            }
-        }
         public F_SelectCombinaciones()
         {
             InitializeComponent();
@@ -34,7 +19,8 @@ namespace FC_Diseño_de_Nervios
 
         private void CargarDGV()
         {
-             DGV_1.Rows.Clear();
+            DGV_1.Rows.Clear();
+            cNervio nervioSelect = F_Base.Proyecto.Edificio.PisoSelect.Nervios.First();
             cSubTramo SubTramo = (cSubTramo)nervioSelect.Lista_Elementos.First(x=> x is cSubTramo);
             List<cSolicitacion> Solicitaciones = SubTramo.Estaciones.First().Lista_Solicitaciones; ;
             Solicitaciones.ForEach(Solicitacion => {
@@ -48,18 +34,21 @@ namespace FC_Diseño_de_Nervios
 
         private void ConfirmarCambios()
         {
-            F_Base.EnviarEstado_Nervio(nervioSelect);
-            List<IElemento> Subtramos =nervioSelect.Lista_Elementos.FindAll(x => x is cSubTramo).ToList();
-            for (int i = 0; i < DGV_1.Rows.Count; i++)
+            F_Base.EnviarEstadoVacio();
+            foreach (cNervio Nervio in F_Base.Proyecto.Edificio.PisoSelect.Nervios)
             {
-                Subtramos.ForEach(subtramo =>
+                List<IElemento> Subtramos = Nervio.Lista_Elementos.FindAll(x => x is cSubTramo).ToList();
+                for (int i = 0; i < DGV_1.Rows.Count; i++)
                 {
-                    cSubTramo SubTramoAux = (cSubTramo)subtramo;
-                    SubTramoAux.Estaciones.ForEach(x => x.Lista_Solicitaciones.Find(y => y.Nombre == (string)DGV_1.Rows[i].Cells[C_NombreCombinacion.Index].Value).SelectEnvolvente = (bool)DGV_1.Rows[i].Cells[C_CheckCombinacion.Index].Value);
-                });
+                    Subtramos.ForEach(subtramo =>
+                    {
+                        cSubTramo SubTramoAux = (cSubTramo)subtramo;
+                        SubTramoAux.Estaciones.ForEach(x => x.Lista_Solicitaciones.Find(y => y.Nombre == (string)DGV_1.Rows[i].Cells[C_NombreCombinacion.Index].Value).SelectEnvolvente = (bool)DGV_1.Rows[i].Cells[C_CheckCombinacion.Index].Value);
+                    });
+                }
+                Nervio.CrearEnvolvente();
+                Nervio.CrearAceroAsignadoRefuerzoLongitudinal();
             }
-            nervioSelect.CrearEnvolvente();
-            nervioSelect.CrearAceroAsignadoRefuerzoLongitudinal();
         }
 
         private void DGV_1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -94,7 +83,7 @@ namespace FC_Diseño_de_Nervios
         private void BT_1_Click(object sender, EventArgs e)
         {
             ConfirmarCambios();
-            F_Base.ActualizarTodosLasVentanas();
+            F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
             Close();
         }
 
@@ -104,6 +93,9 @@ namespace FC_Diseño_de_Nervios
             cFunctionsProgram.SeleccionDataGridView(DGV_1, C_CheckCombinacion.Index, true);
         }
 
-        
+        private void F_SelectCombinaciones_Load(object sender, EventArgs e)
+        {
+            CargarDGV();
+        }
     }
 }

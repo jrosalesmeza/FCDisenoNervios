@@ -16,6 +16,10 @@ namespace FC_Diseño_de_Nervios
         public eNoBarra NoBarra { get; set; }
         public float CoordX { get; set; }
 
+        public float B { get; set; }
+        public float H { get; set; }
+        public float LGancho { get; set; }
+
         public cEstribo(cSubTramo SubTramoOrigen,eNoBarra NoBarra,float CoordX)
         {
             this.SubTramoOrigen = SubTramoOrigen;
@@ -60,9 +64,11 @@ namespace FC_Diseño_de_Nervios
             switch (Ramas)
             {
                 case 1:
-                    Longitud = (H - r1 - r2 + 2 * G180)*cConversiones.Dimension_cm_to_m;
+                    this.H = (H - r1 - r2)*cConversiones.Dimension_cm_to_m;this.B = 0f; LGancho = G180* cConversiones.Dimension_cm_to_m;
+                     Longitud = (H - r1 - r2 + 2 * G180)*cConversiones.Dimension_cm_to_m;
                     break;
                 case 2:
+                    this.H = (H - r1 - r2) * cConversiones.Dimension_cm_to_m; this.B = (B - r1 - r2)* cConversiones.Dimension_cm_to_m; LGancho = G135 * cConversiones.Dimension_cm_to_m;
                     Longitud =( (H - r1 - r2) * 2 + (B - r1 - r2) * 2 + 2 * G135)*cConversiones.Dimension_cm_to_m;
                     break;
                 default:
