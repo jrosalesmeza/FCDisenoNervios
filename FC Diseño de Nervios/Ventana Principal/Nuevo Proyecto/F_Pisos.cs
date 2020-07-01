@@ -69,10 +69,12 @@ namespace FC_Diseño_de_Nervios
         {
             if (PisosSelects != null && PisosSelects.Count != 0)
             {
-
-                foreach (cPiso PisoNoSelect in PisosNoSelects)
+                if (PisosNoSelects != null)
                 {
-                    F_Base.Proyecto.DatosEtabs.Lista_Pisos.Remove(PisoNoSelect);
+                    foreach (cPiso PisoNoSelect in PisosNoSelects)
+                    {
+                        F_Base.Proyecto.DatosEtabs.Lista_Pisos.Remove(PisoNoSelect);
+                    }
                 }
                 Visible = false;
 

@@ -169,8 +169,8 @@ namespace FC_Diseño_de_Nervios
         }
         private void HabilitarMaestroSimilarA()
         {
-             LB_NervioSimilarA.Text=  F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Maestro.SoySimiarA;
-            CKB_Maestro.Checked = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Maestro.IsMaestroGeometria;
+             LB_NervioSimilarA.Text=  F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervio.SoySimiarA;
+            CKB_Maestro.Checked = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervio.IsMaestroGeometria;
         }
 
 

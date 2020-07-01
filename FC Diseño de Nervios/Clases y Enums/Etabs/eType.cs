@@ -12,6 +12,7 @@ namespace FC_Diseño_de_Nervios
         Column,
         Beam,
         Floor,
-        Wall
+        Wall,
+        Brace
     }
 }

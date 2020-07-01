@@ -172,12 +172,12 @@ namespace FC_Diseño_de_Nervios
 
         private void CambiosConteMenuStrip()
         {
-            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
-            {
-                TLSM_ApoyoInicio.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.First() is cSubTramo;
-
-                TLSM_ApoyoFinal.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.Last() is cSubTramo;
-            }
+            TLSN_ApoyoInicio.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.First() is cSubTramo;
+            TLSN_ApoyoFinal.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.Last() is cSubTramo;
+            TLSN_ApoyoInicioE.Enabled = !(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.First() is cSubTramo);
+            TLSN_ApoyoFinalE.Enabled = !(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.Last() is cSubTramo);
+            eliminarApoyosToolStripMenuItem.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.PoderEliminarApoyos();
+            agregarApoyosToolStripMenuItem.Enabled = !F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
         }
 
 
@@ -193,16 +193,35 @@ namespace FC_Diseño_de_Nervios
 
         private void TLSM_ApoyoInicio_Click(object sender, EventArgs e)
         {
-            F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
-            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearApoyosAExtremos(true);
-            PB_VistaPerfilLongitudinal.Invalidate();
+            if (sender == TLSN_ApoyoInicio)
+            {
+                F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearApoyosAExtremos(true);
+                F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
+            }
+            else if (sender == TLSN_ApoyoInicioE)
+            {
+                F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.EliminarApoyosAExtremos(true);
+                F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
+            }
         }
 
         private void TLSM_ApoyoFinal_Click(object sender, EventArgs e)
         {
-            F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
-            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearApoyosAExtremos(ApoyoFinal:true);
-            PB_VistaPerfilLongitudinal.Invalidate();
+            if (sender == TLSN_ApoyoFinal)
+            {
+                F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearApoyosAExtremos(ApoyoFinal: true);
+                PB_VistaPerfilLongitudinal.Invalidate();
+            }
+            else if (sender == TLSN_ApoyoFinalE)
+            {
+                F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.EliminarApoyosAExtremos(ApoyoFinal: true);
+                PB_VistaPerfilLongitudinal.Invalidate();
+            }
         }
+
     }
 }

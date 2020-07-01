@@ -14,7 +14,6 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Di
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.F_NuevoProyecto.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC Diseño de Nervios.csproj.CopyComplete
-C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\System.Windows.Forms.Ribbon35.dll
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.exe.config
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.exe
 C:\Users\ASUS\Desktop\Programa Nervios\FCDisenoNervios\FC Diseño de Nervios\bin\Debug\FC Diseño de Nervios.pdb
@@ -92,3 +91,6 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Di
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Debug\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.F_SimilitudNervios.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\itextsharp.dll
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\itextsharp.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\WebTools.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\WebTools.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Debug\WebTools.xml

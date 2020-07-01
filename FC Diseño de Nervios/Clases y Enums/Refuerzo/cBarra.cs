@@ -861,10 +861,6 @@ namespace FC_Diseño_de_Nervios
         {
             return $"{CantBarra}#{NoBarra.ToString().Replace("B","")} L={Longitud}";
         }
-
-
-
-
         private List<PointF> PuntosGancho180(List<PointF> Puntos,eLadoDeZona Lado)
         {
             List<PointF> Puntos180 = new List<PointF>();

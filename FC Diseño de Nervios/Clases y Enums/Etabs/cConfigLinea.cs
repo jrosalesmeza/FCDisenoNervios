@@ -55,6 +55,7 @@ namespace FC_Diseño_de_Nervios
         public float Longitud { get; set; }
         public float OffSetI { get; set; } = 0;
         public float OffSetJ { get; set; } = 0;
+        public float Angulo { get; set; }
 
         public void CalcularLongitud()
         {

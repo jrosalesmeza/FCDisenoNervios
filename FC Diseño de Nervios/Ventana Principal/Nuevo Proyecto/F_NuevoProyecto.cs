@@ -28,7 +28,7 @@ namespace FC_Diseño_de_Nervios
         }
         private void CargarRutaArchivoE2K()
         {
-            CargarE2K = cFunctionsProgram.CagarArchivoTextoPlano("Archivo ETABS |*.e2k; *.$et", "Archivo de e2K, $et");
+            CargarE2K = cFunctionsProgram.CagarArchivoTextoPlanoWindowsForm("Archivo ETABS |*.e2k; *.$et", "Archivo de e2K, $et");
             if (CargarE2K != null)
             {
                 TB_Ruta1.Text = CargarE2K.Item1;
@@ -37,7 +37,7 @@ namespace FC_Diseño_de_Nervios
 
         private void B_CargarCSV_Click(object sender, EventArgs e)
         {
-            CargarCSV = cFunctionsProgram.CagarArchivoTextoPlano("Archivo de Fuerzas |*.csv", "Archivo de Fuerzas, Unidades en |Ton- m|");
+            CargarCSV = cFunctionsProgram.CagarArchivoTextoPlanoWindowsForm("Archivo de Fuerzas |*.csv", "Archivo de Fuerzas, Unidades en |Ton- m|");
             if (CargarCSV != null)
             {
                 TB_Ruta2.Text = CargarCSV.Item1;
@@ -51,11 +51,15 @@ namespace FC_Diseño_de_Nervios
             {
                 List<string> Errores = cFunctionsProgram.ComprobarErroresArchivoE2K(CargarE2K.Item2);
                 List<string> ErroresCSV = cFunctionsProgram.CoprobarErroresArchivoCSV(CargarCSV.Item2);
-                if (Errores.Count != 0 && ErroresCSV.Count!=0)
+                if (Errores.Count != 0 || ErroresCSV.Count!=0)
                 {
                     foreach (string Error in Errores)
                     {
-                        MessageBox.Show(Error, cFunctionsProgram.Empresa, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        cFunctionsProgram.VentanaEmergenteExclamacion(Error);
+                    }
+                    foreach (string Error in ErroresCSV)
+                    {
+                        cFunctionsProgram.VentanaEmergenteExclamacion(Error);
                     }
                     return false;
                 }

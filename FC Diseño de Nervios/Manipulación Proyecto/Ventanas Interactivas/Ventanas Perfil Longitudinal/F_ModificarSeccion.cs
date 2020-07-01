@@ -117,27 +117,33 @@ namespace FC_Diseño_de_Nervios
             float.TryParse(TB_Altura.Text, out float H);
             float.TryParse(TB_Ancho.Text, out float B);
             float.TryParse(TB_Longitud.Text, out float L);
-            if(ElementoSeleccionado is cApoyo)
+            if (!F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_())
             {
-                if(H!=0 && B != 0)
+                if (ElementoSeleccionado is cApoyo)
                 {
-                    CambioPropiedadesElemento(H, B);
-             
+                    if (H != 0 && B != 0)
+                    {
+                        CambioPropiedadesElemento(H, B);
+
+                    }
                 }
+                else
+                {
+                    if (H != 0 && B != 0 && L != 0)
+                    {
+                        CambioPropiedadesElemento(H, B, L);
+                    }
+
+                }
+                ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
+                F_Base.ActualizarTodosLasVentanas();
+                Close();
+
             }
             else
             {
-                if (H != 0 && B != 0 && L!=0)
-                {
-                    CambioPropiedadesElemento(H, B, L);
-                }
-
+                cFunctionsProgram.VentanaEmergenteExclamacion("Para realizar un cambio en el elemento elimine el refuerzo asignado.");
             }
-            ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
-            F_Base.ActualizarTodosLasVentanas();
-            Close();
-
-
         }
 
         private void BT_Cancelar_Click(object sender, EventArgs e)

@@ -22,6 +22,7 @@ namespace FC_Diseño_de_Nervios
 
         public float PesoRefuerzoTransversal { get; set; }
 
+        #region Refuerzo Transversal
         public void CalcularPesoTransversal()
         {
             PesoRefuerzoTransversal = 0;
@@ -30,7 +31,6 @@ namespace FC_Diseño_de_Nervios
             if (EstribosIzquierda != null)
                 PesoRefuerzoTransversal += EstribosIzquierda.PesoRefuerzoTransversal;
         }
-
 
         public void UnirZonaDeEstribos()
         {
@@ -56,6 +56,15 @@ namespace FC_Diseño_de_Nervios
             }
 
         }
+
+        public void EliminarRefuerzoTransversal()
+        {
+            EstribosDerecha = null;
+            EstribosIzquierda = null;
+            NervioOrigen.ActualizarRefuerzoTransversal();
+        }
+        #endregion
+
 
         #region Campos No Serializables
         [NonSerialized]
@@ -126,6 +135,10 @@ namespace FC_Diseño_de_Nervios
             longitud = Lista_SubTramos.Sum(x => x.Longitud);
         }
           
+
+   
+
+
         public override string ToString()
         {
             return $"{Nombre} | L={Longitud} | CountObjetos= {Lista_Objetos.Count}";

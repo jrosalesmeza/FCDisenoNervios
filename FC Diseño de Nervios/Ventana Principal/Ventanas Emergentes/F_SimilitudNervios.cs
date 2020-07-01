@@ -26,7 +26,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
         {
             data.Rows.Clear();
 
-            List<cNervio> NerviosMaestros = Nervios.FindAll(y => y.Maestro.IsMaestroGeometria);
+            List<cNervio> NerviosMaestros = Nervios.FindAll(y => y.SimilitudNervio.IsMaestroGeometria);
             List<string> NerviosMaestrosString = new List<string>();
             if (NerviosMaestros != null && NerviosMaestros.Count != 0)
                 NerviosMaestrosString = NerviosMaestros.Select(y => y.Nombre).ToList();
@@ -35,19 +35,19 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
                 data.Rows.Add();
 
                 data.Rows[data.Rows.Count - 1].Cells[C_NombreNervio.Index].Value = Nervio.Nombre;
-                data.Rows[data.Rows.Count - 1].Cells[C_Maestro.Index].Value = Nervio.Maestro.IsMaestroGeometria;
+                data.Rows[data.Rows.Count - 1].Cells[C_Maestro.Index].Value = Nervio.SimilitudNervio.IsMaestroGeometria;
 
-                if (Nervio.Maestro.BoolSoySimiarA)
+                if (Nervio.SimilitudNervio.BoolSoySimiarA)
                 {
                     DataGridViewComboBoxCell boxCell = (DataGridViewComboBoxCell)data.Rows[data.Rows.Count - 1].Cells[C_Similara.Index];
                     boxCell.Items.AddRange(NerviosMaestrosString.ToArray());
-                    data.Rows[data.Rows.Count - 1].Cells[C_Similara.Index].Value = Nervio.Maestro.SoySimiarA;
+                    data.Rows[data.Rows.Count - 1].Cells[C_Similara.Index].Value = Nervio.SimilitudNervio.SoySimiarA;
                 }
                 else
                 {
                     DataGridViewComboBoxCell boxCell = (DataGridViewComboBoxCell)data.Rows[data.Rows.Count - 1].Cells[C_Similara.Index];
-                    boxCell.Items.Add(Nervio.Maestro.SoySimiarA);
-                    data.Rows[data.Rows.Count - 1].Cells[C_Similara.Index].Value = Nervio.Maestro.SoySimiarA;
+                    boxCell.Items.Add(Nervio.SimilitudNervio.SoySimiarA);
+                    data.Rows[data.Rows.Count - 1].Cells[C_Similara.Index].Value = Nervio.SimilitudNervio.SoySimiarA;
                 }
 
 
@@ -125,7 +125,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
         {
             List<string> MensajeAlerta = new List<string>();
 
-            Nervios.ForEach(x => { x.Maestro.SimilaresG_String = null; x.Maestro.BoolSoySimiarA = false; });
+            Nervios.ForEach(x => { x.SimilitudNervio.SimilaresG_String = null; x.SimilitudNervio.BoolSoySimiarA = false; });
             foreach (DataGridViewRow row in data.Rows)
             {
                 string NombreNervio = row.Cells[C_NombreNervio.Index].Value.ToString();

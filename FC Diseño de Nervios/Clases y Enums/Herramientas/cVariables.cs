@@ -16,7 +16,7 @@ namespace FC_Diseño_de_Nervios
         /// Tolerancia de longitud para similitud entre Nervios
         /// </summary>
         public const float ToleranciaLSimilar = 0.2f;
-
+        public const float AnchoApoyoPredefinido = 40f;
 
 
         #region Variables de Perfil Longitudinal AutoCAD

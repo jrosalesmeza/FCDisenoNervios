@@ -100,7 +100,7 @@
             this.TLS_5 = new System.Windows.Forms.ToolStripSeparator();
             this.TLSB_ModificarEjes = new System.Windows.Forms.ToolStripButton();
             this.TSB_ReasignarEjesNervios = new System.Windows.Forms.ToolStripButton();
-            this.TLSB_AgregaApoyo = new System.Windows.Forms.ToolStripSplitButton();
+            this.TLSB_AgregarApoyo = new System.Windows.Forms.ToolStripSplitButton();
             this.TLSN_ApoyoInicio = new System.Windows.Forms.ToolStripMenuItem();
             this.TLSN_ApoyoFinal = new System.Windows.Forms.ToolStripMenuItem();
             this.TLS_S6 = new System.Windows.Forms.ToolStripSeparator();
@@ -121,6 +121,8 @@
             this.TLSB_GraficarNerviosAutoCAD = new System.Windows.Forms.ToolStripButton();
             this.TLSB_GraficarAllNervios = new System.Windows.Forms.ToolStripButton();
             this.TLS_S3 = new System.Windows.Forms.ToolStripSeparator();
+            this.TLS_RevisarProyecto = new System.Windows.Forms.ToolStripButton();
+            this.TLSB_PesoTotal = new System.Windows.Forms.ToolStripButton();
             this.TLSB_ExportarPDF = new System.Windows.Forms.ToolStripButton();
             this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
@@ -130,8 +132,11 @@
             this.P_Menu2 = new System.Windows.Forms.Panel();
             this.PB_LogoPrincipal = new System.Windows.Forms.PictureBox();
             this.T_Timer = new System.Windows.Forms.Timer(this.components);
-            this.TLS_RevisarProyecto = new System.Windows.Forms.ToolStripButton();
-            this.TLSB_PesoTotal = new System.Windows.Forms.ToolStripButton();
+            this.TLS_7 = new System.Windows.Forms.ToolStripSeparator();
+            this.TLSB_EliminarRefuerzos = new System.Windows.Forms.ToolStripButton();
+            this.TLSB_EliminarApoyo = new System.Windows.Forms.ToolStripDropDownButton();
+            this.TLSN_ApoyoInicioE = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSN_ApoyoFinalE = new System.Windows.Forms.ToolStripMenuItem();
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
             this.TS_Barra1.SuspendLayout();
@@ -674,7 +679,8 @@
             this.TLS_5,
             this.TLSB_ModificarEjes,
             this.TSB_ReasignarEjesNervios,
-            this.TLSB_AgregaApoyo,
+            this.TLSB_AgregarApoyo,
+            this.TLSB_EliminarApoyo,
             this.TLS_S6,
             this.TLSB_Momentos,
             this.TLSB_AreasMomentos,
@@ -695,7 +701,9 @@
             this.TLS_S3,
             this.TLS_RevisarProyecto,
             this.TLSB_PesoTotal,
-            this.TLSB_ExportarPDF});
+            this.TLSB_ExportarPDF,
+            this.TLS_7,
+            this.TLSB_EliminarRefuerzos});
             this.TS_Barra1.Location = new System.Drawing.Point(0, 24);
             this.TS_Barra1.Name = "TS_Barra1";
             this.TS_Barra1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -824,27 +832,27 @@
             // 
             // TLSB_AgregaApoyo
             // 
-            this.TLSB_AgregaApoyo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TLSB_AgregaApoyo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TLSB_AgregarApoyo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_AgregarApoyo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TLSN_ApoyoInicio,
             this.TLSN_ApoyoFinal});
-            this.TLSB_AgregaApoyo.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_AgregaApoyo.Image")));
-            this.TLSB_AgregaApoyo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLSB_AgregaApoyo.Name = "TLSB_AgregaApoyo";
-            this.TLSB_AgregaApoyo.Size = new System.Drawing.Size(32, 25);
-            this.TLSB_AgregaApoyo.Text = "Agregar Apoyos";
+            this.TLSB_AgregarApoyo.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_AgregaApoyo.Image")));
+            this.TLSB_AgregarApoyo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_AgregarApoyo.Name = "TLSB_AgregaApoyo";
+            this.TLSB_AgregarApoyo.Size = new System.Drawing.Size(32, 25);
+            this.TLSB_AgregarApoyo.Text = "Agregar Apoyos en Extremos";
             // 
             // TLSN_ApoyoInicio
             // 
             this.TLSN_ApoyoInicio.Name = "TLSN_ApoyoInicio";
-            this.TLSN_ApoyoInicio.Size = new System.Drawing.Size(143, 22);
+            this.TLSN_ApoyoInicio.Size = new System.Drawing.Size(180, 22);
             this.TLSN_ApoyoInicio.Text = "Apoyo Inicial";
             this.TLSN_ApoyoInicio.Click += new System.EventHandler(this.TLSN_ApoyoInicio_Click);
             // 
             // TLSN_ApoyoFinal
             // 
             this.TLSN_ApoyoFinal.Name = "TLSN_ApoyoFinal";
-            this.TLSN_ApoyoFinal.Size = new System.Drawing.Size(143, 22);
+            this.TLSN_ApoyoFinal.Size = new System.Drawing.Size(180, 22);
             this.TLSN_ApoyoFinal.Text = "Apoyo Final";
             this.TLSN_ApoyoFinal.Click += new System.EventHandler(this.TLSN_ApoyoFinal_Click);
             // 
@@ -1016,6 +1024,26 @@
             this.TLS_S3.Name = "TLS_S3";
             this.TLS_S3.Size = new System.Drawing.Size(6, 28);
             // 
+            // TLS_RevisarProyecto
+            // 
+            this.TLS_RevisarProyecto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLS_RevisarProyecto.Image = ((System.Drawing.Image)(resources.GetObject("TLS_RevisarProyecto.Image")));
+            this.TLS_RevisarProyecto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLS_RevisarProyecto.Name = "TLS_RevisarProyecto";
+            this.TLS_RevisarProyecto.Size = new System.Drawing.Size(23, 25);
+            this.TLS_RevisarProyecto.Text = "Revisar Proyecto (F8)";
+            this.TLS_RevisarProyecto.Click += new System.EventHandler(this.revisarProyectoToolStripMenuItem_Click);
+            // 
+            // TLSB_PesoTotal
+            // 
+            this.TLSB_PesoTotal.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_PesoTotal.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_PesoTotal.Image")));
+            this.TLSB_PesoTotal.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_PesoTotal.Name = "TLSB_PesoTotal";
+            this.TLSB_PesoTotal.Size = new System.Drawing.Size(23, 25);
+            this.TLSB_PesoTotal.Text = "Calcular Peso Total";
+            this.TLSB_PesoTotal.Click += new System.EventHandler(this.pesoTotalToolStripMenuItem_Click);
+            // 
             // TLSB_ExportarPDF
             // 
             this.TLSB_ExportarPDF.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -1131,25 +1159,47 @@
             // 
             this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
             // 
-            // TLS_RevisarProyecto
+            // TLS_7
             // 
-            this.TLS_RevisarProyecto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TLS_RevisarProyecto.Image = ((System.Drawing.Image)(resources.GetObject("TLS_RevisarProyecto.Image")));
-            this.TLS_RevisarProyecto.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLS_RevisarProyecto.Name = "TLS_RevisarProyecto";
-            this.TLS_RevisarProyecto.Size = new System.Drawing.Size(23, 25);
-            this.TLS_RevisarProyecto.Text = "Revisar Proyecto (F8)";
-            this.TLS_RevisarProyecto.Click += new System.EventHandler(this.revisarProyectoToolStripMenuItem_Click);
+            this.TLS_7.Name = "TLS_7";
+            this.TLS_7.Size = new System.Drawing.Size(6, 28);
             // 
-            // TLSB_PesoTotal
+            // TLSB_EliminarRefuerzos
             // 
-            this.TLSB_PesoTotal.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TLSB_PesoTotal.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_PesoTotal.Image")));
-            this.TLSB_PesoTotal.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLSB_PesoTotal.Name = "TLSB_PesoTotal";
-            this.TLSB_PesoTotal.Size = new System.Drawing.Size(23, 25);
-            this.TLSB_PesoTotal.Text = "Calcular Peso Total";
-            this.TLSB_PesoTotal.Click += new System.EventHandler(this.pesoTotalToolStripMenuItem_Click);
+            this.TLSB_EliminarRefuerzos.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_EliminarRefuerzos.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_EliminarRefuerzos.Image")));
+            this.TLSB_EliminarRefuerzos.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_EliminarRefuerzos.Name = "TLSB_EliminarRefuerzos";
+            this.TLSB_EliminarRefuerzos.Size = new System.Drawing.Size(23, 25);
+            this.TLSB_EliminarRefuerzos.Text = "Eliminar Refuerzo";
+            this.TLSB_EliminarRefuerzos.ToolTipText = "Eliminar Refuerzo Longitudinal y Transversal";
+            this.TLSB_EliminarRefuerzos.Click += new System.EventHandler(this.TLSB_EliminarRefuerzos_Click);
+            // 
+            // TLSB_EliminarApoyo
+            // 
+            this.TLSB_EliminarApoyo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_EliminarApoyo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TLSN_ApoyoInicioE,
+            this.TLSN_ApoyoFinalE});
+            this.TLSB_EliminarApoyo.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_EliminarApoyo.Image")));
+            this.TLSB_EliminarApoyo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_EliminarApoyo.Name = "TLSB_EliminarApoyo";
+            this.TLSB_EliminarApoyo.Size = new System.Drawing.Size(29, 25);
+            this.TLSB_EliminarApoyo.Text = "Eliminar Apoyos en Extremos";
+            // 
+            // TLSN_ApoyoInicioE
+            // 
+            this.TLSN_ApoyoInicioE.Name = "TLSN_ApoyoInicioE";
+            this.TLSN_ApoyoInicioE.Size = new System.Drawing.Size(180, 22);
+            this.TLSN_ApoyoInicioE.Text = "Apoyo Inicial";
+            this.TLSN_ApoyoInicioE.Click += new System.EventHandler(this.TLSN_ApoyoInicio_Click);
+            // 
+            // TLSN_ApoyoFinalE
+            // 
+            this.TLSN_ApoyoFinalE.Name = "TLSN_ApoyoFinalE";
+            this.TLSN_ApoyoFinalE.Size = new System.Drawing.Size(180, 22);
+            this.TLSN_ApoyoFinalE.Text = "Apoyo Final";
+            this.TLSN_ApoyoFinalE.Click += new System.EventHandler(this.TLSN_ApoyoFinal_Click);
             // 
             // F_Base
             // 
@@ -1274,7 +1324,7 @@
         private System.Windows.Forms.ToolStripButton TSB_ReasignarEjesNervios;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton TLSB_GraficarAllNervios;
-        private System.Windows.Forms.ToolStripSplitButton TLSB_AgregaApoyo;
+        private System.Windows.Forms.ToolStripSplitButton TLSB_AgregarApoyo;
         private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoInicio;
         private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoFinal;
         private System.Windows.Forms.ToolStripMenuItem similitudDeNerviosToolStripMenuItem;
@@ -1292,5 +1342,10 @@
         private System.Windows.Forms.ToolStripMenuItem exportarDLNETNIMBUSToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton TLS_RevisarProyecto;
         private System.Windows.Forms.ToolStripButton TLSB_PesoTotal;
+        private System.Windows.Forms.ToolStripSeparator TLS_7;
+        private System.Windows.Forms.ToolStripButton TLSB_EliminarRefuerzos;
+        private System.Windows.Forms.ToolStripDropDownButton TLSB_EliminarApoyo;
+        private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoInicioE;
+        private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoFinalE;
     }
 }

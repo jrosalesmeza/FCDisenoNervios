@@ -365,9 +365,12 @@ namespace FC_Diseño_de_Nervios
             foreach (List<cLine> lines in LineasParaCrearNervios)
             {
                 cNervio Nervio = cFunctionsProgram.CrearNervio(Prefijo, IndiceNervio, lines, F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines, F_Base.Proyecto.Edificio.Lista_Grids, F_Base.Proyecto.DatosEtabs.PisoSelect,WidthPB_NOENUMERADOS, Height_NOENUMERADOS);
-                Nervio.Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.Select = false));
-                NerviosPisoSelect.Add(Nervio);
-                IndiceNervio = NerviosPisoSelect.Last().ID + 1;
+                if (Nervio != null)
+                {
+                    Nervio.Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.Select = false));
+                    NerviosPisoSelect.Add(Nervio);
+                    IndiceNervio = NerviosPisoSelect.Last().ID + 1;
+                }
             }
             F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre).Nervios = NerviosPisoSelect;
             cNervio NervioMenorListaObjetosMenoraCero = NerviosPisoSelect.Find(x => x.CantApoyos==0);
