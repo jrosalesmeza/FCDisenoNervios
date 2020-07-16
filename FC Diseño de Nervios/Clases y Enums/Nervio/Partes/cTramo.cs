@@ -52,6 +52,7 @@ namespace FC_Diseño_de_Nervios
                     EstribosDerecha = null;
                     cFunctionsProgram.CrearEstribos(this, eZonas.Zona1, eLadoDeZona.Izquierda, LongitudE, S, ZonaEstribosIzquierda.NoBarra, cFunctionsProgram.CoordXInicialEstribo(eLadoDeZona.Izquierda, this));
                     EstribosIzquierda.Zona2.EliminarEstribos(true);
+                    EstribosIzquierda.Zona1.UnionEstribos = true;
                 }
             }
 

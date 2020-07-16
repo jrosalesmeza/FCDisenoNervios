@@ -38,6 +38,7 @@
             this.DGV_1 = new System.Windows.Forms.DataGridView();
             this.C_NombreCombinacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.C_CheckCombinacion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.BT_ImportarCombianciones = new System.Windows.Forms.Button();
             this.P_1.SuspendLayout();
             this.P_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_1)).BeginInit();
@@ -47,6 +48,7 @@
             // 
             this.P_1.BackColor = System.Drawing.Color.LightGray;
             this.P_1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.P_1.Controls.Add(this.BT_ImportarCombianciones);
             this.P_1.Controls.Add(this.BT_Seleccionar);
             this.P_1.Controls.Add(this.BT_1);
             this.P_1.Controls.Add(this.BT_2);
@@ -55,15 +57,15 @@
             this.P_1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_1.Location = new System.Drawing.Point(0, 0);
             this.P_1.Name = "P_1";
-            this.P_1.Size = new System.Drawing.Size(318, 376);
+            this.P_1.Size = new System.Drawing.Size(350, 399);
             this.P_1.TabIndex = 2;
             this.P_1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_2_MouseDown);
             // 
             // BT_Seleccionar
             // 
-            this.BT_Seleccionar.Location = new System.Drawing.Point(66, 347);
+            this.BT_Seleccionar.Location = new System.Drawing.Point(95, 369);
             this.BT_Seleccionar.Name = "BT_Seleccionar";
-            this.BT_Seleccionar.Size = new System.Drawing.Size(79, 23);
+            this.BT_Seleccionar.Size = new System.Drawing.Size(82, 23);
             this.BT_Seleccionar.TabIndex = 8;
             this.BT_Seleccionar.Text = "Seleccionar";
             this.BT_Seleccionar.UseVisualStyleBackColor = true;
@@ -71,7 +73,7 @@
             // 
             // BT_1
             // 
-            this.BT_1.Location = new System.Drawing.Point(231, 347);
+            this.BT_1.Location = new System.Drawing.Point(263, 369);
             this.BT_1.Name = "BT_1";
             this.BT_1.Size = new System.Drawing.Size(75, 23);
             this.BT_1.TabIndex = 6;
@@ -81,7 +83,7 @@
             // 
             // BT_2
             // 
-            this.BT_2.Location = new System.Drawing.Point(151, 347);
+            this.BT_2.Location = new System.Drawing.Point(183, 369);
             this.BT_2.Name = "BT_2";
             this.BT_2.Size = new System.Drawing.Size(75, 23);
             this.BT_2.TabIndex = 7;
@@ -96,7 +98,7 @@
             this.P_2.Dock = System.Windows.Forms.DockStyle.Top;
             this.P_2.Location = new System.Drawing.Point(0, 0);
             this.P_2.Name = "P_2";
-            this.P_2.Size = new System.Drawing.Size(316, 31);
+            this.P_2.Size = new System.Drawing.Size(348, 31);
             this.P_2.TabIndex = 5;
             this.P_2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_2_MouseDown);
             // 
@@ -135,7 +137,7 @@
             this.DGV_1.Location = new System.Drawing.Point(12, 37);
             this.DGV_1.Name = "DGV_1";
             this.DGV_1.RowHeadersVisible = false;
-            this.DGV_1.Size = new System.Drawing.Size(293, 307);
+            this.DGV_1.Size = new System.Drawing.Size(326, 326);
             this.DGV_1.TabIndex = 0;
             this.DGV_1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGV_1_CellEndEdit);
             // 
@@ -155,16 +157,25 @@
             this.C_CheckCombinacion.Name = "C_CheckCombinacion";
             this.C_CheckCombinacion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
+            // BT_ImportarCombianciones
+            // 
+            this.BT_ImportarCombianciones.Location = new System.Drawing.Point(12, 369);
+            this.BT_ImportarCombianciones.Name = "BT_ImportarCombianciones";
+            this.BT_ImportarCombianciones.Size = new System.Drawing.Size(77, 23);
+            this.BT_ImportarCombianciones.TabIndex = 9;
+            this.BT_ImportarCombianciones.Text = "Importar";
+            this.BT_ImportarCombianciones.UseVisualStyleBackColor = true;
+            this.BT_ImportarCombianciones.Click += new System.EventHandler(this.BT_ImportarCombianciones_Click);
+            // 
             // F_SelectCombinaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(318, 376);
+            this.ClientSize = new System.Drawing.Size(350, 399);
             this.Controls.Add(this.P_1);
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(318, 376);
             this.MinimumSize = new System.Drawing.Size(318, 376);
             this.Name = "F_SelectCombinaciones";
             this.Text = "F_SelectCombinaciones";
@@ -187,5 +198,6 @@
         private System.Windows.Forms.Button BT_1;
         private System.Windows.Forms.Button BT_2;
         private System.Windows.Forms.Button BT_Seleccionar;
+        private System.Windows.Forms.Button BT_ImportarCombianciones;
     }
 }

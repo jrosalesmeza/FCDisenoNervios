@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal
         public F_Inicio()
         {
             InitializeComponent();
+            LB_Version.Text = $"Versión {Program.Version}";
         }
 
         private int Contador = 0;
@@ -34,9 +36,9 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal
 
         private void AbrirFormularioPrincipal()
         {
-            if (cFunctionsProgram.ComprobarAccesoPrograma())
+            if (cSafe.ComprobarAccesoPrograma())
             {
-                if (!cFunctionsProgram.ComprobarVersionPrograma())
+                if (!cSafe.ComprobarVersionPrograma())
                     MessageBox.Show("Programa sin actualizar, comuníquese con el área de desarrollo de software para realizar la respectiva actualización.", cFunctionsProgram.Empresa, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 F_Base f_Base = new F_Base();
                 f_Base.Show();

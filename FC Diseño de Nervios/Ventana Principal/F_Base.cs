@@ -1,9 +1,12 @@
 ﻿using B_FC_DiseñoVigas;
 using FC_BFunctionsAutoCAD;
+using FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas;
 using FC_Diseño_de_Nervios.Manipulación_Proyecto;
 using FC_Diseño_de_Nervios.Manipulación_Proyecto.Ventanas_Interactivas.Ventanas_Perfil_Longitudinal;
+using FC_Diseño_de_Nervios.Programa;
 using FC_Diseño_de_Nervios.Ventana_Principal;
 using FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes;
+using FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_de_Nervios;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -37,6 +40,7 @@ namespace FC_Diseño_de_Nervios
         public static F_SeleccionBarras F_SeleccionBarras = new F_SeleccionBarras();
         public static F_SelectCombinaciones F_SelectCombinaciones = new F_SelectCombinaciones();
         public static F_PropiedadesProyecto F_PropiedadesProyecto = new F_PropiedadesProyecto();
+        private F_CopiarPegarDisenar F_CopiarPegarDisenar = new F_CopiarPegarDisenar();
         public static F_Informe F_Informe;
         #endregion Ventanas Emergentes
 
@@ -53,6 +57,8 @@ namespace FC_Diseño_de_Nervios
         public F_Base()
         {
             InitializeComponent();
+            PropiedadesPrograma = cPropiedades.CargarPropiedades();
+            T_AutoGuardado.Interval = PropiedadesPrograma.IntervaloMinAutoGuarado.MiliSegundos;
             InstanciamientodeVentanasAcopladas();
             CrearCarpetaLocalConArchivos();
             cFunctionsProgram.Notificador += CFunctionsProgram_Notificador;
@@ -62,16 +68,16 @@ namespace FC_Diseño_de_Nervios
             new cDiccionarios();
             DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
             T_Timer.Start();
-
             SetStyle(ControlStyles.ResizeRedraw, true);
             ST_Base.SizingGrip = false;
             MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
-
-
             F_Base_ = this;
         }
 
- 
+        #region Programa 
+        public static cPropiedades PropiedadesPrograma;
+        #endregion
+
         #region Proyecto
         public static cProyecto Proyecto;
 
@@ -153,6 +159,12 @@ namespace FC_Diseño_de_Nervios
         private void VentanaEmergente(ref F_PropiedadesProyecto Form)
         {
             if (!Form.Created) { Form = new F_PropiedadesProyecto(); }
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.ShowDialog();
+        }
+        private void VentanaEmergente(ref F_CopiarPegarDisenar Form)
+        {
+            if (!Form.Created) { Form = new F_CopiarPegarDisenar(); }
             Form.StartPosition = FormStartPosition.CenterScreen;
             Form.ShowDialog();
         }
@@ -323,10 +335,13 @@ namespace FC_Diseño_de_Nervios
                 GuardarVentanasXML();
             }
         }
-        public static void FuncionDiseñarNervios(List<cNervio> Nervios)
+        public void FuncionDiseñarNervios(List<cNervio> Nervios)
         {
             EnviarEstadoVacio();
-            cFunctionsProgram.DiseñarNervios(Nervios);
+            F_CopiarPegarDisenar.TipoRefuerzo = Proyecto.TipoRefuerzo;
+            VentanaEmergente(ref F_CopiarPegarDisenar); 
+            Proyecto.TipoRefuerzo = F_CopiarPegarDisenar.TipoRefuerzo;
+            cFunctionsProgram.DiseñarNervios(Nervios,Proyecto.TipoRefuerzo);
             if (F_Informe != null && F_Informe.Created)
                 try { F_Informe.Close(); } catch { }
             F_Informe = new F_Informe(Nervios);
@@ -398,14 +413,20 @@ namespace FC_Diseño_de_Nervios
         public static void Deshacer_Function_Nervio()
         {
             cNervio NervioAux = UndoRedoNervio.Deshacer(Proyecto.Edificio.PisoSelect.NervioSelect);
-            if (NervioAux != null) { Proyecto.Edificio.PisoSelect.NervioSelect = NervioAux; }
+            if (NervioAux != null) { 
+                Proyecto.Edificio.PisoSelect.NervioSelect = NervioAux;
+                Proyecto.Edificio.PisoSelect.Nervios[Proyecto.Edificio.PisoSelect.Nervios.FindIndex(y => y.Nombre== NervioAux.Nombre)] = NervioAux;
+            }
             ActualizarTodosLasVentanas();
         }
 
         public static void Rehacer_Function_Nervio()
         {
             cNervio NervioAux = UndoRedoNervio.Rehacer(Proyecto.Edificio.PisoSelect.NervioSelect);
-            if (NervioAux != null) { Proyecto.Edificio.PisoSelect.NervioSelect = NervioAux; }
+            if (NervioAux != null) { 
+                Proyecto.Edificio.PisoSelect.NervioSelect = NervioAux;
+                Proyecto.Edificio.PisoSelect.Nervios[Proyecto.Edificio.PisoSelect.Nervios.FindIndex(y => y.Nombre == NervioAux.Nombre)] = NervioAux;
+            }
             ActualizarTodosLasVentanas();
         }
 
@@ -553,15 +574,20 @@ namespace FC_Diseño_de_Nervios
                 }
                 CambiosTimer_3_F_EnumeracionPortico_Proyecto();
                 BloqueoDesbloqueoBotones(true);
-            }
 
+                if (PropiedadesPrograma.AutoGuardado)
+                    T_AutoGuardado.Start();
+                
+            }
             else
             {
+                TLSMI_Deshacer.Enabled = false;TLSMI_Rehacer.Enabled = false;
                 ActivarDesactivarBotonesNervios(false);
                 Text = cFunctionsProgram.NombrePrograma;
                 ActivarVentanaEmergenteGuardarCambios = false;
                 ActivarDesactivarBotonesNervioSelect(false);
                 BloqueoDesbloqueoBotones(false);
+                T_AutoGuardado.Stop();
             }
         }
 
@@ -587,6 +613,10 @@ namespace FC_Diseño_de_Nervios
             combinacionesToolStripMenuItem.Enabled = Bool;
             tendenciasToolStripMenuItem.Enabled = Bool;
 
+            TLSMI_EliminarRefuerzo.Enabled = Bool;
+            TLSMI_CopiarGeometria.Enabled = Bool;
+            TLSMI_PegarRefuerzo.Enabled = Bool;
+            TLSMI_PegarGeometria.Enabled = Bool;
             //Ver
             selecciónDeNerviosToolStripMenuItem.Enabled = Bool;
             esquemaToolStripMenuItem.Enabled = Bool;
@@ -616,15 +646,16 @@ namespace FC_Diseño_de_Nervios
             TLSB_ExportarPDF.Enabled = Bool;
             TLSB_EliminarApoyo.Enabled = Bool;
             TLSB_AgregarApoyo.Enabled = Bool;
-            TLSB_EliminarRefuerzos.Enabled = Bool;
+
             if (Bool)
             {
-                
                 TLSB_AgregarApoyo.Enabled = !Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
                 TLSB_EliminarApoyo.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.PoderEliminarApoyos();
-                TLSB_EliminarRefuerzos.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
-
+                TLSMI_EliminarRefuerzo.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
+                TLSMI_PegarRefuerzo.Enabled = cFuncion_CopiaryPegarRefuerzos.Refuerzos.Count > 0;
+                TLSMI_PegarGeometria.Enabled = cFuncion_CopiaryPegarGeometria.Elementos.Count > 0 && TLSB_AgregarApoyo.Enabled;
             }
+            TLSMI_CopiarRefuerzo.Enabled = TLSMI_EliminarRefuerzo.Enabled;
         }
         private void ActivarDesacitvarBotonesDeRehaceryDeshacer()
         {
@@ -635,16 +666,16 @@ namespace FC_Diseño_de_Nervios
                     ActivarVentanaEmergenteGuardarCambios = UndoRedo.ObtenerEstadoEstados();
                     TSB_Undo.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
                     TSB_Redo.Enabled = UndoRedo.ObtenerEstadoCtrlY();
-                    deshacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
-                    rehacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+                    TLSMI_Deshacer.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
+                    TLSMI_Rehacer.Enabled = UndoRedo.ObtenerEstadoCtrlY();
                 }
                 else
                 {
                     ActivarVentanaEmergenteGuardarCambios = UndoRedoNervio.ObtenerEstadoEstados();
                     TSB_Undo.Enabled = UndoRedoNervio.ObtenerEstadoCtrlZ();
                     TSB_Redo.Enabled = UndoRedoNervio.ObtenerEstadoCtrlY();
-                    deshacerToolStripMenuItem.Enabled = UndoRedoNervio.ObtenerEstadoCtrlZ();
-                    rehacerToolStripMenuItem.Enabled = UndoRedoNervio.ObtenerEstadoCtrlY();
+                    TLSMI_Deshacer.Enabled = UndoRedoNervio.ObtenerEstadoCtrlZ();
+                    TLSMI_Rehacer.Enabled = UndoRedoNervio.ObtenerEstadoCtrlY();
                 }
             }
         }
@@ -654,8 +685,8 @@ namespace FC_Diseño_de_Nervios
             {
                 F_EnumeracionPortico.deshacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
                 F_EnumeracionPortico.rehacerToolStripMenuItem.Enabled = UndoRedo.ObtenerEstadoCtrlY();
-                F_EnumeracionPortico.TLSB_Rehacer.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
-                F_EnumeracionPortico.TLSB_Deshacer.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+                F_EnumeracionPortico.TLSB_Rehacer.Enabled = UndoRedo.ObtenerEstadoCtrlY();
+                F_EnumeracionPortico.TLSB_Deshacer.Enabled = UndoRedo.ObtenerEstadoCtrlZ();
             }
         }
 
@@ -923,7 +954,14 @@ namespace FC_Diseño_de_Nervios
 
         private void TSB_DiseñarNervios_Click(object sender, EventArgs e)
         {
-
+            F_SelectNervioFunctions F_SelectNervio = new F_SelectNervioFunctions(F_SelectNervioFunctions.eEditarSelectNervio.Diseno);
+            F_SelectNervio.ShowDialog();
+            List<cNervio> Nervios = Proyecto.Edificio.PisoSelect.Nervios.FindAll(y => y.Propiedades.Diseno);
+            if (F_SelectNervioFunctions.Aceptar)
+            {
+                FuncionDiseñarNervios(Nervios);
+                ActualizarTodosLasVentanas();
+            }
         }
 
         private void TSB_DiseñarAllNervio_Click(object sender, EventArgs e)
@@ -940,7 +978,11 @@ namespace FC_Diseño_de_Nervios
 
         private void TLSB_GraficarNerviosAutoCAD_Click(object sender, EventArgs e)
         {
-
+            F_SelectNervioFunctions F_SelectNervio = new F_SelectNervioFunctions(F_SelectNervioFunctions.eEditarSelectNervio.AutoCAD);
+            F_SelectNervio.ShowDialog();
+            List<cNervio> Nervios = Proyecto.Edificio.PisoSelect.Nervios.FindAll(y => y.Propiedades.DibujoAutoCAD);
+            if(F_SelectNervioFunctions.Aceptar)
+                cFunctionsProgram.GraficarNervios(Nervios);
         }
 
         private void TLSB_GraficarAllNervios_Click(object sender, EventArgs e)
@@ -1032,6 +1074,35 @@ namespace FC_Diseño_de_Nervios
             Proyecto.Edificio.PisoSelect.NervioSelect.EliminarTodoElRefuerzo();
             ActualizarVentanaF_NervioEnPerfilLongitudinal();
         }
+        private void TLSMI_CopiarRefuerzo_Click(object sender, EventArgs e)
+        {
+            cFuncion_CopiaryPegarRefuerzos.Copiar(Proyecto.Edificio.PisoSelect.NervioSelect);
+        }
+
+        private void TLSMI_PegarRefuerzo_Click(object sender, EventArgs e)
+        {
+            EnviarEstado_Nervio(Proyecto.Edificio.PisoSelect.NervioSelect);
+            cFuncion_CopiaryPegarRefuerzos.Pegar(Proyecto.Edificio.PisoSelect.NervioSelect);
+            ActualizarVentanaF_NervioEnPerfilLongitudinal();
+        }
+        private void TLSMI_CopiarGeometria_Click(object sender, EventArgs e)
+        {
+            cFuncion_CopiaryPegarGeometria.Copiar(Proyecto.Edificio.PisoSelect.NervioSelect);
+        }
+
+        private void TLSMI_PegarGeometria_Click(object sender, EventArgs e)
+        {
+            EnviarEstado_Nervio(Proyecto.Edificio.PisoSelect.NervioSelect);
+            cFuncion_CopiaryPegarGeometria.Pegar(Proyecto.Edificio.PisoSelect.NervioSelect);
+            ActualizarVentanaF_NervioEnPerfilLongitudinal();
+        }
+        private void T_AutoGuardado_Tick(object sender, EventArgs e)
+        {
+            if (Proyecto.Ruta != "")
+            {
+                cFunctionsProgram.Serializar(Proyecto.Ruta.Replace(cFunctionsProgram.Ext, cFunctionsProgram.Ext_BackupNervios), Proyecto);
+            }
+        }
         #endregion Eventos de MenuStrip y ToolStrip
 
 
@@ -1095,6 +1166,10 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-     
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            F_PlantaSimilitudNervios f_PlantaSimilitudNervios = new F_PlantaSimilitudNervios(Proyecto.Edificio);
+            f_PlantaSimilitudNervios.ShowDialog();
+        }
     }
 }

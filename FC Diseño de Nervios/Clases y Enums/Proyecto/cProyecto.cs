@@ -12,10 +12,12 @@ namespace FC_Diseño_de_Nervios
         {
             this.Nombre = Nombre;
         }
+        public float VersionPrograma = Program.Version;
         public string Nombre { get; set; }
         public string Ruta { get; set; } = "";
         public cDatosEtabs DatosEtabs { get; set; }
         public cEdificio Edificio { get; set; }
+        public eTipoRefuerzo TipoRefuerzo { get; set; } = eTipoRefuerzo.Todo;
         public bool EtiquetasDeBarras { get; set; } = true;
         public bool AcotamientoInteligente { get; set; } = true;
         public bool RedondearBarra { get; set; } = true;

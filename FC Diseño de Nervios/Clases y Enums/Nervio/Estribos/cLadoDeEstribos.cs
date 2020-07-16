@@ -30,7 +30,7 @@ namespace FC_Diseño_de_Nervios
             Zona2.Estribos.ForEach(x => PesoRefuerzoTransversal += x.Longitud * cDiccionarios.PesoBarras[x.NoBarra]);
         }
 
-        public float IsArea_S(float X)
+        public float Area_S(float X)
         {
             //if (Zona1.NoBarra != eNoBarra.BNone && Zona2.NoBarra != eNoBarra.BNone)
             //    if (Zona1.Xmin <= X && X <= Zona2.Xmax)

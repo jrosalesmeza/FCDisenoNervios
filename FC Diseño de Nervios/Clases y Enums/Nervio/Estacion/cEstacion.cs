@@ -23,7 +23,7 @@ namespace FC_Diseño_de_Nervios
                 if (value != null)
                 {
                     subTramo = value;
-                    Calculos = new cCalculos(subTramo);
+                    Calculos = new cCalculos(subTramo,this);
                 }
             }
         
@@ -40,6 +40,21 @@ namespace FC_Diseño_de_Nervios
         public List<cSolicitacion> Lista_Solicitaciones { get; set; }
 
 
+        public cEstacion EstacionMasCercana(List<cEstacion> Estaciones)
+        {
+            float MenorDistancia = 99999; cEstacion EstacionCercana=null;
+            foreach(cEstacion Estacion in Estaciones)
+            {
+                float Distancia = Math.Abs(Estacion.CoordX - CoordX);
+
+                if (Distancia < MenorDistancia)
+                {
+                    MenorDistancia = Distancia;
+                    EstacionCercana = Estacion;
+                }
+            }
+            return EstacionCercana;
+        }
         public override bool Equals(object obj)
         {
             if (obj is cEstacion)

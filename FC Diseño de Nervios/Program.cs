@@ -9,9 +9,8 @@ namespace FC_Diseño_de_Nervios
 {
     static class Program
     {
-        /// <summary>
-        /// Punto de entrada principal para la aplicación.
-        /// </summary>
+        public const float Version = 1.0f;
+
         [STAThread]
         static void Main()
         {

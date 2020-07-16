@@ -10,23 +10,22 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cSimilitudNervio
     {
-        public bool IsMaestroGeometria { get; set; }
+        public bool IsMaestro { get; set; }      
 
-        private List<string> similaresG_String;
-        public List<string> SimilaresG_String {
+        private List<cSimilar> similaresG_String;
+        public List<cSimilar> Similares_List_SimilarA {
             get { return similaresG_String; }
             set
             {
                 similaresG_String = value;
                 if (similaresG_String != null && similaresG_String.Count>=0)
-                    IsMaestroGeometria = true;
+                    IsMaestro = true;
                 else
-                    IsMaestroGeometria = false;
-                
+                    IsMaestro = false;
             }
         }
 
-        public string SoySimiarA { get; set; } = "";
+        public cSimilar SoySimiarA { get; set; } = new cSimilar();
 
         private bool boolSoySimilarA = false;
         public bool BoolSoySimiarA {
@@ -39,7 +38,7 @@ namespace FC_Diseño_de_Nervios
                     boolSoySimilarA = value;
                 }
                 if (!boolSoySimilarA)
-                    SoySimiarA = "";
+                    SoySimiarA = new cSimilar();
             }
         }
 
@@ -58,11 +57,55 @@ namespace FC_Diseño_de_Nervios
         private void AsignarSimilares()
         {
             nerviosSimilares = new List<cNervio>();
-            if (SimilaresG_String!=null && SimilaresG_String.Count > 0)
+            if (Similares_List_SimilarA!=null && Similares_List_SimilarA.Count > 0)
             {
-                SimilaresG_String.ForEach(x => nerviosSimilares.Add(F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(y => y.Nombre == x)));
+                Similares_List_SimilarA.ForEach(SimiliarA => nerviosSimilares.Add(F_Base.Proyecto.Edificio.Lista_Pisos.Find(Piso=> Piso.Nombre== SimiliarA.NombrePiso).Nervios.Find(Nervio=> Nervio.Nombre== SimiliarA.NombreNervio)));
             }
         }
+
+
+
+
+
+
+
+        [Serializable]
+        public class cSimilar
+        {
+            public string NombreNervio { get; set; }
+            public string NombrePiso { get; set; }
+
+            public cSimilar()
+            {
+                NombreNervio = "";
+                NombrePiso = "";
+            }
+            public cSimilar(string NombreNervio, string NombrePiso)
+            {
+                this.NombreNervio = NombreNervio;
+                this.NombrePiso = NombrePiso;
+            }
+
+            public string ToString(string NombrePiso)
+            {
+                if (NombrePiso != "" && NombreNervio != "")
+                {
+                    return NombrePiso != this.NombrePiso ? $"{NombreNervio} | {NombrePiso}" : NombreNervio;
+                }
+                else
+                {
+                    return "";
+                }
+            }
+
+            public cNervio FindNervio()
+            {
+               return F_Base.Proyecto.Edificio.Lista_Pisos.Find(y => y.Nombre == NombrePiso).Nervios.Find(y => y.Nombre == NombreNervio);
+            }
+
+        }
+
+
 
 
 

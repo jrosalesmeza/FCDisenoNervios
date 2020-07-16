@@ -26,14 +26,14 @@ namespace FC_Diseño_de_Nervios
         }
         public cCalculos CalculosOrigen { get; set; }
 
-        public cEnvolvente(List<cSolicitacion> lista_solicitaciones,cCalculos CalculosOrigen)
+        public cEnvolvente(List<cSolicitacion> lista_solicitaciones,cCalculos CalculosOrigen,bool SoySimilarSoyMaestro)
         {
             this.lista_solicitaciones = lista_solicitaciones;
             this.CalculosOrigen = CalculosOrigen;
-            CrearEnvolvente();
+            CrearEnvolventeSinSimilitud(SoySimilarSoyMaestro);
         }
 
-        private void CrearEnvolvente()
+        private void CrearEnvolventeSinSimilitud(bool SoySimilarSoyMaestro)
         {
             float M3MaxPositivo = lista_solicitaciones.FindAll(x=>x.SelectEnvolvente).Max(x => x.M3);
             float M3MaxNegativo = lista_solicitaciones.FindAll(x => x.SelectEnvolvente).Min(x => x.M3);
@@ -43,11 +43,68 @@ namespace FC_Diseño_de_Nervios
             if (M3MaxNegativo > 0) { M3MaxNegativo = 0;  }
             if (V2MaxPositivo < 0) { V2MaxPositivo = 0; }
             if (V2MaxNegativo > 0) { V2MaxNegativo = 0; }
+
+            M3 = new float[] { M3MaxPositivo, M3MaxNegativo };
+
+
+            V2 = new float[] { -V2MaxPositivo, -V2MaxNegativo };
+
+            if (SoySimilarSoyMaestro)
+            {
+                CrearEnvolventeConSimilitud();
+            }
+            else
+            {
+                Envolvente_CambioCrearEnvolvente();
+            }
+
+        }
+
+
+        private void CrearEnvolventeConSimilitud()
+        {
+            cNervio NervioOrigen = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen;
+            cEstacion EstacionOrigen = CalculosOrigen.EstacionOrigen;
+
+
+            List<cSolicitacion> Lista_Solici2 = new List<cSolicitacion>();
+            Lista_Solici2.AddRange(lista_solicitaciones);
+
+            if (NervioOrigen.SimilitudNervioGeometria.IsMaestro)
+            {
+                foreach (cNervio N in NervioOrigen.SimilitudNervioGeometria.NerviosSimilares)
+                {
+                    cSubTramo SubTramo = (cSubTramo)N.Lista_Elementos.Find(y => y.Indice == CalculosOrigen.SubtramoOrigen.Indice);
+
+                    cEstacion EstacionFind = EstacionOrigen.EstacionMasCercana(SubTramo.Estaciones);
+                    Lista_Solici2.AddRange(EstacionFind.Lista_Solicitaciones);
+                }
+            }
+            else if(NervioOrigen.SimilitudNervioGeometria.BoolSoySimiarA)
+            {
+               cNervio NervioQueEs= NervioOrigen.SimilitudNervioGeometria.SoySimiarA.FindNervio();
+                cSubTramo SubTramo = (cSubTramo)NervioQueEs.Lista_Elementos.Find(y => y.Indice == CalculosOrigen.SubtramoOrigen.Indice);
+                cEstacion EstacionFind = EstacionOrigen.EstacionMasCercana(SubTramo.Estaciones);
+                Lista_Solici2.AddRange(EstacionFind.Lista_Solicitaciones);
+            }
+
+            float M3MaxPositivo = Lista_Solici2.FindAll(x => x.SelectEnvolvente).Max(x => x.M3);
+            float M3MaxNegativo = Lista_Solici2.FindAll(x => x.SelectEnvolvente).Min(x => x.M3);
+            float V2MaxPositivo = Lista_Solici2.FindAll(x => x.SelectEnvolvente).Max(x => x.V2);
+            float V2MaxNegativo = Lista_Solici2.FindAll(x => x.SelectEnvolvente).Min(x => x.V2);
+
+            if (M3MaxPositivo < 0) { M3MaxPositivo = 0; }
+            if (M3MaxNegativo > 0) { M3MaxNegativo = 0; }
+            if (V2MaxPositivo < 0) { V2MaxPositivo = 0; }
+            if (V2MaxNegativo > 0) { V2MaxNegativo = 0; }
             M3 = new float[] { M3MaxPositivo, M3MaxNegativo };
             V2 = new float[] { -V2MaxPositivo, -V2MaxNegativo };
-            
+
             Envolvente_CambioCrearEnvolvente();
         }
+
+
+
 
         private void Envolvente_CambioCrearEnvolvente()
         {
@@ -80,6 +137,7 @@ namespace FC_Diseño_de_Nervios
         /// M3[Inferior, Superior]
         /// </summary>
         public float[] M3 { get; set; }
+
         public float[] V2 { get; set; }
 
         public float FI_Vc { get; set; }

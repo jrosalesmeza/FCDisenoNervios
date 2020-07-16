@@ -19,5 +19,6 @@ namespace FC_Diseño_de_Nervios
         public const float Fuerza_kgf_to_Ton = 1 / 1000f;
         public const float Fuerza_Ton_to_kgf = 1000f;
         public const float Angulo_Rad_to_Grad = 180f / (float)Math.PI;
+        public const int Tiempo_Min_to_MilSeg = 60000; 
     }
 }

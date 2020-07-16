@@ -29,39 +29,20 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_Informe));
-            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
-            this.dataGridViewRichTextBoxColumn1 = new FC_Diseño_de_Nervios.Controles.DataGridViewRichTextBoxColumn();
             this.P_1 = new System.Windows.Forms.Panel();
             this.LB_Title = new FontAwesome.Sharp.IconButton();
             this.BT_1 = new System.Windows.Forms.Button();
             this.DGV_Info = new System.Windows.Forms.DataGridView();
-            this.P_2 = new System.Windows.Forms.Panel();
             this.C_NombreNervio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.C_Diseno = new System.Windows.Forms.DataGridViewImageColumn();
             this.C_Observacion = new FC_Diseño_de_Nervios.Controles.DataGridViewRichTextBoxColumn();
+            this.P_2 = new System.Windows.Forms.Panel();
+            this.dataGridViewImageColumn1 = new System.Windows.Forms.DataGridViewImageColumn();
+            this.dataGridViewRichTextBoxColumn1 = new FC_Diseño_de_Nervios.Controles.DataGridViewRichTextBoxColumn();
             this.P_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Info)).BeginInit();
             this.P_2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dataGridViewImageColumn1
-            // 
-            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewImageColumn1.HeaderText = "Diseño";
-            this.dataGridViewImageColumn1.MinimumWidth = 80;
-            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
-            this.dataGridViewImageColumn1.ReadOnly = true;
-            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // dataGridViewRichTextBoxColumn1
-            // 
-            this.dataGridViewRichTextBoxColumn1.FillWeight = 320F;
-            this.dataGridViewRichTextBoxColumn1.HeaderText = "Observación";
-            this.dataGridViewRichTextBoxColumn1.MinimumWidth = 53;
-            this.dataGridViewRichTextBoxColumn1.Name = "dataGridViewRichTextBoxColumn1";
-            this.dataGridViewRichTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewRichTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewRichTextBoxColumn1.Width = 320;
             // 
             // P_1
             // 
@@ -70,7 +51,7 @@
             this.P_1.Dock = System.Windows.Forms.DockStyle.Top;
             this.P_1.Location = new System.Drawing.Point(0, 0);
             this.P_1.Name = "P_1";
-            this.P_1.Size = new System.Drawing.Size(510, 31);
+            this.P_1.Size = new System.Drawing.Size(513, 31);
             this.P_1.TabIndex = 9;
             this.P_1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_1_MouseDown);
             // 
@@ -105,6 +86,7 @@
             this.BT_1.Text = "Aceptar";
             this.BT_1.UseVisualStyleBackColor = true;
             this.BT_1.Click += new System.EventHandler(this.BT_1_Click);
+            this.BT_1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.F_Informe_KeyPress);
             // 
             // DGV_Info
             // 
@@ -121,19 +103,7 @@
             this.DGV_Info.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DGV_Info.Size = new System.Drawing.Size(488, 479);
             this.DGV_Info.TabIndex = 3;
-            // 
-            // P_2
-            // 
-            this.P_2.BackColor = System.Drawing.Color.LightGray;
-            this.P_2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.P_2.Controls.Add(this.DGV_Info);
-            this.P_2.Controls.Add(this.BT_1);
-            this.P_2.Controls.Add(this.P_1);
-            this.P_2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.P_2.Location = new System.Drawing.Point(0, 0);
-            this.P_2.Name = "P_2";
-            this.P_2.Size = new System.Drawing.Size(512, 550);
-            this.P_2.TabIndex = 10;
+            this.DGV_Info.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.F_Informe_KeyPress);
             // 
             // C_NombreNervio
             // 
@@ -159,8 +129,40 @@
             this.C_Observacion.HeaderText = "Observación";
             this.C_Observacion.MinimumWidth = 53;
             this.C_Observacion.Name = "C_Observacion";
+            this.C_Observacion.ReadOnly = true;
             this.C_Observacion.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.C_Observacion.Width = 320;
+            // 
+            // P_2
+            // 
+            this.P_2.BackColor = System.Drawing.Color.LightGray;
+            this.P_2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.P_2.Controls.Add(this.DGV_Info);
+            this.P_2.Controls.Add(this.BT_1);
+            this.P_2.Controls.Add(this.P_1);
+            this.P_2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.P_2.Location = new System.Drawing.Point(0, 0);
+            this.P_2.Name = "P_2";
+            this.P_2.Size = new System.Drawing.Size(515, 550);
+            this.P_2.TabIndex = 10;
+            // 
+            // dataGridViewImageColumn1
+            // 
+            this.dataGridViewImageColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewImageColumn1.HeaderText = "Diseño";
+            this.dataGridViewImageColumn1.MinimumWidth = 80;
+            this.dataGridViewImageColumn1.Name = "dataGridViewImageColumn1";
+            this.dataGridViewImageColumn1.ReadOnly = true;
+            this.dataGridViewImageColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // dataGridViewRichTextBoxColumn1
+            // 
+            this.dataGridViewRichTextBoxColumn1.FillWeight = 320F;
+            this.dataGridViewRichTextBoxColumn1.HeaderText = "Observación";
+            this.dataGridViewRichTextBoxColumn1.MinimumWidth = 53;
+            this.dataGridViewRichTextBoxColumn1.Name = "dataGridViewRichTextBoxColumn1";
+            this.dataGridViewRichTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewRichTextBoxColumn1.Width = 320;
             // 
             // F_Informe
             // 
@@ -170,10 +172,13 @@
             this.Controls.Add(this.P_2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(512, 550);
+            this.MinimumSize = new System.Drawing.Size(512, 550);
             this.Name = "F_Informe";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Informe";
             this.Load += new System.EventHandler(this.F_Informe_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.F_Informe_KeyPress);
             this.P_1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Info)).EndInit();
             this.P_2.ResumeLayout(false);

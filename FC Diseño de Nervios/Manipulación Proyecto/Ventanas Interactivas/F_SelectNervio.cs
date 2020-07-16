@@ -50,8 +50,8 @@ namespace FC_Diseño_de_Nervios
             }
             if (F_Base.Proyecto.Edificio.PisoSelect != null)
             {
-                ListViewItem[] listViewItems = LV_Stories.Items.Find(F_Base.Proyecto.Edificio.PisoSelect.Nombre, false);
-                listViewItems[0].Selected = true;
+                ListViewItem listViewItems = FindListViewItem(F_Base.Proyecto.Edificio.PisoSelect.Nombre,LV_Stories);
+                listViewItems.Selected = true;
 
             }
             else
@@ -73,10 +73,10 @@ namespace FC_Diseño_de_Nervios
 
                 if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
                 {
-                    ListViewItem[] listViewItems = LV_Nervios.Items.Find(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre, false);
-                    if (listViewItems.Count() > 0)
+                    ListViewItem listViewItems = LV_Nervios.FindItemWithText(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre);
+                    if (listViewItems !=null)
                     {
-                        listViewItems[0].Selected = true;
+                        listViewItems.Selected = true;
                     }
                 }
                 else
@@ -115,12 +115,23 @@ namespace FC_Diseño_de_Nervios
             CB_Direccion.SelectedItem = eDireccion.Todos.ToString(); 
 
         }
+        private ListViewItem FindListViewItem(string NameItem,ListView listView)
+        {
+            foreach(ListViewItem item in listView.Items)
+            {
+                if (NameItem == item.Name || NameItem== item.Text)
+                    return item;
+            }
+            return null;
+        }
 
         private void LV_Stories_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LV_Stories.SelectedItems.Count > 0)
             {
+            
                 F_Base.Proyecto.Edificio.PisoSelect = F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == LV_Stories.SelectedItems[0].Text);
+                
                 CargarListViewNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios);
                 NerviosACargar();
                 SelectNervioChanged(new Point(), false);
@@ -169,8 +180,8 @@ namespace FC_Diseño_de_Nervios
         }
         private void HabilitarMaestroSimilarA()
         {
-             LB_NervioSimilarA.Text=  F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervio.SoySimiarA;
-            CKB_Maestro.Checked = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervio.IsMaestroGeometria;
+            LB_NervioSimilarA.Text=  F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioGeometria.SoySimiarA.ToString(F_Base.Proyecto.Edificio.PisoSelect.Nombre);
+            CKB_Maestro.Checked = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioGeometria.IsMaestro;
         }
 
 
@@ -241,11 +252,13 @@ namespace FC_Diseño_de_Nervios
            
             if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
             {
-                F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(x => x != F_Base.Proyecto.Edificio.PisoSelect.NervioSelect).ForEach(x => { x.Select = false; x.ChangeSelect(); });
-                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Select = true;
-                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.ChangeSelect();
+                F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(x => x.Nombre != F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre).ForEach(x => { x.Select = false; x.ChangeSelect(); });
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Select = true; F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.ChangeSelect();
 
-                ListViewItem[] listViewItem = LV_Nervios.Items.Find(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre, false);
+                ListViewItem LVI = FindListViewItem(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre, LV_Nervios);
+                if (LVI != null)
+                    LVI.Selected = true;
+      
                 GB_Propiedades.Text = $" {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.Edificio.PisoSelect.Nombre}";
                 Text = $"Selección de Nervios | {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.Edificio.PisoSelect.Nombre} ";
                 CB_SeccionAltura.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAltura;

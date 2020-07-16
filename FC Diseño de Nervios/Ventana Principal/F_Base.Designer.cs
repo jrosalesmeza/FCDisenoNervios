@@ -47,8 +47,15 @@
             this.combinacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tendenciasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TLSS_5 = new System.Windows.Forms.ToolStripSeparator();
-            this.deshacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rehacerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSMI_Deshacer = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSMI_Rehacer = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLS_8 = new System.Windows.Forms.ToolStripSeparator();
+            this.TLSMI_CopiarRefuerzo = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSMI_PegarRefuerzo = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSMI_EliminarRefuerzo = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLS_9 = new System.Windows.Forms.ToolStripSeparator();
+            this.TLSMI_CopiarGeometria = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSMI_PegarGeometria = new System.Windows.Forms.ToolStripMenuItem();
             this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selecciónDeNerviosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.esquemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +92,6 @@
             this.ST_Base = new System.Windows.Forms.StatusStrip();
             this.LB_Notificador = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.DP_ContenedorPrincipal = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.TS_Barra1 = new System.Windows.Forms.ToolStrip();
             this.TSB_Nuevo = new System.Windows.Forms.ToolStripButton();
             this.TSB_Abrir = new System.Windows.Forms.ToolStripButton();
@@ -103,6 +109,9 @@
             this.TLSB_AgregarApoyo = new System.Windows.Forms.ToolStripSplitButton();
             this.TLSN_ApoyoInicio = new System.Windows.Forms.ToolStripMenuItem();
             this.TLSN_ApoyoFinal = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSB_EliminarApoyo = new System.Windows.Forms.ToolStripDropDownButton();
+            this.TLSN_ApoyoInicioE = new System.Windows.Forms.ToolStripMenuItem();
+            this.TLSN_ApoyoFinalE = new System.Windows.Forms.ToolStripMenuItem();
             this.TLS_S6 = new System.Windows.Forms.ToolStripSeparator();
             this.TLSB_Momentos = new System.Windows.Forms.ToolStripButton();
             this.TLSB_AreasMomentos = new System.Windows.Forms.ToolStripButton();
@@ -124,6 +133,7 @@
             this.TLS_RevisarProyecto = new System.Windows.Forms.ToolStripButton();
             this.TLSB_PesoTotal = new System.Windows.Forms.ToolStripButton();
             this.TLSB_ExportarPDF = new System.Windows.Forms.ToolStripButton();
+            this.TLS_7 = new System.Windows.Forms.ToolStripSeparator();
             this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
             this.LB_NombreProyecto = new System.Windows.Forms.Label();
@@ -132,11 +142,9 @@
             this.P_Menu2 = new System.Windows.Forms.Panel();
             this.PB_LogoPrincipal = new System.Windows.Forms.PictureBox();
             this.T_Timer = new System.Windows.Forms.Timer(this.components);
-            this.TLS_7 = new System.Windows.Forms.ToolStripSeparator();
-            this.TLSB_EliminarRefuerzos = new System.Windows.Forms.ToolStripButton();
-            this.TLSB_EliminarApoyo = new System.Windows.Forms.ToolStripDropDownButton();
-            this.TLSN_ApoyoInicioE = new System.Windows.Forms.ToolStripMenuItem();
-            this.TLSN_ApoyoFinalE = new System.Windows.Forms.ToolStripMenuItem();
+            this.T_AutoGuardado = new System.Windows.Forms.Timer(this.components);
+            this.DP_ContenedorPrincipal = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
             this.TS_Barra1.SuspendLayout();
@@ -272,8 +280,15 @@
             this.combinacionesToolStripMenuItem,
             this.tendenciasToolStripMenuItem,
             this.TLSS_5,
-            this.deshacerToolStripMenuItem,
-            this.rehacerToolStripMenuItem});
+            this.TLSMI_Deshacer,
+            this.TLSMI_Rehacer,
+            this.TLS_8,
+            this.TLSMI_CopiarRefuerzo,
+            this.TLSMI_PegarRefuerzo,
+            this.TLSMI_EliminarRefuerzo,
+            this.TLS_9,
+            this.TLSMI_CopiarGeometria,
+            this.TLSMI_PegarGeometria});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
@@ -281,61 +296,119 @@
             // 
             // similitudDeNerviosToolStripMenuItem
             // 
-            this.similitudDeNerviosToolStripMenuItem.Enabled = false;
             this.similitudDeNerviosToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.similitudDeNerviosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("similitudDeNerviosToolStripMenuItem.Image")));
             this.similitudDeNerviosToolStripMenuItem.Name = "similitudDeNerviosToolStripMenuItem";
-            this.similitudDeNerviosToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.similitudDeNerviosToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.similitudDeNerviosToolStripMenuItem.Text = "Similitud de Nervios";
             this.similitudDeNerviosToolStripMenuItem.Click += new System.EventHandler(this.similitudDeNerviosToolStripMenuItem_Click);
             // 
             // combinacionesToolStripMenuItem
             // 
-            this.combinacionesToolStripMenuItem.Enabled = false;
             this.combinacionesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.combinacionesToolStripMenuItem.Name = "combinacionesToolStripMenuItem";
             this.combinacionesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.combinacionesToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.combinacionesToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.combinacionesToolStripMenuItem.Text = "Combinaciones";
             this.combinacionesToolStripMenuItem.Click += new System.EventHandler(this.TSB_SelectCombinaciones_Click);
             // 
             // tendenciasToolStripMenuItem
             // 
-            this.tendenciasToolStripMenuItem.Enabled = false;
             this.tendenciasToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.tendenciasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("tendenciasToolStripMenuItem.Image")));
             this.tendenciasToolStripMenuItem.Name = "tendenciasToolStripMenuItem";
             this.tendenciasToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.tendenciasToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.tendenciasToolStripMenuItem.Size = new System.Drawing.Size(270, 22);
             this.tendenciasToolStripMenuItem.Text = "Tendencias";
             this.tendenciasToolStripMenuItem.Click += new System.EventHandler(this.tendenciasToolStripMenuItem_Click);
             // 
             // TLSS_5
             // 
             this.TLSS_5.Name = "TLSS_5";
-            this.TLSS_5.Size = new System.Drawing.Size(197, 6);
+            this.TLSS_5.Size = new System.Drawing.Size(267, 6);
             // 
-            // deshacerToolStripMenuItem
+            // TLSMI_Deshacer
             // 
-            this.deshacerToolStripMenuItem.Enabled = false;
-            this.deshacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.deshacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
-            this.deshacerToolStripMenuItem.Name = "deshacerToolStripMenuItem";
-            this.deshacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
-            this.deshacerToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.deshacerToolStripMenuItem.Text = "Deshacer";
-            this.deshacerToolStripMenuItem.Click += new System.EventHandler(this.deshacerToolStripMenuItem_Click);
+            this.TLSMI_Deshacer.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TLSMI_Deshacer.Image = global::FC_Diseño_de_Nervios.Properties.Resources.undo;
+            this.TLSMI_Deshacer.Name = "TLSMI_Deshacer";
+            this.TLSMI_Deshacer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Z)));
+            this.TLSMI_Deshacer.Size = new System.Drawing.Size(270, 22);
+            this.TLSMI_Deshacer.Text = "Deshacer";
+            this.TLSMI_Deshacer.Click += new System.EventHandler(this.deshacerToolStripMenuItem_Click);
             // 
-            // rehacerToolStripMenuItem
+            // TLSMI_Rehacer
             // 
-            this.rehacerToolStripMenuItem.Enabled = false;
-            this.rehacerToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.rehacerToolStripMenuItem.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
-            this.rehacerToolStripMenuItem.Name = "rehacerToolStripMenuItem";
-            this.rehacerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
-            this.rehacerToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.rehacerToolStripMenuItem.Text = "Rehacer";
-            this.rehacerToolStripMenuItem.Click += new System.EventHandler(this.rehacerToolStripMenuItem_Click);
+            this.TLSMI_Rehacer.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TLSMI_Rehacer.Image = global::FC_Diseño_de_Nervios.Properties.Resources.redo;
+            this.TLSMI_Rehacer.Name = "TLSMI_Rehacer";
+            this.TLSMI_Rehacer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.TLSMI_Rehacer.Size = new System.Drawing.Size(270, 22);
+            this.TLSMI_Rehacer.Text = "Rehacer";
+            this.TLSMI_Rehacer.Click += new System.EventHandler(this.rehacerToolStripMenuItem_Click);
+            // 
+            // TLS_8
+            // 
+            this.TLS_8.Name = "TLS_8";
+            this.TLS_8.Size = new System.Drawing.Size(267, 6);
+            // 
+            // TLSMI_CopiarRefuerzo
+            // 
+            this.TLSMI_CopiarRefuerzo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TLSMI_CopiarRefuerzo.Image = ((System.Drawing.Image)(resources.GetObject("TLSMI_CopiarRefuerzo.Image")));
+            this.TLSMI_CopiarRefuerzo.Name = "TLSMI_CopiarRefuerzo";
+            this.TLSMI_CopiarRefuerzo.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.C)));
+            this.TLSMI_CopiarRefuerzo.Size = new System.Drawing.Size(270, 22);
+            this.TLSMI_CopiarRefuerzo.Text = "Copiar Refuerzo";
+            this.TLSMI_CopiarRefuerzo.Click += new System.EventHandler(this.TLSMI_CopiarRefuerzo_Click);
+            // 
+            // TLSMI_PegarRefuerzo
+            // 
+            this.TLSMI_PegarRefuerzo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TLSMI_PegarRefuerzo.Image = global::FC_Diseño_de_Nervios.Properties.Resources.PegarRefuerzo2;
+            this.TLSMI_PegarRefuerzo.Name = "TLSMI_PegarRefuerzo";
+            this.TLSMI_PegarRefuerzo.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.V)));
+            this.TLSMI_PegarRefuerzo.Size = new System.Drawing.Size(270, 22);
+            this.TLSMI_PegarRefuerzo.Text = "Pegar Refuerzo";
+            this.TLSMI_PegarRefuerzo.Click += new System.EventHandler(this.TLSMI_PegarRefuerzo_Click);
+            // 
+            // TLSMI_EliminarRefuerzo
+            // 
+            this.TLSMI_EliminarRefuerzo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TLSMI_EliminarRefuerzo.Image = ((System.Drawing.Image)(resources.GetObject("TLSMI_EliminarRefuerzo.Image")));
+            this.TLSMI_EliminarRefuerzo.Name = "TLSMI_EliminarRefuerzo";
+            this.TLSMI_EliminarRefuerzo.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Delete)));
+            this.TLSMI_EliminarRefuerzo.Size = new System.Drawing.Size(270, 22);
+            this.TLSMI_EliminarRefuerzo.Text = "Eliminar Refuerzo";
+            this.TLSMI_EliminarRefuerzo.Click += new System.EventHandler(this.TLSB_EliminarRefuerzos_Click);
+            // 
+            // TLS_9
+            // 
+            this.TLS_9.Name = "TLS_9";
+            this.TLS_9.Size = new System.Drawing.Size(267, 6);
+            // 
+            // TLSMI_CopiarGeometria
+            // 
+            this.TLSMI_CopiarGeometria.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TLSMI_CopiarGeometria.Image = ((System.Drawing.Image)(resources.GetObject("TLSMI_CopiarGeometria.Image")));
+            this.TLSMI_CopiarGeometria.Name = "TLSMI_CopiarGeometria";
+            this.TLSMI_CopiarGeometria.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.TLSMI_CopiarGeometria.Size = new System.Drawing.Size(270, 22);
+            this.TLSMI_CopiarGeometria.Text = "Copiar Geometría";
+            this.TLSMI_CopiarGeometria.Click += new System.EventHandler(this.TLSMI_CopiarGeometria_Click);
+            // 
+            // TLSMI_PegarGeometria
+            // 
+            this.TLSMI_PegarGeometria.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TLSMI_PegarGeometria.Image = ((System.Drawing.Image)(resources.GetObject("TLSMI_PegarGeometria.Image")));
+            this.TLSMI_PegarGeometria.Name = "TLSMI_PegarGeometria";
+            this.TLSMI_PegarGeometria.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.TLSMI_PegarGeometria.Size = new System.Drawing.Size(270, 22);
+            this.TLSMI_PegarGeometria.Text = "Pegar Geometría";
+            this.TLSMI_PegarGeometria.Click += new System.EventHandler(this.TLSMI_PegarGeometria_Click);
             // 
             // verToolStripMenuItem
             // 
@@ -601,7 +674,7 @@
             this.propiedadesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.propiedadesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("propiedadesToolStripMenuItem.Image")));
             this.propiedadesToolStripMenuItem.Name = "propiedadesToolStripMenuItem";
-            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.propiedadesToolStripMenuItem.Text = "Propiedades";
             this.propiedadesToolStripMenuItem.Click += new System.EventHandler(this.propiedadesToolStripMenuItem_Click);
             // 
@@ -635,9 +708,9 @@
             this.ST_Base.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LB_Notificador,
             this.toolStripStatusLabel1});
-            this.ST_Base.Location = new System.Drawing.Point(0, 680);
+            this.ST_Base.Location = new System.Drawing.Point(0, 661);
             this.ST_Base.Name = "ST_Base";
-            this.ST_Base.Size = new System.Drawing.Size(1169, 22);
+            this.ST_Base.Size = new System.Drawing.Size(1179, 22);
             this.ST_Base.TabIndex = 1;
             this.ST_Base.Text = "statusStrip1";
             // 
@@ -653,15 +726,6 @@
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
-            // DP_ContenedorPrincipal
-            // 
-            this.DP_ContenedorPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DP_ContenedorPrincipal.DockBackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.DP_ContenedorPrincipal.Location = new System.Drawing.Point(0, 52);
-            this.DP_ContenedorPrincipal.Name = "DP_ContenedorPrincipal";
-            this.DP_ContenedorPrincipal.Size = new System.Drawing.Size(1169, 628);
-            this.DP_ContenedorPrincipal.TabIndex = 4;
             // 
             // TS_Barra1
             // 
@@ -703,11 +767,11 @@
             this.TLSB_PesoTotal,
             this.TLSB_ExportarPDF,
             this.TLS_7,
-            this.TLSB_EliminarRefuerzos});
+            this.toolStripButton1});
             this.TS_Barra1.Location = new System.Drawing.Point(0, 24);
             this.TS_Barra1.Name = "TS_Barra1";
             this.TS_Barra1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.TS_Barra1.Size = new System.Drawing.Size(1169, 28);
+            this.TS_Barra1.Size = new System.Drawing.Size(1179, 28);
             this.TS_Barra1.TabIndex = 9;
             this.TS_Barra1.Text = "TOOL";
             // 
@@ -830,31 +894,57 @@
             this.TSB_ReasignarEjesNervios.Text = "Reasignar ejes a Nervios";
             this.TSB_ReasignarEjesNervios.Click += new System.EventHandler(this.TSB_ReasignarEjesNervios_Click);
             // 
-            // TLSB_AgregaApoyo
+            // TLSB_AgregarApoyo
             // 
             this.TLSB_AgregarApoyo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.TLSB_AgregarApoyo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TLSN_ApoyoInicio,
             this.TLSN_ApoyoFinal});
-            this.TLSB_AgregarApoyo.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_AgregaApoyo.Image")));
+            this.TLSB_AgregarApoyo.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_AgregarApoyo.Image")));
             this.TLSB_AgregarApoyo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLSB_AgregarApoyo.Name = "TLSB_AgregaApoyo";
+            this.TLSB_AgregarApoyo.Name = "TLSB_AgregarApoyo";
             this.TLSB_AgregarApoyo.Size = new System.Drawing.Size(32, 25);
             this.TLSB_AgregarApoyo.Text = "Agregar Apoyos en Extremos";
             // 
             // TLSN_ApoyoInicio
             // 
             this.TLSN_ApoyoInicio.Name = "TLSN_ApoyoInicio";
-            this.TLSN_ApoyoInicio.Size = new System.Drawing.Size(180, 22);
+            this.TLSN_ApoyoInicio.Size = new System.Drawing.Size(143, 22);
             this.TLSN_ApoyoInicio.Text = "Apoyo Inicial";
             this.TLSN_ApoyoInicio.Click += new System.EventHandler(this.TLSN_ApoyoInicio_Click);
             // 
             // TLSN_ApoyoFinal
             // 
             this.TLSN_ApoyoFinal.Name = "TLSN_ApoyoFinal";
-            this.TLSN_ApoyoFinal.Size = new System.Drawing.Size(180, 22);
+            this.TLSN_ApoyoFinal.Size = new System.Drawing.Size(143, 22);
             this.TLSN_ApoyoFinal.Text = "Apoyo Final";
             this.TLSN_ApoyoFinal.Click += new System.EventHandler(this.TLSN_ApoyoFinal_Click);
+            // 
+            // TLSB_EliminarApoyo
+            // 
+            this.TLSB_EliminarApoyo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_EliminarApoyo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TLSN_ApoyoInicioE,
+            this.TLSN_ApoyoFinalE});
+            this.TLSB_EliminarApoyo.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_EliminarApoyo.Image")));
+            this.TLSB_EliminarApoyo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_EliminarApoyo.Name = "TLSB_EliminarApoyo";
+            this.TLSB_EliminarApoyo.Size = new System.Drawing.Size(29, 25);
+            this.TLSB_EliminarApoyo.Text = "Eliminar Apoyos en Extremos";
+            // 
+            // TLSN_ApoyoInicioE
+            // 
+            this.TLSN_ApoyoInicioE.Name = "TLSN_ApoyoInicioE";
+            this.TLSN_ApoyoInicioE.Size = new System.Drawing.Size(143, 22);
+            this.TLSN_ApoyoInicioE.Text = "Apoyo Inicial";
+            this.TLSN_ApoyoInicioE.Click += new System.EventHandler(this.TLSN_ApoyoInicio_Click);
+            // 
+            // TLSN_ApoyoFinalE
+            // 
+            this.TLSN_ApoyoFinalE.Name = "TLSN_ApoyoFinalE";
+            this.TLSN_ApoyoFinalE.Size = new System.Drawing.Size(143, 22);
+            this.TLSN_ApoyoFinalE.Text = "Apoyo Final";
+            this.TLSN_ApoyoFinalE.Click += new System.EventHandler(this.TLSN_ApoyoFinal_Click);
             // 
             // TLS_S6
             // 
@@ -1054,6 +1144,11 @@
             this.TLSB_ExportarPDF.Text = "Exportar Memorias de Cálculo";
             this.TLSB_ExportarPDF.Click += new System.EventHandler(this.TLSB_ExportarPDF_Click);
             // 
+            // TLS_7
+            // 
+            this.TLS_7.Name = "TLS_7";
+            this.TLS_7.Size = new System.Drawing.Size(6, 28);
+            // 
             // P_Menu
             // 
             this.P_Menu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(152)))), ((int)(((byte)(41)))));
@@ -1065,7 +1160,7 @@
             this.P_Menu.Dock = System.Windows.Forms.DockStyle.Top;
             this.P_Menu.Location = new System.Drawing.Point(0, 0);
             this.P_Menu.Name = "P_Menu";
-            this.P_Menu.Size = new System.Drawing.Size(1169, 24);
+            this.P_Menu.Size = new System.Drawing.Size(1179, 24);
             this.P_Menu.TabIndex = 12;
             this.P_Menu.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Menu_MouseDown);
             // 
@@ -1079,7 +1174,7 @@
             this.BT_Minimize.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Minimize.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Minimize.Image = global::FC_Diseño_de_Nervios.Properties.Resources.Minimizex16;
-            this.BT_Minimize.Location = new System.Drawing.Point(1049, 0);
+            this.BT_Minimize.Location = new System.Drawing.Point(1059, 0);
             this.BT_Minimize.Name = "BT_Minimize";
             this.BT_Minimize.Size = new System.Drawing.Size(40, 24);
             this.BT_Minimize.TabIndex = 30;
@@ -1108,7 +1203,7 @@
             this.BT_MaxRest.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_MaxRest.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_MaxRest.Image = global::FC_Diseño_de_Nervios.Properties.Resources.Maximizar14X11;
-            this.BT_MaxRest.Location = new System.Drawing.Point(1089, 0);
+            this.BT_MaxRest.Location = new System.Drawing.Point(1099, 0);
             this.BT_MaxRest.Name = "BT_MaxRest";
             this.BT_MaxRest.Size = new System.Drawing.Size(40, 24);
             this.BT_MaxRest.TabIndex = 29;
@@ -1126,7 +1221,7 @@
             this.BT_Cerrar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Cerrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Cerrar.Image = global::FC_Diseño_de_Nervios.Properties.Resources.x16Blanca;
-            this.BT_Cerrar.Location = new System.Drawing.Point(1129, 0);
+            this.BT_Cerrar.Location = new System.Drawing.Point(1139, 0);
             this.BT_Cerrar.Name = "BT_Cerrar";
             this.BT_Cerrar.Size = new System.Drawing.Size(40, 24);
             this.BT_Cerrar.TabIndex = 27;
@@ -1159,54 +1254,35 @@
             // 
             this.T_Timer.Tick += new System.EventHandler(this.T_Timer_Tick);
             // 
-            // TLS_7
+            // T_AutoGuardado
             // 
-            this.TLS_7.Name = "TLS_7";
-            this.TLS_7.Size = new System.Drawing.Size(6, 28);
+            this.T_AutoGuardado.Tick += new System.EventHandler(this.T_AutoGuardado_Tick);
             // 
-            // TLSB_EliminarRefuerzos
+            // DP_ContenedorPrincipal
             // 
-            this.TLSB_EliminarRefuerzos.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TLSB_EliminarRefuerzos.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_EliminarRefuerzos.Image")));
-            this.TLSB_EliminarRefuerzos.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLSB_EliminarRefuerzos.Name = "TLSB_EliminarRefuerzos";
-            this.TLSB_EliminarRefuerzos.Size = new System.Drawing.Size(23, 25);
-            this.TLSB_EliminarRefuerzos.Text = "Eliminar Refuerzo";
-            this.TLSB_EliminarRefuerzos.ToolTipText = "Eliminar Refuerzo Longitudinal y Transversal";
-            this.TLSB_EliminarRefuerzos.Click += new System.EventHandler(this.TLSB_EliminarRefuerzos_Click);
+            this.DP_ContenedorPrincipal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DP_ContenedorPrincipal.DockBackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.DP_ContenedorPrincipal.Location = new System.Drawing.Point(0, 52);
+            this.DP_ContenedorPrincipal.Name = "DP_ContenedorPrincipal";
+            this.DP_ContenedorPrincipal.Size = new System.Drawing.Size(1179, 609);
+            this.DP_ContenedorPrincipal.TabIndex = 4;
             // 
-            // TLSB_EliminarApoyo
+            // toolStripButton1
             // 
-            this.TLSB_EliminarApoyo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.TLSB_EliminarApoyo.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TLSN_ApoyoInicioE,
-            this.TLSN_ApoyoFinalE});
-            this.TLSB_EliminarApoyo.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_EliminarApoyo.Image")));
-            this.TLSB_EliminarApoyo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.TLSB_EliminarApoyo.Name = "TLSB_EliminarApoyo";
-            this.TLSB_EliminarApoyo.Size = new System.Drawing.Size(29, 25);
-            this.TLSB_EliminarApoyo.Text = "Eliminar Apoyos en Extremos";
-            // 
-            // TLSN_ApoyoInicioE
-            // 
-            this.TLSN_ApoyoInicioE.Name = "TLSN_ApoyoInicioE";
-            this.TLSN_ApoyoInicioE.Size = new System.Drawing.Size(180, 22);
-            this.TLSN_ApoyoInicioE.Text = "Apoyo Inicial";
-            this.TLSN_ApoyoInicioE.Click += new System.EventHandler(this.TLSN_ApoyoInicio_Click);
-            // 
-            // TLSN_ApoyoFinalE
-            // 
-            this.TLSN_ApoyoFinalE.Name = "TLSN_ApoyoFinalE";
-            this.TLSN_ApoyoFinalE.Size = new System.Drawing.Size(180, 22);
-            this.TLSN_ApoyoFinalE.Text = "Apoyo Final";
-            this.TLSN_ApoyoFinalE.Click += new System.EventHandler(this.TLSN_ApoyoFinal_Click);
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 25);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // F_Base
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(1169, 702);
+            this.ClientSize = new System.Drawing.Size(1179, 683);
             this.Controls.Add(this.DP_ContenedorPrincipal);
             this.Controls.Add(this.TS_Barra1);
             this.Controls.Add(this.ST_Base);
@@ -1265,8 +1341,8 @@
         private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem guardarToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gurdarComoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deshacerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rehacerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TLSMI_Deshacer;
+        private System.Windows.Forms.ToolStripMenuItem TLSMI_Rehacer;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripMenuItem verToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem esquemaToolStripMenuItem;
@@ -1275,7 +1351,6 @@
         private System.Windows.Forms.ToolStripMenuItem refuerzoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem plantaToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator TS_S2;
-        private WeifenLuo.WinFormsUI.Docking.DockPanel DP_ContenedorPrincipal;
         private System.Windows.Forms.ToolStripMenuItem selecciónDeNerviosToolStripMenuItem;
         private FontAwesome.Sharp.IconToolStripButton TSB_SelectCombinaciones;
         private System.Windows.Forms.ToolStripMenuItem enumeraciónDeElementosToolStripMenuItem;
@@ -1343,9 +1418,18 @@
         private System.Windows.Forms.ToolStripButton TLS_RevisarProyecto;
         private System.Windows.Forms.ToolStripButton TLSB_PesoTotal;
         private System.Windows.Forms.ToolStripSeparator TLS_7;
-        private System.Windows.Forms.ToolStripButton TLSB_EliminarRefuerzos;
         private System.Windows.Forms.ToolStripDropDownButton TLSB_EliminarApoyo;
         private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoInicioE;
         private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoFinalE;
+        private System.Windows.Forms.ToolStripSeparator TLS_8;
+        private System.Windows.Forms.ToolStripMenuItem TLSMI_CopiarRefuerzo;
+        private System.Windows.Forms.ToolStripMenuItem TLSMI_PegarRefuerzo;
+        private System.Windows.Forms.ToolStripMenuItem TLSMI_EliminarRefuerzo;
+        private System.Windows.Forms.ToolStripSeparator TLS_9;
+        private System.Windows.Forms.ToolStripMenuItem TLSMI_CopiarGeometria;
+        private System.Windows.Forms.ToolStripMenuItem TLSMI_PegarGeometria;
+        private System.Windows.Forms.Timer T_AutoGuardado;
+        private WeifenLuo.WinFormsUI.Docking.DockPanel DP_ContenedorPrincipal;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

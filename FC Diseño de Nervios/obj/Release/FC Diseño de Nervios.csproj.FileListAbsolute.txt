@@ -9,7 +9,6 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\FC 
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\FC Diseño de Nervios.exe
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\FC Diseño de Nervios.pdb
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_EscalaCoordenadas.dll
-C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\System.Windows.Forms.Ribbon35.dll
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\WeifenLuo.WinFormsUI.Docking.dll
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_EscalaCoordenadas.pdb
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_EscalaCoordenadas.xml
@@ -47,3 +46,14 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_AreasCortanteNervio.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.F_CortanteNervio.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.F_Informe.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\itextsharp.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\WebTools.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\itextsharp.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\WebTools.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\WebTools.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Manipulación_Proyecto.Ventanas_Interactivas.Ventanas_Perfil_Longitudinal.F_ModificarEjesGlobales.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.F_CopiarPegarDisenar.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.F_SelectNervioFunctions.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.F_SimilitudNervios.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_de_Nervios.F_PlantaSimilitudNervios.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC Diseño de Nervios.exe.licenses

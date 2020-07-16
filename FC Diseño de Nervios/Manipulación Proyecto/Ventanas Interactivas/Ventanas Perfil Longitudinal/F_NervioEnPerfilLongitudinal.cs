@@ -97,10 +97,8 @@ namespace FC_Diseño_de_Nervios
                         F_Base.F_ModificarSeccion.ElementoSeleccionado = ElementoSeleccionado;
                     }
                     else { F_Base.F_ModificarSeccion.Close(); }
-
-                    PB_VistaPerfilLongitudinal.Invalidate();
-
                 }
+                PB_VistaPerfilLongitudinal.Invalidate();
             }
         }
 

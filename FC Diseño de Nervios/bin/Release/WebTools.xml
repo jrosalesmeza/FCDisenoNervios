@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebTools</name>
+    </assembly>
+    <members>
+        <member name="T:WebTools.DeletageNotificadorErrores">
+            <summary>
+            Notificador de Errores
+            </summary>
+            <param name="Alert">Mensaje de alerta.</param>
+        </member>
+        <member name="T:WebTools.FuncitionsWeb">
+            <summary>
+            Funciones web [efe Prima Ce], por Ing. Jose Luis Rosales Meza. 
+            </summary>
+        </member>
+        <member name="E:WebTools.FuncitionsWeb.NotificadoErrores">
+            <summary>
+            Notificador de Errores
+            </summary>
+        </member>
+        <member name="M:WebTools.FuncitionsWeb.ComprobarActualizacion(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="URLSERVER">Url del servidor, ejemplo: http://pruebasefeprimace.somee.com/Version.txt</param>
+            <param name="RutaVersionLocal">Ruta del archivo VERSION.TXT local.</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebTools.FuncitionsWeb.DevolverTextoPlanoDesdeServer(System.String)">
+            <summary>
+            Lista de Macs desde URL especificado.
+            </summary>
+            <param name="URLSERVER">URL Server</param>
+            <returns></returns>
+        </member>
+        <member name="T:WebTools.Safe">
+            <summary>
+            Funciones de Seguridad [efe Prima Ce], por Ing. Jose Luis Rosales Meza. 
+            </summary>
+        </member>
+        <member name="M:WebTools.Safe.Encriptar(System.String)">
+            <summary>
+            Encriptar una Cadena
+            </summary>
+            <param name="_cadena">Cadena a Encriptar</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebTools.Safe.DesEncriptar(System.String)">
+            <summary>
+            DesEncriptar una Cadena
+            </summary>
+            <param name="_cadena">Texto a Desencriptar</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebTools.Safe.VerificarAccesoConListaMacs(System.Collections.Generic.List{System.String})">
+            <summary>
+            Verificar Acceso con Lista de Macs
+            </summary>
+            <param name="ListaMacsGlobales">Lista de Direcciones MACS</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebTools.Safe.VerificarAccesoConConexionLocalServer(System.String,System.String)">
+            <summary>
+            Verificar Acceso a traves de un servidor local. 
+            </summary>
+            <param name="HostName">Host, Ejemplo: FCSAS.COM</param>
+            <param name="Server">Link del servidor, Ejemplo: servidor.fcsas.com</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

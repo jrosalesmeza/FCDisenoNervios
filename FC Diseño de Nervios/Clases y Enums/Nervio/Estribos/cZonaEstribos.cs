@@ -22,6 +22,7 @@ namespace FC_Diseño_de_Nervios
         public cCoordenadas CoordenadasPuntoString = new cCoordenadas();
         public cCoordenadas CoordenadasCuadro= new cCoordenadas();
 
+        public bool UnionEstribos = false;
 
         private float separacion;
         public float Separacion

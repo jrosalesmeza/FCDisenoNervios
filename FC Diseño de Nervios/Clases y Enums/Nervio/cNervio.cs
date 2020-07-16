@@ -90,7 +90,7 @@ namespace FC_Diseño_de_Nervios
         public List<IElemento> Lista_Elementos { get; set; }
         public bool Bool_CambioAltura { get; set; }
         public bool Bool_CambioAncho { get; set; }
-        public bool Select { get; set; }
+        public bool Select { get; set; } 
         public bool SelectPlantaEnumeracion { get; set; }
         private bool ElementoEnumerado_MouseMove = false;
         public cObjeto ObjetoSelect { get; set; }
@@ -99,7 +99,10 @@ namespace FC_Diseño_de_Nervios
 
         public float PesoTotalRefuerzoTransversal { get; set; }
 
-        public cSimilitudNervio SimilitudNervio { get; set; } = new cSimilitudNervio();
+        public cSimilitudNervio SimilitudNervioGeometria { get; set; } = new cSimilitudNervio();
+        public cSimilitudNervio SimilitudNervioCompleto { get; set; } = new cSimilitudNervio();
+
+        public cPropiedadesDisenoAutoCAD Propiedades { get; set; } = new cPropiedadesDisenoAutoCAD(); 
 
         private eCambioenAltura cambioenAltura;
         private eCambioenAncho cambioenAncho;
@@ -681,13 +684,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-
-
-
-
-
-
-
         #endregion
 
         #region Calculos
@@ -701,7 +697,7 @@ namespace FC_Diseño_de_Nervios
                     cSubTramo SubtramoAux = (cSubTramo)Elemento;
                     SubtramoAux.Estaciones.ForEach(Estacion =>
                     {
-                        Estacion.Calculos.Envolvente = new cEnvolvente(Estacion.Lista_Solicitaciones, Estacion.Calculos);
+                        Estacion.Calculos.Envolvente = new cEnvolvente(Estacion.Lista_Solicitaciones, Estacion.Calculos,SimilitudNervioCompleto.BoolSoySimiarA | SimilitudNervioCompleto.IsMaestro);
                     });
                 }
             });
@@ -937,12 +933,12 @@ namespace FC_Diseño_de_Nervios
 
                         if (SubtramoAux.TramoOrigen.EstribosIzquierda != null)
                         {
-                            Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoSuperior.Area_S = SubtramoAux.TramoOrigen.EstribosIzquierda.IsArea_S(CoordenaXMenor + Estacion.CoordX);
+                            Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoSuperior.Area_S = SubtramoAux.TramoOrigen.EstribosIzquierda.Area_S(CoordenaXMenor + Estacion.CoordX);
                         }
 
                         if (SubtramoAux.TramoOrigen.EstribosDerecha != null)
                         {
-                            Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoInferior.Area_S = SubtramoAux.TramoOrigen.EstribosDerecha.IsArea_S(CoordenaXMenor + Estacion.CoordX);
+                            Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoInferior.Area_S = SubtramoAux.TramoOrigen.EstribosDerecha.Area_S(CoordenaXMenor + Estacion.CoordX);
                         }
                     });
                 }
@@ -1163,19 +1159,19 @@ namespace FC_Diseño_de_Nervios
                 }
                 if (Select) { break; }
             }
+
             Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(z => z.Line.Select = Select));
             return Select;
         }
 
-        public void ChangeSelect()
-        {
-            Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(z => z.Line.Select = Select));
-        }
 
         #endregion Metodos Mouse
 
         #region Metodos Paint
-
+        public void ChangeSelect()
+        {
+            Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(z => z.Line.Select = Select));
+        }
         public void PaintNombreElementosEnumerados_MouseMove(Graphics e, float HeigthWindow, float WidthWindow)
         {
             if (ElementoEnumerado_MouseMove)
@@ -1188,7 +1184,7 @@ namespace FC_Diseño_de_Nervios
 
         public void Paint_Planta_ElementosEnumerados(Graphics e, float WidthW, float Zoom = 1)
         {
-            Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(z => z.Line.PaintPlantaEscaladaEtabsLine(e)));
+            Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(z => { z.Line.PaintPlantaEscaladaEtabsLine(e); }));
             CrearCuadrodeInfo(e, Zoom, PuntoInMousePointLines_Escalado_Real, "Y", "", WidthW);
         }
 
@@ -2165,9 +2161,40 @@ namespace FC_Diseño_de_Nervios
 
         #region Metodos Similares
 
+        #region Metodos y Propiedades para Paint
+        private bool SelectSimilar = false;
+        public void Paint_Similares(Graphics e)
+        {
+            Lista_Objetos.ForEach(y => { if (y.Soporte == eSoporte.Vano) { y.Line.PaintPlantaEscalada(e, Pens.Black, SelectSimilar); } });
+        }
+
+        public bool MouseDownSelectSimilar(Point Point,bool AsignarValor=true)
+        {
+            bool SelectEncotrado = false;
+            foreach (cTramo Tramo in Lista_Tramos)
+            {
+                foreach (cObjeto Objeto in Tramo.Lista_Objetos)
+                {
+                    if (Objeto.Line.MouseInLineEtabs(Point))
+                    {
+                        SelectEncotrado = true;
+                        if (AsignarValor)
+                            SelectSimilar = !SelectSimilar;
+                    }
+ 
+                    if (SelectEncotrado) { break; }
+                }
+                if (SelectEncotrado) { break; }
+            }
+            return SelectEncotrado;
+        }
+
+        #endregion
+
+
         public void AsignarCambiosANerviosSimilares(int IndiceTramo, int IndiceSubTramo)
         {
-            SimilitudNervio.NerviosSimilares.ForEach(N =>
+            SimilitudNervioGeometria.NerviosSimilares.ForEach(N =>
             {
                 cSeccion Seccion = N.Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Seccion;
                 Seccion.B = Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Seccion.B; Seccion.H = Lista_Tramos[IndiceTramo].Lista_SubTramos[IndiceSubTramo].Seccion.H;
@@ -2178,7 +2205,7 @@ namespace FC_Diseño_de_Nervios
 
         public void AsignarCambiosANerviosSimilares()
         {
-            SimilitudNervio.NerviosSimilares.ForEach(N =>
+            SimilitudNervioGeometria.NerviosSimilares.ForEach(N =>
             {
                 N.CambioenAncho = CambioenAncho;
                 N.CambioenAltura = CambioenAltura;
@@ -2186,7 +2213,7 @@ namespace FC_Diseño_de_Nervios
         }
         public void AsignarCambiosANerviosSimilares(int IndiceApoyo)
         {
-            SimilitudNervio.NerviosSimilares.ForEach(N =>
+            SimilitudNervioGeometria.NerviosSimilares.ForEach(N =>
             {
 
                 if (N.Lista_Elementos.Count - 1 >= IndiceApoyo)
@@ -2214,7 +2241,7 @@ namespace FC_Diseño_de_Nervios
 
         public void AsignarCambiosANerviosRecubrimientoSimilares()
         {
-            SimilitudNervio.NerviosSimilares.ForEach(N =>
+            SimilitudNervioGeometria.NerviosSimilares.ForEach(N =>
             {
                 N.r1 = r1;
                 N.r2 = r2;
@@ -2263,7 +2290,7 @@ namespace FC_Diseño_de_Nervios
 
             }
 
-            SimilitudNervio.NerviosSimilares.ForEach(y => y.CrearApoyosAExtremos(ApoyoInicio, ApoyoFinal));
+            SimilitudNervioGeometria.NerviosSimilares.ForEach(y => y.CrearApoyosAExtremos(ApoyoInicio, ApoyoFinal));
         }
 
         public void EliminarApoyosAExtremos(bool ApoyoInicio = false, bool ApoyoFinal = false)
@@ -2304,7 +2331,7 @@ namespace FC_Diseño_de_Nervios
 
             }
 
-            SimilitudNervio.NerviosSimilares.ForEach(y => y.EliminarApoyosAExtremos(ApoyoInicio, ApoyoFinal));
+            SimilitudNervioGeometria.NerviosSimilares.ForEach(y => y.EliminarApoyosAExtremos(ApoyoInicio, ApoyoFinal));
         }
 
         public bool PoderEliminarApoyos()

@@ -179,14 +179,14 @@ namespace FC_Diseño_de_Nervios
                 if (BarraSelect.UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
                 {
                     int IDMax = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Max(y => y.ID);
-                    BarraClonada.ID = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Last().ID + 1;
+                    BarraClonada.ID = IDMax + 1;
                     BarraClonada.TendenciaOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Last().TendenciaOrigen;
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.AgregarBarra(BarraClonada);
                 }
                 else
                 {
                     int IDMax = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.Max(y => y.ID);
-                    BarraClonada.ID = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.Last().ID + 1;
+                    BarraClonada.ID = IDMax + 1;
                     BarraClonada.TendenciaOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.Last().TendenciaOrigen;
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.AgregarBarra(BarraClonada);
                 }

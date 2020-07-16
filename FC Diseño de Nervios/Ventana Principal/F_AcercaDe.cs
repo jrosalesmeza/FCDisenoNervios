@@ -17,6 +17,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal
         {
             m_aeroEnabled = false;
             InitializeComponent();
+            LB_5.Text = $"Versión {Program.Version}";
         }
 
         private void BT_Cerrar_Click(object sender, EventArgs e)

@@ -62,5 +62,11 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
         {
             cHerramientas.Movimiento(Handle);
         }
+
+        private void F_Informe_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Escape)
+                Close();
+        }
     }
 }

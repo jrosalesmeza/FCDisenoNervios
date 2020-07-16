@@ -63,12 +63,11 @@ namespace FC_Diseño_de_Nervios
                 {
                     if (nervioSelect.Nombre != value.Nombre)
                     {
-
                         F_Base.LimpiarMemoria_Nervio();
                     }
                 }
                 nervioSelect = value;
-                nervioSelect.Select = true;
+                //nervioSelect.Select = true;
             }
         }
 

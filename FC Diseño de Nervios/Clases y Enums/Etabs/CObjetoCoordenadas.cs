@@ -58,6 +58,32 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+
+        public void PaintPlantaEscalada(Graphics e, Pen pen2, bool select, Pen penPredet = null, Pen penSelect=null)
+        {
+            if (penPredet == null)
+                penPredet = new Pen(Color.FromArgb(0, 104, 149), 2);
+            if(penSelect==null)
+                penSelect = new Pen(Color.FromArgb(220, 136, 21), 2);
+
+            if (!select)
+            {
+                e.DrawLines(penPredet, Planta_Escalado.ToArray());
+            }
+            else
+            {
+                e.DrawLines(penSelect, Planta_Escalado.ToArray());
+            }
+        }
+
+
+
+
+
+
+
+
+
         public void MouseDownSelectLineEtabs(MouseEventArgs e, int EnteroFinal)
         {
             if (isSelect)

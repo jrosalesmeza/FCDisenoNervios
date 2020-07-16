@@ -61,5 +61,13 @@
             <param name="ListaMacsGlobales">Lista de Direcciones MACS</param>
             <returns></returns>
         </member>
+        <member name="M:WebTools.Safe.VerificarAccesoConConexionLocalServer(System.String,System.String)">
+            <summary>
+            Verificar Acceso a traves de un servidor local. 
+            </summary>
+            <param name="HostName">Host, Ejemplo: FCSAS.COM</param>
+            <param name="Server">Link del servidor, Ejemplo: servidor.fcsas.com</param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

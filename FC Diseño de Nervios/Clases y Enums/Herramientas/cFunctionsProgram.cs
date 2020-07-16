@@ -47,7 +47,8 @@ namespace FC_Diseño_de_Nervios
         public const string Ext_ConfigVentana = "ConfigVentanaNervios.config";
         public static string Ruta_CarpetaLocal = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Empresa, NombrePrograma);
         public const string Ext_MemoriaCalculos = "MemoriaCalculos.pdf";
-        public static string Ruta_OpcionesSeguridad = Path.Combine(Application.StartupPath, "_opcje");
+        public const string Ext_BackupNervios = ".bkp";
+
         public static void Notificar(string Text)
         {
             Notificador?.Invoke(Text);
@@ -164,7 +165,7 @@ namespace FC_Diseño_de_Nervios
                      if (Line.Nombre == Estacion.NombreLinea && Piso.Nombre == Estacion.StoryLinea)
                      {
                          Line.Estaciones.Add(Estacion);
-                         Line.Estaciones[Line.Estaciones.Count - 1].LineaOrigen = Line;
+                         Line.Estaciones.Last().LineaOrigen = Line;
                      }
                  });
             });
@@ -190,7 +191,7 @@ namespace FC_Diseño_de_Nervios
             ListaFuerzas.RemoveAt(0);
             ListaFuerzas.ForEach(LineaArchivoCSV =>
            {
-               string NombreStory = LineaArchivoCSV[0];
+               string NombreStory = LineaArchivoCSV[0].Replace(" ","");
                string NombreElemento = LineaArchivoCSV[1];
                string NombreLoad = LineaArchivoCSV[2];
                float Localizacion = Convert.ToSingle(LineaArchivoCSV[3]);
@@ -213,7 +214,7 @@ namespace FC_Diseño_de_Nervios
                else
                {
                    Solicitacion.EstacionOrigen = EstaiconFind;
-                   EstaiconFind.Lista_Solicitaciones.Add(Solicitacion);
+                   AgregarSolicitacioneaEstacion(Solicitacion, EstaiconFind.Lista_Solicitaciones);
 
                }
 
@@ -221,6 +222,25 @@ namespace FC_Diseño_de_Nervios
             Notificador?.Invoke("Listo");
             return ListaEstaciones;
         }
+
+        private static void AgregarSolicitacioneaEstacion(cSolicitacion Solic,List<cSolicitacion> SolicitacionesAntiguas)
+        {
+            cSolicitacion SolicitacionRepetida = SolicitacionesAntiguas.Find(y => y.Nombre == Solic.Nombre);
+
+            if (SolicitacionRepetida != null)
+            {
+                float MaxV2Final = Math.Abs(SolicitacionRepetida.V2) > Math.Abs(Solic.V2) ? SolicitacionRepetida.V2 : Solic.V2;
+                float MaxM3Final = Math.Abs(SolicitacionRepetida.M3) > Math.Abs(Solic.M3) ? SolicitacionRepetida.M3 : Solic.M3;
+
+                SolicitacionRepetida.V2 = MaxV2Final;
+                SolicitacionRepetida.M3 = MaxM3Final;
+            }
+            else
+            {
+                SolicitacionesAntiguas.Add(Solic);
+            }
+        }
+
 
         public static cDatosEtabs CrearObjetosEtabs(List<string> ArchivoE2K)
         {
@@ -540,11 +560,18 @@ namespace FC_Diseño_de_Nervios
                 var formatter = new BinaryFormatter();
                 formatter.Serialize(ms, obj);
                 ms.Position = 0;
-
-                return (T)formatter.Deserialize(ms);
+                T temp = (T)formatter.Deserialize(ms);
+                if (temp is cBarra)
+                    CambiarPropBarraClonada((cBarra)Convert.ChangeType(temp,typeof(cBarra)));
+                
+                return temp;
             }
         }
-
+        private static void CambiarPropBarraClonada(cBarra Barra)
+        {
+            Barra.C_Barra.IsSelect = false;
+            Barra.C_Barra.IsSelectArrastre = false;
+        }
         #region Funciones de Selección
         public static void SeleccionInteligente(cLine LineMadre, List<cLine> Lista_Lines, int IndiceSeleccion, bool CondicionSelect)
         {
@@ -1075,7 +1102,7 @@ namespace FC_Diseño_de_Nervios
             Form.Show();
         }
 
-        public static void SeleccionDataGridView(DataGridView data, int CeldaAValidar, bool DejarHabilitadoUno)
+        public static void SeleccionDataGridView(DataGridView data, int ColumnaAValidar, bool DejarHabilitadoUno)
         {
             int Descontar = 0;
             if (DejarHabilitadoUno) { Descontar = 1; }
@@ -1084,7 +1111,7 @@ namespace FC_Diseño_de_Nervios
 
             for (int i = Descontar; i < data.Rows.Count; i++)
             {
-                if ((bool)data.Rows[i].Cells[CeldaAValidar].Value == true)
+                if ((bool)data.Rows[i].Cells[ColumnaAValidar].Value == true)
                 {
                     if (i != data.Rows.Count - 1)
                     {
@@ -1098,7 +1125,7 @@ namespace FC_Diseño_de_Nervios
             {
                 for (int i = Descontar; i < data.Rows.Count; i++)
                 {
-                    data.Rows[i].Cells[CeldaAValidar].Value = true;
+                    data.Rows[i].Cells[ColumnaAValidar].Value = true;
                 }
             }
 
@@ -1108,7 +1135,7 @@ namespace FC_Diseño_de_Nervios
                 {
                     for (int i = Descontar; i < data.Rows.Count; i++)
                     {
-                        data.Rows[i].Cells[CeldaAValidar].Value = false;
+                        data.Rows[i].Cells[ColumnaAValidar].Value = false;
                     }
                 }
             }
@@ -1445,7 +1472,7 @@ namespace FC_Diseño_de_Nervios
         #endregion
 
         #region DiseñarNervio
-        public static void DiseñarNervio(cNervio Nervio)
+        public static void DiseñarNervioFlexion(cNervio Nervio)
         {
 
             #region Diseño A Flexión
@@ -1551,9 +1578,19 @@ namespace FC_Diseño_de_Nervios
 
             #endregion
             #endregion
+
+            ControlErroresDiseño(Nervio, Nervio.Tendencia_Refuerzos.TInfeSelect);
+            ControlErroresApoyos(Nervio);
+       
+        }
+
+        public static void DiseñarNervioCortante(cNervio Nervio)
+        {
             #region Diseño a Cortante
 
             eNoBarra BarraE = eNoBarra.B2; float AreaEstribo = cDiccionarios.AceroBarras[BarraE];
+            if (Nervio.Lista_Tramos.First().Estaciones == null) 
+                CrearEstacionesTemporaneasTramos(Nervio.Lista_Tramos);
             Nervio.Lista_Tramos.ForEach(Tramo =>
             {
                 Tramo.EstribosDerecha = null;
@@ -1829,11 +1866,9 @@ namespace FC_Diseño_de_Nervios
 
             Nervio.ActualizarRefuerzoTransversal();
             #endregion
-
-            ControlErroresDiseño(Nervio, Nervio.Tendencia_Refuerzos.TInfeSelect);
-            ControlErroresApoyos(Nervio);
-       
         }
+
+
 
         #region Metodos para el Diseño Automatico a Cortante
         private static float SdefinitivaZonas(cNervio Nervio, List<cEstacion> Estaciones, float AreaEstribo, eLadoDeZona LadoZona)
@@ -2692,9 +2727,8 @@ namespace FC_Diseño_de_Nervios
 
             return ListaElementos;
         }
-        private static List<cPuntoInfelxion> PuntosInfelxions(List<cTramo> Tramos, eUbicacionRefuerzo UBR)
+        private static void CrearEstacionesTemporaneasTramos(List<cTramo> Tramos)
         {
-            List<cPuntoInfelxion> PIF = new List<cPuntoInfelxion>();
             Tramos.ForEach(Tramo =>
             {
 
@@ -2705,7 +2739,12 @@ namespace FC_Diseño_de_Nervios
                 });
                 Tramo.Estaciones = Estaciones;
             });
+        }
+        private static List<cPuntoInfelxion> PuntosInfelxions(List<cTramo> Tramos, eUbicacionRefuerzo UBR)
+        {
+            List<cPuntoInfelxion> PIF = new List<cPuntoInfelxion>();
 
+            CrearEstacionesTemporaneasTramos(Tramos);
             Tramos.ForEach(Tramo =>
             {
                 List<cPuntoInfelxion> PIs = new List<cPuntoInfelxion>();
@@ -3154,9 +3193,10 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public static void DiseñarNervios(List<cNervio> Nervios)
+        public static void DiseñarNervios(List<cNervio> Nervios, eTipoRefuerzo Disenar)
         {
             Notificador("Diseñando...");
+            cNervio NervioInicial = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect;
             Nervios.ForEach(Nervio => { Nervio.Resultados.Diseñado = true; Nervio.Resultados.Errores.Clear(); });
             foreach (cNervio Nervio in Nervios)
             {
@@ -3165,9 +3205,25 @@ namespace FC_Diseño_de_Nervios
                     Nervio.Tendencia_Refuerzos.TInfeSelect = Nervio.Tendencia_Refuerzos.TendenciasInferior[i];
                     Nervio.Tendencia_Refuerzos.TSupeSelect = Nervio.Tendencia_Refuerzos.TendenciasSuperior[i];
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = Nervio;
-                    DiseñarNervio(Nervio);
+
+                    switch (Disenar)
+                    {
+                        case eTipoRefuerzo.Longitudinal:
+                            DiseñarNervioFlexion(Nervio);
+                            break;
+                        case eTipoRefuerzo.Transversal:
+                            DiseñarNervioCortante(Nervio);
+                            break;
+                        case eTipoRefuerzo.Todo:
+                            DiseñarNervioFlexion(Nervio);
+                            DiseñarNervioCortante(Nervio);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
+            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = NervioInicial;
             if (Nervios.Count > 1)
             {
                 EventoVentanaEmergente("Nervios Diseñados con Éxito.", MessageBoxIcon.Information);
@@ -3196,54 +3252,62 @@ namespace FC_Diseño_de_Nervios
         {
             if (NervioMaestro != null)
             {
-                bool Similar = false;
-                if (NervioMaestro.SimilitudNervio.SimilaresG_String == null)
+
+                if (NervioMaestro.SimilitudNervioGeometria.Similares_List_SimilarA == null)
                 {
-                    NervioMaestro.SimilitudNervio.SimilaresG_String = new List<string>();
+                    NervioMaestro.SimilitudNervioGeometria.Similares_List_SimilarA = new List<cSimilitudNervio.cSimilar>();
                 }
-                if (NervioMaestro.Lista_Tramos.Count == NervioSimilar.Lista_Tramos.Count &&
-                    NervioMaestro.Lista_Elementos.FindAll(y => y is cSubTramo).Count == NervioSimilar.Lista_Elementos.FindAll(y => y is cSubTramo).Count)
-                {
-                    int c = 0;
 
-                    foreach (cTramo TramoMaestro in NervioMaestro.Lista_Tramos)
-                    {
-                        if (Math.Abs(TramoMaestro.Longitud - NervioSimilar.Lista_Tramos[c].Longitud) > cVariables.ToleranciaLSimilar)
-                        {
-                            Similar = false;
-                            break;
-                        }
-                        else
-                        {
-                            Similar = true;
+                bool Similar = AplicarSimilitudGeometria(NervioMaestro, NervioSimilar);
 
-                        }
-
-                        c += 1;
-                    }
-                }
                 if (Similar)
                 {
 
 
-                    NervioMaestro.SimilitudNervio.SimilaresG_String.Add(NervioSimilar.Nombre);
-                    NervioSimilar.SimilitudNervio.SoySimiarA = NervioMaestro.Nombre;
-                    NervioSimilar.SimilitudNervio.BoolSoySimiarA = true;
+                    NervioMaestro.SimilitudNervioGeometria.Similares_List_SimilarA.Add(new cSimilitudNervio.cSimilar(NervioSimilar.Nombre, NervioSimilar.PisoOrigen.Nombre));
+                    NervioSimilar.SimilitudNervioGeometria.SoySimiarA = new cSimilitudNervio.cSimilar(NervioMaestro.Nombre, NervioMaestro.PisoOrigen.Nombre);
+                    NervioSimilar.SimilitudNervioGeometria.BoolSoySimiarA = true;
                 }
                 else
                 {
-                    NervioSimilar.SimilitudNervio.BoolSoySimiarA = false;
+                    NervioSimilar.SimilitudNervioGeometria.BoolSoySimiarA = false;
                     MensajeAlerta.Add($"{NervioSimilar.Nombre} no posee similitudes con {NervioMaestro.Nombre}");
                 }
 
             }
             else
             {
-                NervioSimilar.SimilitudNervio.BoolSoySimiarA = false;
+                NervioSimilar.SimilitudNervioGeometria.BoolSoySimiarA = false;
                 //NervioSimilar.Maestro.SimilaresG_String = null;
             }
         }
 
+        public static bool AplicarSimilitudGeometria(cNervio NervioMaestro, cNervio NervioSimilar)
+        {
+            bool Similar = false;
+            if (NervioMaestro.Lista_Tramos.Count == NervioSimilar.Lista_Tramos.Count &&
+                NervioMaestro.Lista_Elementos.FindAll(y => y is cSubTramo).Count == NervioSimilar.Lista_Elementos.FindAll(y => y is cSubTramo).Count)
+            {
+                int c = 0;
+
+                foreach (cTramo TramoMaestro in NervioMaestro.Lista_Tramos)
+                {
+                    if (Math.Abs(TramoMaestro.Longitud - NervioSimilar.Lista_Tramos[c].Longitud) > cVariables.ToleranciaLSimilar)
+                    {
+                        Similar = false;
+                        break;
+                    }
+                    else
+                    {
+                        Similar = true;
+
+                    }
+
+                    c += 1;
+                }
+            }
+            return Similar;
+        }
 
         #region Exportar DL NET NIMBUS
         public static void CrearArhivotxtDLNET(List<cNervio> Nervios, string Ruta)
@@ -3367,63 +3431,9 @@ namespace FC_Diseño_de_Nervios
 
 
 
-        #region Seguridad del Programa
+  
 
-        private static string[] TextoPlanoWeb;
-        private static string[] TextoPlanoLocal;
-        public static bool ComprobarAccesoPrograma()
-        {
-            try
-            {
-                TextoPlanoLocal = LeerArchivoTextoPlano(Ruta_OpcionesSeguridad);
-                string LinkServidorEncriptado = TextoPlanoLocal[0];
-                TextoPlanoWeb = FuncitionsWeb.DevolverTextoPlanoDesdeServer(Safe.DesEncriptar(LinkServidorEncriptado)).ToArray();
-                return Safe.VerificarAccesoConListaMacs(TextoPlanoWeb.ToList());
-            }
-            catch
-            {
-                return false;
-            }
-        }
-        public static bool ComprobarVersionPrograma()
-        {
-            try
-            {
-                string VersionProgramaLocal = TextoPlanoLocal.Last();
-                string VersionProgramaWeb = TextoPlanoWeb.Last();
-                if (VersionProgramaLocal == VersionProgramaWeb)
-                    return true;
-            }
-            catch { }
-            return false;
-        }
-        private static string[] LeerArchivoTextoPlano(string Path)
-        {
-            List<string> ListaTextos = new List<string>();
-            try
-            {
-                StreamReader reader = new StreamReader(Path);
-                string colLineReader;
-                do
-                {
-                    colLineReader = reader.ReadLine();
-                    ListaTextos.Add(colLineReader);
-                } while (!(colLineReader == null));
-                reader.Close();
-                ListaTextos.RemoveAll(y => y == null);
-            }
-            catch { }
-            return ListaTextos.ToArray();
-        }
-
-
-
-
-        #endregion
-
-
-
-
+   
 
     }
 }

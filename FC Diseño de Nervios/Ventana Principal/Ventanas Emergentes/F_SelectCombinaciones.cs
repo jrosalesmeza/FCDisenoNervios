@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,9 +21,8 @@ namespace FC_Diseño_de_Nervios
         private void CargarDGV()
         {
             DGV_1.Rows.Clear();
-            cNervio nervioSelect = F_Base.Proyecto.Edificio.PisoSelect.Nervios.First();
-            cSubTramo SubTramo = (cSubTramo)nervioSelect.Lista_Elementos.First(x=> x is cSubTramo);
-            List<cSolicitacion> Solicitaciones = SubTramo.Estaciones.First().Lista_Solicitaciones; ;
+            List<cSolicitacion> Solicitaciones = cFuncion_CargarSolcitaciones.ListaConMayorSolicitaciones(F_Base.Proyecto.Edificio.PisoSelect.Nervios);
+
             Solicitaciones.ForEach(Solicitacion => {
 
                 DGV_1.Rows.Add();
@@ -35,19 +35,30 @@ namespace FC_Diseño_de_Nervios
         private void ConfirmarCambios()
         {
             F_Base.EnviarEstadoVacio();
-            foreach (cNervio Nervio in F_Base.Proyecto.Edificio.PisoSelect.Nervios)
+            foreach (cPiso Piso in F_Base.Proyecto.Edificio.Lista_Pisos) 
             {
-                List<IElemento> Subtramos = Nervio.Lista_Elementos.FindAll(x => x is cSubTramo).ToList();
-                for (int i = 0; i < DGV_1.Rows.Count; i++)
+                List<cNervio> NerviosOrdenados = Piso.Nervios.OrderBy(y => !y.SimilitudNervioCompleto.IsMaestro).ToList();
+
+                foreach (cNervio Nervio in NerviosOrdenados)
                 {
-                    Subtramos.ForEach(subtramo =>
+                    List<IElemento> Subtramos = Nervio.Lista_Elementos.FindAll(x => x is cSubTramo).ToList();
+                    for (int i = 0; i < DGV_1.Rows.Count; i++)
                     {
-                        cSubTramo SubTramoAux = (cSubTramo)subtramo;
-                        SubTramoAux.Estaciones.ForEach(x => x.Lista_Solicitaciones.Find(y => y.Nombre == (string)DGV_1.Rows[i].Cells[C_NombreCombinacion.Index].Value).SelectEnvolvente = (bool)DGV_1.Rows[i].Cells[C_CheckCombinacion.Index].Value);
-                    });
-                }
-                Nervio.CrearEnvolvente();
-                Nervio.CrearAceroAsignadoRefuerzoLongitudinal();
+                        Subtramos.ForEach(subtramo =>
+                        {
+                            cSubTramo SubTramoAux = (cSubTramo)subtramo;
+                            SubTramoAux.Estaciones.ForEach(x => {
+                                cSolicitacion solicitacionFind = x.Lista_Solicitaciones.Find(y => y.Nombre == (string)DGV_1.Rows[i].Cells[C_NombreCombinacion.Index].Value);
+                                if (solicitacionFind != null)
+                                {
+                                    solicitacionFind.SelectEnvolvente = (bool)DGV_1.Rows[i].Cells[C_CheckCombinacion.Index].Value;
+                                }
+                            });
+                        });
+                    }
+                    Nervio.CrearEnvolvente();
+                    Nervio.CrearAceroAsignadoRefuerzoLongitudinal();
+                } 
             }
         }
 
@@ -96,6 +107,26 @@ namespace FC_Diseño_de_Nervios
         private void F_SelectCombinaciones_Load(object sender, EventArgs e)
         {
             CargarDGV();
+        }
+
+        private void BT_ImportarCombianciones_Click(object sender, EventArgs e)
+        {
+            Tuple<string, List<string>> CargarCSV = cFunctionsProgram.CagarArchivoTextoPlanoWindowsForm("Archivo de Fuerzas |*.csv", "Archivo de Fuerzas, Unidades en |Ton- m|");
+            if (CargarCSV != null)
+            {
+                List<string> ErroresCSV = cFunctionsProgram.CoprobarErroresArchivoCSV(CargarCSV.Item2);
+                
+                foreach (string Error in ErroresCSV)
+                {
+                    cFunctionsProgram.VentanaEmergenteExclamacion(Error);
+                }
+                if (ErroresCSV.Count ==0)
+                {
+                    cFuncion_CargarSolcitaciones.CargarNuevasSolicitacionesANevios(CargarCSV.Item2, F_Base.Proyecto.Edificio.PisoSelect.Nervios);
+                    CargarDGV();
+                }
+            }
+
         }
     }
 }

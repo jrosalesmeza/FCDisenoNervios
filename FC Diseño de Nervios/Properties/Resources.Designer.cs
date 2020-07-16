@@ -113,6 +113,26 @@ namespace FC_Diseño_de_Nervios.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap flecha {
+            get {
+                object obj = ResourceManager.GetObject("flecha", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap flechaIzq {
+            get {
+                object obj = ResourceManager.GetObject("flechaIzq", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logoefeprimace {
             get {
                 object obj = ResourceManager.GetObject("logoefeprimace", resourceCulture);
@@ -146,6 +166,16 @@ namespace FC_Diseño_de_Nervios.Properties {
         internal static System.Drawing.Bitmap Openx16 {
             get {
                 object obj = ResourceManager.GetObject("Openx16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PegarRefuerzo2 {
+            get {
+                object obj = ResourceManager.GetObject("PegarRefuerzo2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
