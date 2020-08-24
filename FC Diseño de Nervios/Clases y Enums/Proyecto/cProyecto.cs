@@ -34,12 +34,6 @@ namespace FC_Diseño_de_Nervios
         #endregion
 
 
-
-
-
-
-
-
         public override string ToString()
         {
             return $"{Nombre}";

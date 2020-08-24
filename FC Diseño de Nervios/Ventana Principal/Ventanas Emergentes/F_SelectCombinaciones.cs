@@ -101,7 +101,7 @@ namespace FC_Diseño_de_Nervios
 
         private void BT_Seleccionar_Click(object sender, EventArgs e)
         {
-            cFunctionsProgram.SeleccionDataGridView(DGV_1, C_CheckCombinacion.Index, true);
+            cFunctionsProgram.SeleccionDataGridView(DGV_1, C_CheckCombinacion.Index, 0);
         }
 
         private void F_SelectCombinaciones_Load(object sender, EventArgs e)
@@ -122,7 +122,11 @@ namespace FC_Diseño_de_Nervios
                 }
                 if (ErroresCSV.Count ==0)
                 {
-                    cFuncion_CargarSolcitaciones.CargarNuevasSolicitacionesANevios(CargarCSV.Item2, F_Base.Proyecto.Edificio.PisoSelect.Nervios);
+                    List<cNervio> Nervios = new List<cNervio>();
+                    F_Base.Proyecto.Edificio.Lista_Pisos.ForEach(Piso => {
+                        Nervios.AddRange(Piso.Nervios);
+                    });
+                    cFuncion_CargarSolcitaciones.CargarNuevasSolicitacionesANevios(CargarCSV.Item2, Nervios);
                     CargarDGV();
                 }
             }

@@ -19,6 +19,7 @@ namespace FC_Diseño_de_Nervios
 
     public delegate void DelegateVentanasEmergentes(string Alert, MessageBoxIcon Icono);
 
+   
 
     public static class cFunctionsProgram
     {
@@ -37,6 +38,7 @@ namespace FC_Diseño_de_Nervios
 
         public static event DelegateNotificadorProgram Notificador;
         public static event DelegateVentanasEmergentes EventoVentanaEmergente;
+
 
         public static float ToleranciaHorizontal = 25f;
         public static float ToleranciaVertical = 75f;
@@ -370,6 +372,11 @@ namespace FC_Diseño_de_Nervios
             return Lista_Secciones;
         }
 
+
+
+        
+
+
         public static void CreacionLinesV2009(List<string> ArchivoE2K, List<cPiso> Lista_Pisos, List<cPoint> Lista_Puntos, List<cSeccion> Lista_Secciones)
         {
             List<cLine> Lista_Line = new List<cLine>();
@@ -388,7 +395,7 @@ namespace FC_Diseño_de_Nervios
                 Line.ConfigLinea = new cConfigLinea(Point1, Point2);
                 Lista_Line.Add(Line);
             }
-
+            
             int IndiceInicio_LINE_ASSIGNS = ArchivoE2K.FindIndex(x => x.Contains("$ LINE ASSIGNS")) + 1;
             int IndiceFin_LINE_ASSIGNS = Find_FinalIndice(ArchivoE2K, IndiceInicio_LINE_ASSIGNS);
             List<string> ArchivoLineAssigns = RangoDeDatosArchivoTextoPlano(IndiceInicio_LINE_ASSIGNS, IndiceFin_LINE_ASSIGNS, ArchivoE2K);
@@ -425,6 +432,7 @@ namespace FC_Diseño_de_Nervios
                     {
                         cLine ElementoEncontrado = DeepClone(Lista_Line.Find(x => x.Nombre == NombreElemento));
                         ElementoEncontrado.Seccion = Lista_Secciones.Find(x => x.Nombre == NombreSeccion);
+                        ControlarSeccionesNoRectangulares(ElementoEncontrado);
                         ElementoEncontrado.Story = NombrePiso;
                         ElementoEncontrado.ConfigLinea.OffSetI = OffSetI;
                         ElementoEncontrado.ConfigLinea.OffSetJ = OffSetJ;
@@ -438,7 +446,6 @@ namespace FC_Diseño_de_Nervios
             }
 
             //Z a cada Punto
-
             Lista_Pisos.ForEach(Piso => {
                 Piso.Lista_Lines.ForEach(Line => {
                     if (Line.Type == eType.Column | Line.Type == eType.Brace)
@@ -459,6 +466,15 @@ namespace FC_Diseño_de_Nervios
             });
         }
 
+        private static void ControlarSeccionesNoRectangulares(cLine Line)
+        {
+            if (Line.Seccion== null)
+            {
+                Line.Seccion = new cSeccion("SecciónPredifinida", 20f, 20f) { Material = new cMaterial("H210", 210, 4220) };
+                EventoVentanaEmergente($"Sección no Rectangular encontrada, se remplazara por una sección predifinida, Elemento: {Line.Nombre} | Piso: {Line.Story}", MessageBoxIcon.Information);
+
+            }
+        }
         public static List<cPiso> CreacionListaPisosV2009(List<string> ArchivoE2K)
         {
             List<cPiso> Pisos = new List<cPiso>();
@@ -804,15 +820,17 @@ namespace FC_Diseño_de_Nervios
             for (int Indice = 0; Indice < ListaObjetosOrganizada.Count; Indice++)
             {
                 cLine Objeto = ListaObjetosOrganizada[Indice];
-
+                int IndiceAdicional = 0;
                 if (Objeto.ConfigLinea.OffSetI != 0)
                 {
                     foreach (cLine Line in TodasLasLineas)
                     {
                         cLine LineApoyo = FindApoyoOffSet(Objeto, TodasLasLineas, 0);
-                        if (LineApoyo != null && ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) == false && LineApoyo.Type != eType.Column && LineApoyo.ConfigLinea.Direccion != DireccionNervio)
+                        if (LineApoyo != null && !ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) && 
+                             LineApoyo.ConfigLinea.Direccion != DireccionNervio)// LineApoyo.Type != eType.Column && Agregar Linea de Codigo OJO
                         {
                             AsignarApoyosAListaConOffSet(0, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
+                            IndiceAdicional++;
                             break;
                         }
                     }
@@ -822,9 +840,10 @@ namespace FC_Diseño_de_Nervios
                     foreach (cLine Line in TodasLasLineas)
                     {
                         cLine LineApoyo = FindApoyoOffSet(Objeto, TodasLasLineas, 1);
-                        if (LineApoyo != null && ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) == false && LineApoyo.Type != eType.Column && LineApoyo.ConfigLinea.Direccion != DireccionNervio)
+                        if (LineApoyo != null && !ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre)
+                            && LineApoyo.ConfigLinea.Direccion != DireccionNervio) // LineApoyo.Type != eType.Column && Agregar Linea de Codigo OJO
                         {
-                            AsignarApoyosAListaConOffSet(1, LineApoyo, ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
+                            AsignarApoyosAListaConOffSet(1, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice+ IndiceAdicional, ref ListaObjetosOrganizada);
                             break;
                         }
                     }
@@ -857,11 +876,11 @@ namespace FC_Diseño_de_Nervios
             }
             if (ComprobarLineasConEstacionesParaCrearNervios(ListaObjetosFinal))
             {
+                ElementosSinConsiderar(ListaObjetosFinal);
                 List<cGrid> GridsParaNervios = DeepClone(FindGridPertencientesalNervio(XYo, XYi, DireccionNervio, TodosLosGrids));
                 List<PointF> PuntosSinEscalar = new List<PointF>(); TodasLasLineas.ForEach(y => { if (y.Type == eType.Beam) { PuntosSinEscalar.AddRange(y.Planta_Real); } });
                 TodosLosGrids.ForEach(y => { PuntosSinEscalar.AddRange(y.Recta_Real); });
                 ListaObjetosFinal.ForEach(x => { TodasLasLineas.FindAll(y => y.Nombre == x.Line.Nombre && x.Soporte == eSoporte.Vano).ForEach(z => { z.isSelect = false; z.Select = false; z.IndexSelect = 0; }); x.Line.CrearPuntosPlantaEscaladaEtabsLine(PuntosSinEscalar, WidthWindow, HeightWindow, 0, 0, 1); });
-
                 return new cNervio(ID, Prefijo, ListaObjetosFinal, DireccionNervio, GridsParaNervios, Piso);
             }
             else
@@ -871,11 +890,48 @@ namespace FC_Diseño_de_Nervios
             return null;
         }
 
+        private static void ElementosSinConsiderar(List<cObjeto> ListaObjetos)
+        {
+            var Objetos = ListaObjetos.FindAll(y => y.Soporte == eSoporte.Vano && 
+                            ((y.Line.ConfigLinea.Longitud* cVariables.Porc_LongOffset <= y.Line.ConfigLinea.OffSetI + y.Line.ConfigLinea.OffSetJ)
+                              || (y.Line.ConfigLinea.Longitud  <= cVariables.LongMinimaElemento))).ToList();
+            if (Objetos != null)
+            {
+                Objetos.ForEach(Objeto =>
+                    {
+                        int IndiceObjeto = ListaObjetos.FindIndex(y => y == Objeto);
+
+                        if(IndiceObjeto>0 && IndiceObjeto< ListaObjetos.Count - 1)
+                        {
+                            cObjeto OAtras = ListaObjetos[IndiceObjeto - 1];
+                            cObjeto OAdelante = ListaObjetos[IndiceObjeto + 1];
+
+                            if(OAtras.Soporte== eSoporte.Apoyo && OAdelante.Soporte== eSoporte.Apoyo)
+                            {
+                                if (OAtras.Line.Seccion.B >= OAdelante.Line.Seccion.B)
+                                {
+                                    ListaObjetos.Remove(OAdelante);
+                                }
+                                else
+                                {
+                                    ListaObjetos.Remove(OAdelante);
+                                }
+                            }
+
+                        }
+
+                        ListaObjetos.Remove(Objeto);
+                    }
+                
+                );
+            }
+        }
+
         public static bool ComprobarLineasConEstacionesParaCrearNervios(List<cObjeto> objetos)
         {
             foreach(cObjeto objeto in objetos)
             {
-                if (objeto.Line.Estaciones.Count == 0)
+                if (objeto.Soporte== eSoporte.Vano && objeto.Line.Estaciones.Count == 0)
                     return false;
             }
             return true;
@@ -1102,14 +1158,11 @@ namespace FC_Diseño_de_Nervios
             Form.Show();
         }
 
-        public static void SeleccionDataGridView(DataGridView data, int ColumnaAValidar, bool DejarHabilitadoUno)
+        public static void SeleccionDataGridView(DataGridView data, int ColumnaAValidar, int CeldaHabilar = -1)
         {
-            int Descontar = 0;
-            if (DejarHabilitadoUno) { Descontar = 1; }
-
             bool TodasSonSelect = false;
 
-            for (int i = Descontar; i < data.Rows.Count; i++)
+            for (int i = 0; i < data.Rows.Count; i++)
             {
                 if ((bool)data.Rows[i].Cells[ColumnaAValidar].Value == true)
                 {
@@ -1123,7 +1176,7 @@ namespace FC_Diseño_de_Nervios
 
             if (data.Rows.Count != 0)
             {
-                for (int i = Descontar; i < data.Rows.Count; i++)
+                for (int i = 0; i < data.Rows.Count; i++)
                 {
                     data.Rows[i].Cells[ColumnaAValidar].Value = true;
                 }
@@ -1133,12 +1186,19 @@ namespace FC_Diseño_de_Nervios
             {
                 if (data.Rows.Count != 0)
                 {
-                    for (int i = Descontar; i < data.Rows.Count; i++)
+                    for (int i = 0; i < data.Rows.Count; i++)
                     {
                         data.Rows[i].Cells[ColumnaAValidar].Value = false;
                     }
                 }
             }
+            if (data.Rows.Count != 0 && CeldaHabilar < data.Rows.Count && CeldaHabilar != -1)
+            {
+
+                data.Rows[CeldaHabilar].Cells[ColumnaAValidar].Value = true;
+            }
+
+
         }
         public static void EstiloDatGridView(DataGridView DataGrid, bool AsignarEstiloRows = true, bool AsignarEstiloColumns = true)
         {
@@ -1229,7 +1289,7 @@ namespace FC_Diseño_de_Nervios
             Barras = Barras.OrderBy(x => x.Nivel).ToList();
             float AreaT = Barras.Sum(y => y.AreaTotal);
             float R = UR == eUbicacionRefuerzo.Inferior ? Nervio.r2 : Nervio.r1;
-
+            R += cVariables.DiametroEstriboPredeterminado;
             float SumD = 0; float SUMFC = 0; //Factor = Area * Centroide De cada barra
             Barras.ForEach(Barra =>
             {
@@ -1450,6 +1510,7 @@ namespace FC_Diseño_de_Nervios
                 Puntos.Add(new PointF(X, YIgualCeroEscalado));
             }
         }
+
 
         #endregion
 
@@ -1899,7 +1960,7 @@ namespace FC_Diseño_de_Nervios
         public static void CrearEstribos(cTramo Tramo, eZonas Zona, eLadoDeZona LadoDeZona, float LongitudZona, float S, eNoBarra BarraE, float DeltaXInicial)
         {
 
-            int CantidadEspacios = (int)PrecisarNumero((LongitudZona) / S, 1, 0, true);
+            int CantidadEspacios = (int)PrecisarNumero((LongitudZona) / S, 1, 1, true);
             int CantidadEstribos = CantidadEspacios + 1;
             //MinEstribosSegunEfePrimaCe(ref CantidadEstribos, Tramo);
             if (LadoDeZona == eLadoDeZona.Izquierda)
@@ -2078,7 +2139,7 @@ namespace FC_Diseño_de_Nervios
             if (PuntosInfexion2.Count > 0)
             {
                 // ReorganizarPuntosInfelxionRSuperior(ref PuntosInfexion2, Nervio);
-
+                OrdenarPuntosInflexion(PuntosInfexion2);
                 if (PuntosInfexion2.Count % 2 == 0)
                 {
                     for (int i = 0; i < PuntosInfexion2.Count; i += 2)
@@ -2179,6 +2240,9 @@ namespace FC_Diseño_de_Nervios
                 else
                 {
 
+
+
+
                 }
             }
             else
@@ -2215,7 +2279,7 @@ namespace FC_Diseño_de_Nervios
                 {
                     cBarra BarraFind = BarraFindsPElemento.Find(y => y.XI == BarraFindsPElemento.Min(x => x.XI));
                     //Posible barra a colocar
-                    float R = Nervio.r1 * cConversiones.Dimension_cm_to_m;
+                    float R = cVariables.RExtremoIzquierdo;
                     float Xini_NewBarra = Xini_Apoyo + R;
                     float Xini_BarraExistente = BarraFind.XI;
 
@@ -2259,7 +2323,7 @@ namespace FC_Diseño_de_Nervios
                 if (BarraFindsPElemento != null && BarraFindsPElemento.Count != 0) //Si Encontró Barras
                 {
                     cBarra BarraFind = BarraFindsPElemento.Find(y => y.XI == BarraFindsPElemento.Min(x => x.XI));
-                    float R = Nervio.r1 * cConversiones.Dimension_cm_to_m;
+                    float R = cVariables.RExtremoIzquierdo;
                     float XIProbale = Nervio.Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.Min(x => x.X) + R;
                     float LongProbable = (BarraFind.XF - XIProbale) + (cDiccionarios.LDGancho(BarraFind.NoBarra, eTipoGancho.G90));
                     if (LongProbable >= tendencia.MaximaLongitud)
@@ -2287,7 +2351,7 @@ namespace FC_Diseño_de_Nervios
                 float Xini_Apoyo = Nervio.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Min(x => x.X); //XI apoyo
                 float Xf_Apoyo = Nervio.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Max(x => x.X); //Xf apoyo
                 float LongUltimoSubTramo = ((cSubTramo)UElemento).TramoOrigen.Longitud;
-                float XiniBar = 0; float R = Nervio.r1 * cConversiones.Dimension_cm_to_m;
+                float XiniBar = 0; float R = cVariables.RExtremoDerecho;
                 if (LongUltimoSubTramo <= cVariables.LongDelCriterioSubTramo)// L < 4m
                 {
                     XiniBar = Xini_Apoyo - cVariables.AlargamientoExtremosEfePrimaCe;  // + 1m
@@ -2325,7 +2389,7 @@ namespace FC_Diseño_de_Nervios
                     }
                     else
                     {
-                        R = Nervio.r1 * cConversiones.Dimension_cm_to_m;
+                        R = cVariables.RExtremoDerecho;
                         CrearBarra2(eNoBarra.B3, tendencia.UbicacionRefuerzo, 1, XiniBar, Xfin_NewBarra, ref tendencia, eTipoGancho.None, eTipoGancho.G90);
                     }
 
@@ -2344,7 +2408,7 @@ namespace FC_Diseño_de_Nervios
                 if (BarraFindsUElemento != null && BarraFindsUElemento.Count != 0) //Si Encontró Barras
                 {
                     cBarra BarraFind = BarraFindsUElemento.Find(y => y.XI == BarraFindsUElemento.Min(x => x.XI));
-                    float R = Nervio.r1 * cConversiones.Dimension_cm_to_m;
+                    float R = cVariables.RExtremoDerecho;
                     float XFProbable = Nervio.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Max(x => x.X) - R;
                     float LongProbable = (XFProbable - BarraFind.XI) + (cDiccionarios.LDGancho(BarraFind.NoBarra, eTipoGancho.G90));
                     if (LongProbable >= tendencia.MaximaLongitud)
@@ -2365,20 +2429,22 @@ namespace FC_Diseño_de_Nervios
             #endregion
 
         }
+        private static void OrdenarPuntosInflexion(List<cPuntoInfelxion> PTIs)
+        {
 
+        }
         public static void CorregirCoordXBarra(ref List<float> CoordX, cNervio Nervio, ref eTipoGancho GI, ref eTipoGancho GD)
         {
-            float R = Nervio.r1 * cConversiones.Dimension_cm_to_m;
             float Xo = CoordX.First(); float Xf = CoordX.Last();
-            float LimiteXIzquierda = Nervio.Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.First().X + R;
-            float LimiteXDerecha = Nervio.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Last().X - R;
+            float LimiteXIzquierda = Nervio.Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.First().X + cVariables.RExtremoIzquierdo;
+            float LimiteXDerecha = Nervio.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Last().X - cVariables.RExtremoDerecho;
             IElemento ApoyoIzquierda = Nervio.Lista_Elementos.Find(x => x is cApoyo && x.IsVisibleCoordAutoCAD(Xo));
 
             IElemento ApoyoDerecha = Nervio.Lista_Elementos.Find(x => x is cApoyo && x.IsVisibleCoordAutoCAD(Xf));
 
             if (ApoyoIzquierda != null)
             {
-                Xo = ApoyoIzquierda.Vistas.Perfil_AutoCAD.Reales.Min(x => x.X) + R;
+                Xo = ApoyoIzquierda.Vistas.Perfil_AutoCAD.Reales.Min(x => x.X) + cVariables.RExtremoIzquierdo;
                 GI = eTipoGancho.G90;
             }
             else if (Xo <= LimiteXIzquierda)// Se Sale del Nervio a la Izquierda
@@ -2389,7 +2455,7 @@ namespace FC_Diseño_de_Nervios
             if (ApoyoDerecha != null)
             {
                 GD = eTipoGancho.G90;
-                Xf = ApoyoDerecha.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X) - R;
+                Xf = ApoyoDerecha.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X) - cVariables.RExtremoDerecho;
             }
             else if (Xf >= LimiteXDerecha)// Se Sale del Nervio a la Derecha
             {
@@ -2436,8 +2502,11 @@ namespace FC_Diseño_de_Nervios
                         Tramo.CoordX = float.PositiveInfinity;
                         eTipoGancho GI = eTipoGancho.None; eTipoGancho GD = eTipoGancho.None;
                         eNoBarra NoBarraAProponer = ProponerUnaBarra(Math.Abs(MenorDelta), tendencia.BarrasAEmplearAdicional, Nervio);
-                        CoordenadasBarraAdicional(ref ListaCoordX, NoBarraAProponer, Tramo.Lista_SubTramos.First(), Nervio, ref GI, ref GD);
-                        CrearBarra2(NoBarraAProponer, eUbicacionRefuerzo.Inferior, 1, ListaCoordX.First(), ListaCoordX.Last(), ref tendencia, GI, GD);
+                        if (NoBarraAProponer != eNoBarra.BNone)
+                        {
+                            CoordenadasBarraAdicional(ref ListaCoordX, NoBarraAProponer, Tramo.Lista_SubTramos.First(), Nervio, ref GI, ref GD);
+                            CrearBarra2(NoBarraAProponer, eUbicacionRefuerzo.Inferior, 1, ListaCoordX.First(), ListaCoordX.Last(), ref tendencia, GI, GD);
+                        }
                     }
                     else if (ListaCoordX.Count == 1)
                     {
@@ -2482,16 +2551,15 @@ namespace FC_Diseño_de_Nervios
         }
         private static void CoordenadasBarraAdicional(ref List<float> CoordX, eNoBarra noBarra, cSubTramo SubTramo, cNervio Nervio, ref eTipoGancho GI, ref eTipoGancho GD)
         {
-            float Traslapo = cDiccionarios.FindTraslapo(noBarra, SubTramo.Seccion.Material.fc, true);
+            float Ld = cDiccionarios.FindLdBarra(noBarra, SubTramo.Seccion.Material.fc,true);
 
             float Xo = CoordX.First(); float Xf = CoordX.Last();
-            float R = Nervio.r1 * cConversiones.Dimension_cm_to_m;
-            float LimiteXIzquierda = Nervio.Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.Min(x => x.X) + R;
-            float LimiteXDerecha = Nervio.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Max(x => x.X) - R;
+            float LimiteXIzquierda = Nervio.Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.Min(x => x.X) + cVariables.RExtremoIzquierdo;
+            float LimiteXDerecha = Nervio.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Max(x => x.X) - cVariables.RExtremoDerecho;
             float d = (SubTramo.Seccion.H - Nervio.r1 - cDiccionarios.DiametrosBarras[noBarra] / 2f) * cConversiones.Dimension_cm_to_m;
 
             if (d >= cVariables.TraslapoNervio)
-                d = Traslapo;
+                d = Ld;
 
             Xo -= d; Xf += d;
 
@@ -2502,7 +2570,7 @@ namespace FC_Diseño_de_Nervios
 
             if (ApoyoIzquierda != null)
             {
-                Xo = ApoyoIzquierda.Vistas.Perfil_AutoCAD.Reales.Min(x => x.X) + R;
+                Xo = ApoyoIzquierda.Vistas.Perfil_AutoCAD.Reales.Min(x => x.X) + cVariables.RExtremoIzquierdo;
                 GI = eTipoGancho.G90;
             }
             else if (Xo <= LimiteXIzquierda)// Se Sale del Nervio a la Izquierda
@@ -2513,7 +2581,7 @@ namespace FC_Diseño_de_Nervios
             if (ApoyoDerecha != null)
             {
                 GD = eTipoGancho.G90;
-                Xf = ApoyoDerecha.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X) - R;
+                Xf = ApoyoDerecha.Vistas.Perfil_AutoCAD.Reales.Max(x => x.X) - cVariables.RExtremoDerecho;
             }
             else if (Xf >= LimiteXDerecha)// Se Sale del Nervio a la Derecha
             {
@@ -2527,7 +2595,8 @@ namespace FC_Diseño_de_Nervios
         {
             if (EstacionAnterior != null && EstacionPosterior != null) //Elemento del Medio
             {
-                if ((EstacionActual.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior <= 0 && Math.Abs(EstacionActual.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior) <= cVariables.ToleranciaFlexionPInflexion) || EstacionActual.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior >= 0)
+                if ((EstacionActual.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior <= 0 && Math.Abs(EstacionActual.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior) <= cVariables.ToleranciaFlexionPInflexion) 
+                    || (EstacionActual.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior >= cVariables.ToleranciAceroFlexion))
                 {
                     if (EstacionPosterior.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior < 0 && Math.Abs(EstacionPosterior.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior) > cVariables.ToleranciaFlexionPInflexion)
                     {
@@ -2537,6 +2606,21 @@ namespace FC_Diseño_de_Nervios
                     {
                         return EstacionActual.CoordX;
                     }
+                }
+            }
+            else if(EstacionAnterior!=null && EstacionPosterior== null)
+            {
+                if (EstacionAnterior.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior < 0 
+                    && Math.Abs(EstacionAnterior.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior) > cVariables.ToleranciaFlexionPInflexion)
+                {
+                    return EstacionActual.CoordX;
+                }
+            }else if (EstacionAnterior== null && EstacionPosterior != null)
+            {
+                if (EstacionPosterior.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Inferior < 0 
+                    && Math.Abs(EstacionPosterior.Calculos.Solicitacion_Asignado_Momentos.PorcentajeAceroFlexion_Inferior) > cVariables.ToleranciaFlexionPInflexion)
+                {
+                    return EstacionActual.CoordX;
                 }
             }
             return float.PositiveInfinity;
@@ -2821,11 +2905,11 @@ namespace FC_Diseño_de_Nervios
         private static void CrearBarraContinuaInferior(List<IElemento> Elementos, int CantBarras, eNoBarra NoBarra, cTendencia tendencia, List<cPuntoInfelxion> PuntosInfelxion)
         {
             float LongitudTotal = Elementos.Sum(x => x.Longitud);
-            float d1 = (tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.r1 + cDiccionarios.DiametrosBarras[NoBarra] / 2f) * cConversiones.Dimension_cm_to_m;
+            float d1 = (tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.r1 + cDiccionarios.DiametrosBarras[NoBarra] / 2f + cVariables.DiametroEstriboPredeterminado) * cConversiones.Dimension_cm_to_m ;
             eUbicacionRefuerzo ubicacionRefuerzo = tendencia.UbicacionRefuerzo;
-            float Xo = Elementos.Min(x => x.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X)) + tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.r1 * cConversiones.Dimension_cm_to_m;
+            float Xo = Elementos.Min(x => x.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X)) + cVariables.RExtremoIzquierdo;
             float Xf = Xo + tendencia.MaximaLongitud;
-            float X = Elementos.Max(x => x.Vistas.Perfil_AutoCAD.Reales.Max(y => y.X)) - tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.r1 * cConversiones.Dimension_cm_to_m;
+            float X = Elementos.Max(x => x.Vistas.Perfil_AutoCAD.Reales.Max(y => y.X)) - cVariables.RExtremoDerecho;
 
             int Contador = 0;
 
@@ -2843,7 +2927,7 @@ namespace FC_Diseño_de_Nervios
                     {
                         cPuntoInfelxion PI = PuntosInfelxion[i];
                         float d = PI.SubTramo.Seccion.H * cConversiones.Dimension_cm_to_m - d1;
-                        float Traslapo = cDiccionarios.FindTraslapo(NoBarra, PI.SubTramo.Seccion.Material.fc, true);
+                        float Traslapo = cDiccionarios.FindLdBarra(NoBarra, PI.SubTramo.Seccion.Material.fc, true);
                         float Delta = 0;
                         Xf = PI.CoordX;
 
@@ -2890,6 +2974,7 @@ namespace FC_Diseño_de_Nervios
 
                 if (Contador > 45)
                 {
+                    tendencia.EliminarBarras(y => y.Longitud < tendencia.MinimaLongitud);
                     tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.Resultados.Diseñado = false;
                     tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.Resultados.Errores.Add($"Longitud de barra máxima insuficiente en la {tendencia.Nombre}, {tendencia.UbicacionRefuerzo}.");
                     break;
@@ -2907,11 +2992,11 @@ namespace FC_Diseño_de_Nervios
         private static void CrearBarraContinuaSuperior(List<IElemento> Elementos, int CantBarras, eNoBarra NoBarra, cTendencia tendencia, List<cPuntoInfelxion> PuntosInfelxion)
         {
             float LongitudTotal = Elementos.Sum(x => x.Longitud);
-            float d1 = (tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.r1 + cDiccionarios.DiametrosBarras[NoBarra] / 2f) * cConversiones.Dimension_cm_to_m;
+            float d1 = (tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.r1 + cDiccionarios.DiametrosBarras[NoBarra] / 2f+cVariables.DiametroEstriboPredeterminado) * cConversiones.Dimension_cm_to_m;
             eUbicacionRefuerzo ubicacionRefuerzo = tendencia.UbicacionRefuerzo;
-            float Xo = Elementos.Min(x => x.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X)) + tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.r1 * cConversiones.Dimension_cm_to_m;
+            float Xo = Elementos.Min(x => x.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X)) + cVariables.RExtremoIzquierdo;
             float Xf = Xo + tendencia.MaximaLongitud;
-            float X = Elementos.Max(x => x.Vistas.Perfil_AutoCAD.Reales.Max(y => y.X)) - tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.r1 * cConversiones.Dimension_cm_to_m;
+            float X = Elementos.Max(x => x.Vistas.Perfil_AutoCAD.Reales.Max(y => y.X)) - cVariables.RExtremoDerecho;
             int Contador = 0;
             do
             {
@@ -2927,7 +3012,7 @@ namespace FC_Diseño_de_Nervios
                     {
                         cPuntoInfelxion PI = PuntosInfelxion[i];
                         float d = PI.SubTramo.Seccion.H * cConversiones.Dimension_cm_to_m - d1;
-                        float Traslapo = cDiccionarios.FindTraslapo(NoBarra, PI.SubTramo.Seccion.Material.fc, true);
+                        float Traslapo = cDiccionarios.FindLdBarra(NoBarra, PI.SubTramo.Seccion.Material.fc, true);
                         Xf = PI.CoordX;
 
                         if (PI.ID == 0)
@@ -2970,6 +3055,7 @@ namespace FC_Diseño_de_Nervios
 
                 if (Contador > 30)
                 {
+                    tendencia.EliminarBarras(y => y.Longitud < tendencia.MinimaLongitud);
                     tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.Resultados.Diseñado = false;
                     tendencia.Tendencia_Refuerzo_Origen.NervioOrigen.Resultados.Errores.Add($"Longitud de barra máxima insuficiente en la {tendencia.Nombre}, {tendencia.UbicacionRefuerzo}.");
                     break;
@@ -3248,41 +3334,48 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public static void AsignarSimilitud(cNervio NervioMaestro, cNervio NervioSimilar, ref List<string> MensajeAlerta)
+        public static void AsignarSimilitud(cNervio NervioMaestro, cNervio NervioSimilar, ref List<string> MensajeAlerta,bool Geometria=true)
         {
+            cSimilitudNervio Similar = NervioSimilar.SimilitudNervioGeometria;
+            if (!Geometria)            
+                Similar = NervioSimilar.SimilitudNervioCompleto;
+            
+
             if (NervioMaestro != null)
             {
+                cSimilitudNervio Maestro = NervioMaestro.SimilitudNervioGeometria;
+                if (!Geometria)
+                    Maestro = NervioMaestro.SimilitudNervioCompleto;
 
-                if (NervioMaestro.SimilitudNervioGeometria.Similares_List_SimilarA == null)
+                if (Maestro.Similares_List_SimilarA == null)
                 {
-                    NervioMaestro.SimilitudNervioGeometria.Similares_List_SimilarA = new List<cSimilitudNervio.cSimilar>();
+                    Maestro.Similares_List_SimilarA = new List<cSimilitudNervio.cSimilar>();
                 }
 
-                bool Similar = AplicarSimilitudGeometria(NervioMaestro, NervioSimilar);
+                bool SimilarBool = AplicarSimilitud(NervioMaestro, NervioSimilar);
 
-                if (Similar)
+                if (SimilarBool)
                 {
-
-
-                    NervioMaestro.SimilitudNervioGeometria.Similares_List_SimilarA.Add(new cSimilitudNervio.cSimilar(NervioSimilar.Nombre, NervioSimilar.PisoOrigen.Nombre));
-                    NervioSimilar.SimilitudNervioGeometria.SoySimiarA = new cSimilitudNervio.cSimilar(NervioMaestro.Nombre, NervioMaestro.PisoOrigen.Nombre);
-                    NervioSimilar.SimilitudNervioGeometria.BoolSoySimiarA = true;
+                    Maestro.Similares_List_SimilarA.Add(new cSimilitudNervio.cSimilar(NervioSimilar.Nombre, NervioSimilar.PisoOrigen.Nombre));
+                    Similar.SoySimiarA = new cSimilitudNervio.cSimilar(NervioMaestro.Nombre, NervioMaestro.PisoOrigen.Nombre);
+                    Similar.BoolSoySimiarA = true;
                 }
                 else
                 {
-                    NervioSimilar.SimilitudNervioGeometria.BoolSoySimiarA = false;
-                    MensajeAlerta.Add($"{NervioSimilar.Nombre} no posee similitudes con {NervioMaestro.Nombre}");
+                    Similar.BoolSoySimiarA = false;
+                    MensajeAlerta.Add($"{NervioSimilar.Nombre} | {NervioSimilar.PisoOrigen.Nombre} "
+                        + $"no posee similitudes con {NervioMaestro.Nombre} | {NervioMaestro.PisoOrigen.Nombre}");
                 }
 
             }
             else
             {
-                NervioSimilar.SimilitudNervioGeometria.BoolSoySimiarA = false;
+                Similar.BoolSoySimiarA = false;
                 //NervioSimilar.Maestro.SimilaresG_String = null;
             }
         }
 
-        public static bool AplicarSimilitudGeometria(cNervio NervioMaestro, cNervio NervioSimilar)
+        public static bool AplicarSimilitud(cNervio NervioMaestro, cNervio NervioSimilar)
         {
             bool Similar = false;
             if (NervioMaestro.Lista_Tramos.Count == NervioSimilar.Lista_Tramos.Count &&
@@ -3308,6 +3401,33 @@ namespace FC_Diseño_de_Nervios
             }
             return Similar;
         }
+
+
+        public static void DesacoplarSimilitudMaestro(cNervio Nervio)
+        {
+            cSimilitudNervio Similitud = Nervio.SimilitudNervioGeometria;
+            if (!Similitud.IsMaestro && !Similitud.BoolSoySimiarA)
+                Similitud = Nervio.SimilitudNervioCompleto;
+
+            if (Similitud.IsMaestro) 
+            {
+                Similitud.NerviosSimilares.ForEach(y => {
+                    cSimilitudNervio Similitud2 = y.SimilitudNervioGeometria;
+                    if (!Similitud2.IsMaestro && !Similitud2.BoolSoySimiarA)
+                        Similitud2 = y.SimilitudNervioCompleto;
+                    Similitud2.BoolSoySimiarA = false;
+                    y.CrearEnvolvente();
+                });
+
+                Similitud.Similares_List_SimilarA = null;
+                Nervio.CrearEnvolvente();
+            }
+            else
+            {
+                Similitud.BoolSoySimiarA = false;
+            }
+        }
+
 
         #region Exportar DL NET NIMBUS
         public static void CrearArhivotxtDLNET(List<cNervio> Nervios, string Ruta)

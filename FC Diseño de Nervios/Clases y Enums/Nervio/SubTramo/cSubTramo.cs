@@ -86,8 +86,8 @@ namespace FC_Diseño_de_Nervios
             this.Lista_Lineas = Lista_Lineas;
             CrearEstaciones();
             seccion = cFunctionsProgram.DeepClone(Lista_Lineas.First().Seccion);
-            TramoOrigen.NervioOrigen.r1_ = seccion.R_Top;
-            TramoOrigen.NervioOrigen.r2_ = seccion.R_Bottom;
+            //TramoOrigen.NervioOrigen.r1_ = seccion.R_Top;
+            //TramoOrigen.NervioOrigen.r2_ = seccion.R_Bottom;
             CalcularLongitud();
         }
 

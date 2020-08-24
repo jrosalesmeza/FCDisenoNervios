@@ -175,6 +175,7 @@ namespace FC_Diseño_de_Nervios
             {
                 F_Base.F_Base_.CargarVentanasXML();
                 PisosConNervios.ForEach(x => x.Nervios.ForEach(y => y.SelectPlantaEnumeracion = false));
+                F_Base.ActualizarVentanaF_SelectNervio();
             }
             F_Base.LimpiarMemoria();
             T_Timer2.Stop();

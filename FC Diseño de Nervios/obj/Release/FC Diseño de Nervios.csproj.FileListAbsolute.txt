@@ -57,3 +57,9 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.F_SimilitudNervios.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_de_Nervios.F_PlantaSimilitudNervios.resources
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC Diseño de Nervios.exe.licenses
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.GLControl.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.GLControl.pdb
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.GLControl.xml

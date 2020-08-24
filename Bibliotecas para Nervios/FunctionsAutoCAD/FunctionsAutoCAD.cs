@@ -827,6 +827,68 @@ namespace FC_BFunctionsAutoCAD
             }
         }
 
+
+
+        /// <summary>
+        /// Bloque: Conveciones de refuerzo - Efe Prima Ce
+        /// </summary>
+        /// <param name="P_XYZ">Coordenadas del Bloque</param>
+        ///<param name="NombreRefuerzo">Numero de refuerzo.</param>
+        /// <param name="Layer">Capa del Bloque.</param>
+        /// <param name="Xscale">Escala en X del Bloque.</param>
+        /// <param name="Yscale">Escala en Y del Bloque.</param>
+        /// <param name="Zscale">Escala en Z del Bloque.</param>
+        /// <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        public static void B_CirculoRefuerzo(double[] P_XYZ,string NombreRefuerzo, string Layer, double Xscale, double Yscale, double Zscale, float Rotation)
+        {
+            if (AcadDoc != null)
+            {
+                AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(P_XYZ, "FC_B_Convenciones refuerzoV2", Xscale, Yscale, Zscale, Rotation);
+                blockReference.Layer = Layer;
+
+                var referenceProperty = blockReference.GetDynamicBlockProperties();
+
+                referenceProperty[0].Value = NombreRefuerzo;
+                blockReference.Update();
+            }
+        }
+
+        /// <summary>
+        /// Bloque: Conveciones de refuerzo - Efe Prima Ce
+        /// </summary>
+        /// <param name="P_XY">Coordenadas del Bloque [System.Drawing]</param>
+        ///<param name="NombreRefuerzo">Numero de refuerzo.</param>
+        /// <param name="Layer">Capa del Bloque.</param>
+        /// <param name="Xscale">Escala en X del Bloque.</param>
+        /// <param name="Yscale">Escala en Y del Bloque.</param>
+        /// <param name="Zscale">Escala en Z del Bloque.</param>
+        /// <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        public static void B_CirculoRefuerzo(PointF P_XY, string NombreRefuerzo, string Layer, double Xscale, double Yscale, double Zscale, float Rotation)
+        {
+            if (AcadDoc != null)
+            {
+                double[] P_XYZ = ConvertirPuntoEnDobules3D(P_XY);
+                AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(P_XYZ, "FC_B_Convenciones refuerzoV2", Xscale, Yscale, Zscale, Rotation);
+                blockReference.Layer = Layer;
+
+                var referenceProperty = blockReference.GetDynamicBlockProperties();
+
+                referenceProperty[0].Value = NombreRefuerzo;
+                blockReference.Update();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// Bloque: Refuerzo i en seccion - Efe Prima Ce
         /// </summary>

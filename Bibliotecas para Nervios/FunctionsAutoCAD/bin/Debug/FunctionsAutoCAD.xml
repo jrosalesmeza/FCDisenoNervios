@@ -327,6 +327,30 @@
             Bloque: Ganchos Sección - Efe Prima Ce
             </summary>
         </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_CirculoRefuerzo(System.Double[],System.String,System.String,System.Double,System.Double,System.Double,System.Single)">
+             <summary>
+             Bloque: Conveciones de refuerzo - Efe Prima Ce
+             </summary>
+             <param name="P_XYZ">Coordenadas del Bloque</param>
+            <param name="NombreRefuerzo">Numero de refuerzo.</param>
+             <param name="Layer">Capa del Bloque.</param>
+             <param name="Xscale">Escala en X del Bloque.</param>
+             <param name="Yscale">Escala en Y del Bloque.</param>
+             <param name="Zscale">Escala en Z del Bloque.</param>
+             <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_CirculoRefuerzo(System.Drawing.PointF,System.String,System.String,System.Double,System.Double,System.Double,System.Single)">
+             <summary>
+             Bloque: Conveciones de refuerzo - Efe Prima Ce
+             </summary>
+             <param name="P_XY">Coordenadas del Bloque [System.Drawing]</param>
+            <param name="NombreRefuerzo">Numero de refuerzo.</param>
+             <param name="Layer">Capa del Bloque.</param>
+             <param name="Xscale">Escala en X del Bloque.</param>
+             <param name="Yscale">Escala en Y del Bloque.</param>
+             <param name="Zscale">Escala en Z del Bloque.</param>
+             <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        </member>
         <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.Add_ref(System.Double[],System.String,System.Int32,System.Double,System.Double,System.Double,System.Single)">
             <summary>
             Bloque: Refuerzo i en seccion - Efe Prima Ce

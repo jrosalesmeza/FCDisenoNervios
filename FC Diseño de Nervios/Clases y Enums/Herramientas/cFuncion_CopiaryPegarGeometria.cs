@@ -20,7 +20,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas
 
         public static void Pegar(cNervio nervio)
         {
-            if(cFunctionsProgram.AplicarSimilitudGeometria(((cSubTramo)Elementos.Find(y=>y is cSubTramo)).TramoOrigen.NervioOrigen,nervio))
+            if(cFunctionsProgram.AplicarSimilitud(((cSubTramo)Elementos.Find(y=>y is cSubTramo)).TramoOrigen.NervioOrigen,nervio))
             {
                 int C = 0;
                 Elementos.ForEach(elemento => {

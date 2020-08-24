@@ -11,18 +11,25 @@ namespace FC_Diseño_de_Nervios
         public const float BubblesizePlano = 1.25f;
         public const float ToleranciaVentanaDiseno = 5f;
 
+
+
         public const float BNervioBorde = 12f;
         /// <summary>
         /// Tolerancia de longitud para similitud entre Nervios
         /// </summary>
         public const float ToleranciaLSimilar = 0.2f;
         public const float AnchoApoyoPredefinido = 40f;
-
+        public const float DiametroEstriboPredeterminado = 1f;
+        public const float RecubrimientoNervios = 2f;
+        public const float Porc_LongOffset = 0.90f;
+        public const float LongMinimaElemento = 0.05f;
 
         #region Variables de Perfil Longitudinal AutoCAD
         public const float AltoMinimoNervio = 3f;
         public const float DeltaNivel = 0.30f;
         public const float DeltaSubNivel = 0.05f;
+        public const float RExtremoDerecho = 0.05f;
+        public const float RExtremoIzquierdo = 0.05f;
         #endregion
 
 
@@ -46,6 +53,7 @@ namespace FC_Diseño_de_Nervios
         public const float ToleranciaFlexionPInflexion = 3f;
         public const float ToleranciaFlexionBarras = 3f;
         public const float DeltaUnionCercanas = 0.5f;
+        public const float ToleranciAceroFlexion = -0.1f;
         #endregion
 
 

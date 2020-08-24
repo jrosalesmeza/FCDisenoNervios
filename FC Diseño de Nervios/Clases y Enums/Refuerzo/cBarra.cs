@@ -35,7 +35,7 @@ namespace FC_Diseño_de_Nervios
                 if (noBarra != value)
                 {
                     noBarra = value;
-                    traslapo = cDiccionarios.FindTraslapo(NoBarra, TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x is cSubTramo).Seccion.Material.fc, true);
+                    traslapo = cDiccionarios.FindLdBarra(NoBarra, TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x is cSubTramo).Seccion.Material.fc, true);
                     AreaTotalBarra(); CalcularPeso();
                     tendenciaOrigen.AsignarNivelABarras();
                 
@@ -268,7 +268,7 @@ namespace FC_Diseño_de_Nervios
             this.xf = xf;
             longitudRecta = xf - xi;
             DeltaAlargamiento = TendenciaOrigen.DeltaAlargamientoBarras;
-            traslapo = cDiccionarios.FindTraslapo(NoBarra, TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x is cSubTramo).Seccion.Material.fc, true);
+            traslapo = cDiccionarios.FindLdBarra(NoBarra, TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x is cSubTramo).Seccion.Material.fc, true);
             this.UbicacionRefuerzo = UbicacionRefuerzo;
             AreaTotalBarra();         
             CrearCoordenadasReales();
@@ -337,9 +337,9 @@ namespace FC_Diseño_de_Nervios
 
             Longitud = (float)Math.Round(cFunctionsProgram.Long(C_Barra.Reales), cVariables.CifrasDeciLongBarra);
 
-            LimiteDerecho = TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Last().X - TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.r1 * cConversiones.Dimension_cm_to_m;
+            LimiteDerecho = TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Last().X - cVariables.RExtremoIzquierdo;
             LimiteDerecho = (float)Math.Round(LimiteDerecho, cVariables.CifrasDeciLongBarra);
-            LimiteIzquierdo = (TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.r1) * cConversiones.Dimension_cm_to_m;
+            LimiteIzquierdo = cVariables.RExtremoIzquierdo;
 
             if (F_Base.Proyecto.RedondearBarra)
             {
@@ -414,7 +414,7 @@ namespace FC_Diseño_de_Nervios
                         C_Barra.Reales[C_Barra.Reales.IndexOf(C_Barra.Reales.Last())] = PuntoD;
                     }
                 }
-          
+         
             }
             CalcularGanchos();
             Longitud = (float)Math.Round(cFunctionsProgram.Long(C_Barra.Reales), cVariables.CifrasDeciLongBarra);
@@ -446,14 +446,14 @@ namespace FC_Diseño_de_Nervios
         {
             if (AreaTotal != 0)
             {
-                float xiL = xi; float xfL = xf; float R = TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.r1 * cConversiones.Dimension_cm_to_m;
+                float xiL = xi; float xfL = xf; 
                 if (Subtramo.Indice == 0)
                 {
-                    xiL -= R;
+                    xiL -= cVariables.RExtremoIzquierdo;
                 }
                 else if (Subtramo.Indice == TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Last().Indice)
                 {
-                    xfL += R;
+                    xfL += cVariables.RExtremoDerecho;
                     xfL = (float)Math.Ceiling(xfL * 100f) / 100f;
                 }
                 float CoordenaXMenor = Subtramo.Vistas.Perfil_Original.Reales.Min(X => X.X); float A = (float)Math.Ceiling(xfL * 100f) / 100f;
@@ -469,14 +469,14 @@ namespace FC_Diseño_de_Nervios
         {
             float XE = (float)Math.Round(Subtramo.Vistas.Perfil_Original.Reales.Min(X => X.X) + Estacion.CoordX, cVariables.CifrasDeciLongBarra);
             float Ld = traslapo;
-            float xiL = xi; float xfL = xf; float R = (TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.r1) * cConversiones.Dimension_cm_to_m;
+            float xiL = xi; float xfL = xf; 
             if (Subtramo.Indice == 0)
             {
-                xiL =(float)Math.Floor((xiL -R)*100f)/100f;
+                xiL =(float)Math.Floor((xiL - cVariables.RExtremoIzquierdo) *100f)/100f;
             }
             else if (Subtramo.Indice == TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Last().Indice)
             {
-                xfL =(float) Math.Ceiling((xfL + R)*100f)/100f;
+                xfL =(float) Math.Ceiling((xfL + cVariables.RExtremoDerecho) *100f)/100f;
             }
 
             if (xiL <= XE && XE <= xiL + Ld)

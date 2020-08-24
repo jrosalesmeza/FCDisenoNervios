@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>B_Operaciones_Matricialesl</name>
+    </assembly>
+    <members>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Traslacion(System.Drawing.PointF,System.Single,System.Single)">
+            <summary>
+            Traslación de un punto dado su desplazamiento en X y Y. 
+            </summary>
+            <param name="Punto">Punto a trasladar.</param>
+            <param name="DX">Desplazamiento en X.</param>
+            <param name="DY">Desplzamineto en Y.</param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Traslacion(System.Collections.Generic.List{System.Drawing.PointF},System.Single,System.Single)">
+            <summary>
+            Traslación de una lista de puntos dado su desplazamiento en X y Y.
+            </summary>
+            <param name="Puntos">Puntos a trasladar.</param>
+            <param name="DX">Desplazamiento en X.</param>
+            <param name="DY">Desplazamiento en Y.</param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.ConvertirPointfToCmatriz(System.Collections.Generic.List{System.Drawing.PointF})">
+            <summary>
+            Convierte listas de puntos[X,y,1] en listas de matrices[1x3]
+            </summary>
+            <param name="Puntos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.ConvertirMatrizToPointf(System.Collections.Generic.List{B_Operaciones_Matricialesl.cMatriz})">
+            <summary>
+            Convierte listas de matrices[1x3] en listas de puntos
+            </summary>
+            <param name="PuntosMatriz"></param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Boolean)">
+            <summary>
+            genera Rotacion respecto a un punto especificado
+            </summary>
+            <param name="LPuntos"></param>  lista de puntos(float[]) a rotar  
+            <param name="PuntoRef"></param>  Punto respecto al que se deseea rotar
+            <param name="Angulo"></param>  Angulo de rotacion 
+            <param name="Grados"></param>  Grados = true, radianes = false
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Collections.Generic.List{System.Single[]},System.Drawing.PointF,System.Single,System.Boolean)">
+            <summary>
+            genera Rotacion respecto a un punto especificado
+            </summary>
+            <param name="LPuntos"></param> lista de puntos(float[]) a rotar  
+            <param name="PuntoRef"></param> Punto respecto al que se deseea rotar
+            <param name="Angulo"></param> angulo de rotacion 
+            <param name="Grados"></param> Grados = true, radianes = false
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Collections.Generic.List{System.Drawing.PointF},System.Single,System.Boolean)">
+            <summary>
+            Rotacion respecto al origen
+            </summary>
+            <param name="LPuntos"></param> Lista de Puntos a rotar
+            <param name="Angulo"></param> Angulo o giro
+            <param name="Grados"></param> Grados = true, Radianes = False
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Collections.Generic.List{System.Single[]},System.Single,System.Boolean)">
+            <summary>
+            Rotacion respecto al origen
+            </summary>
+            <param name="LPuntos"></param> Lista de Puntos a rotar
+            <param name="Angulo"></param> Angulo o giro
+            <param name="Grados"></param> Grados = true, Radianes = False
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Escala(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Single)">
+            <summary>
+            Funcion que permite escalar una figura compuesta de puntos
+            </summary>
+            <param name="Puntos"></param> lista de puntos
+            <param name="PuntoRef"></param> Punto respecto al que se desea escalar, preferiblemente el inferior izquierdo de la figura
+            <param name="EscalaX"></param> Alargamiento en direccion X
+            <param name="EscalaY"></param> Alargamiento en direccion Y
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Escala(System.Collections.Generic.List{System.Single[]},System.Drawing.PointF,System.Single,System.Single)">
+            <summary>
+            Funcion que permite escalar una figura compuesta de puntos
+            </summary>
+            <param name="Puntos"></param> lista de puntos
+            <param name="PuntoRef"></param> Punto respecto al que se desea escalar, preferiblemente el inferior izquierdo de la figura
+            <param name="EscalaX"></param> Alargamiento en direccion X
+            <param name="EscalaY"></param> Alargamiento en direccion Y
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Reflejar(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Drawing.PointF)">
+            <summary>
+            Refleja una figura respecto a una linea de eje especificada a traves de dos puntos
+            </summary>
+            <param name="Puntos"></param> lista de puntos a reflejar
+            <param name="Pto1"></param> Primer punto perteneciente al eje de reflexión
+            <param name="Pto2"></param> Segundo punto perteneciente al eje de reflexión
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Reflejar(System.Collections.Generic.List{System.Single[]},System.Drawing.PointF,System.Drawing.PointF)">
+            <summary>
+            Refleja una figura respecto a una linea de eje especificada a traves de dos puntos
+            </summary>
+            <param name="Puntos">Lista de puntos a reflejar</param> 
+            <param name="Pto1">Primer punto perteneciente al eje de reflexión</param> 
+            <param name="Pto2">Segundo punto perteneciente al eje de reflexión</param> 
+            <returns></returns>
+        </member>
+    </members>
+</doc>

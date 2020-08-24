@@ -260,6 +260,7 @@ namespace FC_Diseño_de_Nervios
                 {
                     UndoRedo.LimpiarEstadosCtrlZyCtrlY();
                     CargarVentanasXML();
+                    Proyecto.Ruta = Ruta;
                     Proyecto.Nombre = Path.GetFileName(Ruta).Replace(cFunctionsProgram.Ext, "");
                     
                 }
@@ -1052,8 +1053,9 @@ namespace FC_Diseño_de_Nervios
         }
         private void similitudDeNerviosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            F_SimilitudNervios F_SimilitudNervios = new F_SimilitudNervios(Proyecto.Edificio.PisoSelect.Nervios);
-            F_SimilitudNervios.ShowDialog();
+            F_PlantaSimilitudNervios f_PlantaSimilitudNervios = new F_PlantaSimilitudNervios(Proyecto.Edificio);
+            f_PlantaSimilitudNervios.ShowDialog();
+            ActualizarVentanaF_NervioEnPerfilLongitudinal();
         }
         private void revisarProyectoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1166,10 +1168,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            F_PlantaSimilitudNervios f_PlantaSimilitudNervios = new F_PlantaSimilitudNervios(Proyecto.Edificio);
-            f_PlantaSimilitudNervios.ShowDialog();
-        }
+
     }
 }

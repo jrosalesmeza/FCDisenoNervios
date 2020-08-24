@@ -81,16 +81,6 @@ namespace FC_Diseño_de_Nervios.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap c3 {
-            get {
-                object obj = ResourceManager.GetObject("c3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Icon similar a (Icono).
         /// </summary>
         internal static System.Drawing.Icon DefaultCursor2x16 {
@@ -156,6 +146,16 @@ namespace FC_Diseño_de_Nervios.Properties {
         internal static System.Drawing.Bitmap Minimizex16 {
             get {
                 object obj = ResourceManager.GetObject("Minimizex16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Nervio_EsquemaR {
+            get {
+                object obj = ResourceManager.GetObject("Nervio_EsquemaR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -83,7 +83,7 @@ namespace FC_Diseño_de_Nervios
         public cTramo(int ID, List<cObjeto> Lista_Objetos, cNervio NervioOrigen)
         {
             this.ID = ID; 
-            this.Nombre = "Tramo "+ (ID+1);
+            Nombre = "Tramo "+ (ID+1);
             this.Lista_Objetos = Lista_Objetos;
             this.NervioOrigen = NervioOrigen;
             CrearSubTramos();

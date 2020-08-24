@@ -70,9 +70,9 @@ namespace FC_Diseño_de_Nervios
             List<cSolicitacion> Lista_Solici2 = new List<cSolicitacion>();
             Lista_Solici2.AddRange(lista_solicitaciones);
 
-            if (NervioOrigen.SimilitudNervioGeometria.IsMaestro)
+            if (NervioOrigen.SimilitudNervioCompleto.IsMaestro)
             {
-                foreach (cNervio N in NervioOrigen.SimilitudNervioGeometria.NerviosSimilares)
+                foreach (cNervio N in NervioOrigen.SimilitudNervioCompleto.NerviosSimilares)
                 {
                     cSubTramo SubTramo = (cSubTramo)N.Lista_Elementos.Find(y => y.Indice == CalculosOrigen.SubtramoOrigen.Indice);
 
@@ -80,9 +80,9 @@ namespace FC_Diseño_de_Nervios
                     Lista_Solici2.AddRange(EstacionFind.Lista_Solicitaciones);
                 }
             }
-            else if(NervioOrigen.SimilitudNervioGeometria.BoolSoySimiarA)
+            else if(NervioOrigen.SimilitudNervioCompleto.BoolSoySimiarA)
             {
-               cNervio NervioQueEs= NervioOrigen.SimilitudNervioGeometria.SoySimiarA.FindNervio();
+               cNervio NervioQueEs= NervioOrigen.SimilitudNervioCompleto.SoySimiarA.FindNervio();
                 cSubTramo SubTramo = (cSubTramo)NervioQueEs.Lista_Elementos.Find(y => y.Indice == CalculosOrigen.SubtramoOrigen.Indice);
                 cEstacion EstacionFind = EstacionOrigen.EstacionMasCercana(SubTramo.Estaciones);
                 Lista_Solici2.AddRange(EstacionFind.Lista_Solicitaciones);
@@ -109,7 +109,7 @@ namespace FC_Diseño_de_Nervios
         private void Envolvente_CambioCrearEnvolvente()
         {
             float B = CalculosOrigen.SubtramoOrigen.Seccion.B; float H = CalculosOrigen.SubtramoOrigen.Seccion.H; float fc = CalculosOrigen.SubtramoOrigen.Seccion.Material.fc;
-            float d1 = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen.r1+ cDiccionarios.DiametrosBarras[eNoBarra.B3]/2f; float d2 = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen.r2+ cDiccionarios.DiametrosBarras[eNoBarra.B3] / 2f;
+            float d1 = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen.r1+ cDiccionarios.DiametrosBarras[eNoBarra.B3]/2f + cVariables.DiametroEstriboPredeterminado; float d2 = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen.r2+ cDiccionarios.DiametrosBarras[eNoBarra.B3] / 2f + cVariables.DiametroEstriboPredeterminado;
             float fy = CalculosOrigen.SubtramoOrigen.Seccion.Material.fy;float M3_0 = Math.Abs(M3[0]);float M3_1 = Math.Abs(M3[1]);
             if (M3_0 == 0)
                 M3_0 = 0.001f;

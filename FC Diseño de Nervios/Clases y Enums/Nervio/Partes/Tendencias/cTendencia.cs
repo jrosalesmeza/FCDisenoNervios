@@ -60,6 +60,7 @@ namespace FC_Diseño_de_Nervios
             Barras.Remove(Barra);
             AsignarNivelABarras();
         }
+        
         public void EliminarBarra(int IndexBarra)
         {
             Barras.RemoveAt(IndexBarra);
@@ -69,7 +70,11 @@ namespace FC_Diseño_de_Nervios
         {
             Barras.Clear();
             AsignarNivelABarras();
-
+        }
+        public void EliminarBarras(Predicate<cBarra> match)
+        {
+            Barras.RemoveAll(match);
+            AsignarNivelABarras();
         }
         public void AgregarBarra(cBarra Barra)
         {
@@ -235,7 +240,7 @@ namespace FC_Diseño_de_Nervios
                             PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.XF, Ymax), X, Y);
                             PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(SubTramo.Vistas.Perfil_AutoCAD.Reales[2].X, Ymax), X, Y);
                             FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, cVariables.Desplazamiento_Cotas_RefuerzoInferior,
-                              DeplazaTextY: cVariables.DesplazamientoTexto_Cotas);
+                            DeplazaTextY: cVariables.DesplazamientoTexto_Cotas);
                         }
                     }
                 });
@@ -247,7 +252,7 @@ namespace FC_Diseño_de_Nervios
                 {
                     float Ymax = Barra.C_Barra.Reales.Max(x => x.Y);
                     PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(ElementoXF.Vistas.Perfil_AutoCAD.Reales[0].X, Ymax), X, Y);
-                    PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.XF, Ymax), X, Y);
+                    PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.C_Barra.Reales.Max(y => y.X), Ymax), X, Y);
                     FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, -cVariables.Desplazamiento_Cotas_RefuerzoSuperior,
                       DeplazaTextY: cVariables.DesplazamientoTexto_Cotas);
                 }
@@ -256,8 +261,8 @@ namespace FC_Diseño_de_Nervios
                 Barras.ForEach(Barra =>
                 {
 
-                    IElemento ElementoXI = Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x.IsVisibleCoordAutoCAD(Barra.XI));
-                    IElemento ElementoXF = Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x.IsVisibleCoordAutoCAD(Barra.XF));
+                    IElemento ElementoXI = Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x.IsVisibleCoordAutoCAD(Barra.C_Barra.Reales.Min(y=>y.X)));
+                    IElemento ElementoXF = Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x.IsVisibleCoordAutoCAD(Barra.C_Barra.Reales.Max(y => y.X)));
 
                     if (!(ElementoXI is cApoyo) && !(ElementoXF is cApoyo) && Barra.GanchoDerecha == eTipoGancho.None && Barra.GanchoIzquierda == eTipoGancho.None)
                     {
@@ -278,8 +283,8 @@ namespace FC_Diseño_de_Nervios
 
                                 float Ymax = BarraNivelPosterior.C_Barra.Reales.Max(x => x.Y);
                                 float DespCota = Barra.C_Barra.Reales.Min(x => x.Y) - Ymax;
-                                PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(BarraNivelPosterior.XF, Ymax), X, Y);
-                                PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.XF, Barra.C_Barra.Reales.Min(x => x.Y)), X, Y);
+                                PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(BarraNivelPosterior.C_Barra.Reales.Max(y => y.X), Ymax), X, Y);
+                                PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.C_Barra.Reales.Max(y => y.X), Barra.C_Barra.Reales.Min(x => x.Y)), X, Y);
                                 FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, -DespCota - 0.13f,
                                 DeplazaTextY: cVariables.DesplazamientoTexto_Cotas, RA: false);
                             }
@@ -302,7 +307,7 @@ namespace FC_Diseño_de_Nervios
                     List<cBarra> Barras1 = Barras.FindAll(x => x.TraslapoIzquierda);
                     foreach(cBarra barra in Barras1)
                     {
-                        if (barra!= Barra && XiPerteneceaX0X1(Barra.XI, Barra.XF, barra.XI))
+                        if (barra!= Barra && XiPerteneceaX0X1(Barra.C_Barra.Reales.Min(y => y.X), Barra.C_Barra.Reales.Max(y => y.X), barra.XI))
                         {
                             Barra.CotaParaAutoCADDerecha = true;
                             barra.CotaParaAutoCADIzquierda = true;
@@ -313,8 +318,8 @@ namespace FC_Diseño_de_Nervios
                             {
                                 DespCota = -cVariables.Desplazamiento_Cotas_RefuerzoSuperior;
                             }
-                            PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(barra.XI, Ymax), X, Y);
-                            PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.XF, Ymax), X, Y);
+                            PointF P1 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(barra.C_Barra.Reales.Min(y => y.X), Ymax), X, Y);
+                            PointF P2 = B_Operaciones_Matricialesl.Operaciones.Traslacion(new PointF(Barra.C_Barra.Reales.Max(y => y.X), Ymax), X, Y);
                             FunctionsAutoCAD.AddCota(P1, P2, cVariables.C_Cotas, cVariables.Estilo_Cotas, DespCota,
                             DeplazaTextY: cVariables.DesplazamientoTexto_Cotas, RA: false);
                         }
@@ -348,7 +353,7 @@ namespace FC_Diseño_de_Nervios
 
         public bool Barra1ContieneBarra2(cBarra Barra1, cBarra Barra2)
         {
-            return Barra1.XI <= Barra2.XI && Barra1.XF >= Barra2.XF;
+            return Barra1.C_Barra.Reales.Min(y => y.X) <= Barra2.C_Barra.Reales.Min(y => y.X) && Barra1.C_Barra.Reales.Max(y => y.X) >= Barra2.C_Barra.Reales.Max(y => y.X);
         }
 
         public override string ToString()

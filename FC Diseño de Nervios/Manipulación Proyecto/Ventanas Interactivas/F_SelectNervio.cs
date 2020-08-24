@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
+using System.Threading;
 
 namespace FC_Diseño_de_Nervios
 {
@@ -27,7 +28,7 @@ namespace FC_Diseño_de_Nervios
             PB_Nervios.MouseMove += PB_Nervios_MouseMove;
             PB_Nervios.MouseMove += PB_Nervios_MouseMove1;
             CustomizedToolTip ToolTipPerzonalizado = new CustomizedToolTip(); ToolTipPerzonalizado.AutoSize = false; ToolTipPerzonalizado.Size = new Size(150,150);
-            ToolTipPerzonalizado.SetToolTip(PB_Info, $" "); PB_Info.Tag = Properties.Resources.c3;
+            ToolTipPerzonalizado.SetToolTip(PB_Info, $" "); PB_Info.Tag = Properties.Resources.Nervio_EsquemaR;
         }
 
         private void PB_Nervios_MouseMove1(object sender, MouseEventArgs e)
@@ -45,8 +46,11 @@ namespace FC_Diseño_de_Nervios
             LV_Stories.Clear();
             foreach (cPiso Piso in F_Base.Proyecto.Edificio.Lista_Pisos)
             {
-                ListViewItem item = new ListViewItem(Piso.Nombre); item.Name = Piso.Nombre;
-                LV_Stories.Items.Add(item);
+                if (Piso.Nervios != null && Piso.Nervios.Count > 0)
+                {
+                    ListViewItem item = new ListViewItem(Piso.Nombre); item.Name = Piso.Nombre;
+                    LV_Stories.Items.Add(item);
+                }
             }
             if (F_Base.Proyecto.Edificio.PisoSelect != null)
             {
@@ -95,17 +99,22 @@ namespace FC_Diseño_de_Nervios
             float WidthPB = PB_Nervios.Width - XI * 3;
             float HeightPB = PB_Nervios.Height - YI * 3;
             List<PointF> PointsSinEscalar = new List<PointF>();
-            F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) { PointsSinEscalar.AddRange(y.Planta_Real); } });
+            //F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) { PointsSinEscalar.AddRange(y.Planta_Real); } });
+            F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(y => y.Lista_Objetos.ForEach(z =>{ PointsSinEscalar.AddRange(z.Line.Planta_Real); }));
             F_Base.Proyecto.Edificio.Lista_Grids.ForEach(y => { PointsSinEscalar.AddRange(y.Recta_Real); });
-            F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB, HeightPB, Dx, Dy, Zoom));
+            //F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB, HeightPB, Dx, Dy, Zoom));
             F_Base.Proyecto.Edificio.Lista_Grids.ForEach(y => y.CrearPuntosPlantaEscaladaEtabs(PointsSinEscalar, WidthPB, HeightPB, Dx, Dy, Zoom));
             F_Base.Proyecto.Edificio.Lista_Grids.ForEach(y => y.Paint(e.Graphics, Zoom));
-            F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) y.PaintPlantaEscaladaEtabsLine(e.Graphics); });
+            //F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) y.PaintPlantaEscaladaEtabsLine(e.Graphics); });
+
             if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
             {
 
-                F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB, HeightPB, Dx, Dy, Zoom))); ;
+
+                Thread Hilo = new Thread(() => F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB, HeightPB, Dx, Dy, Zoom))));
                 F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.Paint_Planta_ElementosEnumerados(e.Graphics, PB_Nervios.Width, Zoom));
+                Hilo.Start();
+
             }
         }
 
@@ -130,8 +139,11 @@ namespace FC_Diseño_de_Nervios
             if (LV_Stories.SelectedItems.Count > 0)
             {
             
-                F_Base.Proyecto.Edificio.PisoSelect = F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == LV_Stories.SelectedItems[0].Text);
+                cPiso PisoSelect= F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == LV_Stories.SelectedItems[0].Text);
+                F_Base.Proyecto.Edificio.PisoSelect = PisoSelect;
                 
+
+
                 CargarListViewNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios);
                 NerviosACargar();
                 SelectNervioChanged(new Point(), false);
@@ -141,7 +153,16 @@ namespace FC_Diseño_de_Nervios
         {
             if (LV_Nervios.SelectedItems.Count > 0)
             {
-                SelectNervioChanged(new Point(0,0), false, LV_Nervios.SelectedItems[0].Text);
+                ListViewItem LVI = new ListViewItem();
+                if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+                {
+                    LVI = FindListViewItem(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre, LV_Nervios);
+                    if (LVI == null)
+                        LVI = new ListViewItem();
+                }
+                if(LV_Nervios.SelectedItems[0].Text!= LVI.Text){
+                    SelectNervioChanged(new Point(0,0), false, LV_Nervios.SelectedItems[0].Text);
+                }
             }
         }
         private void PB_Nervios_MouseMove(object sender, MouseEventArgs e)
@@ -180,8 +201,19 @@ namespace FC_Diseño_de_Nervios
         }
         private void HabilitarMaestroSimilarA()
         {
-            LB_NervioSimilarA.Text=  F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioGeometria.SoySimiarA.ToString(F_Base.Proyecto.Edificio.PisoSelect.Nombre);
-            CKB_Maestro.Checked = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioGeometria.IsMaestro;
+            cNervio Nervio = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect;
+            LB_NervioSimilarA.Text = "";
+            GB_Similitud.Text = "Similitud";
+            if (Nervio.SimilitudNervioGeometria.IsMaestro | Nervio.SimilitudNervioGeometria.BoolSoySimiarA)
+            {
+                GB_Similitud.Text = "Similitud por Geometría";
+                LB_NervioSimilarA.Text = Nervio.SimilitudNervioGeometria.SoySimiarA.ToString(Nervio.PisoOrigen.Nombre);
+            }else if (Nervio.SimilitudNervioCompleto.IsMaestro | Nervio.SimilitudNervioCompleto.BoolSoySimiarA)
+            {
+                GB_Similitud.Text = "Similitud de Todo";
+                LB_NervioSimilarA.Text = Nervio.SimilitudNervioCompleto.SoySimiarA.ToString(Nervio.PisoOrigen.Nombre);
+            }
+            CKB_Maestro.Checked = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioGeometria.IsMaestro | F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioCompleto.IsMaestro;
         }
 
 

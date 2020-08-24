@@ -90,7 +90,7 @@ namespace FC_Diseño_de_Nervios
             {
                 if (NombrePiso != "" && NombreNervio != "")
                 {
-                    return NombrePiso != this.NombrePiso ? $"{NombreNervio} | {NombrePiso}" : NombreNervio;
+                    return NombrePiso != this.NombrePiso ? $"{NombreNervio} | {this.NombrePiso}" : NombreNervio;
                 }
                 else
                 {

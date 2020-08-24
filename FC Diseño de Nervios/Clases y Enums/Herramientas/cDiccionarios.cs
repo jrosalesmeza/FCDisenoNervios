@@ -190,7 +190,7 @@ namespace FC_Diseño_de_Nervios
             PesoBarras.Add(eNoBarra.B10, 6.40f);
 
         }
-        public static float FindTraslapo(eNoBarra NoBarra, float FC, bool isNervio)
+        public static float FindLdBarra(eNoBarra NoBarra, float FC, bool isNervio)
         {
             if (isNervio) { return cVariables.TraslapoNervio; }
             if (FC == 210f) { return Ld_210[NoBarra]; }

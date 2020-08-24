@@ -43,11 +43,14 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Nuevo_Proyecto
         {
             foreach(DataGridViewRow row in DGV_1.Rows)
             {
-                string Nivel = row.Cells[C_Nivel.Index].Value.ToString();
-                string NombreReal = row.Cells[C_NombreRealPiso.Index].Value.ToString();
-                string Nombre = row.Cells[C_NPiso.Index].Value.ToString();
-                cPiso Piso = Pisos.Find(x => x.Nombre == Nombre);
-                Piso.Nivel = Nivel;Piso.NombreReal = NombreReal;
+                if (row.Cells[C_NombreRealPiso.Index].Value != null && row.Cells[C_Nivel.Index].Value!=null)
+                {
+                    string Nivel = row.Cells[C_Nivel.Index].Value.ToString();
+                    string NombreReal = row.Cells[C_NombreRealPiso.Index].Value.ToString();
+                    string Nombre = row.Cells[C_NPiso.Index].Value.ToString();
+                    cPiso Piso = Pisos.Find(x => x.Nombre == Nombre);
+                    Piso.Nivel = Nivel; Piso.NombreReal = NombreReal;
+                }
             }
         }
 

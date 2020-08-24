@@ -83,7 +83,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
 
         private void BT_Seleccionar_Click(object sender, EventArgs e)
         {
-            cFunctionsProgram.SeleccionDataGridView(DGV_Info, C_Seleccionar.Index, false);
+            cFunctionsProgram.SeleccionDataGridView(DGV_Info, C_Seleccionar.Index);
         }
     }
 

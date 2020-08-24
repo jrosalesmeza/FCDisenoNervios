@@ -190,7 +190,7 @@ namespace FC_Diseño_de_Nervios
 
                     if (i == 0)
                     {
-                        Tabla2.AddCell(Vcell(nervio.Nombre, BordAb: 0, Colspan: 9, IsBold: true));
+                        Tabla2.AddCell(Vcell($"{nervio.Nombre} - {nervio.PisoOrigen.Nombre}", BordAb: 0, Colspan: 9, IsBold: true));
                     }
 
                     Tabla2.AddCell(Vcell(Text1, BordeD: 0, Colspan: 3));
@@ -367,7 +367,7 @@ namespace FC_Diseño_de_Nervios
             
             if (nervio != null)
             {
-                Tabla2.AddCell(Vcell(nervio.Nombre, BordAb: 0, Colspan: 6, IsBold: true)); 
+                Tabla2.AddCell(Vcell($"{nervio.Nombre} - {nervio.PisoOrigen.Nombre}", BordAb: 0, Colspan: 6, IsBold: true)); 
                 Tabla2.AddCell(Vcell("", 0, 0, 0, 0, 3));
             }
             string Text1 = $"Sección (BXH) {S1.Seccion.B}x{S1.Seccion.H} L={S1.Longitud}m";
@@ -475,7 +475,7 @@ namespace FC_Diseño_de_Nervios
 
             if (nervio != null)
             {
-                Tabla2.AddCell(Vcell(nervio.Nombre, BordAb: 0, Colspan: 3,IsBold:true));
+                Tabla2.AddCell(Vcell($"{nervio.Nombre} - {nervio.PisoOrigen.Nombre}", BordAb: 0, Colspan: 3,IsBold:true));
                 Tabla2.AddCell(Vcell("", 0, 0, 0, 0, 6));
             }
             Tabla2.AddCell(Vcell(Text1, Colspan: 3));

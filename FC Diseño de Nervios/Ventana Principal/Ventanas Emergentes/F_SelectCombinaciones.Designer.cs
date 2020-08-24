@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_SelectCombinaciones));
             this.P_1 = new System.Windows.Forms.Panel();
+            this.BT_ImportarCombianciones = new System.Windows.Forms.Button();
             this.BT_Seleccionar = new System.Windows.Forms.Button();
             this.BT_1 = new System.Windows.Forms.Button();
             this.BT_2 = new System.Windows.Forms.Button();
@@ -38,7 +39,6 @@
             this.DGV_1 = new System.Windows.Forms.DataGridView();
             this.C_NombreCombinacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.C_CheckCombinacion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.BT_ImportarCombianciones = new System.Windows.Forms.Button();
             this.P_1.SuspendLayout();
             this.P_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_1)).BeginInit();
@@ -60,6 +60,16 @@
             this.P_1.Size = new System.Drawing.Size(350, 399);
             this.P_1.TabIndex = 2;
             this.P_1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_2_MouseDown);
+            // 
+            // BT_ImportarCombianciones
+            // 
+            this.BT_ImportarCombianciones.Location = new System.Drawing.Point(12, 369);
+            this.BT_ImportarCombianciones.Name = "BT_ImportarCombianciones";
+            this.BT_ImportarCombianciones.Size = new System.Drawing.Size(77, 23);
+            this.BT_ImportarCombianciones.TabIndex = 9;
+            this.BT_ImportarCombianciones.Text = "Importar";
+            this.BT_ImportarCombianciones.UseVisualStyleBackColor = true;
+            this.BT_ImportarCombianciones.Click += new System.EventHandler(this.BT_ImportarCombianciones_Click);
             // 
             // BT_Seleccionar
             // 
@@ -157,16 +167,6 @@
             this.C_CheckCombinacion.Name = "C_CheckCombinacion";
             this.C_CheckCombinacion.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // BT_ImportarCombianciones
-            // 
-            this.BT_ImportarCombianciones.Location = new System.Drawing.Point(12, 369);
-            this.BT_ImportarCombianciones.Name = "BT_ImportarCombianciones";
-            this.BT_ImportarCombianciones.Size = new System.Drawing.Size(77, 23);
-            this.BT_ImportarCombianciones.TabIndex = 9;
-            this.BT_ImportarCombianciones.Text = "Importar";
-            this.BT_ImportarCombianciones.UseVisualStyleBackColor = true;
-            this.BT_ImportarCombianciones.Click += new System.EventHandler(this.BT_ImportarCombianciones_Click);
-            // 
             // F_SelectCombinaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -178,7 +178,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(318, 376);
             this.Name = "F_SelectCombinaciones";
-            this.Text = "F_SelectCombinaciones";
+            this.Text = "Seleccionar Combinaciones";
             this.Load += new System.EventHandler(this.F_SelectCombinaciones_Load);
             this.P_1.ResumeLayout(false);
             this.P_2.ResumeLayout(false);

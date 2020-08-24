@@ -144,7 +144,6 @@
             this.T_Timer = new System.Windows.Forms.Timer(this.components);
             this.T_AutoGuardado = new System.Windows.Forms.Timer(this.components);
             this.DP_ContenedorPrincipal = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
             this.TS_Barra1.SuspendLayout();
@@ -167,7 +166,7 @@
             this.ayudaToolStripMenuItem});
             this.MS_BarraPrincipal.Location = new System.Drawing.Point(25, 0);
             this.MS_BarraPrincipal.Name = "MS_BarraPrincipal";
-            this.MS_BarraPrincipal.Size = new System.Drawing.Size(339, 24);
+            this.MS_BarraPrincipal.Size = new System.Drawing.Size(459, 24);
             this.MS_BarraPrincipal.TabIndex = 0;
             this.MS_BarraPrincipal.Text = "Barra Principal";
             this.MS_BarraPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MS_BarraPrincipal_MouseDown);
@@ -766,8 +765,7 @@
             this.TLS_RevisarProyecto,
             this.TLSB_PesoTotal,
             this.TLSB_ExportarPDF,
-            this.TLS_7,
-            this.toolStripButton1});
+            this.TLS_7});
             this.TS_Barra1.Location = new System.Drawing.Point(0, 24);
             this.TS_Barra1.Name = "TS_Barra1";
             this.TS_Barra1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -1267,16 +1265,6 @@
             this.DP_ContenedorPrincipal.Size = new System.Drawing.Size(1179, 609);
             this.DP_ContenedorPrincipal.TabIndex = 4;
             // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 25);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
-            // 
             // F_Base
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1430,6 +1418,5 @@
         private System.Windows.Forms.ToolStripMenuItem TLSMI_PegarGeometria;
         private System.Windows.Forms.Timer T_AutoGuardado;
         private WeifenLuo.WinFormsUI.Docking.DockPanel DP_ContenedorPrincipal;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

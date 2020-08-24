@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(F_SelectNervio));
             this.P_1 = new System.Windows.Forms.Panel();
             this.GB_Propiedades = new System.Windows.Forms.GroupBox();
+            this.GB_Similitud = new System.Windows.Forms.GroupBox();
             this.CKB_NervioBorde = new System.Windows.Forms.CheckBox();
             this.PB_Info = new FontAwesome.Sharp.IconPictureBox();
             this.TB_r2 = new System.Windows.Forms.TextBox();
@@ -42,10 +43,11 @@
             this.LB_r2 = new System.Windows.Forms.Label();
             this.P_4 = new System.Windows.Forms.Panel();
             this.LB_3 = new System.Windows.Forms.Label();
+            this.GB_1 = new System.Windows.Forms.GroupBox();
             this.CB_SeccionAncho = new System.Windows.Forms.ComboBox();
-            this.LB_6 = new System.Windows.Forms.Label();
-            this.LB_7 = new System.Windows.Forms.Label();
             this.CB_SeccionAltura = new System.Windows.Forms.ComboBox();
+            this.LB_7 = new System.Windows.Forms.Label();
+            this.LB_6 = new System.Windows.Forms.Label();
             this.GB_4 = new System.Windows.Forms.GroupBox();
             this.PB_Nervios = new System.Windows.Forms.PictureBox();
             this.CMS_1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -61,14 +63,14 @@
             this.LV_Stories = new System.Windows.Forms.ListView();
             this.P_3 = new System.Windows.Forms.Panel();
             this.LB_1 = new System.Windows.Forms.Label();
-            this.GB_1 = new System.Windows.Forms.GroupBox();
-            this.GB_2 = new System.Windows.Forms.GroupBox();
             this.CKB_Maestro = new System.Windows.Forms.CheckBox();
             this.LB_NervioSimilarA = new System.Windows.Forms.Label();
             this.P_1.SuspendLayout();
             this.GB_Propiedades.SuspendLayout();
+            this.GB_Similitud.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Info)).BeginInit();
             this.P_4.SuspendLayout();
+            this.GB_1.SuspendLayout();
             this.GB_4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Nervios)).BeginInit();
             this.CMS_1.SuspendLayout();
@@ -76,8 +78,6 @@
             this.P_2.SuspendLayout();
             this.GB_Pisos.SuspendLayout();
             this.P_3.SuspendLayout();
-            this.GB_1.SuspendLayout();
-            this.GB_2.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_1
@@ -90,14 +90,14 @@
             this.P_1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_1.Location = new System.Drawing.Point(0, 0);
             this.P_1.Name = "P_1";
-            this.P_1.Size = new System.Drawing.Size(750, 614);
+            this.P_1.Size = new System.Drawing.Size(781, 615);
             this.P_1.TabIndex = 1;
             // 
             // GB_Propiedades
             // 
             this.GB_Propiedades.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GB_Propiedades.BackColor = System.Drawing.Color.LightGray;
-            this.GB_Propiedades.Controls.Add(this.GB_2);
+            this.GB_Propiedades.Controls.Add(this.GB_Similitud);
             this.GB_Propiedades.Controls.Add(this.CKB_NervioBorde);
             this.GB_Propiedades.Controls.Add(this.PB_Info);
             this.GB_Propiedades.Controls.Add(this.TB_r2);
@@ -110,12 +110,23 @@
             this.GB_Propiedades.Controls.Add(this.GB_1);
             this.GB_Propiedades.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_Propiedades.ForeColor = System.Drawing.Color.Black;
-            this.GB_Propiedades.Location = new System.Drawing.Point(3, 337);
+            this.GB_Propiedades.Location = new System.Drawing.Point(3, 332);
             this.GB_Propiedades.Name = "GB_Propiedades";
-            this.GB_Propiedades.Size = new System.Drawing.Size(161, 270);
+            this.GB_Propiedades.Size = new System.Drawing.Size(161, 276);
             this.GB_Propiedades.TabIndex = 10;
             this.GB_Propiedades.TabStop = false;
             this.GB_Propiedades.Text = "N - X | Piso X ";
+            // 
+            // GB_Similitud
+            // 
+            this.GB_Similitud.Controls.Add(this.CKB_Maestro);
+            this.GB_Similitud.Controls.Add(this.LB_NervioSimilarA);
+            this.GB_Similitud.Location = new System.Drawing.Point(9, 215);
+            this.GB_Similitud.Name = "GB_Similitud";
+            this.GB_Similitud.Size = new System.Drawing.Size(144, 58);
+            this.GB_Similitud.TabIndex = 22;
+            this.GB_Similitud.TabStop = false;
+            this.GB_Similitud.Text = "Similitud";
             // 
             // CKB_NervioBorde
             // 
@@ -221,6 +232,19 @@
             this.LB_3.Text = "PROPIEDADES";
             this.LB_3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // GB_1
+            // 
+            this.GB_1.Controls.Add(this.CB_SeccionAncho);
+            this.GB_1.Controls.Add(this.CB_SeccionAltura);
+            this.GB_1.Controls.Add(this.LB_7);
+            this.GB_1.Controls.Add(this.LB_6);
+            this.GB_1.Location = new System.Drawing.Point(6, 46);
+            this.GB_1.Name = "GB_1";
+            this.GB_1.Size = new System.Drawing.Size(147, 79);
+            this.GB_1.TabIndex = 21;
+            this.GB_1.TabStop = false;
+            this.GB_1.Text = "Sección";
+            // 
             // CB_SeccionAncho
             // 
             this.CB_SeccionAncho.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -235,24 +259,6 @@
             this.CB_SeccionAncho.Size = new System.Drawing.Size(75, 22);
             this.CB_SeccionAncho.TabIndex = 13;
             this.CB_SeccionAncho.SelectedIndexChanged += new System.EventHandler(this.CB_SeccionAncho_SelectedIndexChanged);
-            // 
-            // LB_6
-            // 
-            this.LB_6.AutoSize = true;
-            this.LB_6.Location = new System.Drawing.Point(12, 22);
-            this.LB_6.Name = "LB_6";
-            this.LB_6.Size = new System.Drawing.Size(40, 14);
-            this.LB_6.TabIndex = 10;
-            this.LB_6.Text = "Altura:";
-            // 
-            // LB_7
-            // 
-            this.LB_7.AutoSize = true;
-            this.LB_7.Location = new System.Drawing.Point(11, 54);
-            this.LB_7.Name = "LB_7";
-            this.LB_7.Size = new System.Drawing.Size(40, 14);
-            this.LB_7.TabIndex = 11;
-            this.LB_7.Text = "Ancho:";
             // 
             // CB_SeccionAltura
             // 
@@ -269,6 +275,24 @@
             this.CB_SeccionAltura.TabIndex = 12;
             this.CB_SeccionAltura.SelectedIndexChanged += new System.EventHandler(this.CB_SeccionAltura_SelectedIndexChanged);
             // 
+            // LB_7
+            // 
+            this.LB_7.AutoSize = true;
+            this.LB_7.Location = new System.Drawing.Point(11, 54);
+            this.LB_7.Name = "LB_7";
+            this.LB_7.Size = new System.Drawing.Size(40, 14);
+            this.LB_7.TabIndex = 11;
+            this.LB_7.Text = "Ancho:";
+            // 
+            // LB_6
+            // 
+            this.LB_6.AutoSize = true;
+            this.LB_6.Location = new System.Drawing.Point(12, 22);
+            this.LB_6.Name = "LB_6";
+            this.LB_6.Size = new System.Drawing.Size(40, 14);
+            this.LB_6.TabIndex = 10;
+            this.LB_6.Text = "Altura:";
+            // 
             // GB_4
             // 
             this.GB_4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -279,7 +303,7 @@
             this.GB_4.ForeColor = System.Drawing.Color.White;
             this.GB_4.Location = new System.Drawing.Point(170, 3);
             this.GB_4.Name = "GB_4";
-            this.GB_4.Size = new System.Drawing.Size(568, 604);
+            this.GB_4.Size = new System.Drawing.Size(599, 605);
             this.GB_4.TabIndex = 11;
             this.GB_4.TabStop = false;
             this.GB_4.Text = "Nervios";
@@ -292,7 +316,7 @@
             this.PB_Nervios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PB_Nervios.Location = new System.Drawing.Point(3, 18);
             this.PB_Nervios.Name = "PB_Nervios";
-            this.PB_Nervios.Size = new System.Drawing.Size(562, 583);
+            this.PB_Nervios.Size = new System.Drawing.Size(593, 584);
             this.PB_Nervios.TabIndex = 4;
             this.PB_Nervios.TabStop = false;
             this.PB_Nervios.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_Nervios_Paint);
@@ -335,7 +359,7 @@
             this.GB_Nervios.ForeColor = System.Drawing.Color.Black;
             this.GB_Nervios.Location = new System.Drawing.Point(3, 144);
             this.GB_Nervios.Name = "GB_Nervios";
-            this.GB_Nervios.Size = new System.Drawing.Size(161, 187);
+            this.GB_Nervios.Size = new System.Drawing.Size(161, 182);
             this.GB_Nervios.TabIndex = 9;
             this.GB_Nervios.TabStop = false;
             // 
@@ -374,7 +398,7 @@
             this.LV_Nervios.Location = new System.Drawing.Point(6, 69);
             this.LV_Nervios.MultiSelect = false;
             this.LV_Nervios.Name = "LV_Nervios";
-            this.LV_Nervios.Size = new System.Drawing.Size(149, 106);
+            this.LV_Nervios.Size = new System.Drawing.Size(149, 101);
             this.LV_Nervios.TabIndex = 4;
             this.LV_Nervios.UseCompatibleStateImageBehavior = false;
             this.LV_Nervios.View = System.Windows.Forms.View.SmallIcon;
@@ -448,51 +472,27 @@
             this.LB_1.TabIndex = 0;
             this.LB_1.Text = "PISOS";
             // 
-            // GB_1
-            // 
-            this.GB_1.Controls.Add(this.CB_SeccionAncho);
-            this.GB_1.Controls.Add(this.CB_SeccionAltura);
-            this.GB_1.Controls.Add(this.LB_7);
-            this.GB_1.Controls.Add(this.LB_6);
-            this.GB_1.Location = new System.Drawing.Point(6, 46);
-            this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(147, 79);
-            this.GB_1.TabIndex = 21;
-            this.GB_1.TabStop = false;
-            this.GB_1.Text = "Sección";
-            // 
-            // GB_2
-            // 
-            this.GB_2.Controls.Add(this.LB_NervioSimilarA);
-            this.GB_2.Controls.Add(this.CKB_Maestro);
-            this.GB_2.Location = new System.Drawing.Point(9, 215);
-            this.GB_2.Name = "GB_2";
-            this.GB_2.Size = new System.Drawing.Size(144, 49);
-            this.GB_2.TabIndex = 22;
-            this.GB_2.TabStop = false;
-            this.GB_2.Text = "Similitud";
-            // 
             // CKB_Maestro
             // 
             this.CKB_Maestro.AutoSize = true;
             this.CKB_Maestro.Enabled = false;
             this.CKB_Maestro.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CKB_Maestro.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.CKB_Maestro.Location = new System.Drawing.Point(10, 21);
+            this.CKB_Maestro.Location = new System.Drawing.Point(10, 18);
             this.CKB_Maestro.Name = "CKB_Maestro";
-            this.CKB_Maestro.Size = new System.Drawing.Size(79, 18);
-            this.CKB_Maestro.TabIndex = 0;
-            this.CKB_Maestro.Text = "Maestro  |";
+            this.CKB_Maestro.Size = new System.Drawing.Size(67, 18);
+            this.CKB_Maestro.TabIndex = 2;
+            this.CKB_Maestro.Text = "Maestro";
             this.CKB_Maestro.UseVisualStyleBackColor = true;
             // 
             // LB_NervioSimilarA
             // 
             this.LB_NervioSimilarA.AutoSize = true;
             this.LB_NervioSimilarA.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.LB_NervioSimilarA.Location = new System.Drawing.Point(83, 23);
+            this.LB_NervioSimilarA.Location = new System.Drawing.Point(9, 39);
             this.LB_NervioSimilarA.Name = "LB_NervioSimilarA";
             this.LB_NervioSimilarA.Size = new System.Drawing.Size(25, 14);
-            this.LB_NervioSimilarA.TabIndex = 1;
+            this.LB_NervioSimilarA.TabIndex = 3;
             this.LB_NervioSimilarA.Text = "N-1";
             // 
             // F_SelectNervio
@@ -500,7 +500,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.ClientSize = new System.Drawing.Size(750, 614);
+            this.ClientSize = new System.Drawing.Size(781, 615);
             this.Controls.Add(this.P_1);
             this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.DockLeft)));
             this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -514,8 +514,12 @@
             this.P_1.ResumeLayout(false);
             this.GB_Propiedades.ResumeLayout(false);
             this.GB_Propiedades.PerformLayout();
+            this.GB_Similitud.ResumeLayout(false);
+            this.GB_Similitud.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_Info)).EndInit();
             this.P_4.ResumeLayout(false);
+            this.GB_1.ResumeLayout(false);
+            this.GB_1.PerformLayout();
             this.GB_4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_Nervios)).EndInit();
             this.CMS_1.ResumeLayout(false);
@@ -524,10 +528,6 @@
             this.P_2.ResumeLayout(false);
             this.GB_Pisos.ResumeLayout(false);
             this.P_3.ResumeLayout(false);
-            this.GB_1.ResumeLayout(false);
-            this.GB_1.PerformLayout();
-            this.GB_2.ResumeLayout(false);
-            this.GB_2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -565,9 +565,9 @@
         private System.Windows.Forms.ToolStripMenuItem modificarEjesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reasignarEjesANerviosToolStripMenuItem;
         private System.Windows.Forms.CheckBox CKB_NervioBorde;
-        private System.Windows.Forms.GroupBox GB_2;
-        private System.Windows.Forms.Label LB_NervioSimilarA;
-        private System.Windows.Forms.CheckBox CKB_Maestro;
+        private System.Windows.Forms.GroupBox GB_Similitud;
         private System.Windows.Forms.GroupBox GB_1;
+        private System.Windows.Forms.CheckBox CKB_Maestro;
+        private System.Windows.Forms.Label LB_NervioSimilarA;
     }
 }
