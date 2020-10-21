@@ -102,7 +102,7 @@
             this.P_Title.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.P_Title.Location = new System.Drawing.Point(0, 0);
             this.P_Title.Name = "P_Title";
-            this.P_Title.Size = new System.Drawing.Size(1291, 23);
+            this.P_Title.Size = new System.Drawing.Size(1317, 23);
             this.P_Title.TabIndex = 1;
             this.P_Title.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_Title_MouseDown);
             // 
@@ -116,7 +116,7 @@
             this.BT_Cerrar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Cerrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Cerrar.Image = global::FC_Diseño_de_Nervios.Properties.Resources.x16Blanca;
-            this.BT_Cerrar.Location = new System.Drawing.Point(1251, 0);
+            this.BT_Cerrar.Location = new System.Drawing.Point(1277, 0);
             this.BT_Cerrar.Name = "BT_Cerrar";
             this.BT_Cerrar.Size = new System.Drawing.Size(40, 23);
             this.BT_Cerrar.TabIndex = 28;
@@ -175,9 +175,6 @@
             // 
             // GB_1
             // 
-            this.GB_1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.GB_1.Controls.Add(this.GB_Nomenclatura);
             this.GB_1.Controls.Add(this.GB_3);
             this.GB_1.Controls.Add(this.GB_2);
@@ -186,7 +183,7 @@
             this.GB_1.Controls.Add(this.LV_Stories);
             this.GB_1.Location = new System.Drawing.Point(10, 51);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(1274, 640);
+            this.GB_1.Size = new System.Drawing.Size(1298, 640);
             this.GB_1.TabIndex = 3;
             this.GB_1.TabStop = false;
             // 
@@ -254,16 +251,13 @@
             // 
             // GB_3
             // 
-            this.GB_3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.GB_3.Controls.Add(this.PB_InfoElementos_Enumerados);
             this.GB_3.Controls.Add(this.PB_ElementosEnumerados);
             this.GB_3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_3.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_3.Location = new System.Drawing.Point(732, 13);
             this.GB_3.Name = "GB_3";
-            this.GB_3.Size = new System.Drawing.Size(536, 623);
+            this.GB_3.Size = new System.Drawing.Size(558, 623);
             this.GB_3.TabIndex = 8;
             this.GB_3.TabStop = false;
             this.GB_3.Text = "Elementos Enumerados";
@@ -279,13 +273,10 @@
             // 
             // PB_ElementosEnumerados
             // 
-            this.PB_ElementosEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.PB_ElementosEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PB_ElementosEnumerados.Location = new System.Drawing.Point(6, 18);
             this.PB_ElementosEnumerados.Name = "PB_ElementosEnumerados";
-            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(527, 599);
+            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(545, 599);
             this.PB_ElementosEnumerados.TabIndex = 4;
             this.PB_ElementosEnumerados.TabStop = false;
             this.PB_ElementosEnumerados.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosEnumerados_MouseDown);
@@ -293,9 +284,6 @@
             // 
             // GB_2
             // 
-            this.GB_2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.GB_2.Controls.Add(this.PB_InfoElementosNoEnumerados);
             this.GB_2.Controls.Add(this.PB_ElementosNoEnumerados);
             this.GB_2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -319,9 +307,6 @@
             // 
             // PB_ElementosNoEnumerados
             // 
-            this.PB_ElementosNoEnumerados.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.PB_ElementosNoEnumerados.BackColor = System.Drawing.SystemColors.Window;
             this.PB_ElementosNoEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PB_ElementosNoEnumerados.ContextMenuStrip = this.CMS_1;
@@ -512,7 +497,7 @@
             this.P_Contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_Contenedor.Location = new System.Drawing.Point(0, 23);
             this.P_Contenedor.Name = "P_Contenedor";
-            this.P_Contenedor.Size = new System.Drawing.Size(1291, 677);
+            this.P_Contenedor.Size = new System.Drawing.Size(1317, 677);
             this.P_Contenedor.TabIndex = 4;
             // 
             // TLS_1
@@ -525,7 +510,7 @@
             this.TLSB_LimpiarSeleccion});
             this.TLS_1.Location = new System.Drawing.Point(0, 0);
             this.TLS_1.Name = "TLS_1";
-            this.TLS_1.Size = new System.Drawing.Size(1289, 28);
+            this.TLS_1.Size = new System.Drawing.Size(1315, 28);
             this.TLS_1.TabIndex = 12;
             this.TLS_1.Text = "TLS";
             // 
@@ -583,7 +568,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1291, 700);
+            this.ClientSize = new System.Drawing.Size(1317, 700);
             this.ContextMenuStrip = this.CMS_Undo_Redo;
             this.Controls.Add(this.GB_1);
             this.Controls.Add(this.P_Contenedor);
@@ -591,6 +576,7 @@
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(1317, 700);
             this.Name = "F_EnumeracionPortico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nuevo Proyecto";

@@ -35,6 +35,13 @@
             <param name="URLSERVER">URL Server</param>
             <returns></returns>
         </member>
+        <member name="M:WebTools.FuncitionsWeb.DevolverTextoPlanoDesdeServerAsync(System.String)">
+            <summary>
+            Lista de de Strings de una URL especificada
+            </summary>
+            <param name="URLSERVER">URL del Server</param>
+            <returns></returns>
+        </member>
         <member name="T:WebTools.Safe">
             <summary>
             Funciones de Seguridad [efe Prima Ce], por Ing. Jose Luis Rosales Meza. 

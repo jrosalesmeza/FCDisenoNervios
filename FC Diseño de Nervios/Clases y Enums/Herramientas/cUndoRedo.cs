@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading.Tasks;
+
 
 namespace FC_Diseño_de_Nervios
 {
@@ -47,7 +50,7 @@ namespace FC_Diseño_de_Nervios
         }
         public void EnviarEstado(T Estado)
         {
-            Lista_CtrlZ.Push(DeepClone(Estado));
+            Lista_CtrlZ.Push(CloneObject(Estado));
             Lista_Estados.Push(0);
             SaberCuandoSeHabilitaCrtlZ();
             SaberCuandoSeHabilitaCrtlY();
@@ -59,7 +62,7 @@ namespace FC_Diseño_de_Nervios
             if (Bool_CtrlZ)
             {
                 T ObjetoQueQuite = Lista_CtrlZ.Pop();
-                Lista_CtrlY.Push(DeepClone(EstadoActual));
+                Lista_CtrlY.Push(CloneObject(EstadoActual));
                 Lista_Estados.Push(0);
                 SaberCuandoSeHabilitaCrtlY();
                 SaberCuandoSeHabilitaCrtlZ();
@@ -74,7 +77,7 @@ namespace FC_Diseño_de_Nervios
             if (Bool_CtrlY)
             {
                 T ObjetoQueQuite = Lista_CtrlY.Pop();
-                Lista_CtrlZ.Push(DeepClone(EstadoActual));
+                Lista_CtrlZ.Push(CloneObject(EstadoActual));
                 Lista_Estados.Push(0);
                 SaberCuandoSeHabilitaCrtlY();
                 SaberCuandoSeHabilitaCrtlZ();
@@ -118,17 +121,11 @@ namespace FC_Diseño_de_Nervios
                 Bool_CtrlY = false;
             }
         }
-
-        private T DeepClone(T obj)
+        
+        private T CloneObject(T Obj)
         {
-            using (var ms = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(ms, obj);
-                ms.Position = 0;
-
-                return (T)formatter.Deserialize(ms);
-            }
+           return Force.DeepCloner.DeepClonerExtensions.DeepClone(Obj);
         }
+
     }
 }

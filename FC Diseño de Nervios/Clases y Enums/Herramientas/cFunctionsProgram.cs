@@ -12,6 +12,8 @@ using WebTools;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using System.Diagnostics.Contracts;
+using System.Diagnostics;
+using System.Threading;
 
 namespace FC_Diseño_de_Nervios
 {
@@ -38,6 +40,8 @@ namespace FC_Diseño_de_Nervios
 
         public static event DelegateNotificadorProgram Notificador;
         public static event DelegateVentanasEmergentes EventoVentanaEmergente;
+
+        public static PerformanceCounter cpuCounter =new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
 
         public static float ToleranciaHorizontal = 25f;
@@ -425,7 +429,7 @@ namespace FC_Diseño_de_Nervios
                     {
                         OffSetJ = Convert.ToSingle(Elemento[Elemento.ToList().FindIndex(y => y.Contains("LENGTHOFFJ")) + 1]);
                     }
-
+                    
 
                     cPiso PisoEncontrado = Lista_Pisos.Find(x => x.Nombre == NombrePiso);
                     if (PisoEncontrado != null)
@@ -578,11 +582,12 @@ namespace FC_Diseño_de_Nervios
                 ms.Position = 0;
                 T temp = (T)formatter.Deserialize(ms);
                 if (temp is cBarra)
-                    CambiarPropBarraClonada((cBarra)Convert.ChangeType(temp,typeof(cBarra)));
-                
+                    CambiarPropBarraClonada((cBarra)Convert.ChangeType(temp, typeof(cBarra)));
+
                 return temp;
             }
         }
+
         private static void CambiarPropBarraClonada(cBarra Barra)
         {
             Barra.C_Barra.IsSelect = false;
@@ -821,31 +826,32 @@ namespace FC_Diseño_de_Nervios
             {
                 cLine Objeto = ListaObjetosOrganizada[Indice];
                 int IndiceAdicional = 0;
-                if (Objeto.ConfigLinea.OffSetI != 0)
+                if (!Objeto.IsApoyo)
                 {
-                    foreach (cLine Line in TodasLasLineas)
+                    if (Objeto.ConfigLinea.OffSetI != 0)
                     {
+
                         cLine LineApoyo = FindApoyoOffSet(Objeto, TodasLasLineas, 0);
-                        if (LineApoyo != null && !ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) && 
+                        if (LineApoyo != null && !ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre) &&
                              LineApoyo.ConfigLinea.Direccion != DireccionNervio)// LineApoyo.Type != eType.Column && Agregar Linea de Codigo OJO
                         {
                             AsignarApoyosAListaConOffSet(0, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice, ref ListaObjetosOrganizada);
                             IndiceAdicional++;
-                            break;
+                            LineApoyo.IsApoyo = true;
                         }
+
                     }
-                }
-                if (Objeto.ConfigLinea.OffSetJ != 0)
-                {
-                    foreach (cLine Line in TodasLasLineas)
+                    if (Objeto.ConfigLinea.OffSetJ != 0)
                     {
+
                         cLine LineApoyo = FindApoyoOffSet(Objeto, TodasLasLineas, 1);
                         if (LineApoyo != null && !ListaObjetosOrganizada.Exists(x => x.Nombre == LineApoyo.Nombre)
                             && LineApoyo.ConfigLinea.Direccion != DireccionNervio) // LineApoyo.Type != eType.Column && Agregar Linea de Codigo OJO
                         {
-                            AsignarApoyosAListaConOffSet(1, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice+ IndiceAdicional, ref ListaObjetosOrganizada);
-                            break;
+                            AsignarApoyosAListaConOffSet(1, DeepClone(LineApoyo), ListaObjetosOrganizada, Indice + IndiceAdicional, ref ListaObjetosOrganizada);
+                            LineApoyo.IsApoyo = true;
                         }
+
                     }
                 }
             }
@@ -881,7 +887,16 @@ namespace FC_Diseño_de_Nervios
                 List<PointF> PuntosSinEscalar = new List<PointF>(); TodasLasLineas.ForEach(y => { if (y.Type == eType.Beam) { PuntosSinEscalar.AddRange(y.Planta_Real); } });
                 TodosLosGrids.ForEach(y => { PuntosSinEscalar.AddRange(y.Recta_Real); });
                 ListaObjetosFinal.ForEach(x => { TodasLasLineas.FindAll(y => y.Nombre == x.Line.Nombre && x.Soporte == eSoporte.Vano).ForEach(z => { z.isSelect = false; z.Select = false; z.IndexSelect = 0; }); x.Line.CrearPuntosPlantaEscaladaEtabsLine(PuntosSinEscalar, WidthWindow, HeightWindow, 0, 0, 1); });
-                return new cNervio(ID, Prefijo, ListaObjetosFinal, DireccionNervio, GridsParaNervios, Piso);
+
+
+                cNervio NervioNew = null;
+
+                try
+                {
+                    NervioNew = new cNervio(ID, Prefijo, ListaObjetosFinal, DireccionNervio, GridsParaNervios, Piso);
+                }
+                catch { }
+                return NervioNew;
             }
             else
             {
@@ -955,31 +970,66 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+        //private static void RenombrarNervios2(ref List<cNervio> Nervios, eNomenclatura Nomenclatura)
+        //{
+        //    char Letra = 'A';
+        //    char Letra2 = ' ';
+
+        //    int Contador = 1;
+        //    foreach (cNervio nervio in Nervios)
+        //    {
+        //        if (Nomenclatura == eNomenclatura.Alfabética)
+        //        {
+        //            string NombreFinal = Letra.ToString() + Letra2.ToString().Replace(" ", "");
+        //            nervio.Cambio_Nombre(NombreFinal);
+
+        //            if (Letra != 'Z')
+        //            {
+        //                Letra++;
+        //                if (Letra2 != ' ')
+        //                {
+        //                    Letra2++;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                Letra = 'A';
+        //                Letra2 = 'A';
+        //            }
+        //        }
+        //        else
+        //        {
+        //            nervio.Cambio_Nombre(Contador.ToString());
+        //            Contador++;
+        //        }
+        //    }
+        //}
         private static void RenombrarNervios2(ref List<cNervio> Nervios, eNomenclatura Nomenclatura)
         {
-            char Letra = 'A';
-            char Letra2 = ' ';
-
+            List<char> Letras = new List<char>();
+            Letras.Add('A');
             int Contador = 1;
             foreach (cNervio nervio in Nervios)
             {
                 if (Nomenclatura == eNomenclatura.Alfabética)
                 {
-                    string NombreFinal = Letra.ToString() + Letra2.ToString().Replace(" ", "");
+                    string NombreFinal = string.Join("", Letras);
                     nervio.Cambio_Nombre(NombreFinal);
 
-                    if (Letra != 'Z')
+                    if (Letras.Last() == 'Z')
                     {
-                        Letra++;
-                        if (Letra2 != ' ')
+                        for(int i=0;i< Letras.Count;i++)
                         {
-                            Letra2++;
+                            Letras[i] = 'A';
                         }
+                        Letras.Add('A');
                     }
-                    else
+                    else 
                     {
-                        Letra = 'A';
-                        Letra2 = 'A';
+                        for (int i = 0; i < Letras.Count; i++)
+                        {
+                            Letras[i]++;
+                        }
                     }
                 }
                 else
@@ -989,7 +1039,6 @@ namespace FC_Diseño_de_Nervios
                 }
             }
         }
-
         public static cTendencia CrearTendenciaDefault(int IDTendencia, cTendencia_Refuerzo Tendencia_Refuerzo_Origen, eUbicacionRefuerzo Ubicacion)
         {
             cTendencia Tendencia = new cTendencia(IDTendencia, Tendencia_Refuerzo_Origen);
@@ -1249,6 +1298,7 @@ namespace FC_Diseño_de_Nervios
             Notificador?.Invoke("Listo");
         }
 
+
         public static void Deserealizar<T>(string Ruta, ref T Objeto)
         {
             Notificador?.Invoke("Cargando...");
@@ -1263,7 +1313,6 @@ namespace FC_Diseño_de_Nervios
             catch (Exception ex) { EventoVentanaEmergente?.Invoke(ex.Message, MessageBoxIcon.Exclamation); }
             Notificador?.Invoke("Listo");
         }
-
 
         #region Metodos Para Calculos
         /// <summary>
@@ -1398,6 +1447,8 @@ namespace FC_Diseño_de_Nervios
         {
 
             int DeltaE = Estaciones.Count / 3;
+            if (DeltaE == 0)
+                DeltaE = 1;
             float As0, As1, As2;
             float Mu0, Mu1, Mu2;
             float Asr0, Asr1, Asr2;
@@ -1561,17 +1612,20 @@ namespace FC_Diseño_de_Nervios
 
             eNoBarra BarraPropuesta = ProponerUnaBarra(Asmin, Nervio.Tendencia_Refuerzos.TInfeSelect.BarrasAEmplearBase, Nervio);
             List<cPuntoInfelxion> puntoInfelxions = PuntosInfelxions(Nervio.Lista_Tramos, eUbicacionRefuerzo.Inferior);
-            foreach (List<IElemento> elementos in ListaElementos)
+            if (BarraPropuesta!= eNoBarra.BNone)
             {
-                if (elementos.First(x => x is cSubTramo).Seccion.B > 12 && Nervio.CambioenAltura == eCambioenAltura.Inferior || Nervio.NervioBorde)
+                foreach (List<IElemento> elementos in ListaElementos)
                 {
-                    float AminAux = elementos.First(y => y is cSubTramo).Seccion.B * elementos.First(y => y is cSubTramo).Seccion.H * Nervio.Tendencia_Refuerzos.TInfeSelect.CuantiaMinima;
-                    eNoBarra BarraP2 = ProponerUnaBarra(AminAux / 2f, Nervio.Tendencia_Refuerzos.TInfeSelect.BarrasAEmplearBase, Nervio);
-                    CrearBarraContinuaInferior(elementos, 2, BarraP2, Nervio.Tendencia_Refuerzos.TInfeSelect, puntoInfelxions);
-                }
-                else
-                {
-                    CrearBarraContinuaInferior(elementos, 1, BarraPropuesta, Nervio.Tendencia_Refuerzos.TInfeSelect, puntoInfelxions);
+                    if (elementos.First(x => x is cSubTramo).Seccion.B > 12 && Nervio.CambioenAltura == eCambioenAltura.Inferior || Nervio.NervioBorde)
+                    {
+                        float AminAux = elementos.First(y => y is cSubTramo).Seccion.B * elementos.First(y => y is cSubTramo).Seccion.H * Nervio.Tendencia_Refuerzos.TInfeSelect.CuantiaMinima;
+                        eNoBarra BarraP2 = ProponerUnaBarra(AminAux / 2f, Nervio.Tendencia_Refuerzos.TInfeSelect.BarrasAEmplearBase, Nervio);
+                        CrearBarraContinuaInferior(elementos, 2, BarraP2, Nervio.Tendencia_Refuerzos.TInfeSelect, puntoInfelxions);
+                    }
+                    else
+                    {
+                        CrearBarraContinuaInferior(elementos, 1, BarraPropuesta, Nervio.Tendencia_Refuerzos.TInfeSelect, puntoInfelxions);
+                    }
                 }
             }
 
@@ -1640,8 +1694,6 @@ namespace FC_Diseño_de_Nervios
             #endregion
             #endregion
 
-            ControlErroresDiseño(Nervio, Nervio.Tendencia_Refuerzos.TInfeSelect);
-            ControlErroresApoyos(Nervio);
        
         }
 
@@ -2139,14 +2191,17 @@ namespace FC_Diseño_de_Nervios
             if (PuntosInfexion2.Count > 0)
             {
                 // ReorganizarPuntosInfelxionRSuperior(ref PuntosInfexion2, Nervio);
-                OrdenarPuntosInflexion(PuntosInfexion2);
-                if (PuntosInfexion2.Count % 2 == 0)
-                {
-                    for (int i = 0; i < PuntosInfexion2.Count; i += 2)
-                    {
-                        cPuntoInfelxion PI1 = PuntosInfexion2[i];
-                        cPuntoInfelxion PI2 = PuntosInfexion2[i + 1];
 
+                for (int i = 0; i < PuntosInfexion2.Count; i++)
+                {
+                    cPuntoInfelxion PI1 = PuntosInfexion2[i];
+                    cPuntoInfelxion PI2 = null;
+                    if (i + 1 < PuntosInfexion2.Count) {
+                        PI2 = PuntosInfexion2[i + 1]; 
+                    }
+   
+                    if (EncontraApoyoEntreDosPIs(PI1, PI2, Nervio) && !PI1.Agrego && !PI2.Agrego)
+                    {
                         List<cEstacion> Estaciones = new List<cEstacion>();
                         Nervio.Lista_Tramos.ForEach(Tramo =>
                         {
@@ -2234,16 +2289,11 @@ namespace FC_Diseño_de_Nervios
                             CrearBarra2(BarraPropuesta3, eUbicacionRefuerzo.Superior, 1, CoordX.First(), CoordX.Last(), ref tendencia, GI, GD);
                         }
 
-
+                        PI1.Agrego = true;
+                        PI2.Agrego = true;
                     }
                 }
-                else
-                {
-
-
-
-
-                }
+       
             }
             else
             {
@@ -2429,10 +2479,27 @@ namespace FC_Diseño_de_Nervios
             #endregion
 
         }
-        private static void OrdenarPuntosInflexion(List<cPuntoInfelxion> PTIs)
+
+        private static bool EncontraApoyoEntreDosPIs(cPuntoInfelxion P1,cPuntoInfelxion P2,cNervio nervio)
         {
+            var Apoyos = nervio.Lista_Elementos.FindAll(y => y.Soporte == eSoporte.Apoyo).ToList();
+            bool Encontro = false;
+            if (P1 != null && P2 != null)
+            {
+                Apoyos.ForEach(a =>
+                {
+                    float Xmin = a.Vistas.Perfil_AutoCAD.Reales.Min(y=>y.X);
+                    if (P1.CoordX <= Xmin && P2.CoordX >= Xmin)
+                    {
+                        Encontro = true;
+                    }
+                });
+            }
+            return Encontro;
 
         }
+
+
         public static void CorregirCoordXBarra(ref List<float> CoordX, cNervio Nervio, ref eTipoGancho GI, ref eTipoGancho GD)
         {
             float Xo = CoordX.First(); float Xf = CoordX.Last();
@@ -2878,7 +2945,8 @@ namespace FC_Diseño_de_Nervios
             }
             else if (EstacionAnterior == null && EstacionPosterior != null)
             {
-                if (EstacionActual.Calculos.Envolvente.M3[I] == 0)
+                if (EstacionActual.Calculos.Envolvente.M3[I] <= cVariables.MomentoMinimoPIExtremos && 
+                    -cVariables.MomentoMinimoPIExtremos<= EstacionActual.Calculos.Envolvente.M3[I])
                 {
                     if (EstacionPosterior.Calculos.Envolvente.M3[I] != 0)
                     {
@@ -2890,8 +2958,9 @@ namespace FC_Diseño_de_Nervios
             else if (EstacionAnterior != null && EstacionPosterior == null)
             {
 
-                if (EstacionActual.Calculos.Envolvente.M3[I] == 0)
-                {
+                if (EstacionActual.Calculos.Envolvente.M3[I] <= cVariables.MomentoMinimoPIExtremos &&
+                    -cVariables.MomentoMinimoPIExtremos <= EstacionActual.Calculos.Envolvente.M3[I]) 
+                { 
                     if (EstacionAnterior.Calculos.Envolvente.M3[I] != 0)
                     {
                         return new cPuntoInfelxion(EstacionActual);
@@ -3295,21 +3364,49 @@ namespace FC_Diseño_de_Nervios
                     switch (Disenar)
                     {
                         case eTipoRefuerzo.Longitudinal:
-                            DiseñarNervioFlexion(Nervio);
+                            try
+                            {
+                                DiseñarNervioFlexion(Nervio);
+                            }
+                            catch {    }
                             break;
                         case eTipoRefuerzo.Transversal:
-                            DiseñarNervioCortante(Nervio);
-                            break;
+                            try
+                            {
+                                DiseñarNervioCortante(Nervio);
+                            }
+                            catch { }
+                    break;
                         case eTipoRefuerzo.Todo:
-                            DiseñarNervioFlexion(Nervio);
-                            DiseñarNervioCortante(Nervio);
+                            try
+                            {
+                                DiseñarNervioFlexion(Nervio);
+                            }
+                            catch
+                            {
+
+                            }
+                            try
+                            {
+                                DiseñarNervioCortante(Nervio);
+                            }
+                            catch
+                            {
+
+                            }
                             break;
                         default:
                             break;
                     }
                 }
+
+                ControlErroresDiseño(Nervio, Nervio.Tendencia_Refuerzos.TInfeSelect);
+                ControlErroresApoyos(Nervio);
             }
+
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = NervioInicial;
+            
+
             if (Nervios.Count > 1)
             {
                 EventoVentanaEmergente("Nervios Diseñados con Éxito.", MessageBoxIcon.Information);
@@ -3551,9 +3648,17 @@ namespace FC_Diseño_de_Nervios
 
 
 
-  
+        public static void CheckCPUUsageAndSleepThread(PerformanceCounter cpuCounter)
+        {
+            if (cpuCounter.NextValue() > 80)
+            {
+                Thread.Sleep(F_Base.PropiedadesPrograma.TimerSleep);
+            }
+        }
 
-   
+
+
+
 
     }
 }

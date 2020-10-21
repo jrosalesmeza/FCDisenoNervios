@@ -59,7 +59,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
         }
         private void F_CopiarPegarDisenar_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == (char)Keys.Escape | e.KeyChar==(char)Keys.Enter)    
+            if(e.KeyChar==(char)Keys.Enter)    
                Close();
         }
 
@@ -74,6 +74,11 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes
                 if (!CKB_RLongitudinal.Checked && !CKB_RTransversal.Checked)
                     CKB_RLongitudinal.Checked = true;
             }
+        }
+
+        private void BT_Aceptar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -25,22 +25,23 @@ namespace FC_Diseño_de_Nervios
             }
             else
             {
-                float DistX = Math.Abs(Point1P.X - Point2P.X);
-                float DistY = Math.Abs(Point1P.Y - Point2P.Y);
-                float Pendiente_Grados = (float)Math.Atan(DistY / DistX)* cConversiones.Angulo_Rad_to_Grad;
+                Direccion = eDireccion.Diagonal;
+                //float DistX = Math.Abs(Point1P.X - Point2P.X);
+                //float DistY = Math.Abs(Point1P.Y - Point2P.Y);
+                //float Pendiente_Grados = (float)Math.Atan(DistY / DistX)* cConversiones.Angulo_Rad_to_Grad;
 
-                if (Pendiente_Grados >= cFunctionsProgram.ToleranciaVertical)
-                {
-                    Direccion = eDireccion.Vertical;
-                }
-                else if(Pendiente_Grados<= cFunctionsProgram.ToleranciaHorizontal)
-                {
-                    Direccion = eDireccion.Horizontal;
-                }
-                else
-                {
-                    Direccion = eDireccion.Diagonal;
-                }
+                //if (Pendiente_Grados >= cFunctionsProgram.ToleranciaVertical)
+                //{
+                //    Direccion = eDireccion.Vertical;
+                //}
+                //else if(Pendiente_Grados<= cFunctionsProgram.ToleranciaHorizontal)
+                //{
+                //    Direccion = eDireccion.Horizontal;
+                //}
+                //else
+                //{
+                //    Direccion = eDireccion.Diagonal;
+                //}
       
             }
         }
@@ -69,7 +70,7 @@ namespace FC_Diseño_de_Nervios
 
         public void Direccionar_Ejes()
         {
-            if (Point1P.Y == Point2P.Y || Point1P.X != Point2P.X && Point1P.Y != Point2P.Y) //Caso Horizontal Y Diagonal
+            if (Direccion== eDireccion.Diagonal || Direccion== eDireccion.Horizontal) //Caso Horizontal Y Diagonal
             {
                 if (Point1P.X > Point2P.X)
                 {

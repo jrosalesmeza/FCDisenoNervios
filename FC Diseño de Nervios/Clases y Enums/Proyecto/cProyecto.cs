@@ -20,6 +20,7 @@ namespace FC_Diseño_de_Nervios
         public eTipoRefuerzo TipoRefuerzo { get; set; } = eTipoRefuerzo.Todo;
         public bool EtiquetasDeBarras { get; set; } = true;
         public bool AcotamientoInteligente { get; set; } = true;
+        public bool AcotamientoTraslapos { get; set; } = false;
         public bool RedondearBarra { get; set; } = true;
         public bool CoordenadasPInterseccion { get; set; } = false;
 

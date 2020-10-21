@@ -70,7 +70,6 @@ namespace FC_Diseño_de_Nervios
             T_Timer.Start();
             SetStyle(ControlStyles.ResizeRedraw, true);
             ST_Base.SizingGrip = false;
-            MaximizedBounds = Screen.FromHandle(Handle).WorkingArea;
             F_Base_ = this;
         }
 
@@ -756,6 +755,9 @@ namespace FC_Diseño_de_Nervios
 
         private void BT_MaxRest_Click(object sender, EventArgs e)
         {
+            Rectangle RectangeScreen = Screen.FromHandle(Handle).WorkingArea;
+
+            MaximizedBounds = new Rectangle(0, 0, RectangeScreen.Width, RectangeScreen.Height);
             if (WindowState == FormWindowState.Normal)
             {
                 WindowState = FormWindowState.Maximized;

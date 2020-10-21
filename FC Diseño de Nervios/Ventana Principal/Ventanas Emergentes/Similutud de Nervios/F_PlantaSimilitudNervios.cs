@@ -79,8 +79,9 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_
             PisoSelect.Nervios.ForEach(x => x.Lista_Objetos.ForEach(y => PointsSinEscalar.AddRange(y.Line.Planta_Real)));
             PisoSelect.Lista_Lines.ForEach(y => PointsSinEscalar.AddRange(y.Planta_Real));
 
-            PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, Width, Height, Dx, Dy, Zoom,true));
-            PisoSelect.Nervios.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, Width, Height, Dx,Dy, Zoom,true)));
+
+
+
 
             GL.Viewport(0, 0, Width, Height);
 
@@ -93,8 +94,45 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_
 
             GL.ClearColor(Color.White);
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            PisoSelect.Lista_Lines.ForEach(y => y.PaintPlantaEscalada(false, isSelect: false));
-            PisoSelect.Nervios.ForEach(y => y.Paint_SimilaresOpenGL());
+
+            if (F_Base.PropiedadesPrograma.LineasPretrazado)
+            {
+                if (F_Base.PropiedadesPrograma.FuncionesEnParalelo)
+                {
+                    Parallel.ForEach(PisoSelect.Lista_Lines, y =>
+                    {
+                        y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, Width, Height, Dx, Dy, Zoom, true);
+
+                    });
+                }
+                else
+                {
+                    PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, Width, Height, Dx, Dy, Zoom, true));
+                }
+                PisoSelect.Lista_Lines.ForEach(y => y.PaintPlantaEscalada(false, isSelect: false));
+            }
+
+            if (F_Base.PropiedadesPrograma.FuncionesEnParalelo)
+            {
+                Parallel.ForEach(PisoSelect.Nervios,
+                x =>
+                {
+                    cFunctionsProgram.CheckCPUUsageAndSleepThread(cFunctionsProgram.cpuCounter);
+                    x.Lista_Objetos.ForEach(y => y.Line.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, Width, Height, Dx, Dy, Zoom, true));
+
+                });
+
+                PisoSelect.Nervios.ForEach(x => x.Paint_SimilaresOpenGL());
+            }
+            else
+            {
+                PisoSelect.Nervios.ForEach(
+                x =>
+                {
+                    x.Lista_Objetos.ForEach(y => y.Line.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, Width, Height, Dx, Dy, Zoom, true));
+                    x.Paint_SimilaresOpenGL();
+                });
+            }
 
             GL.Flush();
             GL_Control1.SwapBuffers();

@@ -1,7 +1,9 @@
 ﻿using FC_BFunctionsAutoCAD;
+using Microsoft.SqlServer.Server;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -215,6 +217,89 @@ namespace FC_Diseño_de_Nervios
         {
             return Xi - Xo;
         }
+
+        public void PaintTraslapos(Graphics e,float Zoom)
+        {
+            try
+            {
+                float Hpixeles = 30;
+                Barras.ForEach(B =>
+                {
+
+                    if (B.TraslpaoDerecha)
+                    {
+                        cBarra B2 = Barras.Find(y => y.TraslapoIzquierda && XiPerteneceaX0X1(B.XI, B.XF, y.XI) && y != B);
+
+                        if (B2 != null)
+                        {
+
+                            PaintCotaHorizontal(e, new PointF(B2.C_Barra.Escaladas.Min(y => y.X), B2.C_Barra.Escaladas.Max(y => y.Y)),
+                                new PointF(B.C_Barra.Escaladas.Max(y => y.X), B.C_Barra.Escaladas.Max(y => y.Y)),
+                                new PointF(B2.C_Barra.Reales.Min(y => y.X), B2.C_Barra.Reales.Max(y => y.Y)),
+                                new PointF(B.C_Barra.Reales.Max(y => y.X), B.C_Barra.Reales.Max(y => y.Y)),
+                                Hpixeles, UbicacionRefuerzo == eUbicacionRefuerzo.Inferior, Zoom);
+                        }
+
+                    }
+
+
+                });
+            }
+            catch
+            {
+
+            }
+        }
+        public static void PaintCotaHorizontal(Graphics e,PointF p1, PointF p2, PointF p1R, PointF p2R, float H,bool Arriba,float Zoom)
+        {
+            Pen PenCota = new Pen(Brushes.Gray, 2); PenCota.DashStyle = DashStyle.Dot;
+            string Cota = string.Format("{0:0.00}", Math.Abs(p2R.X - p1R.X));
+            float TamanoLetra = 9;
+            if (Zoom == 1)
+                H = H / 2F;
+            Font Font1 = new Font("Calibri", TamanoLetra, FontStyle.Bold);
+            SizeF SText = e.MeasureString(Cota, Font1);
+            SolidBrush Brush_String = new SolidBrush(Color.FromArgb(0, 0, 0));
+            float DeltaY = Math.Abs(p1.Y - p2.Y);
+
+            float DeltaY1 = H; float DeltaY2= H;
+            if (Arriba)
+            {
+                if (p1.Y > p2.Y)
+                {
+                    DeltaY1 += DeltaY;
+                }
+                else
+                {
+                    DeltaY2 += DeltaY;
+                }
+            }
+            else
+            {
+                if (p1.Y < p2.Y)
+                {
+                    DeltaY1 += DeltaY;
+                }
+                else
+                {
+                    DeltaY2 += DeltaY;
+                }
+            }
+
+            float CoordYText = p1.Y - DeltaY1 - SText.Height / 2;
+            if (!Arriba)
+            {
+                CoordYText = p1.Y + DeltaY1 + SText.Height / 2;
+                DeltaY1 = -DeltaY1;DeltaY2 = -DeltaY2;
+            }
+            PointF PointString = new PointF(p1.X+Math.Abs(p1.X - p2.X) / 2f - SText.Width / 2f, CoordYText);     
+            e.DrawLine(PenCota, new PointF(p1.X, p1.Y), new PointF(p1.X, p1.Y - DeltaY1));
+            e.DrawLine(PenCota, new PointF(p2.X, p2.Y), new PointF(p2.X, p2.Y - DeltaY2));
+            e.DrawLine(PenCota, new PointF(p1.X, p1.Y- DeltaY1), new PointF(p2.X, p2.Y - DeltaY2));
+            e.DrawString(Cota, Font1, Brush_String, PointString);
+        }
+
+
 
 
 

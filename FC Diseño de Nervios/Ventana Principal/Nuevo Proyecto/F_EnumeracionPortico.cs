@@ -193,7 +193,22 @@ namespace FC_Diseño_de_Nervios
             List<PointF> PointsSinEscalar = new List<PointF>();
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) { PointsSinEscalar.AddRange(y.Planta_Real); } });
             F_Base.Proyecto.DatosEtabs.Lista_Grids.ForEach(y => { PointsSinEscalar.AddRange(y.Recta_Real); });
-            F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, Dx, Dy, Zoom));
+
+            if (F_Base.PropiedadesPrograma.FuncionesEnParalelo)
+            {
+                Parallel.ForEach(F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines, 
+                    y =>
+                    {
+                        cFunctionsProgram.CheckCPUUsageAndSleepThread(cFunctionsProgram.cpuCounter);
+                        y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, Dx, Dy, Zoom);
+
+                    });
+            }
+            else
+            {
+                F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, Dx, Dy, Zoom));
+            }
+               
             F_Base.Proyecto.DatosEtabs.Lista_Grids.ForEach(y => y.CrearPuntosPlantaEscaladaEtabs(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, Dx, Dy, Zoom));
             F_Base.Proyecto.DatosEtabs.Lista_Grids.ForEach(y => y.Paint(e.Graphics,Zoom));
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) y.PaintPlantaEscaladaEtabsLine(e.Graphics); });
@@ -338,7 +353,9 @@ namespace FC_Diseño_de_Nervios
 
         private void BT_Enumerar_Click(object sender, EventArgs e)
         {
-            F_Base.EnviarEstado(F_Base.Proyecto);
+            if (F_Base.PropiedadesPrograma.DeshacerRehacer)
+                F_Base.EnviarEstado(F_Base.Proyecto);
+
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => x.IndiceConjuntoSeleccion = 0);
             List<cLine> LineasSeleccionadas = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(x => x.Select == true).ToList();
             CreaNervios(TB_Nombramiento.Text, LineasSeleccionadas);
@@ -393,10 +410,28 @@ namespace FC_Diseño_de_Nervios
             List<PointF> PointsSinEscalar = new List<PointF>();
             F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => { if (y.Type == eType.Beam) { PointsSinEscalar.AddRange(y.Planta_Real); } });
             F_Base.Proyecto.Edificio.Lista_Grids.ForEach(y => { PointsSinEscalar.AddRange(y.Recta_Real); });
-            F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, 0, 0, 1));
+            if (F_Base.PropiedadesPrograma.LineasPretrazado)
+            {
+                if (F_Base.PropiedadesPrograma.FuncionesEnParalelo)
+                {
+                    Parallel.ForEach(F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines,
+                    y =>
+                    {
+                        cFunctionsProgram.CheckCPUUsageAndSleepThread(cFunctionsProgram.cpuCounter);
+                        y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, Dx, Dy, Zoom);
+
+                    });
+                }
+                else
+                {
+                    F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(y => y.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, Dx, Dy, Zoom));
+                }
+                F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(x => { x.IndexSelect = 0; x.isSelect = false; x.PaintPlantaEscaladaEtabsLine(e.Graphics); });
+            }
+
             F_Base.Proyecto.Edificio.Lista_Grids.ForEach(y => y.CrearPuntosPlantaEscaladaEtabs(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, 0, 0, 1));
             F_Base.Proyecto.Edificio.Lista_Grids.ForEach(y => y.Paint(e.Graphics, 1));
-            F_Base.Proyecto.Edificio.PisoSelect.Lista_Lines.ForEach(x => { x.IndexSelect = 0; x.isSelect = false; x.PaintPlantaEscaladaEtabsLine(e.Graphics); });
+
             if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
             {
                 F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.CrearPuntosPlantaEscaladaEtabsLine(PointsSinEscalar, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, 0, 0, 1))); ;
@@ -435,7 +470,8 @@ namespace FC_Diseño_de_Nervios
         {
             if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
             {
-                F_Base.EnviarEstado(F_Base.Proyecto);
+                if (F_Base.PropiedadesPrograma.DeshacerRehacer)
+                    F_Base.EnviarEstado(F_Base.Proyecto);
                 List<cNervio> NerviosSelects = F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(x => x.SelectPlantaEnumeracion == true).ToList();
                 List<int> IDsAEliminar;
                 if (NerviosSelects != null)
@@ -459,7 +495,8 @@ namespace FC_Diseño_de_Nervios
         private void BT_CrtierioFC_Click(object sender, EventArgs e)
         {
             cFunctionsProgram.Notificar("Cargando, Creando Nervios.");
-            F_Base.EnviarEstado(F_Base.Proyecto);
+            if (F_Base.PropiedadesPrograma.DeshacerRehacer)
+                F_Base.EnviarEstado(F_Base.Proyecto);
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => { x.IndiceConjuntoSeleccion = 0; x.isSelect = true; });
             F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre).Nervios = new List<cNervio>();
             List<cLine> LineasSeleccionadas = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(x => x.Type == eType.Beam && x.Seccion != null && x.Seccion.Nombre.Contains("N")).ToList();

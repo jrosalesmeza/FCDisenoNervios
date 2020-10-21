@@ -63,3 +63,5 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\Ope
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.xml
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.GLControl.pdb
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.GLControl.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_Operaciones_Matricialesl.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_de_Nervios.F_AgrupacionSimilitudNervios.resources

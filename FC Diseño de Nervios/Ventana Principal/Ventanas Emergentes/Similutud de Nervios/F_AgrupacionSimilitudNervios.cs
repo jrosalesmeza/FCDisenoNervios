@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_de_Nervios

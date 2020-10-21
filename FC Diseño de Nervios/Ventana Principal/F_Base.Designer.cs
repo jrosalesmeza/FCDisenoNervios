@@ -166,7 +166,7 @@
             this.ayudaToolStripMenuItem});
             this.MS_BarraPrincipal.Location = new System.Drawing.Point(25, 0);
             this.MS_BarraPrincipal.Name = "MS_BarraPrincipal";
-            this.MS_BarraPrincipal.Size = new System.Drawing.Size(459, 24);
+            this.MS_BarraPrincipal.Size = new System.Drawing.Size(339, 24);
             this.MS_BarraPrincipal.TabIndex = 0;
             this.MS_BarraPrincipal.Text = "Barra Principal";
             this.MS_BarraPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MS_BarraPrincipal_MouseDown);
@@ -673,7 +673,7 @@
             this.propiedadesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.propiedadesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("propiedadesToolStripMenuItem.Image")));
             this.propiedadesToolStripMenuItem.Name = "propiedadesToolStripMenuItem";
-            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.propiedadesToolStripMenuItem.Text = "Propiedades";
             this.propiedadesToolStripMenuItem.Click += new System.EventHandler(this.propiedadesToolStripMenuItem_Click);
             // 

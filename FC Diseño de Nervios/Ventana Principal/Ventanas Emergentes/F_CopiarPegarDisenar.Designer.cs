@@ -33,6 +33,7 @@
             this.P_2 = new System.Windows.Forms.Panel();
             this.CKB_RLongitudinal = new System.Windows.Forms.CheckBox();
             this.CKB_RTransversal = new System.Windows.Forms.CheckBox();
+            this.BT_Aceptar = new System.Windows.Forms.Button();
             this.GB_1.SuspendLayout();
             this.P_2.SuspendLayout();
             this.SuspendLayout();
@@ -41,9 +42,9 @@
             // 
             this.GB_1.Controls.Add(this.P_2);
             this.GB_1.ForeColor = System.Drawing.Color.White;
-            this.GB_1.Location = new System.Drawing.Point(12, 6);
+            this.GB_1.Location = new System.Drawing.Point(3, 2);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(164, 85);
+            this.GB_1.Size = new System.Drawing.Size(167, 101);
             this.GB_1.TabIndex = 31;
             this.GB_1.TabStop = false;
             this.GB_1.Text = "Seleccionar Refuerzo";
@@ -51,13 +52,14 @@
             // P_2
             // 
             this.P_2.BackColor = System.Drawing.Color.LightGray;
+            this.P_2.Controls.Add(this.BT_Aceptar);
             this.P_2.Controls.Add(this.CKB_RLongitudinal);
             this.P_2.Controls.Add(this.CKB_RTransversal);
             this.P_2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_2.ForeColor = System.Drawing.Color.White;
             this.P_2.Location = new System.Drawing.Point(3, 16);
             this.P_2.Name = "P_2";
-            this.P_2.Size = new System.Drawing.Size(158, 66);
+            this.P_2.Size = new System.Drawing.Size(161, 82);
             this.P_2.TabIndex = 0;
             // 
             // CKB_RLongitudinal
@@ -84,12 +86,23 @@
             this.CKB_RTransversal.UseVisualStyleBackColor = true;
             this.CKB_RTransversal.CheckedChanged += new System.EventHandler(this.CKB_RLongitudinal_CheckedChanged);
             // 
+            // BT_Aceptar
+            // 
+            this.BT_Aceptar.ForeColor = System.Drawing.Color.Black;
+            this.BT_Aceptar.Location = new System.Drawing.Point(51, 56);
+            this.BT_Aceptar.Name = "BT_Aceptar";
+            this.BT_Aceptar.Size = new System.Drawing.Size(60, 23);
+            this.BT_Aceptar.TabIndex = 16;
+            this.BT_Aceptar.Text = "Ok";
+            this.BT_Aceptar.UseVisualStyleBackColor = true;
+            this.BT_Aceptar.Click += new System.EventHandler(this.BT_Aceptar_Click);
+            // 
             // F_CopiarPegarDisenar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(185, 98);
+            this.ClientSize = new System.Drawing.Size(174, 106);
             this.Controls.Add(this.GB_1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -111,5 +124,6 @@
         private System.Windows.Forms.Panel P_2;
         private System.Windows.Forms.CheckBox CKB_RLongitudinal;
         private System.Windows.Forms.CheckBox CKB_RTransversal;
+        private System.Windows.Forms.Button BT_Aceptar;
     }
 }

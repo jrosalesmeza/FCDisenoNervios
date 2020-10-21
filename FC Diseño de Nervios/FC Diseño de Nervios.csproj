@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>FC_Diseño_de_Nervios</RootNamespace>
     <AssemblyName>FC Diseño de Nervios</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -27,6 +27,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,6 +62,9 @@
     <Reference Include="B_Operaciones_Matricialesl">
       <HintPath>..\..\Bibliotecas\B_Operaciones_Matricialesl\B_Operaciones_Matricialesl\bin\Debug\B_Operaciones_Matricialesl.dll</HintPath>
     </Reference>
+    <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
+      <HintPath>packages\DeepCloner.0.10.2\lib\net40\DeepCloner.dll</HintPath>
+    </Reference>
     <Reference Include="FontAwesome.Sharp, Version=5.12.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome.Sharp.5.12.1\lib\net45\FontAwesome.Sharp.dll</HintPath>
     </Reference>
@@ -79,23 +83,17 @@
     <Reference Include="OpenTK.GLControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
     <Reference Include="WebTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Bibliotecas\B_WebTools\WebTools\bin\Debug\WebTools.dll</HintPath>
@@ -112,6 +110,7 @@
     <Compile Include="Clases y Enums\Herramientas\cFuncion_CargarSolcitaciones.cs" />
     <Compile Include="Clases y Enums\Herramientas\cPDF.cs" />
     <Compile Include="Clases y Enums\Herramientas\cSafe.cs" />
+    <Compile Include="Clases y Enums\Herramientas\Extensiones.cs" />
     <Compile Include="Clases y Enums\Nervio\cPropiedadesDisenoAutoCAD.cs" />
     <Compile Include="Clases y Enums\Nervio\cSimilitudNervio.cs" />
     <Compile Include="Clases y Enums\Nervio\cResultados.cs" />

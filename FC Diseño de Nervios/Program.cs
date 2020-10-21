@@ -11,7 +11,7 @@ namespace FC_Diseño_de_Nervios
 {
     static class Program
     {
-        public const float Version = 1.02f;
+        public const float Version = 1.05f;
         [STAThread]
         static void Main()
         {

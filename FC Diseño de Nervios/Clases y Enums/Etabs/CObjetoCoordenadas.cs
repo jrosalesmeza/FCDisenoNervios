@@ -48,23 +48,22 @@ namespace FC_Diseño_de_Nervios
 
         public void PaintPlantaEscaladaEtabsLine(Graphics e)
         {
-
-            Pen PenElementSinSeleccionar = new Pen(Color.FromArgb(0, 104, 149), 2);
-            Pen PenElementSeleccionar = new Pen(Color.FromArgb(220, 136, 21), 2);
-            Pen PenElementisSelectFalse = new Pen(Color.FromArgb(227, 227, 227), 2);
-            if (Select)
+            if (Planta_Escalado != null)
             {
-                e.DrawLines(PenElementSeleccionar, Planta_Escalado.ToArray());
-            }
-            else
-            {
-                if (isSelect)
+                if (Select)
                 {
-                    e.DrawLines(PenElementSinSeleccionar, Planta_Escalado.ToArray());
+                    e.DrawLines(cVariables.PenElementSeleccionar, Planta_Escalado.ToArray());
                 }
                 else
                 {
-                    e.DrawLines(PenElementisSelectFalse, Planta_Escalado.ToArray());
+                    if (isSelect)
+                    {
+                        e.DrawLines(cVariables.PenElementSinSeleccionar, Planta_Escalado.ToArray());
+                    }
+                    else
+                    {
+                        e.DrawLines(cVariables.PenElementisSelectFalse, Planta_Escalado.ToArray());
+                    }
                 }
             }
 

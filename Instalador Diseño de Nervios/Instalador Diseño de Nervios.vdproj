@@ -39,6 +39,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_46358CDD5DCD8390F48EDD6C63D5D8C3"
+        "OwnerKey" = "8:_867FDE0219D844719AC62BEBDDD6E0F2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4DF79D64B26213E9A39A3FDC9F8D232F"
+        "OwnerKey" = "8:_867FDE0219D844719AC62BEBDDD6E0F2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4EFED48DD34B38224005929A9F393248"
         "OwnerKey" = "8:_867FDE0219D844719AC62BEBDDD6E0F2"
         "MsmSig" = "8:_UNDEFINED"
@@ -58,18 +70,6 @@
         "Entry"
         {
         "MsmKey" = "8:_6C08459E576B4E56A666A157F3138472"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_7B7A42AC1620C44D404C8322619850E2"
-        "OwnerKey" = "8:_867FDE0219D844719AC62BEBDDD6E0F2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_83333779F18B4A3D99CB4276A489D80B"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -112,6 +112,12 @@
         "Entry"
         {
         "MsmKey" = "8:_B55E60B8E4CB4519B5B4AFCEB3A7AFD3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B7E0B865A1D845C6B97CE0E35F8B05CA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -178,6 +184,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_46358CDD5DCD8390F48EDD6C63D5D8C3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_4EFED48DD34B38224005929A9F393248"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -214,7 +226,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7B7A42AC1620C44D404C8322619850E2"
+        "OwnerKey" = "8:_4DF79D64B26213E9A39A3FDC9F8D232F"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -304,7 +316,7 @@
                 {
                 "Name" = "8:.NET Framework"
                 "Message" = "8:[VSDNETMSG]"
-                "FrameworkVersion" = "8:.NETFramework,Version=v4.7.2"
+                "FrameworkVersion" = "8:.NETFramework,Version=v4.6.1"
                 "AllowLaterVersions" = "11:FALSE"
                 "InstallUrl" = "8:http://go.microsoft.com/fwlink/?LinkId=863262"
                 }
@@ -425,6 +437,68 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_46358CDD5DCD8390F48EDD6C63D5D8C3"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_46358CDD5DCD8390F48EDD6C63D5D8C3"
+                    {
+                    "Name" = "8:DeepCloner.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DeepCloner.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4DF79D64B26213E9A39A3FDC9F8D232F"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+                "ScatterAssemblies"
+                {
+                    "_4DF79D64B26213E9A39A3FDC9F8D232F"
+                    {
+                    "Name" = "8:System.Net.Http.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:System.Net.Http.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4EFED48DD34B38224005929A9F393248"
             {
             "AssemblyRegister" = "3:1"
@@ -518,57 +592,6 @@
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7B7A42AC1620C44D404C8322619850E2"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
-                "ScatterAssemblies"
-                {
-                    "_7B7A42AC1620C44D404C8322619850E2"
-                    {
-                    "Name" = "8:System.Net.Http.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:System.Net.Http.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_83333779F18B4A3D99CB4276A489D80B"
-            {
-            "SourcePath" = "8:..\\FC Diseño de Nervios\\bin\\Debug\\_opcje"
-            "TargetName" = "8:_opcje"
-            "Tag" = "8:"
-            "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:TRUE"
-            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -713,6 +736,26 @@
             "Vital" = "11:TRUE"
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B7E0B865A1D845C6B97CE0E35F8B05CA"
+            {
+            "SourcePath" = "8:..\\FC Diseño de Nervios\\bin\\Debug\\_opcje"
+            "TargetName" = "8:_opcje"
+            "Tag" = "8:"
+            "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:TRUE"
+            "Hidden" = "11:TRUE"
             "System" = "11:FALSE"
             "Permanent" = "11:FALSE"
             "SharedLegacy" = "11:FALSE"
@@ -894,25 +937,25 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Diseño de Nervios"
-        "ProductCode" = "8:{BD5C1EFF-52BF-415B-A8AB-FCA267AE1852}"
-        "PackageCode" = "8:{71C26E41-1715-4045-9E63-A28D635E6EB9}"
+        "ProductCode" = "8:{34694985-5CCA-4BC9-B885-EF076BEEB489}"
+        "PackageCode" = "8:{C5997DA4-D11D-45C8-989D-4AEAD60705BF}"
         "UpgradeCode" = "8:{7BF29E38-2837-4FA4-9851-77463B213532}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.6"
         "Manufacturer" = "8:efe Prima Ce"
         "ARPHELPTELEPHONE" = "8:3006498240"
-        "ARPHELPLINK" = "8:"
+        "ARPHELPLINK" = "8:jrosales@efeprimace.co"
         "Title" = "8:Instalador Diseño de Nervios"
         "Subject" = "8:"
         "ARPCONTACT" = "8:efe Prima Ce"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:Programa para el Diseño de Nervios"
+        "ARPCOMMENTS" = "8:Programa para el Diseño y dibujo automatico de Nervios"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_3602F2E952E544BFA73476C54AA03B67"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"

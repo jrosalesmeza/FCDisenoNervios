@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,9 @@ namespace FC_Diseño_de_Nervios
         public const float AnchoApoyoPredefinido = 40f;
         public const float DiametroEstriboPredeterminado = 1f;
         public const float RecubrimientoNervios = 2f;
-        public const float Porc_LongOffset = 0.90f;
+        public const float Porc_LongOffset = 0.85f;
         public const float LongMinimaElemento = 0.05f;
+        public const float MomentoMinimoPIExtremos = 0.06f;
 
         #region Variables de Perfil Longitudinal AutoCAD
         public const float AltoMinimoNervio = 3f;
@@ -110,6 +112,15 @@ namespace FC_Diseño_de_Nervios
         public const float W_LetraAutoCADTitle = 0.08f;
         public const float W_LetraAutoCADEstribos= 0.1f;
         public const float W_LetraAutoCADTextRefuerzo = 0.30f;
+        #endregion
+
+
+
+        #region Pens
+        public static Pen PenElementSinSeleccionar = new Pen(Color.FromArgb(0, 104, 149), 2);
+        public static Pen PenElementSeleccionar = new Pen(Color.FromArgb(220, 136, 21), 2);
+        public static Pen PenElementisSelectFalse = new Pen(Color.FromArgb(227, 227, 227), 2);
+
         #endregion
 
     }

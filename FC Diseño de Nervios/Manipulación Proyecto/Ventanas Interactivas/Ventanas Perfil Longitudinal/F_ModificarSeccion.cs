@@ -44,12 +44,7 @@ namespace FC_Diseño_de_Nervios
                     cSubTramo SubtramoAux = (cSubTramo)ElementoSeleccionado;
                     SubtramoAux.Longitud = Longitud;
                 }
-
-
-
             }
-
-
         }
 
 

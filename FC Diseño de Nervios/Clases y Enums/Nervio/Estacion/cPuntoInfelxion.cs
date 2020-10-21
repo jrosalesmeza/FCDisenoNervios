@@ -16,6 +16,9 @@ namespace FC_Diseño_de_Nervios
         public cSubTramo SubTramo { get; set; }
         public float CordApoyoAsociada { get; set; }
 
+        public bool Agrego { get; set; } = false;
+
+
 
         private int id;
         public int ID {

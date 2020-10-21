@@ -101,7 +101,10 @@ namespace FC_BFunctionsAutoCAD
     public class FunctionsAutoCAD
     {
         private static AcadApplication AcadApp;
-        private static AcadDocument AcadDoc;
+        /// <summary>
+        /// Dcoumento actual.
+        /// </summary>
+        public static AcadDocument AcadDoc;
 
         /// <summary>
         /// Notifica errores en la librería.
@@ -208,7 +211,7 @@ namespace FC_BFunctionsAutoCAD
                 {
                     Array = AcadDoc.Utility.GetPoint(Prompt: Msg);
                 }
-                catch (Exception ex) {
+                catch  {
 
                     NotificadorErrores?.Invoke("Error inesperado.");
                 }
@@ -247,7 +250,7 @@ namespace FC_BFunctionsAutoCAD
                     text.Update();
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 NotificadorErrores?.Invoke("Error inesperado.");
             }
@@ -286,7 +289,7 @@ namespace FC_BFunctionsAutoCAD
                     text.Update();
 
                 }
-                catch (Exception ex)
+                catch 
                 {
                     NotificadorErrores?.Invoke("Error inesperado.");
                 }
@@ -543,6 +546,31 @@ namespace FC_BFunctionsAutoCAD
         }
 
 
+        /// <summary>
+        /// Crear un nuevo Polígono en 2D con su respectivo Relleno (Hatch).
+        /// </summary>
+        /// <param name="VerticesList">Vértices del Polígono [System.Drawing]</param>
+        /// <param name="Layer">Capa del Polígono.</param>
+        /// <param name="Pattern">Tipo de Hatch (SOILD,ANGLE,ANS31,...)</param>
+        /// <param name="LayerHatch">Capa del Hatch</param>
+        /// <param name="ScaleHacth">Escala del Hatch</param>
+        /// <param name="PatternScale">Factor de escala del tipo de Hatch</param>
+        /// <param name="PatternAngle">Angulo del tipo de Hatch</param>
+        public static void AddPolyline2D(PointF[] VerticesList, string Layer, string Pattern, string LayerHatch, double ScaleHacth, double PatternScale = 0.009, float PatternAngle = 45)
+        {
+            try
+            {
+                if (AcadDoc != null)
+                {
+                    AddPolyline2D(ConvertirPuntosEnDoubles(VerticesList), Layer, Pattern, LayerHatch, ScaleHacth, PatternScale, PatternAngle);
+                }
+            }
+            catch
+            {
+                NotificadorErrores?.Invoke("Error inesperado.");
+            }
+        }
+
 
 
 
@@ -796,6 +824,75 @@ namespace FC_BFunctionsAutoCAD
             }
         }
 
+
+
+        /// <summary>
+        /// Bloque de Estribo Tipo 6, normalmente se usa para Tabla de Estribos en Muros [efe Prima Ce]
+        /// </summary>
+        /// <param name="P_XYZ">Coordenadas del Bloque</param>
+        /// <param name="Layer">Capa del Bloque.</param>
+        /// <param name="Xscale">Escala en X del Bloque.</param>
+        /// <param name="Yscale">Escala en Y del Bloque.</param>
+        /// <param name="Zscale">Escala en Z del Bloque.</param>
+        /// <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        /// <param name="Distancia">Distancia recta del Estribo</param>
+        /// <param name="EspesorReal">Espesor Real.</param>
+        /// <param name="EspesorDoble">Espesor Doble.</param>
+        public static void B_Estribo(double[] P_XYZ, string Layer, double Xscale, double Yscale, double Zscale, double Rotation, double Distancia, double EspesorReal, double EspesorDoble, double GanchoEstribo=0.09)
+        {
+
+            if (AcadDoc != null)
+            {
+
+                AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(P_XYZ, "FC_B_Estribo tipo 6", Xscale, Yscale, Zscale, Rotation);
+                blockReference.Layer = Layer;
+
+                var referenceProperty = blockReference.GetDynamicBlockProperties();
+
+                referenceProperty[0].Value = Distancia;
+                referenceProperty[2].Value = EspesorDoble;
+                referenceProperty[4].Value = EspesorReal;
+                referenceProperty[6].Value = GanchoEstribo;
+
+            }
+
+
+
+        }
+
+
+        /// <summary>
+        /// Bloque de Estribo Tipo 6, normalmente se usa para Tabla de Estribos en Muros [efe Prima Ce]
+        /// </summary>
+        /// <param name="P_XY">Coordenadas del Bloque. [System.Drawing]</param>
+        /// <param name="Layer">Capa del Bloque.</param>
+        /// <param name="Xscale">Escala en X del Bloque.</param>
+        /// <param name="Yscale">Escala en Y del Bloque.</param>
+        /// <param name="Zscale">Escala en Z del Bloque.</param>
+        /// <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+        /// <param name="Distancia">Distancia recta del Estribo</param>
+        /// <param name="EspesorReal">Espesor Real.</param>
+        /// <param name="EspesorDoble">Espesor Doble.</param>
+        public static void B_Estribo(PointF P_XY, string Layer, double Xscale, double Yscale, double Zscale, double Rotation, double Distancia, double EspesorReal, double EspesorDoble, double GanchoEstribo = 0.09)
+        {
+            if (AcadDoc != null)
+            {
+
+                AcadBlockReference blockReference = AcadDoc.ModelSpace.InsertBlock(ConvertirPuntoEnDobules3D(P_XY), "FC_B_Estribo tipo 6", Xscale, Yscale, Zscale, Rotation);
+                blockReference.Layer = Layer;
+
+                var referenceProperty = blockReference.GetDynamicBlockProperties();
+
+                referenceProperty[0].Value = Distancia;
+                referenceProperty[2].Value = EspesorDoble;
+                referenceProperty[4].Value = EspesorReal;
+                referenceProperty[6].Value = GanchoEstribo;
+
+            }
+        }
+
+
+
         /// <summary>
         /// Bloque: Estibo para secciones circulares - Efe Prima Ce
         /// </summary>
@@ -911,6 +1008,7 @@ namespace FC_BFunctionsAutoCAD
             hatch.Layer = LayerHatch;
             hatch.LinetypeScale = ScaleHacth;
             hatch.PatternAngle = PatternAngle;
+            hatch.PatternScale = PatternScale;
             BackHatch((AcadObject)hatch);
             hatch.Update();
         }

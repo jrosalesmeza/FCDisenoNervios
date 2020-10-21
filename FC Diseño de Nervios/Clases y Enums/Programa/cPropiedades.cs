@@ -30,8 +30,12 @@ namespace FC_Diseño_de_Nervios.Programa
             cFunctionsProgram.Serializar(Ruta_Propeidades, propiedades);
         }
         public float VersionPrograma { get; set; } = Program.Version;
+        public bool FuncionesEnParalelo { get; set; } = false;
+        public bool LineasPretrazado { get; set; } = true;
+        public bool DeshacerRehacer { get; set; } = true;
         public bool AutoGuardado { get; set; } = true;
         public TiempoAutoGuardado IntervaloMinAutoGuarado { get; set; } = new TiempoAutoGuardado(15);
+        public int TimerSleep { get; set; } = 100;
 
         [Serializable]
         public struct TiempoAutoGuardado

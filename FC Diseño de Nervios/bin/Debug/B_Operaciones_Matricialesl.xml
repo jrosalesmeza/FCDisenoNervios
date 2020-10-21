@@ -4,9 +4,18 @@
         <name>B_Operaciones_Matricialesl</name>
     </assembly>
     <members>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Traslacion(System.Single[],System.Single,System.Single)">
+            <summary>
+            Traslación de un punto float[] dado su desplazamiento en X y Y. 
+            </summary>
+            <param name="Punto">Punto a trasladar.</param>
+            <param name="DX">Desplazamiento en X.</param>
+            <param name="DY">Desplzamineto en Y.</param>
+            <returns></returns>
+        </member>
         <member name="M:B_Operaciones_Matricialesl.Operaciones.Traslacion(System.Drawing.PointF,System.Single,System.Single)">
             <summary>
-            Traslación de un punto dado su desplazamiento en X y Y. 
+            Traslación de un punto [System.Drawing.PointF] dado su desplazamiento en X y Y. 
             </summary>
             <param name="Punto">Punto a trasladar.</param>
             <param name="DX">Desplazamiento en X.</param>
@@ -36,21 +45,38 @@
             <param name="PuntosMatriz"></param>
             <returns></returns>
         </member>
-        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Boolean)">
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.ConvertirMatrizToPointf(B_Operaciones_Matricialesl.cMatriz)">
             <summary>
-            genera Rotacion respecto a un punto especificado
+            Convierte  matriz[1x3] en punto
             </summary>
-            <param name="LPuntos"></param>  lista de puntos(float[]) a rotar  
+            <param name="PuntoMatriz"></param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Drawing.PointF,System.Drawing.PointF,System.Single,System.Boolean)">
+            <summary>
+            Rotacion de un punto respecto a un punto especificado
+            </summary>
+            <param name="Punto"></param>  Punto (PointF) a rotar  
             <param name="PuntoRef"></param>  Punto respecto al que se deseea rotar
             <param name="Angulo"></param>  Angulo de rotacion 
             <param name="Grados"></param>  Grados = true, radianes = false
             <returns></returns>
         </member>
-        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Collections.Generic.List{System.Single[]},System.Drawing.PointF,System.Single,System.Boolean)">
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Collections.Generic.List{System.Drawing.PointF},System.Drawing.PointF,System.Single,System.Boolean)">
             <summary>
-            genera Rotacion respecto a un punto especificado
+            Genera Rotacion respecto a un punto especificado
             </summary>
-            <param name="LPuntos"></param> lista de puntos(float[]) a rotar  
+            <param name="LPuntos"></param>  Lista de puntos(float[]) a rotar  
+            <param name="PuntoRef"></param>  Punto respecto al que se deseea rotar
+            <param name="Angulo"></param>  Angulo de rotacion 
+            <param name="Grados"></param>  Grados = true, radianes = false
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.Operaciones.Rotacion2(System.Collections.Generic.List{System.Single[]},System.Single[],System.Single,System.Boolean)">
+            <summary>
+            Genera Rotacion respecto a un punto especificado
+            </summary>
+            <param name="LPuntos"></param> Lista de puntos(float[]) a rotar  
             <param name="PuntoRef"></param> Punto respecto al que se deseea rotar
             <param name="Angulo"></param> angulo de rotacion 
             <param name="Grados"></param> Grados = true, radianes = false

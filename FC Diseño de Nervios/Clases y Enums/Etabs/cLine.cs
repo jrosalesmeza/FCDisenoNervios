@@ -9,6 +9,7 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cLine:cObjetoCoordenadas
     {
+        public bool IsApoyo { get; set; } = false;
         public string Nombre { get; set; }
 
         public cLine(string Nombre, eType Type)

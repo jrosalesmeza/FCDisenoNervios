@@ -40,13 +40,13 @@
             this.LB_3 = new System.Windows.Forms.Label();
             this.LB_4 = new System.Windows.Forms.Label();
             this.P_2 = new System.Windows.Forms.Panel();
-            this.PB_1 = new System.Windows.Forms.PictureBox();
             this.PB_2 = new System.Windows.Forms.PictureBox();
+            this.PB_1 = new System.Windows.Forms.PictureBox();
             this.P_1.SuspendLayout();
             this.GB_1.SuspendLayout();
             this.P_2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PB_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_1)).BeginInit();
             this.SuspendLayout();
             // 
             // P_1
@@ -182,6 +182,16 @@
             this.P_2.Size = new System.Drawing.Size(336, 365);
             this.P_2.TabIndex = 72;
             // 
+            // PB_2
+            // 
+            this.PB_2.Image = ((System.Drawing.Image)(resources.GetObject("PB_2.Image")));
+            this.PB_2.Location = new System.Drawing.Point(18, 37);
+            this.PB_2.Name = "PB_2";
+            this.PB_2.Size = new System.Drawing.Size(281, 89);
+            this.PB_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PB_2.TabIndex = 73;
+            this.PB_2.TabStop = false;
+            // 
             // PB_1
             // 
             this.PB_1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -193,16 +203,6 @@
             this.PB_1.TabIndex = 72;
             this.PB_1.TabStop = false;
             // 
-            // PB_2
-            // 
-            this.PB_2.Image = ((System.Drawing.Image)(resources.GetObject("PB_2.Image")));
-            this.PB_2.Location = new System.Drawing.Point(18, 37);
-            this.PB_2.Name = "PB_2";
-            this.PB_2.Size = new System.Drawing.Size(281, 89);
-            this.PB_2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.PB_2.TabIndex = 73;
-            this.PB_2.TabStop = false;
-            // 
             // F_AcercaDe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -211,14 +211,15 @@
             this.Controls.Add(this.P_1);
             this.Controls.Add(this.P_2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "F_AcercaDe";
             this.Text = "Acerca de Diseño de Columnas";
             this.P_1.ResumeLayout(false);
             this.GB_1.ResumeLayout(false);
             this.GB_1.PerformLayout();
             this.P_2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.PB_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PB_1)).EndInit();
             this.ResumeLayout(false);
 
         }

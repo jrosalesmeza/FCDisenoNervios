@@ -125,8 +125,6 @@ namespace FC_Diseño_de_Nervios
         public static void EncabezadoEfePrimaCe(Document Doc, PdfWriter Writer)
         {
             float MarginTop = 35f; float MarginBottom = 25f; float MarginLeft= 30f; float MarginRight = 25f;
-
-
             Image img = Image.GetInstance(Properties.Resources.logoefeprimace, System.Drawing.Imaging.ImageFormat.Png);
             img.ScalePercent(40f);
             img.SetAbsolutePosition(Doc.Left, Doc.PageSize.Top- MarginTop - img.Height / 3.5f);

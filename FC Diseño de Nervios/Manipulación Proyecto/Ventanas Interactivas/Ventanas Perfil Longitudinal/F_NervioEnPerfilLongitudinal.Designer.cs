@@ -79,7 +79,7 @@
             this.agregarApoyosToolStripMenuItem,
             this.eliminarApoyosToolStripMenuItem});
             this.CTMS_1.Name = "CTMS_1";
-            this.CTMS_1.Size = new System.Drawing.Size(161, 92);
+            this.CTMS_1.Size = new System.Drawing.Size(181, 114);
             // 
             // MostrarReglaToolStripMenuItem
             // 
@@ -87,16 +87,15 @@
             this.MostrarReglaToolStripMenuItem.CheckOnClick = true;
             this.MostrarReglaToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.MostrarReglaToolStripMenuItem.Name = "MostrarReglaToolStripMenuItem";
-            this.MostrarReglaToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.MostrarReglaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.MostrarReglaToolStripMenuItem.Text = "Mostrar Regla";
             this.MostrarReglaToolStripMenuItem.CheckedChanged += new System.EventHandler(this.MostrarReglaToolStripMenuItem_CheckedChanged);
             // 
             // editarEjesToolStripMenuItem
             // 
             this.editarEjesToolStripMenuItem.Name = "editarEjesToolStripMenuItem";
-            this.editarEjesToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.editarEjesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.editarEjesToolStripMenuItem.Text = "Editar Ejes";
-            this.editarEjesToolStripMenuItem.Visible = false;
             this.editarEjesToolStripMenuItem.Click += new System.EventHandler(this.editarEjesToolStripMenuItem_Click);
             // 
             // agregarApoyosToolStripMenuItem
@@ -106,7 +105,7 @@
             this.TLSN_ApoyoFinal});
             this.agregarApoyosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("agregarApoyosToolStripMenuItem.Image")));
             this.agregarApoyosToolStripMenuItem.Name = "agregarApoyosToolStripMenuItem";
-            this.agregarApoyosToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.agregarApoyosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.agregarApoyosToolStripMenuItem.Text = "Agregar Apoyos";
             // 
             // TLSN_ApoyoInicio
@@ -132,20 +131,20 @@
             this.TLSN_ApoyoFinalE});
             this.eliminarApoyosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarApoyosToolStripMenuItem.Image")));
             this.eliminarApoyosToolStripMenuItem.Name = "eliminarApoyosToolStripMenuItem";
-            this.eliminarApoyosToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.eliminarApoyosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.eliminarApoyosToolStripMenuItem.Text = "Eliminar Apoyos";
             // 
             // TLSN_ApoyoInicioE
             // 
             this.TLSN_ApoyoInicioE.Name = "TLSN_ApoyoInicioE";
-            this.TLSN_ApoyoInicioE.Size = new System.Drawing.Size(180, 22);
+            this.TLSN_ApoyoInicioE.Size = new System.Drawing.Size(103, 22);
             this.TLSN_ApoyoInicioE.Text = "Inicio";
             this.TLSN_ApoyoInicioE.Click += new System.EventHandler(this.TLSM_ApoyoInicio_Click);
             // 
             // TLSN_ApoyoFinalE
             // 
             this.TLSN_ApoyoFinalE.Name = "TLSN_ApoyoFinalE";
-            this.TLSN_ApoyoFinalE.Size = new System.Drawing.Size(180, 22);
+            this.TLSN_ApoyoFinalE.Size = new System.Drawing.Size(103, 22);
             this.TLSN_ApoyoFinalE.Text = "Final";
             this.TLSN_ApoyoFinalE.Click += new System.EventHandler(this.TLSM_ApoyoFinal_Click);
             // 

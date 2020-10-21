@@ -55,8 +55,17 @@ namespace FC_Diseño_de_Nervios
             PuntosNoEscalados.Add(new PointF(0, 0));
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasLongitudinal_Elementos_Escalados_AutoCAD(PuntosNoEscalados, HeightPB/3, HeightPB, Dx, Dy, Zoom, XI);
             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_Elementos_Escalados_AutoCAD(e.Graphics, Zoom, PB_VistaPerfilLongitudinalDiseno.Height);
+
+            if (F_Base.Proyecto.AcotamientoTraslapos)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.PaintTraslapos(e.Graphics, Zoom);
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.PaintTraslapos(e.Graphics, Zoom);
+            }
+
             F_Base.ActualizarVentanaF_MomentosNervio(Zoom, Dx, Dy);
             F_Base.ActualizarVentanaF_AreasMomentoNervio(Zoom, Dx, Dy);
+
+
 
             //Peso Refuerzo Longitudinal
             float PesoLong = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo + F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo;
