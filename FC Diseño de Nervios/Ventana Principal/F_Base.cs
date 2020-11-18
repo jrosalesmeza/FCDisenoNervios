@@ -128,6 +128,7 @@ namespace FC_Diseño_de_Nervios
             Dock.Show(DP_ContenedorPrincipal);
             cFunctionsProgram.CambiarSkins(Dock);
         }
+
         public void VentanaEmergente(ref F_ModificarSeccion Form)
         {
             if (!Form.Created) { Form = new F_ModificarSeccion(); }
@@ -498,6 +499,7 @@ namespace FC_Diseño_de_Nervios
         }
         public static void ActualizarVentanaF_SelectNervio()
         {
+            F_PlantaNervios.Invalidate();
             F_SelectNervio.Invalidate();
         }
         #endregion

@@ -183,10 +183,16 @@
     <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.Designer.cs">
       <DependentUpon>F_ModificarEjesGlobales.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_PlantaNervios.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_ModificadorDeRefuerzos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_PlantaNervios.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_ModificadorDeRefuerzos.Designer.cs">
+      <DependentUpon>F_ModificadorDeRefuerzos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_PlantaNervios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_PlantaNervios.Designer.cs">
       <DependentUpon>F_PlantaNervios.cs</DependentUpon>
     </Compile>
     <Compile Include="Ventana Principal\F_AcercaDe.cs">
@@ -304,10 +310,10 @@
     <Compile Include="Ventana Principal\Ventanas Emergentes\F_SelectCombinaciones.Designer.cs">
       <DependentUpon>F_SelectCombinaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_SelectNervio.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_SelectNervio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_SelectNervio.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_SelectNervio.Designer.cs">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>
     </Compile>
     <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.cs">
@@ -360,7 +366,10 @@
     <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.resx">
       <DependentUpon>F_ModificarEjesGlobales.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_PlantaNervios.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_ModificadorDeRefuerzos.resx">
+      <DependentUpon>F_ModificadorDeRefuerzos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_PlantaNervios.resx">
       <DependentUpon>F_PlantaNervios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
@@ -421,7 +430,7 @@
     <EmbeddedResource Include="Ventana Principal\Ventanas Emergentes\F_SelectCombinaciones.resx">
       <DependentUpon>F_SelectCombinaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_SelectNervio.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_SelectNervio.resx">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.resx">
