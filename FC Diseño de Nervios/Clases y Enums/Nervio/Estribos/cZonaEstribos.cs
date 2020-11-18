@@ -148,14 +148,14 @@ namespace FC_Diseño_de_Nervios
                 string Text = ToString();
                 SizeF MessureText = e.MeasureString(Text, Font1);
                 PointF PointString = new PointF(CoordenadasPuntoString.Escaladas.First().X - MessureText.Width / 2f, CoordenadasPuntoString.Escaladas.First().Y - MessureText.Height/2);
-                e.DrawString(Text, Font1, Brush_Text, PointString);
+                //e.DrawString(Text, Font1, Brush_Text, PointString);
             }
             //e.DrawPath(PenEstribo, Path);
         }
 
         public void PaintAutoCAD(float X,float Y)
         {
-            if(NoBarra!= eNoBarra.BNone)
+            if(NoBarra!= eNoBarra.BNone && CoordenadasPuntoString.Reales.Count>0)
             {
                 string Text = $"{Cantidad}{cFunctionsProgram.ConvertireNoBarraToString(NoBarra)}/{Math.Round(separacion * cConversiones.Dimension_m_to_cm, 2)}";
                 float LargoTexto = Text.Length * cVariables.W_LetraAutoCADEstribos;

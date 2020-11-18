@@ -14,6 +14,8 @@ using WeifenLuo.WinFormsUI.Docking;
 using System.Diagnostics.Contracts;
 using System.Diagnostics;
 using System.Threading;
+using FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas;
+using FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo;
 
 namespace FC_Diseño_de_Nervios
 {
@@ -1051,6 +1053,15 @@ namespace FC_Diseño_de_Nervios
             Tendencia.DeltaAlargamientoBarras = cVariables.DeltaAlargamitoBarras;
             return Tendencia;
         }
+
+        public static cTendencia_Estribo CrearTendenciaEstriboDefault(int IDTendencia, cTendencia_Refuerzo Tendencia_Refuerzo_Origen)
+        {
+            cTendencia_Estribo tendencia_Estribo = new cTendencia_Estribo(IDTendencia, Tendencia_Refuerzo_Origen);
+
+            return tendencia_Estribo;
+
+        }
+
         #endregion
         public static bool IsPuntoInSeccion(IElemento Elementos, PointF Punto, bool Reales = true)
         {
@@ -1073,6 +1084,7 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+
         public static cBarra CrearBarraDefault(cTendencia TendenciaOrigen, eUbicacionRefuerzo UbicacionRefuerzo)
         {
             float xi = TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.First(x => x is cSubTramo).Seccion.R_Bottom * cConversiones.Dimension_cm_to_m;
@@ -1083,6 +1095,16 @@ namespace FC_Diseño_de_Nervios
         {
             return new cBarra(ID, TendenciaOrigen, NoBarra, UbicacionRefuerzo, CantBarra, xi, xf);
 
+        }
+
+        public static cBloqueEstribos CrearGrupoEstribosDefault(cTendencia_Estribo tendencia_Estribo_origien)
+        {
+            var nervio = tendencia_Estribo_origien.Tendencia_Refuerzo_Origen.NervioOrigen;
+            var SubtramoI = nervio.Lista_Elementos.First(y => y is cSubTramo) as cSubTramo;
+            float d = SubtramoI.Seccion.H - nervio.r1 - cDiccionarios.DiametrosBarras[eNoBarra.B2] / 2f - cVariables.DiametroEstriboPredeterminado;
+            float Smin = (float)Math.Round( d / 2f* cConversiones.Dimension_cm_to_m,cVariables.CifrasDeciSepEstribos);
+            float xcentro = SubtramoI.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X) + cVariables.d_CaraApoyo;
+            return  new cBloqueEstribos(0, eNoBarra.B2, 3, Smin, 1, xcentro,eLadoDeZona.Derecha, tendencia_Estribo_origien);
         }
 
         public static void ReasingarEjesaNervios(cNervio Nervio, List<cGrid> Lista_Grids)
@@ -2001,7 +2023,7 @@ namespace FC_Diseño_de_Nervios
                 {
                     NoBarra = FindBarra.NoBarra;
                 }
-                float d = Estacion1.SubTramoOrigen.Seccion.H - Nervio.r1 - cDiccionarios.DiametrosBarras[NoBarra] / 2f;
+                float d = Estacion1.SubTramoOrigen.Seccion.H - Nervio.r1 - cDiccionarios.DiametrosBarras[NoBarra] / 2f-cVariables.DiametroEstriboPredeterminado;
                 float Smin = d / 2f;
                 Sminimos.Add(Smin);
             }
@@ -2115,7 +2137,10 @@ namespace FC_Diseño_de_Nervios
             for (int i = 0; i < CantEstribos; i++)
             {
                 cSubTramo SubTramoFind = Tramo.Lista_SubTramos.Find(x => x.IsVisibleCoordAutoCAD(CoordX));
-                ZonaEstribos.CrearEstribo(SubTramoFind, CoordX);
+                if (SubTramoFind != null)
+                {
+                    ZonaEstribos.CrearEstribo(SubTramoFind, CoordX);
+                }
                 CoordX += S;
             }
 
@@ -3330,6 +3355,7 @@ namespace FC_Diseño_de_Nervios
             {
 
                 float Y = (float)CoordXYZ[1];
+                Nervios= OrdenarNervios(Nervios);
                 foreach (cNervio Nervio in Nervios)
                 {
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect = Nervio;
@@ -3523,6 +3549,30 @@ namespace FC_Diseño_de_Nervios
             {
                 Similitud.BoolSoySimiarA = false;
             }
+        }
+
+        public static List<cNervio> OrdenarNervios(List<cNervio> nervios)
+        {
+            List<cNervio> NerviosOrdenados = new List<cNervio>();
+            List<cNervio> DiagonalesHorizontales = nervios.FindAll(y => y.Direccion == eDireccion.Horizontal || y.Direccion == eDireccion.Diagonal);
+            List<cNervio> DiagonalesVerticales = nervios.FindAll(y => y.Direccion == eDireccion.Vertical);
+            OdernarNervios(ref DiagonalesHorizontales); OdernarNervios(ref DiagonalesVerticales);
+            NerviosOrdenados.AddRange(DiagonalesHorizontales); NerviosOrdenados.AddRange(DiagonalesVerticales);
+            return NerviosOrdenados;
+        }
+
+        private static void OdernarNervios(ref List<cNervio> nervios)
+        {
+            nervios= nervios.OrderBy
+                        (y =>
+                        {
+                            object Variable = y.Nombre;
+                            if (y.Nombre.Replace(y.Prefijo, "").IsNumeric())
+                            {
+                                Variable = int.Parse(y.Nombre.Replace(y.Prefijo, ""));
+                            }
+                            return Variable;
+                        }).ToList();
         }
 
 

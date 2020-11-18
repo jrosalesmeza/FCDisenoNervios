@@ -46,6 +46,7 @@ namespace FC_Diseño_de_Nervios
 
         #region Ventanas Acopladas
         public static F_SelectNervio F_SelectNervio;
+        public static F_PlantaNervios F_PlantaNervios;
         public static F_NervioEnPerfilLongitudinal F_NervioEnPerfilLongitudinal;
         public static F_MomentosNervio F_MomentosNervio;
         public static F_AreasMomentoNervio F_AreasMomentoNervio;
@@ -1169,7 +1170,6 @@ namespace FC_Diseño_de_Nervios
                 AbrirProyecto_Function(true, FicheroExterno.Split(new char[] { '"' })[3]);
             }
         }
-
 
     }
 }

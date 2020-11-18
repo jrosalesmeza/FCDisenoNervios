@@ -26,6 +26,7 @@ namespace FC_Diseño_de_Nervios
         public const float LongMinimaElemento = 0.05f;
         public const float MomentoMinimoPIExtremos = 0.06f;
 
+
         #region Variables de Perfil Longitudinal AutoCAD
         public const float AltoMinimoNervio = 3f;
         public const float DeltaNivel = 0.30f;
@@ -43,6 +44,10 @@ namespace FC_Diseño_de_Nervios
         public const float ToleranciaTraslapo = 0.1f;
         public const int CifrasDeciLongBarra = 2;
         #endregion
+
+
+
+
 
         #region Variables de Tendencia de Refuerzo
 
@@ -72,6 +77,9 @@ namespace FC_Diseño_de_Nervios
         public const float fi_Cortante = 0.75f;
         public const float d_CaraApoyo = 0.05f;
         public const float ToleranciaDistanciaEstribos = 2f;
+
+        public const int CifrasDeciSepEstribos = 3;
+
 
         public const float DeltaH_Estribos_AutoCAD = 0.1f;
 

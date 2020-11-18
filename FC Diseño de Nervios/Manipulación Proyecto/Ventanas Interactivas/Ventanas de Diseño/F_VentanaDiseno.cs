@@ -26,9 +26,12 @@ namespace FC_Diseño_de_Nervios
             PB_VistaPerfilLongitudinalDiseno.MouseDown += PB_VistaPerfilLongitudinalDiseno_MouseDown1;
             PB_VistaPerfilLongitudinalDiseno.MouseMove += PB_VistaPerfilLongitudinalDiseno_MouseMove;
             PB_VistaPerfilLongitudinalDiseno.MouseMove += PB_VistaPerfilLongitdunalDiseno_MouseMove3;
+            PB_VistaPerfilLongitudinalDiseno.MouseMove += PB_VistaPerfilLongitudinalDiseno_MouseMove4;
             LostFocus += F_VentanaDiseno_LostFocus;
 
         }
+
+
 
         private void F_VentanaDiseno_LostFocus(object sender, EventArgs e)
         {
@@ -53,8 +56,8 @@ namespace FC_Diseño_de_Nervios
 
             //Crear Coordenadas Escaladas de Elementos
             PuntosNoEscalados.Add(new PointF(0, 0));
-            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CrearCoordenadasLongitudinal_Elementos_Escalados_AutoCAD(PuntosNoEscalados, HeightPB/3, HeightPB, Dx, Dy, Zoom, XI);
-            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_Elementos_Escalados_AutoCAD(e.Graphics, Zoom, PB_VistaPerfilLongitudinalDiseno.Height);
+             F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Paint_Longitudinal_Elementos_Escalados_AutoCAD(e.Graphics, PuntosNoEscalados, HeightPB / 3, HeightPB, Dx, Dy, Zoom, XI);
+
 
             if (F_Base.Proyecto.AcotamientoTraslapos)
             {
@@ -232,12 +235,22 @@ namespace FC_Diseño_de_Nervios
         }
 
 
+        private void AgregarGrupoEstribos()
+        {
+            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Clear();
+            F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.CrearGrupoEstribos(cFunctionsProgram.CrearGrupoEstribosDefault(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect));
+            PB_VistaPerfilLongitudinalDiseno.Invalidate();
+        }
+
+
+
         private void PB_VistaPerfilLongitudinalDiseno_MouseDown2(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.ForEach(x => x.MouseDownEsferas(e.Location));
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.ForEach(x => x.MouseDownEsferas(e.Location));
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.ForEach(y => y.MouseDown(e.Location));
                 PB_VistaPerfilLongitudinalDiseno.Invalidate();
             }
         }
@@ -266,7 +279,14 @@ namespace FC_Diseño_de_Nervios
                 PB_VistaPerfilLongitudinalDiseno.Invalidate();
             }
         }
-
+        private void PB_VistaPerfilLongitudinalDiseno_MouseMove4(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.ForEach(x => x.MouseMove(e.Location));
+                PB_VistaPerfilLongitudinalDiseno.Invalidate();
+            }
+        }
         private void TSB_AgregarInferior_Click(object sender, EventArgs e)
         {
             AgregarBarraInferior();
@@ -295,8 +315,11 @@ namespace FC_Diseño_de_Nervios
         private void eliminarBarraToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             EliminarBarra();
+        } 
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            AgregarGrupoEstribos();
         }
-
-
     }
 }

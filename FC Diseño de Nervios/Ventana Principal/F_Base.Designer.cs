@@ -673,7 +673,7 @@
             this.propiedadesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.propiedadesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("propiedadesToolStripMenuItem.Image")));
             this.propiedadesToolStripMenuItem.Name = "propiedadesToolStripMenuItem";
-            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.propiedadesToolStripMenuItem.Text = "Propiedades";
             this.propiedadesToolStripMenuItem.Click += new System.EventHandler(this.propiedadesToolStripMenuItem_Click);
             // 

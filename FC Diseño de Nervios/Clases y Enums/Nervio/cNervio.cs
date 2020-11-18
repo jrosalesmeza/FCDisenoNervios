@@ -155,7 +155,7 @@ namespace FC_Diseño_de_Nervios
 
             Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos, eUbicacionRefuerzo.Inferior)); Tendencia_Refuerzos.t_InfeSelect = Tendencia_Refuerzos.TendenciasInferior.First();
             Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.CrearTendenciaDefault(1, Tendencia_Refuerzos, eUbicacionRefuerzo.Superior)); Tendencia_Refuerzos.t_Supeselect = Tendencia_Refuerzos.TendenciasSuperior.First();
-
+            Tendencia_Refuerzos.Tendencia_Estribos.Add(cFunctionsProgram.CrearTendenciaEstriboDefault(1, Tendencia_Refuerzos)); Tendencia_Refuerzos.t_estriboSelect = Tendencia_Refuerzos.Tendencia_Estribos.First();
             if (CantApoyos > 0)
             {
                 CrearCoordenadasPerfilLongitudinalReales();
@@ -1074,7 +1074,7 @@ namespace FC_Diseño_de_Nervios
             Grids.ForEach(x => x.CrearPuntosPlantaEscaladaEtabs(PuntosTodosObjetos, WidthWindow, HeigthWindow, Dx, Dy, Zoom, true, XI));
         }
 
-        public void CrearCoordenadasLongitudinal_Elementos_Escalados_AutoCAD(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
+        private void CrearCoordenadasLongitudinal_Elementos_Escalados_AutoCAD(List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeigthWindow, float Dx, float Dy, float Zoom, float XI)
         {
             Lista_Elementos.ForEach(Elemento => Elemento.Vistas.Perfil_AutoCAD.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, Elemento.Vistas.Perfil_AutoCAD.Reales, out EscalaMayorenY, HeigthWindow, EscalaMayorenX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f));
             Tendencia_Refuerzos.TInfeSelect.Barras.ForEach(x => x.CrearCoordenadasEscaladas(PuntosTodosObjetos, EscalaMayorenX, HeigthWindow, Dx, Dy, Zoom, XI));
@@ -1612,9 +1612,9 @@ namespace FC_Diseño_de_Nervios
 
         }
 
-        public void Paint_Longitudinal_Elementos_Escalados_AutoCAD(Graphics e, float Zoom, float HeightForm)
+        public void Paint_Longitudinal_Elementos_Escalados_AutoCAD(Graphics e, List<PointF> PuntosTodosObjetos, float HeigthDraw, float HeightForm, float Dx, float Dy, float Zoom, float XI)
         {
-
+            CrearCoordenadasLongitudinal_Elementos_Escalados_AutoCAD(PuntosTodosObjetos, HeigthDraw, HeightForm, Dx, Dy, Zoom, XI);
             Pen Pen_Borde_Subtramo = new Pen(Color.Black, 1);
             //Pen_Borde_Subtramo.DashStyle = DashStyle.Dot;
             Pen Pen_Borde_Apoyo = new Pen(Color.Black, 1);
@@ -1643,6 +1643,10 @@ namespace FC_Diseño_de_Nervios
 
             Tendencia_Refuerzos.TSupeSelect.Barras.ForEach(x => x.Paint(e, Zoom, HeightForm));
             Tendencia_Refuerzos.TInfeSelect.Barras.ForEach(x => x.Paint(e, Zoom, HeightForm));
+
+            Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.ForEach(y => y.Paint(e, PuntosTodosObjetos, EscalaMayorenX, HeightForm, Dx, Dy, Zoom, XI));
+
+
             Lista_Tramos.ForEach(Tramo =>
             {
                 if (Tramo.EstribosDerecha != null)
@@ -1658,6 +1662,8 @@ namespace FC_Diseño_de_Nervios
                 }
 
             });
+
+
         }
 
         private void GraficarRectaApoyos(Graphics e, float HeightForm)

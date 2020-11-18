@@ -15,7 +15,6 @@ namespace FC_Diseño_de_Nervios
         public int Ramas { get; }
         public eNoBarra NoBarra { get; set; }
         public float CoordX { get; set; }
-
         public float B { get; set; }
         public float H { get; set; }
         public float LGancho { get; set; }

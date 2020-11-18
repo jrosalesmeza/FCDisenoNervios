@@ -46,11 +46,12 @@
             this.TSL_PesoLongitudinalValue = new System.Windows.Forms.ToolStripLabel();
             this.TSL_PesoTransversalText = new System.Windows.Forms.ToolStripLabel();
             this.TSL_PesoTranseversalValue = new System.Windows.Forms.ToolStripLabel();
+            this.TSL_PesoTotalText = new System.Windows.Forms.ToolStripLabel();
+            this.TSL_PesoTotalValue = new System.Windows.Forms.ToolStripLabel();
             this.PB_VistaPerfilLongitudinalDiseno = new System.Windows.Forms.PictureBox();
             this.Herramientas1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eliminarBarraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TSL_PesoTotalText = new System.Windows.Forms.ToolStripLabel();
-            this.TSL_PesoTotalValue = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.P_1.SuspendLayout();
             this.TS_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_VistaPerfilLongitudinalDiseno)).BeginInit();
@@ -86,7 +87,8 @@
             this.TSL_PesoTransversalText,
             this.TSL_PesoTranseversalValue,
             this.TSL_PesoTotalText,
-            this.TSL_PesoTotalValue});
+            this.TSL_PesoTotalValue,
+            this.toolStripButton1});
             this.TS_1.Location = new System.Drawing.Point(0, 0);
             this.TS_1.Name = "TS_1";
             this.TS_1.Size = new System.Drawing.Size(1088, 25);
@@ -210,6 +212,22 @@
             this.TSL_PesoTranseversalValue.Size = new System.Drawing.Size(55, 22);
             this.TSL_PesoTranseversalValue.Text = "10.45 kg";
             // 
+            // TSL_PesoTotalText
+            // 
+            this.TSL_PesoTotalText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TSL_PesoTotalText.Name = "TSL_PesoTotalText";
+            this.TSL_PesoTotalText.Size = new System.Drawing.Size(48, 22);
+            this.TSL_PesoTotalText.Text = "P. Total:";
+            this.TSL_PesoTotalText.ToolTipText = "Peso Total";
+            // 
+            // TSL_PesoTotalValue
+            // 
+            this.TSL_PesoTotalValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TSL_PesoTotalValue.ForeColor = System.Drawing.Color.DarkBlue;
+            this.TSL_PesoTotalValue.Name = "TSL_PesoTotalValue";
+            this.TSL_PesoTotalValue.Size = new System.Drawing.Size(55, 22);
+            this.TSL_PesoTotalValue.Text = "10.45 kg";
+            // 
             // PB_VistaPerfilLongitudinalDiseno
             // 
             this.PB_VistaPerfilLongitudinalDiseno.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -239,21 +257,15 @@
             this.eliminarBarraToolStripMenuItem.Text = "Eliminar Barra";
             this.eliminarBarraToolStripMenuItem.Click += new System.EventHandler(this.eliminarBarraToolStripMenuItem_Click_1);
             // 
-            // TSL_PesoTotalText
+            // toolStripButton1
             // 
-            this.TSL_PesoTotalText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TSL_PesoTotalText.Name = "TSL_PesoTotalText";
-            this.TSL_PesoTotalText.Size = new System.Drawing.Size(48, 22);
-            this.TSL_PesoTotalText.Text = "P. Total:";
-            this.TSL_PesoTotalText.ToolTipText = "Peso Total";
-            // 
-            // TSL_PesoTotalValue
-            // 
-            this.TSL_PesoTotalValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TSL_PesoTotalValue.ForeColor = System.Drawing.Color.DarkBlue;
-            this.TSL_PesoTotalValue.Name = "TSL_PesoTotalValue";
-            this.TSL_PesoTotalValue.Size = new System.Drawing.Size(55, 22);
-            this.TSL_PesoTotalValue.Text = "10.45 kg";
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // F_VentanaDiseno
             // 
@@ -302,5 +314,6 @@
         private System.Windows.Forms.ToolStripButton TSB_Eliminar;
         private System.Windows.Forms.ToolStripLabel TSL_PesoTotalText;
         private System.Windows.Forms.ToolStripLabel TSL_PesoTotalValue;
+        private System.Windows.Forms.ToolStripButton toolStripButton1;
     }
 }

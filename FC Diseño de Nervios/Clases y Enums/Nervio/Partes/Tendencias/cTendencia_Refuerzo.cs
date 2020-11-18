@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -41,6 +42,7 @@ namespace FC_Diseño_de_Nervios
         }
         public List<cTendencia> TendenciasSuperior = new List<cTendencia>();
         public List<cTendencia> TendenciasInferior = new List<cTendencia>();
+        public List<cTendencia_Estribo> Tendencia_Estribos = new List<cTendencia_Estribo>();
 
         public cTendencia t_Supeselect;
         public cTendencia TSupeSelect
@@ -75,6 +77,24 @@ namespace FC_Diseño_de_Nervios
                 }
             }
         }
+
+        public cTendencia_Estribo t_estriboSelect;
+
+        public cTendencia_Estribo TEstriboSelect
+        {
+            get
+            {
+                return t_estriboSelect;
+            }
+            set
+            {
+                if (t_estriboSelect != value)
+                {
+                    t_estriboSelect = value;
+                }
+            }
+        }
+
 
         public override string ToString()
         {

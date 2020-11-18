@@ -94,6 +94,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
     <Reference Include="WebTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Bibliotecas\B_WebTools\WebTools\bin\Debug\WebTools.dll</HintPath>
@@ -114,6 +115,8 @@
     <Compile Include="Clases y Enums\Nervio\cPropiedadesDisenoAutoCAD.cs" />
     <Compile Include="Clases y Enums\Nervio\cSimilitudNervio.cs" />
     <Compile Include="Clases y Enums\Nervio\cResultados.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estribo\cBloqueEstribos.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estribo\cTendencia_Estribo.cs" />
     <Compile Include="Clases y Enums\Programa\cPropiedades.cs" />
     <Compile Include="Clases y Enums\Proyecto\eTipoRefuerzo.cs" />
     <Compile Include="Clases y Enums\Nervio\Estribos\cLadoDeEstribos.cs" />
@@ -179,6 +182,12 @@
     </Compile>
     <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.Designer.cs">
       <DependentUpon>F_ModificarEjesGlobales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_PlantaNervios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_PlantaNervios.Designer.cs">
+      <DependentUpon>F_PlantaNervios.cs</DependentUpon>
     </Compile>
     <Compile Include="Ventana Principal\F_AcercaDe.cs">
       <SubType>Form</SubType>
@@ -295,10 +304,10 @@
     <Compile Include="Ventana Principal\Ventanas Emergentes\F_SelectCombinaciones.Designer.cs">
       <DependentUpon>F_SelectCombinaciones.cs</DependentUpon>
     </Compile>
-    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\F_SelectNervio.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_SelectNervio.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\F_SelectNervio.Designer.cs">
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_SelectNervio.Designer.cs">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>
     </Compile>
     <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.cs">
@@ -350,6 +359,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.resx">
       <DependentUpon>F_ModificarEjesGlobales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_PlantaNervios.resx">
+      <DependentUpon>F_PlantaNervios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Ventana Principal\F_AcercaDe.resx">
@@ -409,7 +421,7 @@
     <EmbeddedResource Include="Ventana Principal\Ventanas Emergentes\F_SelectCombinaciones.resx">
       <DependentUpon>F_SelectCombinaciones.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\F_SelectNervio.resx">
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Select Nervio\F_SelectNervio.resx">
       <DependentUpon>F_SelectNervio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificacionEjes.resx">
