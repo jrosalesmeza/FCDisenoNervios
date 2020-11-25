@@ -58,6 +58,7 @@ namespace FC_Diseño_de_Nervios
                     }
                     Nervio.CrearEnvolvente();
                     Nervio.CrearAceroAsignadoRefuerzoLongitudinal();
+                    Nervio.CrearAceroAsignadoRefuerzoTransversal(); 
                 } 
             }
         }

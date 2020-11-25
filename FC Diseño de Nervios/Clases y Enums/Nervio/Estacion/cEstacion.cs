@@ -69,6 +69,8 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+
+
         public override int GetHashCode()
         {
             return base.GetHashCode();

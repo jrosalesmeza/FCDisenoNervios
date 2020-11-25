@@ -12,7 +12,7 @@ namespace FC_Diseño_de_Nervios
         {
             this.Nombre = Nombre;
         }
-        public float VersionPrograma = Program.Version;
+        public float VersionPrograma { get; set; } = Program.Version;
         public string Nombre { get; set; }
         public string Ruta { get; set; } = "";
         public cDatosEtabs DatosEtabs { get; set; }

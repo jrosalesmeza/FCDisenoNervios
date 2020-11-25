@@ -48,10 +48,13 @@
             this.TSL_PesoTranseversalValue = new System.Windows.Forms.ToolStripLabel();
             this.TSL_PesoTotalText = new System.Windows.Forms.ToolStripLabel();
             this.TSL_PesoTotalValue = new System.Windows.Forms.ToolStripLabel();
+            this.agregarBloqueEstribosToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
             this.PB_VistaPerfilLongitudinalDiseno = new System.Windows.Forms.PictureBox();
             this.Herramientas1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.eliminarBarraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.eliminarBloqueEstribosToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
+            this.copiarBloqueEstribosToolStripMenuItem = new System.Windows.Forms.ToolStripButton();
             this.P_1.SuspendLayout();
             this.TS_1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_VistaPerfilLongitudinalDiseno)).BeginInit();
@@ -77,6 +80,10 @@
             this.TSB_CopiarRefuerzo,
             this.TSB_Eliminar,
             this.toolStripButton3,
+            this.agregarBloqueEstribosToolStripMenuItem,
+            this.copiarBloqueEstribosToolStripMenuItem,
+            this.eliminarBloqueEstribosToolStripMenuItem,
+            this.toolStripSeparator1,
             this.TSL_Tendencias,
             this.TSL_RSupeiror,
             this.TSCB_RSuperior,
@@ -87,8 +94,7 @@
             this.TSL_PesoTransversalText,
             this.TSL_PesoTranseversalValue,
             this.TSL_PesoTotalText,
-            this.TSL_PesoTotalValue,
-            this.toolStripButton1});
+            this.TSL_PesoTotalValue});
             this.TS_1.Location = new System.Drawing.Point(0, 0);
             this.TS_1.Name = "TS_1";
             this.TS_1.Size = new System.Drawing.Size(1088, 25);
@@ -228,6 +234,16 @@
             this.TSL_PesoTotalValue.Size = new System.Drawing.Size(55, 22);
             this.TSL_PesoTotalValue.Text = "10.45 kg";
             // 
+            // agregarBloqueEstribosToolStripMenuItem
+            // 
+            this.agregarBloqueEstribosToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.agregarBloqueEstribosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("agregarBloqueEstribosToolStripMenuItem.Image")));
+            this.agregarBloqueEstribosToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.agregarBloqueEstribosToolStripMenuItem.Name = "agregarBloqueEstribosToolStripMenuItem";
+            this.agregarBloqueEstribosToolStripMenuItem.Size = new System.Drawing.Size(23, 22);
+            this.agregarBloqueEstribosToolStripMenuItem.Text = "Agregar Estribos";
+            this.agregarBloqueEstribosToolStripMenuItem.Click += new System.EventHandler(this.agregarBloqueEstribosToolStripMenuItem_Click);
+            // 
             // PB_VistaPerfilLongitudinalDiseno
             // 
             this.PB_VistaPerfilLongitudinalDiseno.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -257,15 +273,30 @@
             this.eliminarBarraToolStripMenuItem.Text = "Eliminar Barra";
             this.eliminarBarraToolStripMenuItem.Click += new System.EventHandler(this.eliminarBarraToolStripMenuItem_Click_1);
             // 
-            // toolStripButton1
+            // toolStripSeparator1
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // eliminarBloqueEstribosToolStripMenuItem
+            // 
+            this.eliminarBloqueEstribosToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.eliminarBloqueEstribosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("eliminarBloqueEstribosToolStripMenuItem.Image")));
+            this.eliminarBloqueEstribosToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.eliminarBloqueEstribosToolStripMenuItem.Name = "eliminarBloqueEstribosToolStripMenuItem";
+            this.eliminarBloqueEstribosToolStripMenuItem.Size = new System.Drawing.Size(23, 22);
+            this.eliminarBloqueEstribosToolStripMenuItem.Text = "Eliminar Estribos";
+            this.eliminarBloqueEstribosToolStripMenuItem.Click += new System.EventHandler(this.eliminarBloqueEstribosToolStripMenuItem_Click);
+            // 
+            // copiarBloqueEstribosToolStripMenuItem
+            // 
+            this.copiarBloqueEstribosToolStripMenuItem.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.copiarBloqueEstribosToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copiarBloqueEstribosToolStripMenuItem.Image")));
+            this.copiarBloqueEstribosToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.copiarBloqueEstribosToolStripMenuItem.Name = "copiarBloqueEstribosToolStripMenuItem";
+            this.copiarBloqueEstribosToolStripMenuItem.Size = new System.Drawing.Size(23, 22);
+            this.copiarBloqueEstribosToolStripMenuItem.Text = "Copiar Estribos";
+            this.copiarBloqueEstribosToolStripMenuItem.Click += new System.EventHandler(this.copiarBloqueEstribosToolStripMenuItem_Click);
             // 
             // F_VentanaDiseno
             // 
@@ -314,6 +345,9 @@
         private System.Windows.Forms.ToolStripButton TSB_Eliminar;
         private System.Windows.Forms.ToolStripLabel TSL_PesoTotalText;
         private System.Windows.Forms.ToolStripLabel TSL_PesoTotalValue;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton agregarBloqueEstribosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton eliminarBloqueEstribosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton copiarBloqueEstribosToolStripMenuItem;
     }
 }

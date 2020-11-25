@@ -9,6 +9,8 @@ namespace FC_Diseño_de_Nervios
 {
     public static class cVariables
     {
+        public const float ValueNull = -999999f;
+
         public const float BubblesizePlano = 1.25f;
         public const float ToleranciaVentanaDiseno = 5f;
 
@@ -79,9 +81,14 @@ namespace FC_Diseño_de_Nervios
         public const float ToleranciaDistanciaEstribos = 2f;
 
         public const int CifrasDeciSepEstribos = 3;
+        public const float W_Recuadro_MoverEstribos = 0.08f;
+        public const float DeltaEstriboBorde = 0.1f;
+        public const float Separacion_MaximaEstribos = 0.30f;
+
 
 
         public const float DeltaH_Estribos_AutoCAD = 0.1f;
+
 
         #endregion
 

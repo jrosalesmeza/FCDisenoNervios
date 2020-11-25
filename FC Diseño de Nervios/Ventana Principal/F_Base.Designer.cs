@@ -104,6 +104,7 @@
             this.TLSB_SeleccionNervios = new System.Windows.Forms.ToolStripButton();
             this.TLS_Refuerzo = new System.Windows.Forms.ToolStripButton();
             this.TLS_5 = new System.Windows.Forms.ToolStripSeparator();
+            this.TLSB_RenombrarNervios = new System.Windows.Forms.ToolStripButton();
             this.TLSB_ModificarEjes = new System.Windows.Forms.ToolStripButton();
             this.TSB_ReasignarEjesNervios = new System.Windows.Forms.ToolStripButton();
             this.TLSB_AgregarApoyo = new System.Windows.Forms.ToolStripSplitButton();
@@ -144,6 +145,9 @@
             this.T_Timer = new System.Windows.Forms.Timer(this.components);
             this.T_AutoGuardado = new System.Windows.Forms.Timer(this.components);
             this.DP_ContenedorPrincipal = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.TSMI_ActualizarEstribos = new System.Windows.Forms.ToolStripMenuItem();
+            this.Notificador = new System.Windows.Forms.NotifyIcon(this.components);
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
             this.TS_Barra1.SuspendLayout();
@@ -166,7 +170,7 @@
             this.ayudaToolStripMenuItem});
             this.MS_BarraPrincipal.Location = new System.Drawing.Point(25, 0);
             this.MS_BarraPrincipal.Name = "MS_BarraPrincipal";
-            this.MS_BarraPrincipal.Size = new System.Drawing.Size(339, 24);
+            this.MS_BarraPrincipal.Size = new System.Drawing.Size(459, 24);
             this.MS_BarraPrincipal.TabIndex = 0;
             this.MS_BarraPrincipal.Text = "Barra Principal";
             this.MS_BarraPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MS_BarraPrincipal_MouseDown);
@@ -287,7 +291,9 @@
             this.TLSMI_EliminarRefuerzo,
             this.TLS_9,
             this.TLSMI_CopiarGeometria,
-            this.TLSMI_PegarGeometria});
+            this.TLSMI_PegarGeometria,
+            this.toolStripSeparator3,
+            this.TSMI_ActualizarEstribos});
             this.editarToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.editarToolStripMenuItem.Name = "editarToolStripMenuItem";
             this.editarToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
@@ -448,7 +454,7 @@
             this.geometríaToolStripMenuItem,
             this.refuerzoToolStripMenuItem});
             this.longitudinalToolStripMenuItem.Name = "longitudinalToolStripMenuItem";
-            this.longitudinalToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.longitudinalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.longitudinalToolStripMenuItem.Text = "Longitudinal";
             // 
             // geometríaToolStripMenuItem
@@ -470,7 +476,7 @@
             // plantaToolStripMenuItem
             // 
             this.plantaToolStripMenuItem.Name = "plantaToolStripMenuItem";
-            this.plantaToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
+            this.plantaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.plantaToolStripMenuItem.Text = "Planta";
             this.plantaToolStripMenuItem.Visible = false;
             // 
@@ -491,7 +497,7 @@
             this.diagramaDeMomentosToolStripMenuItem,
             this.diagramaDeÁreasToolStripMenuItem});
             this.momentosToolStripMenuItem.Name = "momentosToolStripMenuItem";
-            this.momentosToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.momentosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.momentosToolStripMenuItem.Text = "Momentos";
             // 
             // diagramaDeMomentosToolStripMenuItem
@@ -515,7 +521,7 @@
             this.diagramaCortanteToolStripMenuItem,
             this.diagramaDeAreasCortanteToolStripMenuItem});
             this.cortanteToolStripMenuItem.Name = "cortanteToolStripMenuItem";
-            this.cortanteToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.cortanteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cortanteToolStripMenuItem.Text = "Cortante";
             // 
             // diagramaCortanteToolStripMenuItem
@@ -673,7 +679,7 @@
             this.propiedadesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.propiedadesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("propiedadesToolStripMenuItem.Image")));
             this.propiedadesToolStripMenuItem.Name = "propiedadesToolStripMenuItem";
-            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.propiedadesToolStripMenuItem.Text = "Propiedades";
             this.propiedadesToolStripMenuItem.Click += new System.EventHandler(this.propiedadesToolStripMenuItem_Click);
             // 
@@ -740,6 +746,7 @@
             this.TLSB_SeleccionNervios,
             this.TLS_Refuerzo,
             this.TLS_5,
+            this.TLSB_RenombrarNervios,
             this.TLSB_ModificarEjes,
             this.TSB_ReasignarEjesNervios,
             this.TLSB_AgregarApoyo,
@@ -871,6 +878,16 @@
             // 
             this.TLS_5.Name = "TLS_5";
             this.TLS_5.Size = new System.Drawing.Size(6, 28);
+            // 
+            // TLSB_RenombrarNervios
+            // 
+            this.TLSB_RenombrarNervios.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TLSB_RenombrarNervios.Image = ((System.Drawing.Image)(resources.GetObject("TLSB_RenombrarNervios.Image")));
+            this.TLSB_RenombrarNervios.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TLSB_RenombrarNervios.Name = "TLSB_RenombrarNervios";
+            this.TLSB_RenombrarNervios.Size = new System.Drawing.Size(23, 25);
+            this.TLSB_RenombrarNervios.Text = "Renombrar Nervios";
+            this.TLSB_RenombrarNervios.Click += new System.EventHandler(this.TLSB_RenombrarNervios_Click);
             // 
             // TLSB_ModificarEjes
             // 
@@ -1265,6 +1282,29 @@
             this.DP_ContenedorPrincipal.Size = new System.Drawing.Size(1179, 609);
             this.DP_ContenedorPrincipal.TabIndex = 4;
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(267, 6);
+            // 
+            // TSMI_ActualizarEstribos
+            // 
+            this.TSMI_ActualizarEstribos.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TSMI_ActualizarEstribos.Name = "TSMI_ActualizarEstribos";
+            this.TSMI_ActualizarEstribos.Size = new System.Drawing.Size(270, 22);
+            this.TSMI_ActualizarEstribos.Text = "Actualizar Estribos";
+            this.TSMI_ActualizarEstribos.Click += new System.EventHandler(this.TSMI_ActualizarEstribos_Click);
+            // 
+            // Notificador
+            // 
+            this.Notificador.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.Notificador.BalloonTipText = "Versión 1.60 disponible, verifique en la carpeta de Instaladores de su Google Dri" +
+    "ve el nuevo instalador.";
+            this.Notificador.BalloonTipTitle = "Actualización Disponible para Diseño de Nervios.";
+            this.Notificador.Icon = ((System.Drawing.Icon)(resources.GetObject("Notificador.Icon")));
+            this.Notificador.Text = "Notificador - Diseño de Nervios";
+            this.Notificador.Visible = true;
+            // 
             // F_Base
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
@@ -1418,5 +1458,9 @@
         private System.Windows.Forms.ToolStripMenuItem TLSMI_PegarGeometria;
         private System.Windows.Forms.Timer T_AutoGuardado;
         private WeifenLuo.WinFormsUI.Docking.DockPanel DP_ContenedorPrincipal;
+        private System.Windows.Forms.ToolStripButton TLSB_RenombrarNervios;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem TSMI_ActualizarEstribos;
+        private System.Windows.Forms.NotifyIcon Notificador;
     }
 }

@@ -19,12 +19,8 @@ namespace FC_Diseño_de_Nervios
         {
             get
             {
-                if (nervioOrigen == null)
-                {
-                    AsignarNervioOrigen();
-                }
+                AsignarNervioOrigen();
                 return nervioOrigen;
-
             }
             set
             {
@@ -42,7 +38,24 @@ namespace FC_Diseño_de_Nervios
         }
         public List<cTendencia> TendenciasSuperior = new List<cTendencia>();
         public List<cTendencia> TendenciasInferior = new List<cTendencia>();
-        public List<cTendencia_Estribo> Tendencia_Estribos = new List<cTendencia_Estribo>();
+
+
+        private List<cTendencia_Estribo> tendencia_Estribos = new List<cTendencia_Estribo>();
+        public List<cTendencia_Estribo> TendenciasEstribos
+        {
+            get
+            {
+                CrearTendeestribosProyectosAnteriores();
+                return tendencia_Estribos;
+            }
+            set
+            {
+                if (tendencia_Estribos != value)
+                {
+                    tendencia_Estribos = value;
+                }
+            }
+        }
 
         public cTendencia t_Supeselect;
         public cTendencia TSupeSelect
@@ -84,6 +97,7 @@ namespace FC_Diseño_de_Nervios
         {
             get
             {
+                CrearTendenciaSeleccionada();
                 return t_estriboSelect;
             }
             set
@@ -91,8 +105,36 @@ namespace FC_Diseño_de_Nervios
                 if (t_estriboSelect != value)
                 {
                     t_estriboSelect = value;
+                    if (t_estriboSelect !=null)
+                    {
+                        NervioOrigen.CrearAceroAsignadoRefuerzoTransversal();
+                    }
                 }
             }
+        }
+
+        private void CrearTendeestribosProyectosAnteriores()
+        {
+            if (tendencia_Estribos == null)
+            {
+                tendencia_Estribos = new List<cTendencia_Estribo>();
+
+                for (int i = 0; i < TendenciasInferior.Count; i++)
+                {
+                    tendencia_Estribos.Add(new cTendencia_Estribo(i, this));
+                }
+            }
+        }
+
+        private void CrearTendenciaSeleccionada()
+        {
+            if (t_estriboSelect == null)
+            {
+                CrearTendeestribosProyectosAnteriores();
+                t_estriboSelect = tendencia_Estribos.First();
+            }
+
+
         }
 
 

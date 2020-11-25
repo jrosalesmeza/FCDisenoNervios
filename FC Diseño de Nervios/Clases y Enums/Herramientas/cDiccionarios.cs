@@ -166,7 +166,9 @@ namespace FC_Diseño_de_Nervios
         }
         public static void LlenarColoresBarra()
         {
-            ColorBarra = new Dictionary<eNoBarra, Color>()
+            if (ColorBarra == null)
+            {
+                ColorBarra = new Dictionary<eNoBarra, Color>()
             {
                 { eNoBarra.B2, Color.FromArgb(20,150,250)},
                 { eNoBarra.B3, Color.FromArgb(20,150,230)},
@@ -177,6 +179,7 @@ namespace FC_Diseño_de_Nervios
                 { eNoBarra.B8, Color.FromArgb(20,150,130)},
                 { eNoBarra.B10,Color.FromArgb(20,150,110) }
             };
+            }
         }
         private static void LlenarDiccionarioPesoBarras()
         {

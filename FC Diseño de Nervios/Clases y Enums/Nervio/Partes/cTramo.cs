@@ -62,7 +62,7 @@ namespace FC_Diseño_de_Nervios
         {
             EstribosDerecha = null;
             EstribosIzquierda = null;
-            NervioOrigen.ActualizarRefuerzoTransversal();
+            //NervioOrigen.ActualizarRefuerzoTransversal();
         }
         #endregion
 

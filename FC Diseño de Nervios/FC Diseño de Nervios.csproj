@@ -116,6 +116,7 @@
     <Compile Include="Clases y Enums\Nervio\cSimilitudNervio.cs" />
     <Compile Include="Clases y Enums\Nervio\cResultados.cs" />
     <Compile Include="Clases y Enums\Nervio\Estribo\cBloqueEstribos.cs" />
+    <Compile Include="Clases y Enums\Nervio\Estribo\cEstribo1.cs" />
     <Compile Include="Clases y Enums\Nervio\Estribo\cTendencia_Estribo.cs" />
     <Compile Include="Clases y Enums\Programa\cPropiedades.cs" />
     <Compile Include="Clases y Enums\Proyecto\eTipoRefuerzo.cs" />
@@ -174,6 +175,9 @@
       <DependentUpon>Control_Barra.cs</DependentUpon>
     </Compile>
     <Compile Include="Controles\RichTextBoxPrinter.cs" />
+    <Compile Include="Controles\TextBoxCustom.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controles\ToolTipPersonalizado.cs">
       <SubType>Component</SubType>
     </Compile>

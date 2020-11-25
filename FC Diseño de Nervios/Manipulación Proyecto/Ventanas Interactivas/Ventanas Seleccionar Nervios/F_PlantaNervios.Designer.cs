@@ -50,7 +50,7 @@
             this.GB_4.ForeColor = System.Drawing.Color.White;
             this.GB_4.Location = new System.Drawing.Point(3, 1);
             this.GB_4.Name = "GB_4";
-            this.GB_4.Size = new System.Drawing.Size(686, 627);
+            this.GB_4.Size = new System.Drawing.Size(529, 485);
             this.GB_4.TabIndex = 12;
             this.GB_4.TabStop = false;
             this.GB_4.Text = "Nervios";
@@ -63,7 +63,7 @@
             this.PB_Nervios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PB_Nervios.Location = new System.Drawing.Point(3, 18);
             this.PB_Nervios.Name = "PB_Nervios";
-            this.PB_Nervios.Size = new System.Drawing.Size(680, 606);
+            this.PB_Nervios.Size = new System.Drawing.Size(523, 464);
             this.PB_Nervios.TabIndex = 4;
             this.PB_Nervios.TabStop = false;
             this.PB_Nervios.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_Nervios_Paint);
@@ -98,8 +98,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(693, 633);
+            this.ClientSize = new System.Drawing.Size(536, 491);
+            this.CloseButton = false;
+            this.CloseButtonVisible = false;
             this.Controls.Add(this.GB_4);
+            this.DockAreas = ((WeifenLuo.WinFormsUI.Docking.DockAreas)((WeifenLuo.WinFormsUI.Docking.DockAreas.Float | WeifenLuo.WinFormsUI.Docking.DockAreas.Document)));
             this.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

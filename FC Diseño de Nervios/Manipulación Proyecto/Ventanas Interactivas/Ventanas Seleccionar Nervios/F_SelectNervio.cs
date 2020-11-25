@@ -12,15 +12,13 @@ namespace FC_Diseño_de_Nervios
 {
     public partial class F_SelectNervio : DockContent
     {
-        float DesXButton;
-        float DesYButton;
-        float Dx = 0;
-        float Dy = 0;
-        float Zoom = 1;
-        public F_SelectNervio()
+
+        private DeserializeDockContent DeserializeDockContent;
+         public F_SelectNervio()
         {
             InitializeComponent();
-            F_Base.F_PlantaNervios = new F_PlantaNervios();
+            DeserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+            InstaciamientoVentanasAcoplables();
             CustomizedToolTip ToolTipPerzonalizado = new CustomizedToolTip(); ToolTipPerzonalizado.AutoSize = false; ToolTipPerzonalizado.Size = new Size(150,150);
             ToolTipPerzonalizado.SetToolTip(PB_Info, $" "); PB_Info.Tag = Properties.Resources.Nervio_EsquemaR;
         }
@@ -81,8 +79,8 @@ namespace FC_Diseño_de_Nervios
         {
             CargarListViewStories();
             CB_Direccion.SelectedItem = eDireccion.Todos.ToString();
-            AcoplarVentana(ref F_Base.F_PlantaNervios);
-
+            DP_PanelContenedor.LoadFromXml(F_Base.Ruta_ConfiVentanasSelectNervioUsuario, DeserializeDockContent);
+            cFunctionsProgram.CambiarSkins(DP_PanelContenedor);
         }
 
         private ListViewItem FindListViewItem(string NameItem,ListView listView)
@@ -102,7 +100,12 @@ namespace FC_Diseño_de_Nervios
             Dock.Show(DP_PanelContenedor);
             cFunctionsProgram.CambiarSkins(Dock);
         }
-
+        public void AcoplarVentana(ref F_ModificadorDeRefuerzos Dock)
+        {
+            if (!Dock.Created) { Dock = new F_ModificadorDeRefuerzos(); }
+            Dock.Show(DP_PanelContenedor);
+            cFunctionsProgram.CambiarSkins(Dock);
+        }
         private void LV_Stories_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (LV_Stories.SelectedItems.Count > 0)
@@ -312,7 +315,6 @@ namespace FC_Diseño_de_Nervios
                 float.TryParse(TB_r2.Text, out float r2);
                 if (r2 == 0) { r2 = 4f; }
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.r2 = r2;
-
             }
         }
 
@@ -323,5 +325,42 @@ namespace FC_Diseño_de_Nervios
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.NervioBorde = CKB_NervioBorde.Checked;
             }
         }
+
+
+
+
+
+        #region Para ventanas acoplables
+        private void InstaciamientoVentanasAcoplables()
+        {
+            F_Base.F_PlantaNervios = new F_PlantaNervios();
+            F_Base.F_ModificadorDeRefuerzos = new F_ModificadorDeRefuerzos();
+        }
+
+        private IDockContent GetContentFromPersistString(string persistString)
+        {
+            DockContent dockContent;
+            if (persistString == typeof(F_PlantaNervios).ToString())
+                dockContent = F_Base.F_PlantaNervios;
+            else if (persistString == typeof(F_ModificadorDeRefuerzos).ToString())
+                dockContent = F_Base.F_ModificadorDeRefuerzos;
+            else
+            {
+                string[] parsedStrings = persistString.Split(new char[] { ',' });
+                if (parsedStrings.Length != 3)
+                    return null;
+                if (parsedStrings[0] != typeof(DockContent).ToString())
+                    return null;
+
+                dockContent = new F_PlantaNervios();
+                if (parsedStrings[2] != string.Empty)
+                    dockContent.Text = parsedStrings[2];
+
+                return dockContent;
+            }
+            return dockContent;
+        }
+
+        #endregion
     }
 }

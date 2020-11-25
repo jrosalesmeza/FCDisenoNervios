@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebTools;
 
@@ -57,8 +59,23 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas
             catch { }
             return ListaTextos.ToArray();
         }
+        public static async Task<Tuple<bool, string>> ComprobarVersionProgramaAsync()
+        {
+            string VersionProgramaWeb = Program.Version.ToString();
+            try
+            {
+                TextoPlanoLocal = LeerArchivoTextoPlano(Ruta_OpcionesSeguridad);
+                string LinkServidorEncriptado = TextoPlanoLocal[0];
+                var TextoPlanoWeb = await FuncitionsWeb.DevolverTextoPlanoDesdeServerAsync(Safe.DesEncriptar(LinkServidorEncriptado));
+                string VersionProgramaLocal = TextoPlanoLocal.Last();
+                VersionProgramaWeb = TextoPlanoWeb.Last();
+                if (VersionProgramaLocal == VersionProgramaWeb)
+                    return new Tuple<bool, string>(true, VersionProgramaWeb);
+            }
+            catch { return new Tuple<bool, string>(true, VersionProgramaWeb); }
+            return new Tuple<bool, string>(false, VersionProgramaWeb);
+        }
 
-    
     }
     #endregion
 

@@ -11,7 +11,9 @@ namespace FC_Diseño_de_Nervios
 {
     static class Program
     {
-        public const float Version = 1.05f;
+        public const string _GOOGLEDRIVE = "Google Drive File Stream";
+        public const float Version = 1.06f;
+
         [STAThread]
         static void Main()
         {
@@ -19,5 +21,9 @@ namespace FC_Diseño_de_Nervios
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new F_Inicio());
         }
+
+
+
     }
+
 }

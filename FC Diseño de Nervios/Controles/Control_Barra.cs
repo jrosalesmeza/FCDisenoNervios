@@ -129,6 +129,8 @@ namespace FC_Diseño_de_Nervios.Controles
         {
             cDiccionarios.LlenarColoresBarra();
             Pen Pen = new Pen(cDiccionarios.ColorBarra[noBarra], espesor);
+            if (!Enabled)
+                Pen = new Pen(Color.Gray, espesor);
             Rectangle rec = ClientRectangle;
             float BORDER_GANCHO = espesor / 2f; float DIST_DESPLEGAR_Y = rec.Height / 3;
             float ANCHO_REC_ANGULO = rec.Width / 8f; float ALTO_REC_ANGULO = rec.Height / 3f - espesor / 2f;
@@ -190,6 +192,11 @@ namespace FC_Diseño_de_Nervios.Controles
         }
 
 
+        protected override void OnEnabledChanged(EventArgs e)
+        {
+            base.OnEnabledChanged(e);
+            Invalidate();
+        }
 
 
 

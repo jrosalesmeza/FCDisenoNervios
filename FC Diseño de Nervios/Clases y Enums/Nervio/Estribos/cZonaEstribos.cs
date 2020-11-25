@@ -148,7 +148,7 @@ namespace FC_Diseño_de_Nervios
                 string Text = ToString();
                 SizeF MessureText = e.MeasureString(Text, Font1);
                 PointF PointString = new PointF(CoordenadasPuntoString.Escaladas.First().X - MessureText.Width / 2f, CoordenadasPuntoString.Escaladas.First().Y - MessureText.Height/2);
-                //e.DrawString(Text, Font1, Brush_Text, PointString);
+                e.DrawString(Text, Font1, Brush_Text, PointString);
             }
             //e.DrawPath(PenEstribo, Path);
         }

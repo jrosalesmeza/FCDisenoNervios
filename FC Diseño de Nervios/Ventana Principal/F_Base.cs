@@ -27,9 +27,11 @@ namespace FC_Diseño_de_Nervios
         public static F_Base F_Base_;
 
 
-        private string Ruta_ConfigVentanasDefault = Path.Combine(Application.StartupPath,cFunctionsProgram.Ext_ConfigVentana);
-        private string Ruta_ConfigVentanasUsuario = Path.Combine(cFunctionsProgram.Ruta_CarpetaLocal, cFunctionsProgram.Ext_ConfigVentana);
-        private string Ruta_MemoriaCalculo = Path.Combine(cFunctionsProgram.Ruta_CarpetaLocal, cFunctionsProgram.Ext_MemoriaCalculos);
+        private static string Ruta_ConfigVentanasDefault = Path.Combine(Application.StartupPath,cFunctionsProgram.Ext_ConfigVentana);
+        private static string Ruta_ConfigVentanasUsuario = Path.Combine(cFunctionsProgram.Ruta_CarpetaLocal, cFunctionsProgram.Ext_ConfigVentana);
+        private static string Ruta_MemoriaCalculo = Path.Combine(cFunctionsProgram.Ruta_CarpetaLocal, cFunctionsProgram.Ext_MemoriaCalculos);
+        private static string Ruta_ConfiVentanasSelectNervioDefault = Path.Combine(Application.StartupPath, cFunctionsProgram.Ext_ConfigVentanaSelectNervios);
+        public static string Ruta_ConfiVentanasSelectNervioUsuario = Path.Combine(cFunctionsProgram.Ruta_CarpetaLocal, cFunctionsProgram.Ext_ConfigVentanaSelectNervios);
         #endregion
 
         #region Ventanas Emergentes
@@ -47,6 +49,7 @@ namespace FC_Diseño_de_Nervios
         #region Ventanas Acopladas
         public static F_SelectNervio F_SelectNervio;
         public static F_PlantaNervios F_PlantaNervios;
+        public static F_ModificadorDeRefuerzos F_ModificadorDeRefuerzos;
         public static F_NervioEnPerfilLongitudinal F_NervioEnPerfilLongitudinal;
         public static F_MomentosNervio F_MomentosNervio;
         public static F_AreasMomentoNervio F_AreasMomentoNervio;
@@ -72,10 +75,33 @@ namespace FC_Diseño_de_Nervios
             SetStyle(ControlStyles.ResizeRedraw, true);
             ST_Base.SizingGrip = false;
             F_Base_ = this;
+            NotificadorVersiones();
         }
 
         #region Programa 
         public static cPropiedades PropiedadesPrograma;
+
+        private void NotificadorVersiones()
+        {
+            Timer TimerNotificador = new Timer();
+            TimerNotificador.Interval = 1000 * 300; //Cada 5Min
+            TimerNotificador.Tick += TimerNotificador_Tick;
+            TimerNotificador.Start();
+            Notificador.BalloonTipClicked += Notificador_Click;
+        }
+        private void Notificador_Click(object sender, EventArgs e)
+        {
+            cFunctionsProgram.AbrirUnidadGoogleDrive();
+        }
+        private async void TimerNotificador_Tick(object sender, EventArgs e)
+        {
+            var Result = await cSafe.ComprobarVersionProgramaAsync();
+            if (!Result.Item1)
+            {
+                Notificador.BalloonTipText = $"Versión {Result.Item2} disponible, verifique en la carpeta de Instaladores de su Google Drive el nuevo instalador.";
+                Notificador.ShowBalloonTip(1);
+            }
+        }
         #endregion
 
         #region Proyecto
@@ -298,6 +324,9 @@ namespace FC_Diseño_de_Nervios
                 Directory.CreateDirectory(cFunctionsProgram.Ruta_CarpetaLocal);
             if (!File.Exists(Ruta_ConfigVentanasUsuario))
                 File.Copy(Ruta_ConfigVentanasDefault, Ruta_ConfigVentanasUsuario);
+            if (!File.Exists(Ruta_ConfiVentanasSelectNervioUsuario))
+                File.Copy(Ruta_ConfiVentanasSelectNervioDefault, Ruta_ConfiVentanasSelectNervioUsuario);
+
         }
 
         private void GuardarProyecto_Function()
@@ -580,7 +609,8 @@ namespace FC_Diseño_de_Nervios
 
                 if (PropiedadesPrograma.AutoGuardado)
                     T_AutoGuardado.Start();
-                
+
+               // TSMI_ActualizarEstribos.Visible = Proyecto.VersionPrograma<1.05f;
             }
             else
             {
@@ -591,6 +621,7 @@ namespace FC_Diseño_de_Nervios
                 ActivarDesactivarBotonesNervioSelect(false);
                 BloqueoDesbloqueoBotones(false);
                 T_AutoGuardado.Stop();
+                TSMI_ActualizarEstribos.Visible = false;
             }
         }
 
@@ -603,6 +634,7 @@ namespace FC_Diseño_de_Nervios
             TLSB_ModificarEjes.Enabled = Bool;
             TSB_ReasignarEjesNervios.Enabled = Bool;
             exportarDLNETNIMBUSToolStripMenuItem.Enabled = Bool;
+            TLSB_RenombrarNervios.Enabled = Bool;
         }
 
         private void ActivarDesactivarBotonesNervioSelect(bool Bool)
@@ -790,6 +822,8 @@ namespace FC_Diseño_de_Nervios
 
         private void DobleClickMaximaze(MouseEventArgs e)
         {
+            Rectangle RectangeScreen = Screen.FromHandle(Handle).WorkingArea;
+            MaximizedBounds = new Rectangle(0, 0, RectangeScreen.Width, RectangeScreen.Height);
             if (e.Button == MouseButtons.Left)
             {
                 if (WindowState == FormWindowState.Normal)
@@ -1103,6 +1137,22 @@ namespace FC_Diseño_de_Nervios
             cFuncion_CopiaryPegarGeometria.Pegar(Proyecto.Edificio.PisoSelect.NervioSelect);
             ActualizarVentanaF_NervioEnPerfilLongitudinal();
         }
+
+        private void TLSB_RenombrarNervios_Click(object sender, EventArgs e)
+        {
+            EnviarEstadoVacio();
+            Proyecto.Nomenclatura_Hztal = Proyecto.Nomenclatura_Hztal == eNomenclatura.Alfabética ? eNomenclatura.Numérica : eNomenclatura.Alfabética;
+            Proyecto.Nomenclatura_Vert = Proyecto.Nomenclatura_Vert == eNomenclatura.Alfabética ? eNomenclatura.Numérica : eNomenclatura.Alfabética;
+            Proyecto.Edificio.Lista_Pisos.ForEach(y =>
+            {
+                cFunctionsProgram.RenombrarNervios(y.Nervios, Proyecto.Nomenclatura_Hztal, Proyecto.Nomenclatura_Vert);
+            });
+
+            ActualizarTodosLasVentanas();
+            cFunctionsProgram.VentanaEmergenteInformacion("Nervios Renombrados con Éixto");
+
+        }
+
         private void T_AutoGuardado_Tick(object sender, EventArgs e)
         {
             if (Proyecto.Ruta != "")
@@ -1111,9 +1161,6 @@ namespace FC_Diseño_de_Nervios
             }
         }
         #endregion Eventos de MenuStrip y ToolStrip
-
-
-
 
 
 
@@ -1161,7 +1208,6 @@ namespace FC_Diseño_de_Nervios
             F_VentanaDiseno = new F_VentanaDiseno();
             F_CortanteNervio = new F_CortanteNervio();
             F_AreasCortanteNervio = new F_AreasCortanteNervio();
-
         }
 
         private void F_Base_Load(object sender, EventArgs e)
@@ -1173,5 +1219,10 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+        private void TSMI_ActualizarEstribos_Click(object sender, EventArgs e)
+        {
+            cFunctionsProgram.ActualizarEstribosVersionesAnteriores(Proyecto);
+            ActualizarTodosLasVentanas();
+        }
     }
 }

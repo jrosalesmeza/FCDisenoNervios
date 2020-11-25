@@ -701,35 +701,20 @@ namespace FC_Diseño_de_Nervios
 
         #region Metodos Mouse
 
-        public void MouseDown(PointF Point, bool NoArrastre)
+        public void MouseDown(PointF Point)
         {
-            if (NoArrastre)
+
+            if (isMouseOverNoArrastre(Point))
             {
-                if (isMouseOverNoArrastre(Point))
-                {
-                    C_Barra.IsSelect = true;
-                    C_Barra.IsSelectArrastre = false;
-                }
-                else
-                {
-                    C_Barra.IsSelect = false;
-                    C_Barra.IsSelectArrastre = false;
-                }
+                C_Barra.IsSelect = true;
+                C_Barra.IsSelectArrastre = true;
             }
             else
             {
-                if (isMouseOverNoArrastre(Point))
-                {
-                    C_Barra.IsSelectArrastre = true;
-                    C_Barra.IsSelect = false;
-
-                }
-                else
-                {
-                    C_Barra.IsSelect = false;
-                    C_Barra.IsSelectArrastre = false;
-                }
+                C_Barra.IsSelect = false;
+                C_Barra.IsSelectArrastre = false;
             }
+            
         }
         public void MouseDownDoubleClick(PointF Point)
         {
@@ -750,25 +735,39 @@ namespace FC_Diseño_de_Nervios
 
         private bool isMouseOverNoArrastre(PointF PointPerte)
         {
+            bool Booleano =IsVisibleCoordenadas(C_Barra,PointPerte);
+            if(!Booleano)
+                Booleano= IsVisibleCoordenadas(C_F_Derecha, PointPerte);
+            if(!Booleano)
+                Booleano=IsVisibleCoordenadas(C_F_Izquierda, PointPerte);
+            return Booleano;
+        }
+
+
+        private bool IsVisibleCoordenadas(cCoordenadas coordenadas, PointF PointPerte)
+        {
             float DistanciaMinima = cVariables.ToleranciaVentanaDiseno;
-            for (int i = 0; i < C_Barra.Reales.Count; i++)
+            for (int i = 0; i < coordenadas.Reales.Count; i++)
             {
-                if(i+1< C_Barra.Reales.Count)
+                if (i + 1 < coordenadas.Reales.Count)
                 {
-                    float Distancia= cFunctionsProgram.Dist(C_Barra.Escaladas[i], C_Barra.Escaladas[i + 1], PointPerte);
-                    if(Distancia<= DistanciaMinima && C_Barra.Escaladas[i].X<= PointPerte.X && PointPerte.X<= C_Barra.Escaladas[i + 1].X)
+                    float Distancia = cFunctionsProgram.Dist(coordenadas.Escaladas[i], coordenadas.Escaladas[i + 1], PointPerte);
+                    if (Distancia <= DistanciaMinima && coordenadas.Escaladas[i].X <= PointPerte.X && PointPerte.X <= coordenadas.Escaladas[i + 1].X)
                     {
                         return true;
                     }
                 }
-
             }
             return false;
         }
 
+
+
+
+
         public void MouseMove(PointF PointF)
         {
-            if (C_F_Izquierda.IsSelect)
+            if (C_F_Izquierda.IsSelect && C_Barra.IsSelect)
             {
                 float DistanciaPixeles = PointF.X - C_F_Izquierda.Escaladas.First().X;
                 float DeltaDistancia = DistanciaPixeles / SX;
@@ -776,7 +775,7 @@ namespace FC_Diseño_de_Nervios
                 XI += DeltaDistancia;
                 C_F_Izquierda.Escaladas = new List<PointF>() { PointF };
             }
-            if (C_F_Derecha.IsSelect)
+            if (C_F_Derecha.IsSelect && C_Barra.IsSelect)
             {
                 float DistanciaPixeles = PointF.X - C_F_Derecha.Escaladas.First().X;
                 float DeltaDistancia = DistanciaPixeles / SX;
@@ -785,7 +784,7 @@ namespace FC_Diseño_de_Nervios
                 C_F_Derecha.Escaladas = new List<PointF>() { PointF };
 
             }
-            if (C_F_Central.IsSelect)
+            if (C_F_Central.IsSelect && C_Barra.IsSelect)
             {
                 float DistanciaPixeles1 = PointF.X - C_F_Central.Escaladas.First().X;
                 if (xi + DistanciaPixeles1 / SX >= LimiteIzquierdo && xf + DistanciaPixeles1 / SX <= LimiteDerecho)

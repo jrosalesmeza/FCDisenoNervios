@@ -30,6 +30,7 @@ namespace FC_Diseño_de_Nervios
                     TramoOrigen.NervioOrigen.CrearCoordenadasPerfilLongitudinalAutoCAD();
                     TramoOrigen.NervioOrigen.CrearEnvolvente();
                     TramoOrigen.NervioOrigen.CrearAceroAsignadoRefuerzoLongitudinal();
+                    TramoOrigen.NervioOrigen.CrearAceroAsignadoRefuerzoTransversal();
                     TramoOrigen.NervioOrigen.AsignarCambiosANerviosSimilares(TramoOrigen.ID,Index);
                 }
                 longitud = value;

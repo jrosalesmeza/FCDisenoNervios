@@ -4,8 +4,8 @@
     <Position X="10.25" Y="7.5" Width="1.75" />
     <InheritanceLine Type="FC_Diseño_de_Nervios.cObjetoCoordenadas" ManuallyRouted="true" FixedToPoint="true">
       <Path>
-        <Point X="7.5" Y="8.75" />
-        <Point X="7.5" Y="8.351" />
+        <Point X="8.25" Y="11.25" />
+        <Point X="8.25" Y="8.351" />
         <Point X="10.25" Y="8.351" />
       </Path>
     </InheritanceLine>
@@ -26,8 +26,8 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>EAAAAAAAAAEBAAAEABAAoAAAACEAAAAAAQAAAAAAAAQ=</HashCode>
-      <FileName>Clases y Enums\cLine.cs</FileName>
+      <HashCode>EAAAAAAAAQEBAAAEABAAoAAAACEAAAAAAQAAAAAAAAQ=</HashCode>
+      <FileName>Clases y Enums\Etabs\cLine.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Seccion" />
@@ -38,12 +38,12 @@
     <Position X="16" Y="6.25" Width="1.5" />
     <AssociationLine Name="Type" Type="FC_Diseño_de_Nervios.eType">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.57" Y="-1.24" />
+        <Position X="2.424" Y="-0.147" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AEBAAAAACAIAAAAEAAAAgAAAAAAAAAAAQQAAAEEAAAA=</HashCode>
-      <FileName>Clases y Enums\cSeccion.cs</FileName>
+      <FileName>Clases y Enums\Seccion\cSeccion.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Material" />
@@ -53,21 +53,21 @@
   <Class Name="FC_Diseño_de_Nervios.cPoint">
     <Position X="15.25" Y="13.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAYAA=</HashCode>
-      <FileName>Clases y Enums\cPoint.cs</FileName>
+      <HashCode>QAAAAAAAAAAAAAAEAAAAgAAAAAAAAAAAAAAAAAAAYAE=</HashCode>
+      <FileName>Clases y Enums\Etabs\cPoint.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cMaterial">
     <Position X="13.25" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAAAAAEAAACgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Clases y Enums\cMaterial.cs</FileName>
+      <FileName>Clases y Enums\Seccion\cMaterial.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cNervio">
-    <Position X="3" Y="6.75" Width="1.5" />
+    <Position X="2.75" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>kiAEAEEEAAeBgCEEQCEClBEgAAAAAVAEBAEEQEywAAI=</HashCode>
+      <HashCode>sCVcMEmOgGeBmKHURiECvrioQAQCIFjMJoFV4Gy4AAI=</HashCode>
       <FileName>Clases y Enums\Nervio\cNervio.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -76,13 +76,13 @@
     <AssociationLine Name="Edificio" Type="FC_Diseño_de_Nervios.cEdificio" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="6.25" Y="1.324" />
-        <Point X="5.438" Y="1.324" />
-        <Point X="5.438" Y="2.25" />
+        <Point X="3.938" Y="1.324" />
+        <Point X="3.938" Y="2" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAQAAAAEAAAAgAACACAAQAAAAEAAAAAAAAA=</HashCode>
-      <FileName>Clases y Enums\cProyecto.cs</FileName>
+      <HashCode>AECAAAAAAAQCAAAEAAAAiAACACAAQACEAEAAAAAAAAE=</HashCode>
+      <FileName>Clases y Enums\Proyecto\cProyecto.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="DatosEtabs" />
@@ -90,60 +90,44 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cEdificio">
-    <Position X="4.75" Y="2.25" Width="1.5" />
+    <Position X="3.25" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEEAAAAA=</HashCode>
-      <FileName>Clases y Enums\cEdificio.cs</FileName>
+      <FileName>Clases y Enums\Proyecto\cEdificio.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="PisoSelect" />
     </ShowAsAssociation>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cPiso">
-    <Position X="4.75" Y="4" Width="1.5" />
+    <Position X="4.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAEgAAAgAAAAAAgBAAAAAQAAEAAAAA=</HashCode>
-      <FileName>Clases y Enums\cPiso.cs</FileName>
+      <HashCode>AAAEACAABAAAAAAEgAEAgAABAAAgBAAAAAQAAEAAAAA=</HashCode>
+      <FileName>Clases y Enums\Proyecto\cPiso.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="NervioSelect" />
     </ShowAsAssociation>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cEstribo">
-    <Position X="16" Y="9.5" Width="1.5" />
-    <InheritanceLine Type="FC_Diseño_de_Nervios.cObjetoCoordenadas" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="8.5" Y="9.725" />
-        <Point X="9.625" Y="9.725" />
-        <Point X="9.625" Y="10.062" />
-        <Point X="16" Y="10.062" />
-      </Path>
-    </InheritanceLine>
-    <AssociationLine Name="Seccion" Type="FC_Diseño_de_Nervios.cSeccion">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.11" Y="0.349" />
-      </MemberNameLabel>
-    </AssociationLine>
+    <Position X="18.25" Y="9.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Clases y Enums\cEstribo.cs</FileName>
+      <HashCode>AAAAAAAACEAAAEAEAAAABAAIgCIAAAAgQAAAAEEAAAA=</HashCode>
+      <FileName>Clases y Enums\Nervio\Estribos\cEstribo.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Seccion" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cEnvolvente">
     <Position X="13.5" Y="15.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAIAABAAAAAAAAhAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
-      <FileName>Clases y Enums\cEnvolvente.cs</FileName>
+      <HashCode>AQBAAAQAIABAAEAAAAAAhAAAEAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Clases y Enums\Nervio\Estacion\cEnvolvente.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cTramo">
-    <Position X="6.75" Y="5.5" Width="1.5" />
+    <Position X="7.25" Y="5" Width="2" />
     <TypeIdentifier>
-      <HashCode>ABEAAAAAAEAAgCAFAAAAgAAAIAAAAAAAAAABAAAAAAA=</HashCode>
-      <FileName>Clases y Enums\Nervio\cTramo.cs</FileName>
+      <HashCode>EBWAQAIAAEAAiCAEAAAAgIAAIABAAAAgQAAJAMAACAA=</HashCode>
+      <FileName>Clases y Enums\Nervio\Partes\cTramo.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cAreas_Solicitacion">
@@ -184,8 +168,8 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
-      <FileName>Clases y Enums\cCalculos.cs</FileName>
+      <HashCode>AAAAACAAQAAAAAAEABAAAAgAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Clases y Enums\Nervio\Estacion\cCalculos.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Envolvente" />
@@ -204,64 +188,47 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEkgAQQgAAACAABAIAAAAgAAAAAAAA=</HashCode>
-      <FileName>Clases y Enums\cEstacion.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAEEkgAQQgAAACAAAAIAAQIgAAAAAAQA=</HashCode>
+      <FileName>Clases y Enums\Nervio\Estacion\cEstacion.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Calculos" />
-      <Property Name="Areas_Solicitacion" />
     </ShowAsAssociation>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cSolicitacion">
     <Position X="13.25" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AABAACIAAAAAAAAEAAAAhCAAAAAAAAAQAAAAAABEAAA=</HashCode>
-      <FileName>Clases y Enums\cCombos.cs</FileName>
+      <FileName>Clases y Enums\Nervio\Estacion\cCombos.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cDatosEtabs">
     <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAACgAAAAAAAAAACAAAAAAAAAAAgEEAAAAA=</HashCode>
-      <FileName>Clases y Enums\cDatosEtabs.cs</FileName>
+      <FileName>Clases y Enums\Proyecto\cDatosEtabs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cObjetoCoordenadas">
-    <Position X="6.5" Y="8.75" Width="2" />
+    <Position X="7.25" Y="11.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAEQAAAAAAAAAAAAAAAIAAAAAApCAQAAAQAAAAQA=</HashCode>
-      <FileName>Clases y Enums\cObjetoCoordenadas.cs</FileName>
+      <HashCode>AAAAAEQAAAAAAAAAAAAAAAICAAAAApCAQAAAQAAAAQA=</HashCode>
+      <FileName>Clases y Enums\Etabs\cObjetoCoordenadas.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FC_Diseño_de_Nervios.cBarra">
-    <Position X="2.25" Y="11" Width="1.5" />
-    <InheritanceLine Type="FC_Diseño_de_Nervios.cObjetoCoordenadas" FixedFromPoint="true">
-      <Path>
-        <Point X="6.5" Y="9.875" />
-        <Point X="5.177" Y="9.875" Type="JumpStart" />
-        <Point X="5.01" Y="9.875" Type="JumpEnd" />
-        <Point X="4.75" Y="9.875" />
-        <Point X="4.75" Y="17.083" />
-        <Point X="1.875" Y="17.083" />
-        <Point X="1.875" Y="11.905" />
-        <Point X="2.25" Y="11.905" />
-      </Path>
-    </InheritanceLine>
+    <Position X="0.5" Y="10.5" Width="1.5" />
     <AssociationLine Name="UbicacionRefuerzo" Type="FC_Diseño_de_Nervios.eUbicacionRefuerzo" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="2.938" Y="11" />
-        <Point X="2.938" Y="8.895" />
+        <Point X="1.188" Y="10.5" />
+        <Point X="1.188" Y="9.546" />
+        <Point X="2.375" Y="9.546" />
+        <Point X="2.375" Y="8.895" />
         <Point X="2.25" Y="8.895" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.481" Y="-0.407" />
       </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="GanchoIzquierda" Type="FC_Diseño_de_Nervios.eTipoGancho" FixedFromPoint="true">
-      <Path>
-        <Point X="2.5" Y="12.81" />
-        <Point X="2.5" Y="14.25" />
-      </Path>
     </AssociationLine>
     <AssociationLine Name="GanchoDerecha" Type="FC_Diseño_de_Nervios.eTipoGancho">
       <MemberNameLabel ManuallyPlaced="true">
@@ -269,8 +236,8 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>IAAAAAAACAgAgEAAEAAAAAAAACAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Clases y Enums\cBarra.cs</FileName>
+      <HashCode>YQSEREBGHEpQsEAGMIAALDAYQKWgEAEgQAgoDJCOSkw=</HashCode>
+      <FileName>Clases y Enums\Refuerzo\cBarra.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="UbicacionRefuerzo" />
@@ -281,8 +248,8 @@
   <Enum Name="FC_Diseño_de_Nervios.eType">
     <Position X="11.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAgAAABAAAAAQAAAAAQAAAAAAAEAAAA=</HashCode>
-      <FileName>Clases y Enums\eType.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAgAAABAAAQAQAAAAAQAAAAAAAEAAAA=</HashCode>
+      <FileName>Clases y Enums\Etabs\eType.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="FC_Diseño_de_Nervios.eTipoSoporte">
@@ -296,14 +263,14 @@
     <Position X="0.75" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAQAAAAAAA=</HashCode>
-      <FileName>Clases y Enums\eUbicacionRefuerzo.cs</FileName>
+      <FileName>Clases y Enums\Refuerzo\eUbicacionRefuerzo.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="FC_Diseño_de_Nervios.eTipoGancho">
-    <Position X="2" Y="14.25" Width="1.5" />
+    <Position X="5" Y="14" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEBAAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>Clases y Enums\eTipoGancho.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAEBAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Clases y Enums\Refuerzo\eTipoGancho.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

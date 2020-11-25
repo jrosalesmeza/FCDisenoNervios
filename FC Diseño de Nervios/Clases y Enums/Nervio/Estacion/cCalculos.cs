@@ -21,7 +21,10 @@ namespace FC_Diseño_de_Nervios
         public cEnvolvente Envolvente { get; set; }
         public cSubTramo SubtramoOrigen { get; }
         public cEstacion EstacionOrigen { get; private set; }
-
+        public bool IsAreasCortanteMayoresAmin()
+        {
+            return Solicitacion_Asignado_Cortante.SolicitacionesSuperior.Area_S > Solicitacion_Asignado_Cortante.SolicitacionesSuperior.AreaMin;
+        }
         public override string ToString() => $"Calculos | {SubtramoOrigen.ToString()}";
     }
 }

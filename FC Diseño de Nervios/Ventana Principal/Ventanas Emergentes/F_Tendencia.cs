@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
 
         List<cTendencia> TendenciasCreadasI { get; set; }
         List<cTendencia> TendenciasCreadasS { get; set; }
+        List<cTendencia_Estribo> Tendencia_Estribos { get; set; }
         public F_Tendencia()
         {
             InitializeComponent();
@@ -56,7 +58,9 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
         {
             TendenciasCreadasI = cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasInferior);
             TendenciasCreadasS= cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasSuperior);
+            Tendencia_Estribos = cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasEstribos);
             TendenciasCreadasI.ForEach(x => x.LimpiarTendencia()); TendenciasCreadasS.ForEach(x => x.LimpiarTendencia());
+            Tendencia_Estribos.ForEach(x => x.LimpiarTendencia());
             CrearObjetosTendenciasLoad();
         }
 
@@ -582,10 +586,13 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             int ID = TendenciasCreadasI.Max(x => x.ID);
             cTendencia TI = cFunctionsProgram.DeepClone(TendenciasCreadasI.Find(x => x.ID == ID));
             cTendencia TS = cFunctionsProgram.DeepClone(TendenciasCreadasS.Find(x => x.ID == ID));
+            cTendencia_Estribo TE = cFunctionsProgram.DeepClone(Tendencia_Estribos.Find(x => x.ID == ID));
             TI.ID += 1; TI.Nombre = "Tendencia " + (ID+1);
             TS.ID += 1; TS.Nombre = "Tendencia " + (ID+1);
-            TI.LimpiarTendencia(); TS.LimpiarTendencia();
+            TE.ID += 1; TE.Nombre = "Tendencia " + (ID + 1);
+            TI.LimpiarTendencia(); TS.LimpiarTendencia(); TE.LimpiarTendencia();
             TendenciasCreadasI.Add(TI);TendenciasCreadasS.Add(TS);
+            Tendencia_Estribos.Add(TE);
         }
 
 
@@ -599,10 +606,12 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             {
                 cTendencia TI = tendencia;
                 cTendencia TS = TendenciasCreadasS[i];
+                cTendencia_Estribo TE = Tendencia_Estribos[i];
                 foreach (cNervio Nervio in F_Base.Proyecto.Edificio.PisoSelect.Nervios)
                 {
                     cTendencia TIN = Nervio.Tendencia_Refuerzos.TendenciasInferior.Find(x => x.ID == TI.ID);
                     cTendencia TSN = Nervio.Tendencia_Refuerzos.TendenciasSuperior.Find(x => x.ID == TS.ID);
+                    cTendencia_Estribo TEN = Nervio.Tendencia_Refuerzos.TendenciasEstribos.Find(x => x.ID == TE.ID);
                     TI.Tendencia_Refuerzo_Origen.NombreNervioOrigen = Nervio.Nombre;
                     TS.Tendencia_Refuerzo_Origen.NombreNervioOrigen = Nervio.Nombre;
                     if (TIN!=null)
@@ -626,6 +635,10 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
                         Nervio.Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.DeepClone(TS));
                     }
 
+                    if (TEN== null)
+                    {
+                        Nervio.Tendencia_Refuerzos.TendenciasEstribos.Add(cFunctionsProgram.DeepClone(TE));
+                    }
 
                     Nervio.AsignarMaximaLongitudTendencias();
 
