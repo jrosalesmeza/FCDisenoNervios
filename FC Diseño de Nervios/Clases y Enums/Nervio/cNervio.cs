@@ -2147,6 +2147,12 @@ namespace FC_Diseño_de_Nervios
         private void GraficarAutoCADEstribos(float X, float Y)
         {
 
+
+            Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.ForEach(y => {
+
+                y.PaintAutoCAD(X, Y);
+            });
+
             Lista_Tramos.ForEach(Tramo =>
             {
 

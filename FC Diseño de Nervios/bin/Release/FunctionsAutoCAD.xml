@@ -90,6 +90,11 @@
             Funciones basicas para la manipulación de AutoCAD - efe Prima Ce, Por: José Luis Rosales Meza
             </summary>
         </member>
+        <member name="F:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AcadDoc">
+            <summary>
+            Dcoumento actual.
+            </summary>
+        </member>
         <member name="E:FC_BFunctionsAutoCAD.FunctionsAutoCAD.NotificadorErrores">
             <summary>
             Notifica errores en la librería.
@@ -230,6 +235,18 @@
             <param name="PatternScale">Factor de escala del tipo de Hatch</param>
             <param name="PatternAngle">Angulo del tipo de Hatch</param>
         </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2D(System.Drawing.PointF[],System.String,System.String,System.String,System.Double,System.Double,System.Single)">
+            <summary>
+            Crear un nuevo Polígono en 2D con su respectivo Relleno (Hatch).
+            </summary>
+            <param name="VerticesList">Vértices del Polígono [System.Drawing]</param>
+            <param name="Layer">Capa del Polígono.</param>
+            <param name="Pattern">Tipo de Hatch (SOILD,ANGLE,ANS31,...)</param>
+            <param name="LayerHatch">Capa del Hatch</param>
+            <param name="ScaleHacth">Escala del Hatch</param>
+            <param name="PatternScale">Factor de escala del tipo de Hatch</param>
+            <param name="PatternAngle">Angulo del tipo de Hatch</param>
+        </member>
         <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddPolyline2DWithLengthText(System.Double[],System.String,System.String,System.Double[],System.Double,System.Double,System.String,System.String,System.Single,System.Double)">
             <summary>
              Añadir un nuevo Poligono y un texto representado el largo de este.
@@ -316,6 +333,34 @@
             <summary>
             Bloque: Estibo de Sección - Efe Prima Ce
             </summary>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_Estribo(System.Double[],System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Bloque de Estribo Tipo 6, normalmente se usa para Tabla de Estribos en Muros [efe Prima Ce]
+            </summary>
+            <param name="P_XYZ">Coordenadas del Bloque</param>
+            <param name="Layer">Capa del Bloque.</param>
+            <param name="Xscale">Escala en X del Bloque.</param>
+            <param name="Yscale">Escala en Y del Bloque.</param>
+            <param name="Zscale">Escala en Z del Bloque.</param>
+            <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+            <param name="Distancia">Distancia recta del Estribo</param>
+            <param name="EspesorReal">Espesor Real.</param>
+            <param name="EspesorDoble">Espesor Doble.</param>
+        </member>
+        <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_Estribo(System.Drawing.PointF,System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Bloque de Estribo Tipo 6, normalmente se usa para Tabla de Estribos en Muros [efe Prima Ce]
+            </summary>
+            <param name="P_XY">Coordenadas del Bloque. [System.Drawing]</param>
+            <param name="Layer">Capa del Bloque.</param>
+            <param name="Xscale">Escala en X del Bloque.</param>
+            <param name="Yscale">Escala en Y del Bloque.</param>
+            <param name="Zscale">Escala en Z del Bloque.</param>
+            <param name="Rotation">Ángulo de rotación en grados del Bloque.</param>
+            <param name="Distancia">Distancia recta del Estribo</param>
+            <param name="EspesorReal">Espesor Real.</param>
+            <param name="EspesorDoble">Espesor Doble.</param>
         </member>
         <member name="M:FC_BFunctionsAutoCAD.FunctionsAutoCAD.B_Estribo_Circular(System.Double[],System.String,System.Double,System.Double,System.Double,System.Double,System.Single)">
             <summary>

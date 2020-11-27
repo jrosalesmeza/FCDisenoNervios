@@ -30,6 +30,11 @@ namespace FC_Diseño_de_Nervios
         {
             GB_1.Enabled = barraSelect != null;
             GB_2.Enabled = bloqueEstribosSelect != null;
+            if (bloqueEstribosSelect != null)
+            {
+                BT_AñadirACaraApoyo.Image = bloqueEstribosSelect.DireccionEstribo == eLadoDeZona.Izquierda ? Properties.Resources.Align_ends_Left2 : Properties.Resources.Align_Ends_Right2;
+            }
+
         }
         #region Modificador de Barra Longitudinal
         private cBarra barraSelect;
@@ -456,6 +461,7 @@ namespace FC_Diseño_de_Nervios
                     bloqueEstribosSelect.XF -= value;
 
                 F_Base.ActualizarVentanaF_VentanaDiseno();
+                ActualizarValores();
             }
         }
 
@@ -468,7 +474,7 @@ namespace FC_Diseño_de_Nervios
                 else
                     bloqueEstribosSelect.XF += value;
                 F_Base.ActualizarVentanaF_VentanaDiseno();
-
+                ActualizarValores();
             }
         }
 

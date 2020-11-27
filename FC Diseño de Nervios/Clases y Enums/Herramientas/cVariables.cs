@@ -63,6 +63,7 @@ namespace FC_Diseño_de_Nervios
         public const float ToleranciaFlexionBarras = 3f;
         public const float DeltaUnionCercanas = 0.5f;
         public const float ToleranciAceroFlexion = -0.1f;
+        public const float ToleranciaInversionMomentos = 0.05f; // Tolerancia para saber si un tramo esta en voladizo o no.
         #endregion
 
 

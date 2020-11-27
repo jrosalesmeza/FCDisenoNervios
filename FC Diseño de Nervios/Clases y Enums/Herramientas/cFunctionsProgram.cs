@@ -203,41 +203,65 @@ namespace FC_Diseño_de_Nervios
             ArchivoCSV.ForEach(x => ListaFuerzas.Add(x.Split(new string[] { ";" }, StringSplitOptions.RemoveEmptyEntries)));
             ListaFuerzas.RemoveAt(0);
 
+            var ListaEstacionesResumidas = from Estacion in ListaFuerzas
+                                           group Estacion by new { Piso = Estacion[0], Elemento = Estacion[1], Loc = Estacion[3] } into Solicitaciones
+                                           select new { Piso = Solicitaciones.Key, Estaciones = Solicitaciones.ToList() };
+
+            foreach (var Estacion in ListaEstacionesResumidas)
+            {
+
+                string NombreStory = Estacion.Piso.Piso.Replace(" ", "");
+                string NombreElemento = Estacion.Piso.Elemento;
+                float Localizacion = (float)Math.Round(Convert.ToSingle(Estacion.Piso.Loc), 3);
+                cEstacion estacion = new cEstacion(NombreStory, NombreElemento, Localizacion);
+                estacion.Lista_Solicitaciones = new List<cSolicitacion>();
+                Estacion.Estaciones.ForEach(LineaArchivoCSV =>
+                {
+                    string NombreLoad = LineaArchivoCSV[2];
+                    float P = -Convert.ToSingle(LineaArchivoCSV[4]);
+                    float V2 = Convert.ToSingle(LineaArchivoCSV[5]);
+                    float V3 = Convert.ToSingle(LineaArchivoCSV[6]);
+                    float T = Convert.ToSingle(LineaArchivoCSV[7]);
+                    float M2 = Convert.ToSingle(LineaArchivoCSV[8]);
+                    float M3 = Convert.ToSingle(LineaArchivoCSV[9]);
+                    cSolicitacion Solicitacion = new cSolicitacion(NombreLoad, P, V2, V3, M2, M3, T);
+                    AgregarSolicitacioneaEstacion(Solicitacion, estacion.Lista_Solicitaciones);
+
+                });
+                ListaEstaciones.Add(estacion);
+            }
 
 
+            // ListaFuerzas.ForEach(LineaArchivoCSV =>
+            //{
+            //    string NombreStory = LineaArchivoCSV[0].Replace(" ", "");
+            //    string NombreElemento = LineaArchivoCSV[1];
+            //    string NombreLoad = LineaArchivoCSV[2];
+            //    float Localizacion = Convert.ToSingle(LineaArchivoCSV[3]);
+            //    float P = Convert.ToSingle(LineaArchivoCSV[4]);
+            //    float V2 = Convert.ToSingle(LineaArchivoCSV[5]);
+            //    float V3 = Convert.ToSingle(LineaArchivoCSV[6]);
+            //    float T = Convert.ToSingle(LineaArchivoCSV[7]);
+            //    float M2 = Convert.ToSingle(LineaArchivoCSV[8]);
+            //    float M3 = Convert.ToSingle(LineaArchivoCSV[9]);
+            //    cEstacion estacion = new cEstacion(NombreStory, NombreElemento, Localizacion);
+            //    cSolicitacion Solicitacion = new cSolicitacion(NombreLoad, P, V2, V3, M2, M3, T);
+            //    cEstacion EstaiconFind = ListaEstaciones.Find(x => estacion.Equals(x));
+            //    if (EstaiconFind == null)
+            //    {
+            //        estacion.Lista_Solicitaciones = new List<cSolicitacion>();
+            //        Solicitacion.EstacionOrigen = estacion;
+            //        estacion.Lista_Solicitaciones.Add(Solicitacion);
+            //        ListaEstaciones.Add(estacion);
+            //    }
+            //    else
+            //    {
+            //        Solicitacion.EstacionOrigen = EstaiconFind;
+            //        AgregarSolicitacioneaEstacion(Solicitacion, EstaiconFind.Lista_Solicitaciones);
 
+            //    }
 
-
-            ListaFuerzas.ForEach(LineaArchivoCSV =>
-           {
-               string NombreStory = LineaArchivoCSV[0].Replace(" ", "");
-               string NombreElemento = LineaArchivoCSV[1];
-               string NombreLoad = LineaArchivoCSV[2];
-               float Localizacion = Convert.ToSingle(LineaArchivoCSV[3]);
-               float P = Convert.ToSingle(LineaArchivoCSV[4]);
-               float V2 = Convert.ToSingle(LineaArchivoCSV[5]);
-               float V3 = Convert.ToSingle(LineaArchivoCSV[6]);
-               float T = Convert.ToSingle(LineaArchivoCSV[7]);
-               float M2 = Convert.ToSingle(LineaArchivoCSV[8]);
-               float M3 = Convert.ToSingle(LineaArchivoCSV[9]);
-               cEstacion estacion = new cEstacion(NombreStory, NombreElemento, Localizacion);
-               cSolicitacion Solicitacion = new cSolicitacion(NombreLoad, P, V2, V3, M2, M3, T);
-               cEstacion EstaiconFind = ListaEstaciones.Find(x => estacion.Equals(x));
-               if (EstaiconFind == null)
-               {
-                   estacion.Lista_Solicitaciones = new List<cSolicitacion>();
-                   Solicitacion.EstacionOrigen = estacion;
-                   estacion.Lista_Solicitaciones.Add(Solicitacion);
-                   ListaEstaciones.Add(estacion);
-               }
-               else
-               {
-                   Solicitacion.EstacionOrigen = EstaiconFind;
-                   AgregarSolicitacioneaEstacion(Solicitacion, EstaiconFind.Lista_Solicitaciones);
-
-               }
-
-           });
+            //});
             Notificador?.Invoke("Listo");
             return ListaEstaciones;
         }
@@ -1482,7 +1506,6 @@ namespace FC_Diseño_de_Nervios
         }
 
 
-
         /// <summary>
         /// Devuleve float[] ----> float[] ---> Inferior{float[]{As,As,As}  , float[]{Mu,Mu,Mu} , float[]{Asr,Asr,Asr}}
         ///                        float[] -----> Superior{float[]{As,As}  , float[]{Mu,Mu} , float[]{Asr,Asr}} 
@@ -1547,29 +1570,18 @@ namespace FC_Diseño_de_Nervios
             string EstribosI = "";
             string EstribosD = "";
             cTramo Tramo = Estaciones.First().SubTramoOrigen.TramoOrigen;
-            if (Tramo.EstribosIzquierda != null)
+            var GrupoEstribos = Tramo.GrupoEstribosIzquierda_Derecha();
+
+            if (GrupoEstribos.Item1.Count > 0)
             {
-                cZonaEstribos Zona = Tramo.EstribosIzquierda.Zona1.NoBarra != eNoBarra.BNone ? Tramo.EstribosIzquierda.Zona1 : Tramo.EstribosIzquierda.Zona2;
-                EstribosI = $"{Zona.Cantidad}E{ConvertireNoBarraToString(Zona.NoBarra)}@{string.Format("{0:0.00}", Zona.Separacion * cConversiones.Dimension_m_to_cm)}";
-            }
-            if (Tramo.EstribosDerecha != null)
-            {
-                cZonaEstribos Zona = Tramo.EstribosDerecha.Zona1.NoBarra != eNoBarra.BNone ? Tramo.EstribosDerecha.Zona1 : Tramo.EstribosDerecha.Zona2;
-                EstribosD = $"{Zona.Cantidad}E{ConvertireNoBarraToString(Zona.NoBarra)}@{string.Format("{0:0.00}", Zona.Separacion * cConversiones.Dimension_m_to_cm)}";
+                EstribosI = $"{GrupoEstribos.Item1.First().Cantidad}E{ConvertireNoBarraToString(GrupoEstribos.Item1.First().NoBarra)}@{string.Format("{0:0.00}", GrupoEstribos.Item1.First().Separacion * cConversiones.Dimension_m_to_cm)}";
             }
 
-            if (Tramo.EstribosDerecha != null && Tramo.EstribosIzquierda == null)
+            if (GrupoEstribos.Item2.Count > 0)
             {
-                cZonaEstribos Zona = Tramo.EstribosDerecha.Zona1.NoBarra != eNoBarra.BNone ? Tramo.EstribosDerecha.Zona1 : Tramo.EstribosDerecha.Zona2;
-                EstribosD = $"{Zona.Cantidad}E{ConvertireNoBarraToString(Zona.NoBarra)}@{string.Format("{0:0.00}", Zona.Separacion * cConversiones.Dimension_m_to_cm)}";
-                EstribosI = $"{Zona.Cantidad}E{ConvertireNoBarraToString(Zona.NoBarra)}@{string.Format("{0:0.00}", Zona.Separacion * cConversiones.Dimension_m_to_cm)}";
+                EstribosD = $"{GrupoEstribos.Item2.Last().Cantidad}E{ConvertireNoBarraToString(GrupoEstribos.Item2.Last().NoBarra)}@{string.Format("{0:0.00}", GrupoEstribos.Item2.Last().Separacion * cConversiones.Dimension_m_to_cm)}";
             }
-            else if (Tramo.EstribosIzquierda != null && Tramo.EstribosDerecha == null)
-            {
-                cZonaEstribos Zona = Tramo.EstribosIzquierda.Zona1.NoBarra != eNoBarra.BNone ? Tramo.EstribosIzquierda.Zona1 : Tramo.EstribosIzquierda.Zona2;
-                EstribosD = $"{Zona.Cantidad}E{ConvertireNoBarraToString(Zona.NoBarra)}@{string.Format("{0:0.00}", Zona.Separacion * cConversiones.Dimension_m_to_cm)}";
-                EstribosI = $"{Zona.Cantidad}E{ConvertireNoBarraToString(Zona.NoBarra)}@{string.Format("{0:0.00}", Zona.Separacion * cConversiones.Dimension_m_to_cm)}";
-            }
+
             object[][] Resultados3 = new object[][] { new object[] { Math.Abs(Vu1), Math.Abs(Vu2) }, new object[] { EstribosI, EstribosD } };
 
             return new object[][][] { Resultados1, Resultados2, Resultados3 };
@@ -1751,9 +1763,7 @@ namespace FC_Diseño_de_Nervios
             cTendencia_Estribo TES = Nervio.Tendencia_Refuerzos.TEstriboSelect;
             TES.EliminarBloquesEstribos();
             eNoBarra BarraE = TES.BarrasAEmplear.Min();
-
             CrearEstacionesTemporaneasTramos(Nervio.Lista_Tramos);
-
             Nervio.Lista_Tramos.ForEach(Tramo =>
             {
 
@@ -1789,24 +1799,140 @@ namespace FC_Diseño_de_Nervios
 
                 if(Tramo.Estaciones.Count> EstacionesIzquierda.Count + EstacionesDerecha.Count)
                 {
-
                     AgregarEstribosSegunEstaciones(Nervio, TES,EstacionesIzquierda, eLadoDeZona.Izquierda, BarraE);
                     AgregarEstribosSegunEstaciones(Nervio, TES, EstacionesDerecha, eLadoDeZona.Derecha, BarraE);
-
                 }
                 else
                 {
-
+                    AgregarEstribosSegunEstaciones(Nervio, TES, EstacionesIzquierda, eLadoDeZona.Izquierda, BarraE);
                 }
 
-
-
-
+                AgregarEstribosMinimos(Tramo,Nervio,BarraE,TES);
+                UnirZonaEstribos(Tramo, BarraE, TES);
+                CrearEstribosEnVoladizos(Tramo,BarraE,TES, Nervio);
+                CrearEstribosConinutos(Tramo, BarraE, TES, Nervio);
             });
-
 
         }
 
+        private static void CrearEstribosConinutos(cTramo tramo, eNoBarra noBarra, cTendencia_Estribo TE, cNervio nervio)
+        {
+            if (nervio.NervioBorde || tramo.Lista_SubTramos.First().Seccion.B>cVariables.BNervioBorde)
+            {
+                bool Izq = tramo.IsVoladizoIzquierda(); bool Derecha = tramo.IsVoladizoDerecha();
+                var Grupo = tramo.GrupoEstribosIzquierda_Derecha();
+                var GruposTotal = Grupo.Item1.Concat(Grupo.Item2).ToList();
+
+                float S = SdefinitivaZonas(nervio, tramo.Lista_SubTramos.SelectMany(y => y.Estaciones).ToList(), cDiccionarios.AceroBarras[noBarra]) * cConversiones.Dimension_cm_to_m;
+                float L = tramo.Longitud - 2 * cVariables.d_CaraApoyo - cVariables.RExtremoIzquierdo;
+                if (GruposTotal.Count > 0)
+                {
+                    float Saux = GruposTotal.Min(y => y.Separacion);
+                    if (Saux < S)
+                        S = Saux;
+                }
+
+
+                tramo.LimpiarEstribosEnTramo();
+                eLadoDeZona LadoZona = Izq ? eLadoDeZona.Derecha : eLadoDeZona.Izquierda;
+                CrearEstribos2(tramo.Lista_SubTramos.First().Estaciones.First(), L, LadoZona, S, TE, noBarra);
+            }
+        }
+
+
+        private static void CrearEstribosEnVoladizos(cTramo tramo, eNoBarra noBarra,cTendencia_Estribo TE,cNervio nervio)
+        {
+            bool Izq = tramo.IsVoladizoIzquierda(); bool Derecha = tramo.IsVoladizoDerecha();
+            var Grupo = tramo.GrupoEstribosIzquierda_Derecha();
+            var GruposTotal = Grupo.Item1.Concat(Grupo.Item2).ToList();
+            if ( Izq || Derecha )
+            {
+                float S = SdefinitivaZonas(nervio, tramo.Lista_SubTramos.SelectMany(y => y.Estaciones).ToList(), cDiccionarios.AceroBarras[noBarra])*cConversiones.Dimension_cm_to_m;
+                float L = tramo.Longitud - 2*cVariables.d_CaraApoyo-cVariables.RExtremoIzquierdo;
+                if (GruposTotal.Count > 0)
+                {
+                    float Saux = GruposTotal.Min(y => y.Separacion);
+                    if (Saux < S)
+                        S = Saux;
+                }
+
+                
+                tramo.LimpiarEstribosEnTramo();
+                eLadoDeZona LadoZona = Izq ? eLadoDeZona.Derecha : eLadoDeZona.Izquierda;
+                CrearEstribos2(tramo.Lista_SubTramos.First().Estaciones.First(), L, LadoZona, S, TE, noBarra);
+            }
+
+
+        }
+        private static void UnirZonaEstribos(cTramo Tramo, eNoBarra NoBarra, cTendencia_Estribo TE)
+        {
+            var estribosIzqDer = Tramo.GrupoEstribosIzquierda_Derecha();
+
+            var estribosIzq = estribosIzqDer.Item1;
+            var estribosDer = estribosIzqDer.Item2;
+            if(estribosIzq.Count>0 && estribosDer.Count > 0)
+            {
+                var bloqueEstribosZona1Izq = estribosIzq.First();
+                var bloqueEstribosZona2Izq = estribosIzq.Last();
+                var bloqeEstribosZona1Dr = estribosDer.Last();
+                var bloqueEstribosZona2Dr = estribosDer.First();
+
+                if(bloqueEstribosZona2Izq.XF>= bloqueEstribosZona2Dr.XI)
+                {
+                    float Smin = estribosIzq.Concat(estribosDer).ToList().Min(y => y.Separacion);
+                    float L = Tramo.Longitud - 2 * cVariables.d_CaraApoyo;
+                    Tramo.LimpiarEstribosEnTramo();
+
+                    CrearEstribos2(Tramo.Lista_SubTramos.First().Estaciones.First(), L, eLadoDeZona.Izquierda, Smin, TE, NoBarra);
+
+
+                }
+            }
+
+
+        }
+        private static void AgregarEstribosMinimos(cTramo tramo,cNervio Nervio, eNoBarra NoBarra,cTendencia_Estribo TE)
+        {
+            var BloqueID = tramo.GrupoEstribosIzquierda_Derecha();
+            var EsI = BloqueID.Item1;
+            var EsD = BloqueID.Item2;
+            int CantidadEstribosIz = EsI.Sum(y => y.Cantidad);
+            int CantidadEstribosDr = EsD.Sum(y => y.Cantidad);
+            if (!tramo.IsVoladizoIzquierda())
+            {
+                cSubTramo cSubTramo = tramo.Lista_SubTramos.First();
+                int CantidadMinima=MinEstribosSegunEfePrimaCe(CantidadEstribosIz, tramo);
+
+                if(CantidadEstribosIz!=0 &&  CantidadMinima!= CantidadEstribosIz)
+                {
+                    EsI.Last().Cantidad += CantidadMinima - CantidadEstribosIz;
+                }
+                else if (CantidadEstribosIz == 0)
+                {
+                    float d = cSubTramo.Seccion.H - Nervio.r1 - cDiccionarios.DiametrosBarras[NoBarra] / 2f - cVariables.DiametroEstriboPredeterminado;
+                    float Smin = d / 2f * cConversiones.Dimension_cm_to_m;float LongZona = Smin * (CantidadMinima - 1);
+                    CrearEstribos2(cSubTramo.Estaciones.First(), LongZona, eLadoDeZona.Izquierda, Smin, TE, NoBarra);
+                }
+            }
+            if (!tramo.IsVoladizoDerecha())
+            {
+                cSubTramo cSubTramo = tramo.Lista_SubTramos.Last();
+                int CantidadMinima = MinEstribosSegunEfePrimaCe(CantidadEstribosDr, tramo);
+
+                if (CantidadEstribosDr != 0 && CantidadMinima != CantidadEstribosDr)
+                {
+                    EsD.First().Cantidad += CantidadMinima - CantidadEstribosDr;
+                }
+                else if (CantidadEstribosDr == 0)
+                {
+                    float d = cSubTramo.Seccion.H - Nervio.r1 - cDiccionarios.DiametrosBarras[NoBarra] / 2f - cVariables.DiametroEstriboPredeterminado;
+                    float Smin = d / 2f * cConversiones.Dimension_cm_to_m; float LongZona = Smin * (CantidadMinima - 1);
+                    CrearEstribos2(cSubTramo.Estaciones.Last(), LongZona, eLadoDeZona.Derecha, Smin, TE, NoBarra);
+                }
+            }
+            
+
+        }
 
         private static void AgregarEstribosSegunEstaciones(cNervio nervio, cTendencia_Estribo tendencia_Estribo,List<cEstacion> estaciones, eLadoDeZona LadoZona, eNoBarra NoBarraE)
         {
@@ -1833,12 +1959,26 @@ namespace FC_Diseño_de_Nervios
                 SIgualesAMin = SdefinitivaZonas(nervio, EstacionesIgualesAmin, AreaEstribo) * cConversiones.Dimension_cm_to_m;
             }
 
-            if(SMayoresAMin == SIgualesAMin && LongMayoresAMin != cVariables.ValueNull && LongIgualesAMin != cVariables.ValueNull)
+            if(SMayoresAMin!= cVariables.ValueNull && SIgualesAMin== cVariables.ValueNull) 
             {
-                CrearEstribos2(EstacionesMayoresAMin.First(), LongMayoresAMin + LongIgualesAMin, LadoZona, SMayoresAMin, tendencia_Estribo, NoBarraE);
+
+                CrearEstribos2(EstacionesMayoresAMin.First(), LongMayoresAMin, LadoZona, SMayoresAMin, tendencia_Estribo, NoBarraE);
+            }
+            else if(SMayoresAMin == SIgualesAMin && LongMayoresAMin != cVariables.ValueNull && LongIgualesAMin != cVariables.ValueNull)
+            {
+                float L = LongMayoresAMin + LongIgualesAMin;
+                cTramo Tramo = EstacionesMayoresAMin.First().SubTramoOrigen.TramoOrigen;
+
+                if(LongMayoresAMin + LongIgualesAMin> Tramo.Longitud)
+                {
+                    L = Tramo.Longitud - 2 * cVariables.d_CaraApoyo;
+                }
+                CrearEstribos2(EstacionesMayoresAMin.First(), L, LadoZona, SMayoresAMin, tendencia_Estribo, NoBarraE);
             }
             else if (SMayoresAMin != SIgualesAMin && LongMayoresAMin != cVariables.ValueNull && LongIgualesAMin != cVariables.ValueNull)
             {
+                CrearEstribos2(EstacionesMayoresAMin.First(), LongMayoresAMin, LadoZona, SMayoresAMin, tendencia_Estribo, NoBarraE);
+                CrearEstribos2(EstacionesIgualesAmin.First(), LongIgualesAMin, LadoZona, SIgualesAMin, tendencia_Estribo, NoBarraE);
 
             }
             else if(LongIgualesAMin != cVariables.ValueNull && LongMayoresAMin == cVariables.ValueNull)
@@ -1848,29 +1988,83 @@ namespace FC_Diseño_de_Nervios
 
         }
 
-        private static void CrearEstribos2(cEstacion estacion,float LongitudZona, eLadoDeZona LadoZona,float S, cTendencia_Estribo tendenciaE, eNoBarra noBarra)
+        private static void CrearEstribos2(cEstacion estacion, float LongitudZona, eLadoDeZona LadoZona, float S, cTendencia_Estribo tendenciaE, eNoBarra noBarra)
         {
+            cNervio nervio = estacion.SubTramoOrigen.TramoOrigen.NervioOrigen;
             float X = LadoZona == eLadoDeZona.Izquierda ? estacion.SubTramoOrigen.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X) + cVariables.d_CaraApoyo :
                                                           estacion.SubTramoOrigen.Vistas.Perfil_AutoCAD.Reales.Max(y => y.X) - cVariables.d_CaraApoyo;
             int CantidadEspacios = (int)PrecisarNumero(LongitudZona / S, 1, 1, true);
             int CantidadEstribos = CantidadEspacios + 1;
+            if (CantidadEspacios == 1)
+                CantidadEstribos = CantidadEspacios;
             eLadoDeZona DireccionEstribo = LadoZona == eLadoDeZona.Izquierda ? eLadoDeZona.Derecha : eLadoDeZona.Izquierda;
-            CrearBloqueEstribos(tendenciaE, S, CantidadEstribos, noBarra, 1, X, DireccionEstribo);
+            bool CrearEstribo=CrearBloqueEstribos(tendenciaE, S, CantidadEstribos, noBarra, 1, X, DireccionEstribo);
+            if (CrearEstribo)
+            {
+                cBloqueEstribos bloquelast = tendenciaE.BloqueEstribos.Last(y => y.ID == tendenciaE.BloqueEstribos.Max(z => z.ID));
+                float CoorUltEstribo = bloquelast.ListaEstribos.Last().Coordenadas.Reales.First().X;
+                IElemento elemento = nervio.Lista_Elementos.Find(y => y.IsVisibleCoordAutoCAD(CoorUltEstribo));
+                if (elemento is cApoyo)
+                {
+                    float d_caraApoyo = bloquelast.DireccionEstribo == eLadoDeZona.Derecha ? -cVariables.d_CaraApoyo : cVariables.d_CaraApoyo;
+                    float Xmodificar = elemento.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X) + d_caraApoyo; ;
+                    float XpenultimoEstribo = cVariables.ValueNull;
+                    if (bloquelast.ListaEstribos.Count - 2 > 0)
+                    {
+                        XpenultimoEstribo = bloquelast.ListaEstribos[bloquelast.ListaEstribos.Count - 2].Coordenadas.Reales.First().X;
+                    }
+                    if (XpenultimoEstribo != cVariables.ValueNull && Math.Abs(Xmodificar - XpenultimoEstribo) > 0.06f)
+                    {
+                        bloquelast.CoordXEstriboEstriboFinal = Xmodificar;
+                    }
+                    else if (XpenultimoEstribo != cVariables.ValueNull)
+                    {
+                        bloquelast.Cantidad -= 1;
+                    }
+                }
+            }
         }
 
 
-        private static void CrearBloqueEstribos(cTendencia_Estribo tendenciaE, float S,int Cantidad, eNoBarra noBarra, int NoRamas,float x , eLadoDeZona DireccionEstribo)
+
+        private static bool CrearBloqueEstribos(cTendencia_Estribo tendenciaE, float S, int Cantidad, eNoBarra noBarra, int NoRamas, float x, eLadoDeZona DireccionEstribo)
         {
+            cNervio nervio = tendenciaE.Tendencia_Refuerzo_Origen.NervioOrigen;
+            float LimiteNervioIzq = nervio.Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.Min(y=>y.X);
+            float LimiteNervioDr = nervio.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Max(y => y.X);
             int IDMax = 0;
             if (tendenciaE.BloqueEstribos.Count > 0)
             {
-                IDMax = tendenciaE.BloqueEstribos.Max(y => y.ID)+1;
+                IDMax = tendenciaE.BloqueEstribos.Max(y => y.ID) + 1;
             }
-            tendenciaE.AgregarBloqueEstribos(new cBloqueEstribos(IDMax, noBarra, Cantidad, S, NoRamas, x, DireccionEstribo, tendenciaE),true);
+
+            if ((DireccionEstribo == eLadoDeZona.Derecha && x + S * (Cantidad-1) < LimiteNervioDr) ||
+                (DireccionEstribo == eLadoDeZona.Izquierda && x - S * (Cantidad-1) > LimiteNervioIzq))
+            {
+
+                tendenciaE.AgregarBloqueEstribos(new cBloqueEstribos(IDMax, noBarra, Cantidad, S, NoRamas, x, DireccionEstribo, tendenciaE), true);
+                return true;
+            }
+            else
+            {
+                Cantidad -= 1;
+                return CrearBloqueEstribos(tendenciaE, S, Cantidad, noBarra, NoRamas, x, DireccionEstribo);
+            }
+
         }
 
-
-
+        private static int MinEstribosSegunEfePrimaCe(int NoEstribos, cTramo Tramo)
+        {
+            int NoEstribos1 = NoEstribos;
+            if (NoEstribos < 3)
+                NoEstribos1 = 3;
+            if (Tramo.Longitud >= 4f && NoEstribos1 <= 3)
+            {
+                int CantiMas = (int)Math.Round(Tramo.Longitud / 4f, 0);
+                NoEstribos1 += CantiMas;
+            }
+            return NoEstribos1;
+        }
 
 
         public static void DiseñarNervioCortante(cNervio Nervio)
@@ -2306,18 +2500,6 @@ namespace FC_Diseño_de_Nervios
             }
 
         }
-        private static int MinEstribosSegunEfePrimaCe(int NoEstribos, cTramo Tramo)
-        {
-            int NoEstribos1 = NoEstribos;
-            if (NoEstribos < 3)
-                NoEstribos1 = 3;
-            if (Tramo.Longitud >= 4f && NoEstribos1 <= 3)
-            {
-                int CantiMas = (int)Math.Round(Tramo.Longitud / 4f, 0);
-                NoEstribos1 += CantiMas;
-            }
-            return NoEstribos1;
-        }
         private static void CrearEstribosFaltantes(cTramo Tramo, eNoBarra BarraE)
         {
             if (Tramo.Lista_SubTramos.First().Indice != Tramo.NervioOrigen.Lista_Elementos.First().Indice && Tramo.Lista_SubTramos.Last().Indice != Tramo.NervioOrigen.Lista_Elementos.Last().Indice) //Que No sea Voladizo
@@ -2359,21 +2541,23 @@ namespace FC_Diseño_de_Nervios
         private static void AgregarBarrasRefuerzoSuperior(cNervio Nervio, cTendencia tendencia)
         {
 
-            List<cPuntoInfelxion> PuntosInfexion2 = PuntosInfelxions(Nervio.Lista_Tramos, eUbicacionRefuerzo.Superior);
+            bool SeAsingaBarraContinuaSuperior = false;
             List<List<IElemento>> Lista_Elementos = CrearListaElementos(Nervio, true, false, true, true);
 
 
             foreach (List<IElemento> elementos in Lista_Elementos)
             {
-                if (elementos.First(x => x is cSubTramo).Seccion.B > 12f || Nervio.NervioBorde)
+                if (elementos.First(x => x is cSubTramo).Seccion.B > cVariables.BNervioBorde || Nervio.NervioBorde)
                 {
-
-                    CrearBarraContinuaSuperior(elementos, 2, eNoBarra.B3, tendencia, PuntosInfexion2);
+                    int Cantidad = 2;
+                    if (Nervio.NervioBorde && elementos.First(x => x is cSubTramo).Seccion.B <= cVariables.BNervioBorde)
+                        Cantidad = 1;
+                    CrearBarraContinuaSuperior(elementos, Cantidad, eNoBarra.B3, tendencia, PuntosMitadTramo(elementos));
+                    SeAsingaBarraContinuaSuperior = true;
                 }
 
             }
-
-
+            List<cPuntoInfelxion> PuntosInfexion2 = PuntosInfelxions(Nervio.Lista_Tramos, eUbicacionRefuerzo.Superior);
             List<eNoBarra> NoBarras2 = NoBarras.ToList(); ; NoBarras2.Remove(eNoBarra.BNone);
 
             if (PuntosInfexion2.Count > 0)
@@ -2384,10 +2568,11 @@ namespace FC_Diseño_de_Nervios
                 {
                     cPuntoInfelxion PI1 = PuntosInfexion2[i];
                     cPuntoInfelxion PI2 = null;
-                    if (i + 1 < PuntosInfexion2.Count) {
-                        PI2 = PuntosInfexion2[i + 1]; 
+                    if (i + 1 < PuntosInfexion2.Count)
+                    {
+                        PI2 = PuntosInfexion2[i + 1];
                     }
-   
+
                     if (EncontraApoyoEntreDosPIs(PI1, PI2, Nervio) && !PI1.Agrego && !PI2.Agrego)
                     {
                         List<cEstacion> Estaciones = new List<cEstacion>();
@@ -2422,11 +2607,11 @@ namespace FC_Diseño_de_Nervios
 
                                 eNoBarra BarraMinima = BarrasPropuestas.Min();
                                 eNoBarra BarraMaxima = BarrasPropuestas.Max();
-
-                                List<float> CoordX = new List<float>(); CoordX.Add(PI1.CoordX); CoordX.Add(PI2.CoordX);
                                 eTipoGancho GI = eTipoGancho.None; eTipoGancho GD = eTipoGancho.None;
-                                CoordenadasBarraAdicional(ref CoordX, BarraMaxima, PI1.SubTramo, Nervio, ref GI, ref GD);
-                                CrearBarra2(BarraMaxima, tendencia.UbicacionRefuerzo, 1, CoordX.First(), CoordX.Last(), ref tendencia, GI, GD);
+                                    List<float> CoordX = new List<float>(); CoordX.Add(PI1.CoordX); CoordX.Add(PI2.CoordX);
+                                    CoordenadasBarraAdicional(ref CoordX, BarraMaxima, PI1.SubTramo, Nervio, ref GI, ref GD);
+                                    CrearBarra2(BarraMaxima, tendencia.UbicacionRefuerzo, 1, CoordX.First(), CoordX.Last(), ref tendencia, GI, GD);
+                                
 
                                 #region Barra Adicional 
                                 float MenorDelta = Estaciones.Min(x => x.Calculos.Solicitacion_Asignado_Momentos.AceroFaltanteFlexion_Superior); //El Acero Que mas requiero
@@ -2470,25 +2655,59 @@ namespace FC_Diseño_de_Nervios
                         }
                         else if ((AceroFaltante < 0 && Math.Abs(Porcentaje) >= cVariables.ToleranciaFlexion))
                         {
+                            if (!SeAsingaBarraContinuaSuperior)
+                            {
+                                List<float> CoordX = new List<float>(); CoordX.Add(PI1.CoordX); CoordX.Add(PI2.CoordX);
+                                eTipoGancho GI = eTipoGancho.None; eTipoGancho GD = eTipoGancho.None;
+                                CoordenadasBarraAdicional(ref CoordX, BarraPropuesta3, PI1.SubTramo, Nervio, ref GI, ref GD);
+                                CrearBarra2(BarraPropuesta3, eUbicacionRefuerzo.Superior, 1, CoordX.First(), CoordX.Last(), ref tendencia, GI, GD);
+                            }
+                            else
+                            {
+                                List<float> ListaCoordX = new List<float>();
+                                eTipoGancho GI = eTipoGancho.None; eTipoGancho GD = eTipoGancho.None;
+                                for (int j = 0; j < Estaciones.Count; j++)
+                                {
+                                    cEstacion EstaActual = Estaciones[j];
+                                    cEstacion EstaAnterior = null; cEstacion EstaSig = null;
+                                    if (j - 1 >= 0)
+                                    {
+                                        EstaAnterior = Estaciones[j - 1];
+                                    }
 
-                            List<float> CoordX = new List<float>(); CoordX.Add(PI1.CoordX); CoordX.Add(PI2.CoordX);
-                            eTipoGancho GI = eTipoGancho.None; eTipoGancho GD = eTipoGancho.None;
-                            CoordenadasBarraAdicional(ref CoordX, BarraPropuesta3, PI1.SubTramo, Nervio, ref GI, ref GD);
-                            CrearBarra2(BarraPropuesta3, eUbicacionRefuerzo.Superior, 1, CoordX.First(), CoordX.Last(), ref tendencia, GI, GD);
+                                    if (j + 1 < Estaciones.Count)
+                                    {
+                                        EstaSig = Estaciones[j + 1];
+                                    }
+
+                                    float CoordX2 = DevolverXRefSuperior(EstaAnterior, EstaActual, EstaSig);
+                                    if (CoordX2 != float.PositiveInfinity)
+                                    {
+                                        ListaCoordX.Add(EstaActual.SubTramoOrigen.Vistas.Perfil_AutoCAD.Reales.Min(x => x.X) + CoordX2);
+                                    }
+                                }
+                                if (ListaCoordX.Count > 1)
+                                {
+                                    eTipoGancho GI2 = eTipoGancho.None; eTipoGancho GD2 = eTipoGancho.None;
+                                    CoordenadasBarraAdicional(ref ListaCoordX, BarraPropuesta3, PI1.SubTramo, Nervio, ref GI, ref GD);
+                                    CrearBarra2(BarraPropuesta3, eUbicacionRefuerzo.Superior, 1, ListaCoordX.First(), ListaCoordX.Last(), ref tendencia, GI2, GD2);
+                                }
+
+                            }
                         }
 
                         PI1.Agrego = true;
                         PI2.Agrego = true;
                     }
                 }
-       
+
             }
             else
             {
 
             }
-
-
+        
+           
 
             // Agregar Barras Esquineras
 
@@ -2667,7 +2886,22 @@ namespace FC_Diseño_de_Nervios
             #endregion
 
         }
+        private static List<cPuntoInfelxion> PuntosMitadTramo(List<IElemento> elementos)
+        {
+            List<cPuntoInfelxion> puntoInfelxions = new List<cPuntoInfelxion>();
 
+            var Tramos= elementos.FindAll(y => y is cSubTramo).ToList().ConvertAll(ElementoASubtramo).ToList().Select(y => y.TramoOrigen).ToList().DistinctBy(y => y.Nombre).ToList();
+            foreach(var Tramo in Tramos)
+            {
+                float Xmin = Tramo.Lista_SubTramos.First().Vistas.Perfil_AutoCAD.Reales.Min(y => y.X);
+                float Xmax = Tramo.Lista_SubTramos.Last().Vistas.Perfil_AutoCAD.Reales.Max(y => y.X);
+                float X = Xmin + (Xmax - Xmin)/2f;
+                cEstacion estacion = Tramo.Estaciones.EstacionMasCercana(X);
+                cPuntoInfelxion Pi = new cPuntoInfelxion(estacion);
+                puntoInfelxions.Add(Pi);
+            }
+            return puntoInfelxions;
+        }
         private static bool EncontraApoyoEntreDosPIs(cPuntoInfelxion P1,cPuntoInfelxion P2,cNervio nervio)
         {
             var Apoyos = nervio.Lista_Elementos.FindAll(y => y.Soporte == eSoporte.Apoyo).ToList();

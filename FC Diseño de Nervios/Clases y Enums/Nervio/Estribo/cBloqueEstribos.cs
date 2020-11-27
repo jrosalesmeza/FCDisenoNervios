@@ -22,7 +22,27 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
         static SolidBrush BrushRecuadroMoverEstribosSelect = new SolidBrush(Color.FromArgb(22, 89, 220));
 
 
+        private float coordXEstriboEstriboFinal = cVariables.ValueNull;
+        public float CoordXEstriboEstriboFinal
+        {
+            get
+            {
+                return coordXEstriboEstriboFinal;
+            }
+            set
+            {
+                if (coordXEstriboEstriboFinal != value)
+                {
+                    coordXEstriboEstriboFinal = value;
+                    CrearCoordenadasReales();
+                    ChangeProperty?.Invoke(this);
+                }
+            }
+        }
+
+
         private float SX;
+
         public cBloqueEstribos(int ID, eNoBarra noBarra, int cantidad, float separacion, int noRamas, float x, eLadoDeZona direccionEstribo, cTendencia_Estribo Tendencia_Estribo_Origen)
         {
             this.ID = ID;
@@ -36,14 +56,23 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             {
                 xi = x;
                 xf = x + LongitudZonaEstribos;
-
             }
             else
             {
                 xf = x;
                 xi = x - LongitudZonaEstribos;
             }
+
+            if (direccionEstribo==eLadoDeZona.Izquierda && !CumpleLimitesX(xi, LongitudZonaEstribos))
+            {
+                xi = LimiteIzquierdo;
+            }else if (direccionEstribo == eLadoDeZona.Derecha && !CumpleLimitesX(xf, LongitudZonaEstribos))
+            {
+                xf = LimiteDerecho;
+            }
+
             CrearCoordenadasReales();
+            
         }
         public float LimiteDerecho { get; set; }
         public float LimiteIzquierdo { get; set; }
@@ -67,6 +96,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                 if (direccionEstribo != value)
                 {
                     direccionEstribo = value;
+                    coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
                 }
@@ -85,6 +115,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                 if (noBarra != value && value!= eNoBarra.BNone)
                 {
                     noBarra = value;
+                    coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
                 }
@@ -100,6 +131,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                 if (noRamas != value && value>0f)
                 {
                     noRamas = value;
+                    coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
                 }
@@ -120,6 +152,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                     || (direccionEstribo == eLadoDeZona.Izquierda && CumpleLimitesX(xf, CalcularLongitudZonaEstribos(value, cantidad)))))
                 {
                     separacion = value;
+                    coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
                 }
@@ -135,10 +168,11 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             }
             set
             {
-                if (cantidad != value && value > 1 && (direccionEstribo== eLadoDeZona.Derecha && CumpleLimitesX(xi, CalcularLongitudZonaEstribos(separacion, value))
+                if (cantidad != value && value > 0 && (direccionEstribo== eLadoDeZona.Derecha && CumpleLimitesX(xi, CalcularLongitudZonaEstribos(separacion, value))
                     || (direccionEstribo == eLadoDeZona.Izquierda && CumpleLimitesX(xf, CalcularLongitudZonaEstribos(separacion, value)))))
                 {
                     cantidad = value;
+                    coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
                 }
@@ -151,6 +185,8 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
         {
             get
             {
+                if (coordXEstriboEstriboFinal != cVariables.ValueNull && direccionEstribo == eLadoDeZona.Izquierda)
+                    return coordXEstriboEstriboFinal;
                 return xi;
 
             }
@@ -159,6 +195,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                 if (xi != value && CumpleLimitesX(value, LongitudZonaEstribos))
                 {
                     xi = value;
+                    coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
                 }
@@ -171,6 +208,8 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
         {
             get
             {
+                if (coordXEstriboEstriboFinal != cVariables.ValueNull&& direccionEstribo==eLadoDeZona.Derecha)
+                    return coordXEstriboEstriboFinal;
                 return xf;
 
             }
@@ -178,7 +217,9 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             {
                 if (xf != value && CumpleLimitesX(value,LongitudZonaEstribos))
                 {
+                
                     xf = value;
+                    coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
                 }
@@ -269,6 +310,10 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             for (int i = 0; i < cantidad; i++)
             {
                 float x = xi + deltaS;
+                if (i + 1 == cantidad && CoordXEstriboEstriboFinal != cVariables.ValueNull)
+                {
+                    x = CoordXEstriboEstriboFinal;
+                }
                 IElemento elemento = Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.First(y => y.IsVisibleCoordAutoCAD(x));
                 cEstribo1 estribo1 = new cEstribo1(elemento, noBarra,noRamas, Tendencia_Estribo_Origen,
                     new cCoordenadas()
@@ -282,11 +327,18 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                 deltaS += separacion;
                 ListaEstribos.Add(estribo1);
             }
+            AsignarLimites();
+            CalcularPesoRefuerzoTransversal();
+        }
+
+        private void AsignarLimites()
+        {
             LimiteDerecho = Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Last().Vistas.Perfil_AutoCAD.Reales.Last().X - cVariables.d_CaraApoyo;
             LimiteDerecho = (float)Math.Round(LimiteDerecho, cVariables.CifrasDeciLongBarra);
             LimiteIzquierdo = cVariables.d_CaraApoyo;
-            CalcularPesoRefuerzoTransversal();
+
         }
+
 
         private void CalcularPesoRefuerzoTransversal()
         {
@@ -311,9 +363,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             {
                 return As_S;
             }
+            else if(cantidad== 1 && IsVisible(XI - Separacion / 2f, XF + Separacion / 2F, x))
+            {
+                return As_S;
+            }
             else
             {
-
                 foreach(cBloqueEstribos bloque in bloqueEstribos)
                 {
                     float Xi = XI - Separacion;
@@ -327,8 +382,6 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
 
                 return 0f;
             }
-
-
 
 
         }
@@ -457,14 +510,20 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
         }
 
 
+        public void PaintAutoCAD(float X, float Y)
+        {
 
+            float Ymax = Recuadro_ModoEdicion.Reales.Max(y => y.Y);
+            float Ymin = Recuadro_ModoEdicion.Reales.Min(y => y.Y);
 
+            PointF CoordenadasPuntoString = new PointF(XI + (XF - XI) / 2f, Ymin + (Ymax - Ymin) / 2f);
 
-
-
-
-
-
+            string Text = $"{Cantidad}{cFunctionsProgram.ConvertireNoBarraToString(NoBarra)}/{Math.Round(separacion * cConversiones.Dimension_m_to_cm, 2)}";
+            float LargoTexto = Text.Length * cVariables.W_LetraAutoCADEstribos;
+            FC_BFunctionsAutoCAD.FunctionsAutoCAD.AddText(Text, B_Operaciones_Matricialesl.Operaciones.Traslacion(CoordenadasPuntoString, X - LargoTexto / 2, Y),
+                                     cVariables.W_LetraAutoCADTextRefuerzo, cVariables.H_TextoEstribos, cVariables.C_Estribos, cVariables.Estilo_Texto, 0,
+                                     Width2: LargoTexto, JustifyText: FC_BFunctionsAutoCAD.JustifyText.Center);
+        }
 
 
         public void MoveraCaraApoyo()
@@ -531,7 +590,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             {
                 if (bloque1 != bloque2)
                 {
-                    if (bloque2.IsVisible(xi, xf))
+                    if (bloque2.IsVisible(xi, xf) && bloque2.DireccionEstribo == bloque1.DireccionEstribo)
                     {
                         xi = bloque2.xf+ bloque1.Separacion;
                         xf = bloque1.LongitudZonaEstribos + xi;
@@ -547,7 +606,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             {
                 if (bloque1 != bloque2)
                 {
-                    if (bloque2.IsVisible(xi, xf))
+                    if (bloque2.IsVisible(xi, xf) && bloque2.DireccionEstribo== bloque1.DireccionEstribo)
                     {
                         xf = bloque2.xi- bloque2.Separacion;
                         xi = xf - bloque1.LongitudZonaEstribos;
@@ -556,9 +615,6 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                 }
             }
         }
-
-        
-
 
 
         public bool IsVisible(cBloqueEstribos bloqueEstribo)
@@ -574,6 +630,14 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
         public bool IsVisible(float xi, float xf,float X)
         {
             return X >= xi && X <= xf;
+        }
+        public bool IsVisible(cEstacion estacion)
+        {
+            float x = estacion.CoordX + estacion.SubTramoOrigen.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X);
+            var XCaraAp1 = estacion.SubTramoOrigen.TramoOrigen.Lista_SubTramos.First().Vistas.Perfil_AutoCAD.Reales.Min(y => y.X);
+            var XCaraAp2 = estacion.SubTramoOrigen.TramoOrigen.Lista_SubTramos.Last().Vistas.Perfil_AutoCAD.Reales.Max(y => y.X);
+            return (IsVisible(XI, XF, x) || ((float)Math.Round(Math.Abs(x - XCaraAp1), cVariables.CifrasDeciSepEstribos) <= cVariables.d_CaraApoyo && (float)Math.Round(Math.Abs(XI - XCaraAp1), cVariables.CifrasDeciSepEstribos) <= cVariables.d_CaraApoyo) ||
+                ((float)Math.Round(Math.Abs(x - XCaraAp2), cVariables.CifrasDeciSepEstribos) <= cVariables.d_CaraApoyo && (float)Math.Round(Math.Abs(XF - XCaraAp2), cVariables.CifrasDeciSepEstribos) <= cVariables.d_CaraApoyo));
         }
 
         public override string ToString()

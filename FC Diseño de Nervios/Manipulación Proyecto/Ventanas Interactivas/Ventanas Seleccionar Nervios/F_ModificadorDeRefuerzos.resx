@@ -195,14 +195,27 @@
         ROX97nmfvgh58aVSvOEdEqHR4sZGfUTlH2XFOyQCN6wDNxSPwRfcsakO+CEdsQAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="BT_AñadirACaraApoyo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAEoSURBVEhLY/j0
+        U0bg////DIMRg9wGZgCBAxCDGAfQFWHF9QwKQOxAUwy1C0KQ7sCGvHDL/0Aaju3MdIjmn6tR/I+sH8QG
+        iaGwoXZBCDIciO4AkH5i+fsq1FEcDGKDxFDYULsgxFB2IBBgZqLB4kAgCADiD0BcgCwONGjgHQgEE6Bi
+        C4AYNRQH0oFAbADEF4AYFHIJMIUoeAAdeAeIvwHxCyAGhWADNjwjx2TBQDnwPZQGORQUmlhxcZTlhoFy
+        IMgBoFACsTcAMfZqcKAzCZQPSoMPgNgAphiOB0kuFgDxoeIBMHEwHgwOhCuARDlqKA4mB2LFow4cAQ5U
+        aEm2SAHS8AZmTphlAbH8E1XKPsj6QWyQGAobahekWQ3JsSBHYhYpA4g//ZQRAACKM9Gr4rpQ7gAAAABJ
+        RU5ErkJggg==
+</value>
+  </data>
   <data name="BT_MoverALaMitadTramo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABsAAAAOCAYAAADez2d9AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAADPSURBVDhPYwAC
-        BSAW+P//PwOtMNQOEGZoAGIHmMSOMq2S3nTzG//rGQ5crZU5AWNvKNG7AMLobJA8SB2y2pwwywdA2gDJ
-        MpAdIIxq2YwckwV2Zjr/gYr/76tQ/w9j1yVYgDE6GyQPUoesFmgeiIabCbVj1LIhbFkBEDuAcHKg+Q4z
-        A02wJkosA6ZIuJlAvACIJwAx/X02ahkGmyLL5uYZ18X6mj0BKj5wqFLtDIwNKopgxREyGyQPUoes1lBX
-        /T2QxlpcJQAxXIIWGGIHQwIAmyL3NBD0/aYAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAUCAYAAAD/Rn+7AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EwAACxMBAJqcGAAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAEASURBVEhLY/j0
+        U0bg////DIMRg9wG5wDBASB2QFYAxvVAMdpilAACuQHkFjgfSQKrA+flGf8HYaBBYJwXbvn/XI0i0Xw7
+        Mx04G9ksJDaKnSA3gNwC5yNJYHVgXYLFfxCGWQKycF+FOtF8oJlwNrJZSOxRB446ECYx6kBks5DYJDkw
+        BaoAjuN8zWjmwLRgi/85YZYFaHaC+BdwOXANlIZjORkpmjnQzEDzv7Cw0AU0O0H897gcOJoGYWYhsUcd
+        OOpAmMSoA5HNQmJT5sCF+UYRIAw2CIhbki1STlQp+xDLBxXEMDayWUhs/A1WWJMfCAyAeMCb/yA3gNwC
+        Yn/6KSMAAC/R8F0IwsmqAAAAAElFTkSuQmCC
 </value>
   </data>
   <data name="RB_Derecha.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

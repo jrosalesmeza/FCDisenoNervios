@@ -55,6 +55,7 @@ namespace FC_Diseño_de_Nervios
             }
             return EstacionCercana;
         }
+
         public override bool Equals(object obj)
         {
             if (obj is cEstacion)

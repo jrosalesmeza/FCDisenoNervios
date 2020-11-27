@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -135,9 +136,98 @@ namespace FC_Diseño_de_Nervios
         {
             longitud = Lista_SubTramos.Sum(x => x.Longitud);
         }
-          
 
-   
+
+
+
+
+        public bool IsVoladizoIzquierda()
+        {
+            bool ExisteElSegundoElemento= NervioOrigen.Lista_Elementos.First().Indice + 1 < NervioOrigen.Lista_Elementos.Count;
+            
+            if (Lista_SubTramos.First().Indice == NervioOrigen.Lista_Elementos.First().Indice)
+            {
+                return true;
+            }
+            else if(ExisteElSegundoElemento && NervioOrigen.Lista_Elementos[1].Indice== Lista_SubTramos.First().Indice)
+            {
+                bool Voladizo = false;
+                cSubTramo Subtramo = Lista_SubTramos.First();
+                float MayorNegativo = Subtramo.Estaciones.Max(y => Math.Abs(y.Calculos.Envolvente.M3[1]));
+                foreach (cEstacion Estacion in Subtramo.Estaciones)
+                {
+                    float MPosi = (float)Math.Round(Estacion.Calculos.Envolvente.M3[0], 2);
+                    if (MPosi <= cVariables.ToleranciaInversionMomentos)
+                    {
+                        Voladizo = true;
+                    }
+                    else
+                    {
+                        Voladizo = false; break;
+                    }
+                }
+                return Voladizo;
+            }
+            return false;
+        }
+        public bool IsVoladizoDerecha()
+        {
+            bool SiExistePenultimoElemento = NervioOrigen.Lista_Elementos.Last().Indice - 1 > 0;
+
+            if (Lista_SubTramos.Last().Indice == NervioOrigen.Lista_Elementos.Last().Indice)
+            {
+                return true;
+            }
+            else if(SiExistePenultimoElemento && NervioOrigen.Lista_Elementos[NervioOrigen.Lista_Elementos.Count-2].Indice== Lista_SubTramos.Last().Indice)
+            {
+                bool Voladizo = false;
+                cSubTramo Subtramo = Lista_SubTramos.Last();
+                float MayorNegativo = Subtramo.Estaciones.Max(y => Math.Abs(y.Calculos.Envolvente.M3[1]));
+                foreach (cEstacion Estacion in Subtramo.Estaciones)
+                {
+                    float MPosi = (float)Math.Round(Estacion.Calculos.Envolvente.M3[0], 2);
+                    if (MPosi <= cVariables.ToleranciaInversionMomentos)
+                    {
+                        Voladizo = true;
+                    }
+                    else
+                    {
+                        Voladizo = false; break;
+                    }
+                }
+                return Voladizo;
+            }
+            return false;
+        }
+
+
+
+        public Tuple<List<cBloqueEstribos>, List<cBloqueEstribos>> GrupoEstribosIzquierda_Derecha()
+        {
+
+            List<cBloqueEstribos> EstribosIzquierda = NervioOrigen.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.FindAll(y => IsContieneBloqueEstribos(y) && y.DireccionEstribo == eLadoDeZona.Derecha);
+            List<cBloqueEstribos> EstribosDerecha = NervioOrigen.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.FindAll(y => IsContieneBloqueEstribos(y) && y.DireccionEstribo == eLadoDeZona.Izquierda);
+            return new Tuple<List<cBloqueEstribos>, List<cBloqueEstribos>>(EstribosIzquierda, EstribosDerecha);
+        }
+
+        public void LimpiarEstribosEnTramo()
+        {
+            var grupos = GrupoEstribosIzquierda_Derecha();
+            var bloques = grupos.Item1.Concat(grupos.Item2).ToList();
+            foreach (var bloque in bloques)
+            {
+                NervioOrigen.Tendencia_Refuerzos.TEstriboSelect.ElminarBloqueEstribos(bloque);
+            }
+        }
+
+        public bool IsContieneBloqueEstribos(cBloqueEstribos bloqueEstribos)
+        {
+            float xi = Lista_SubTramos.First().Vistas.Perfil_AutoCAD.Reales.First().X;
+            float xf = Lista_SubTramos.Last().Vistas.Perfil_AutoCAD.Reales.Max(y => y.X);
+
+            return xi <= bloqueEstribos.XI && xf >= bloqueEstribos.XF;
+
+        }
 
 
         public override string ToString()

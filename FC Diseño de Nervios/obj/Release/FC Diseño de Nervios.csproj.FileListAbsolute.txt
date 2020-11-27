@@ -65,3 +65,7 @@ C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\Ope
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\OpenTK.GLControl.xml
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\B_Operaciones_Matricialesl.xml
 C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_de_Nervios.F_AgrupacionSimilitudNervios.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\DeepCloner.dll
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\bin\Release\DeepCloner.xml
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_ModificadorDeRefuerzos.resources
+C:\Users\jrosales\Desktop\DiseñodeNervios\FC Diseño de Nervios\obj\Release\FC_Diseño_de_Nervios.F_PlantaNervios.resources

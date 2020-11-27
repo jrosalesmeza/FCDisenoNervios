@@ -187,6 +187,12 @@
     <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.Designer.cs">
       <DependentUpon>F_ModificarEjesGlobales.cs</DependentUpon>
     </Compile>
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_VerSolicitacionesPorTramo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_VerSolicitacionesPorTramo.Designer.cs">
+      <DependentUpon>F_VerSolicitacionesPorTramo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_ModificadorDeRefuerzos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -370,6 +376,9 @@
     <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_ModificarEjesGlobales.resx">
       <DependentUpon>F_ModificarEjesGlobales.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Perfil Longitudinal\F_VerSolicitacionesPorTramo.resx">
+      <DependentUpon>F_VerSolicitacionesPorTramo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Manipulación Proyecto\Ventanas Interactivas\Ventanas Seleccionar Nervios\F_ModificadorDeRefuerzos.resx">
       <DependentUpon>F_ModificadorDeRefuerzos.cs</DependentUpon>
     </EmbeddedResource>
@@ -552,6 +561,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="IconoPrograma.ico" />
+    <None Include="Resources\Align Ends Right2.png" />
+    <None Include="Resources\Align ends Left2.png" />
     <None Include="Resources\Nervio_EsquemaR.JPG" />
     <None Include="Resources\flechaIzq.png" />
     <None Include="Resources\flecha.png" />
