@@ -310,7 +310,10 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             for (int i = 0; i < cantidad; i++)
             {
                 float x = xi + deltaS;
-                if (i + 1 == cantidad && CoordXEstriboEstriboFinal != cVariables.ValueNull)
+                if (i + 1 == cantidad && CoordXEstriboEstriboFinal != cVariables.ValueNull && direccionEstribo== eLadoDeZona.Derecha)
+                {
+                    x = CoordXEstriboEstriboFinal;
+                }else if (i== 0 && CoordXEstriboEstriboFinal != cVariables.ValueNull && direccionEstribo == eLadoDeZona.Izquierda)
                 {
                     x = CoordXEstriboEstriboFinal;
                 }
@@ -463,14 +466,21 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
 
         public void MouseDown(PointF Point)
         {
+
             GraphicsPath pathModoedicion = new GraphicsPath();
-            GraphicsPath pathMoverEstribos= new GraphicsPath();
+            GraphicsPath pathMoverEstribos = new GraphicsPath();
             GraphicsPath pathCambiarDireccionEstribos = new GraphicsPath();
             pathModoedicion.AddPolygon(Recuadro_ModoEdicion.Escaladas.ToArray());
             pathMoverEstribos.AddPolygon(Recuadro_MoverBloqueEstribos.Escaladas.ToArray());
             pathCambiarDireccionEstribos.AddPolygon(Recuadro_CambiarDireccionBloqueEstribos.Escaladas.ToArray());
-            Recuadro_ModoEdicion.IsSelect = pathModoedicion.IsVisible(Point) || pathMoverEstribos.IsVisible(Point) || pathCambiarDireccionEstribos.IsVisible(Point);
-
+            if (!Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.BloquearNervio)
+            {
+                Recuadro_ModoEdicion.IsSelect = pathModoedicion.IsVisible(Point) || pathMoverEstribos.IsVisible(Point) || pathCambiarDireccionEstribos.IsVisible(Point);
+            }
+            else
+            {
+                Recuadro_ModoEdicion.IsSelect = false;
+            }
             Recuadro_MoverBloqueEstribos.IsSelect = pathMoverEstribos.IsVisible(Point);
 
             if (pathCambiarDireccionEstribos.IsVisible(Point))
@@ -478,35 +488,39 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                 DireccionEstribo = direccionEstribo == eLadoDeZona.Derecha ? eLadoDeZona.Izquierda : eLadoDeZona.Derecha;
             }
 
+
         }
         public void MouseMove(PointF point)
         {
-            float W_Recuadro_MoverEstribos = cVariables.W_Recuadro_MoverEstribos;
-            float DeltaEstriboBorde = cVariables.DeltaEstriboBorde;
 
-            if (Recuadro_MoverBloqueEstribos.IsSelect)
+            if (!Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.BloquearNervio)
             {
-                float DistanciaPixeles = point.X - Recuadro_MoverBloqueEstribos.Escaladas.First().X;
-                float DeltaDistancia = DistanciaPixeles / SX;
-                if (direccionEstribo == eLadoDeZona.Derecha)
-                {
-                    float DistanciaDesplazarXReal= DeltaDistancia + W_Recuadro_MoverEstribos / 2f - DeltaEstriboBorde;
-                    XI += DistanciaDesplazarXReal;
-                    Recuadro_MoverBloqueEstribos.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_MoverBloqueEstribos.Escaladas, DistanciaDesplazarXReal*SX, 0);
-                    Recuadro_ModoEdicion.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_ModoEdicion.Escaladas, DistanciaDesplazarXReal*SX, 0);
-                    Recuadro_CambiarDireccionBloqueEstribos.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_CambiarDireccionBloqueEstribos.Escaladas, DistanciaDesplazarXReal*SX, 0);
-                }
-                else
-                {
-                    float DistanciaDesplazarXReal = DeltaDistancia - W_Recuadro_MoverEstribos / 2f + DeltaEstriboBorde;
-                    XF += DistanciaDesplazarXReal;
-                    Recuadro_MoverBloqueEstribos.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_MoverBloqueEstribos.Escaladas, DistanciaDesplazarXReal * SX, 0);
-                    Recuadro_ModoEdicion.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_ModoEdicion.Escaladas, DistanciaDesplazarXReal * SX, 0);
-                    Recuadro_CambiarDireccionBloqueEstribos.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_CambiarDireccionBloqueEstribos.Escaladas, DistanciaDesplazarXReal * SX, 0);
+                float W_Recuadro_MoverEstribos = cVariables.W_Recuadro_MoverEstribos;
+                float DeltaEstriboBorde = cVariables.DeltaEstriboBorde;
 
+                if (Recuadro_MoverBloqueEstribos.IsSelect)
+                {
+                    float DistanciaPixeles = point.X - Recuadro_MoverBloqueEstribos.Escaladas.First().X;
+                    float DeltaDistancia = DistanciaPixeles / SX;
+                    if (direccionEstribo == eLadoDeZona.Derecha)
+                    {
+                        float DistanciaDesplazarXReal = DeltaDistancia + W_Recuadro_MoverEstribos / 2f - DeltaEstriboBorde;
+                        XI += DistanciaDesplazarXReal;
+                        Recuadro_MoverBloqueEstribos.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_MoverBloqueEstribos.Escaladas, DistanciaDesplazarXReal * SX, 0);
+                        Recuadro_ModoEdicion.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_ModoEdicion.Escaladas, DistanciaDesplazarXReal * SX, 0);
+                        Recuadro_CambiarDireccionBloqueEstribos.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_CambiarDireccionBloqueEstribos.Escaladas, DistanciaDesplazarXReal * SX, 0);
+                    }
+                    else
+                    {
+                        float DistanciaDesplazarXReal = DeltaDistancia - W_Recuadro_MoverEstribos / 2f + DeltaEstriboBorde;
+                        XF += DistanciaDesplazarXReal;
+                        Recuadro_MoverBloqueEstribos.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_MoverBloqueEstribos.Escaladas, DistanciaDesplazarXReal * SX, 0);
+                        Recuadro_ModoEdicion.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_ModoEdicion.Escaladas, DistanciaDesplazarXReal * SX, 0);
+                        Recuadro_CambiarDireccionBloqueEstribos.Escaladas = B_Operaciones_Matricialesl.Operaciones.Traslacion(Recuadro_CambiarDireccionBloqueEstribos.Escaladas, DistanciaDesplazarXReal * SX, 0);
+
+                    }
                 }
             }
-       
         }
 
 

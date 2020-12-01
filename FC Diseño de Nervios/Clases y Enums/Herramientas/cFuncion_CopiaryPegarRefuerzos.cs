@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,8 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas
     public static class cFuncion_CopiaryPegarRefuerzos
     {
         public static List<cBarra> Refuerzos = new List<cBarra>();
-
-        public static void Copiar(cNervio Nervio)
+        public static List<cBloqueEstribos> Estribos = new List<cBloqueEstribos>();
+        public static void CopiarBarras(cNervio Nervio)
         {
             Refuerzos.Clear();
             Nervio.Tendencia_Refuerzos.TSupeSelect.Barras.ForEach(Barra => {
@@ -23,12 +24,19 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas
                 Refuerzos.Add(Barra);
             });
         }
+        public static void CopiarEstribos(cNervio nervio)
+        {
+            Estribos.Clear();
+            nervio.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.ForEach(B => Estribos.Add(B));
+        }
 
-        public static void Pegar(cNervio Nervio)
+
+
+        public static void PegarRefuerzos(cNervio Nervio)
         {
             Refuerzos.ForEach(BC => {
 
-                cBarra BarraClonada = cFunctionsProgram.DeepClone(BC);
+                cBarra BarraClonada = cFunctionsProgram.DeepCloneFast(BC);
                 if (SaberSiEstaPorFueraLaBarra(BarraClonada, Nervio))
                 {
                     if (BarraClonada.UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
@@ -64,19 +72,48 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas
         }
 
 
+        public static void PegarEstribos(cNervio nervio)
+        {
+            Estribos.ForEach(E =>
+            {
+                if (SaberSiBloqueEstribosEstaPorFuera(E, nervio))
+                {
+                    int IDF = 0;
+                    var BloquEstribosClone = cFunctionsProgram.DeepCloneFast(E);
+                    if (nervio.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Count > 0)
+                        IDF = nervio.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Max(y => y.ID) + 1;
+                    BloquEstribosClone.ID = IDF;
+                    BloquEstribosClone.Tendencia_Estribo_Origen = nervio.Tendencia_Refuerzos.TEstriboSelect;
+                    nervio.Tendencia_Refuerzos.TEstriboSelect.AgregarBloqueEstribos(BloquEstribosClone, false);
+                }
+            }); 
+        }
+
      
         private static bool SaberSiEstaPorFueraLaBarra(cBarra barra, cNervio nervio)
         {
             IElemento ElementoFirst = nervio.Lista_Elementos.First();
             IElemento ElementoLast = nervio.Lista_Elementos.Last();
-            float Izquierda = ElementoFirst.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X) + nervio.r1 * cConversiones.Dimension_cm_to_m;
-            float Derecha = ElementoLast.Vistas.Perfil_AutoCAD.Reales.Max(z => z.X) - nervio.r1 * cConversiones.Dimension_cm_to_m;
+            float Izquierda = ElementoFirst.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X) + cVariables.RExtremoIzquierdo;
+            float Derecha = ElementoLast.Vistas.Perfil_AutoCAD.Reales.Max(z => z.X) - cVariables.RExtremoDerecho;
             return Izquierda <=(float)Math.Round(barra.XI,cVariables.CifrasDeciLongBarra) && (float)Math.Round(barra.XF, cVariables.CifrasDeciLongBarra) <= Derecha;
         }
 
 
 
-        
+
+        private static bool SaberSiBloqueEstribosEstaPorFuera(cBloqueEstribos bloqueEstribos,cNervio nervio)
+        {
+            IElemento ElementoFirst = nervio.Lista_Elementos.First();
+            IElemento ElementoLast = nervio.Lista_Elementos.Last();
+            float Izquierda = ElementoFirst.Vistas.Perfil_AutoCAD.Reales.Min(y => y.X) + cVariables.d_CaraApoyo;
+            float Derecha = ElementoLast.Vistas.Perfil_AutoCAD.Reales.Max(z => z.X) - cVariables.d_CaraApoyo;
+            return Izquierda <= (float)Math.Round(bloqueEstribos.XI, cVariables.CifrasDeciLongBarra) && (float)Math.Round(bloqueEstribos.XF, cVariables.CifrasDeciLongBarra) <= Derecha;
+        }
+
+
+
+
 
     }
 }

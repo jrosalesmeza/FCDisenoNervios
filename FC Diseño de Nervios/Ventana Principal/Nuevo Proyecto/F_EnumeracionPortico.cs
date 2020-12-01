@@ -100,40 +100,44 @@ namespace FC_Diseño_de_Nervios
 
         private void CambiosTimer()
         {
-
-
             if (F_Base.Proyecto.DatosEtabs.PisoSelect == null)
             {
                 F_Base.Proyecto.DatosEtabs.PisoSelect = F_Base.Proyecto.DatosEtabs.Lista_Pisos[F_Base.Proyecto.DatosEtabs.Lista_Pisos.Count - 1];
             }
-            cLine ElementSelect = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.Find(x => x.Select == true);
-            if (ElementSelect != null)
-            {
-                TB_Nombramiento.Enabled = true;
-                BT_Enumerar.Enabled = true;
-                Text = $"Enumeración de Elementos | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre}";
-            }
-            else
-            {
-                TB_Nombramiento.Enabled = false;
-                BT_Enumerar.Enabled = false;
-            }
-            if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
-            {
-                cNervio NervioSelect = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.SelectPlantaEnumeracion == true);
 
-                if (NervioSelect != null)
+            if (ContainsFocus)
+            {
+                Text = $"Enumeración de Elementos | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre}";
+                cLine ElementSelect = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.Find(x => x.Select == true);
+                if (ElementSelect != null)
                 {
-                    BT_Regresar.Enabled = true;
+                    TB_Prefijo.Enabled = true;
+                    BT_Enumerar.Enabled = true;
+                    TB_Nombre.Enabled = true;
+                }
+                else
+                {
+                    TB_Prefijo.Enabled = false;
+                    BT_Enumerar.Enabled = false;
+                    TB_Nombre.Enabled = false;
+                }
+                if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
+                {
+                    cNervio NervioSelect = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.SelectPlantaEnumeracion == true);
+
+                    if (NervioSelect != null)
+                    {
+                        BT_Regresar.Enabled = true;
+                    }
+                    else
+                    {
+                        BT_Regresar.Enabled = false;
+                    }
                 }
                 else
                 {
                     BT_Regresar.Enabled = false;
                 }
-            }
-            else
-            {
-                BT_Regresar.Enabled = false;
             }
 
         }
@@ -358,14 +362,14 @@ namespace FC_Diseño_de_Nervios
 
             F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.ForEach(x => x.IndiceConjuntoSeleccion = 0);
             List<cLine> LineasSeleccionadas = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.FindAll(x => x.Select == true).ToList();
-            CreaNervios(TB_Nombramiento.Text, LineasSeleccionadas);
+            CreaNervios(TB_Prefijo.Text, LineasSeleccionadas,TB_Nombre.Text);
             PB_ElementosEnumerados.Invalidate();
             PB_ElementosNoEnumerados.Invalidate();
         }
 
 
 
-        private void CreaNervios(string Prefijo, List<cLine> LineasConCondiciones)
+        private void CreaNervios(string Prefijo , List<cLine> LineasConCondiciones,string NombreNervio ="")
         {
             List<List<cLine>> LineasParaCrearNervios = cFunctionsProgram.LineasParaCrearNervios(LineasConCondiciones);
 
@@ -379,28 +383,35 @@ namespace FC_Diseño_de_Nervios
             {
                 IndiceNervio = NerviosPisoSelect.Last().ID + 1;
             }
+            var NerviosFind = NerviosPisoSelect.Find(y => y.Nombre == NombreNervio);
+            if (NerviosFind == null)
+            {
 
-            foreach (List<cLine> lines in LineasParaCrearNervios)
-            {
-                cNervio Nervio = cFunctionsProgram.CrearNervio(Prefijo, IndiceNervio, lines, F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines, F_Base.Proyecto.Edificio.Lista_Grids, F_Base.Proyecto.DatosEtabs.PisoSelect,WidthPB_NOENUMERADOS, Height_NOENUMERADOS);
-                if (Nervio != null)
+                foreach (List<cLine> lines in LineasParaCrearNervios)
                 {
-                    Nervio.Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.Select = false));
-                    NerviosPisoSelect.Add(Nervio);
-                    IndiceNervio = NerviosPisoSelect.Last().ID + 1;
+                    cNervio Nervio = cFunctionsProgram.CrearNervio(Prefijo, IndiceNervio, lines, F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines, F_Base.Proyecto.Edificio.Lista_Grids, F_Base.Proyecto.DatosEtabs.PisoSelect, WidthPB_NOENUMERADOS, Height_NOENUMERADOS, NombreNervio);
+                    if (Nervio != null)
+                    {
+                        Nervio.Lista_Tramos.ForEach(x => x.Lista_Objetos.ForEach(y => y.Line.Select = false));
+                        NerviosPisoSelect.Add(Nervio);
+                        IndiceNervio = NerviosPisoSelect.Last().ID + 1;
+                    }
                 }
-            }
-            F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre).Nervios = NerviosPisoSelect;
-            cNervio NervioMenorListaObjetosMenoraCero = NerviosPisoSelect.Find(x => x.CantApoyos==0);
-            if (NervioMenorListaObjetosMenoraCero != null)
-            {
-                MensajeDeAlerta();
+                F_Base.Proyecto.Edificio.Lista_Pisos.Find(x => x.Nombre == F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre).Nervios = NerviosPisoSelect;
+                cNervio NervioMenorListaObjetosMenoraCero = NerviosPisoSelect.Find(x => x.CantApoyos == 0);
+                if (NervioMenorListaObjetosMenoraCero != null)
+                {
+                    MensajeDeAlerta();
+                }
+                else
+                {
+                    cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, F_Base.Proyecto.Nomenclatura_Vert);
+                }
             }
             else
             {
-                cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, F_Base.Proyecto.Nomenclatura_Vert);
+                cFunctionsProgram.VentanaEmergenteExclamacion("El Nervio ya existe, asigne otro nombre.");
             }
-
         }
 
         private void PB_ElementosEnumerados_Paint(object sender, PaintEventArgs e)

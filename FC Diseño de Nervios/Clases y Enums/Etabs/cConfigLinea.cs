@@ -54,6 +54,22 @@ namespace FC_Diseño_de_Nervios
 
         public cPoint Point2P { get; set; }
         public float Longitud { get; set; }
+
+        private float longitudPonderacion = 0f;
+        public float LongitudPonderacion
+        {
+            get
+            {
+                if (longitudPonderacion == 0)
+                    longitudPonderacion= Longitud- OffSetI - OffSetJ;
+                return longitudPonderacion;
+            }
+            set
+            {
+                if (longitudPonderacion != value)
+                    longitudPonderacion = value;
+            }
+        }
         public float OffSetI { get; set; } = 0;
         public float OffSetJ { get; set; } = 0;
         public float Angulo { get; set; }

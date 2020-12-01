@@ -580,6 +580,8 @@ namespace FC_Diseño_de_Nervios
         {
             float Espesor = 3f;
             Pen Pen; SolidBrush Brush_Form = new SolidBrush(Color.FromArgb(81, 126, 255)); Pen Pen_Form_NoSelect = new Pen(Color.FromArgb(0, 0, 0), 1); Pen Pen_Form_Select = new Pen(Color.FromArgb(0, 0, 0), 3);
+            
+            
             Pen PenSinSelect = new Pen(cDiccionarios.ColorBarra[NoBarra], Espesor); Pen PenFormIzq, PenFormDer;
             Pen PenSelect = new Pen(Color.FromArgb(232, 36, 13), Espesor); Pen PenSombra = new Pen(Color.FromArgb(100, 100, 100), Espesor);
             List<PointF> PuntosSobra = C_Barra.Escaladas.ToList(); for (int i = 0; i < PuntosSobra.Count; i++) { PuntosSobra[i] = new PointF(PuntosSobra[i].X + 2f, PuntosSobra[i].Y + 2f); }
@@ -592,6 +594,9 @@ namespace FC_Diseño_de_Nervios
             {
                 Pen = PenSinSelect;
             }
+
+            if (tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.BloquearNervio)
+                Pen = cNervio.PenBloquearNervio;
             e.DrawLines(Pen, C_Barra.Escaladas.ToArray());
 
             if (C_Barra.IsSelectArrastre)
@@ -704,7 +709,7 @@ namespace FC_Diseño_de_Nervios
         public void MouseDown(PointF Point)
         {
 
-            if (isMouseOverNoArrastre(Point))
+            if (isMouseOverNoArrastre(Point) && !tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.BloquearNervio)
             {
                 C_Barra.IsSelect = true;
                 C_Barra.IsSelectArrastre = true;
@@ -718,7 +723,7 @@ namespace FC_Diseño_de_Nervios
         }
         public void MouseDownDoubleClick(PointF Point)
         {
-            if (isMouseOverNoArrastre(Point))
+            if (isMouseOverNoArrastre(Point) && !tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.BloquearNervio)
             {
                 C_F_Central.IsSelect = true;
                 C_F_Derecha.IsSelect = false;
@@ -761,42 +766,41 @@ namespace FC_Diseño_de_Nervios
             return false;
         }
 
-
-
-
-
         public void MouseMove(PointF PointF)
         {
-            if (C_F_Izquierda.IsSelect && C_Barra.IsSelect)
+            if (!tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.BloquearNervio)
             {
-                float DistanciaPixeles = PointF.X - C_F_Izquierda.Escaladas.First().X;
-                float DeltaDistancia = DistanciaPixeles / SX;
-                //DeltaDistancia = cFunctionsProgram.PrecisarNumero(DeltaDistancia, deltaAlargamiento, cVariables.CifrasDeciLongBarra);
-                XI += DeltaDistancia;
-                C_F_Izquierda.Escaladas = new List<PointF>() { PointF };
-            }
-            if (C_F_Derecha.IsSelect && C_Barra.IsSelect)
-            {
-                float DistanciaPixeles = PointF.X - C_F_Derecha.Escaladas.First().X;
-                float DeltaDistancia = DistanciaPixeles / SX;
-                //DeltaDistancia = cFunctionsProgram.PrecisarNumero(DeltaDistancia, deltaAlargamiento, cVariables.CifrasDeciLongBarra);
-                XF += DeltaDistancia;
-                C_F_Derecha.Escaladas = new List<PointF>() { PointF };
-
-            }
-            if (C_F_Central.IsSelect && C_Barra.IsSelect)
-            {
-                float DistanciaPixeles1 = PointF.X - C_F_Central.Escaladas.First().X;
-                if (xi + DistanciaPixeles1 / SX >= LimiteIzquierdo && xf + DistanciaPixeles1 / SX <= LimiteDerecho)
+                if (C_F_Izquierda.IsSelect && C_Barra.IsSelect)
                 {
-                   if ((float)Math.Round((xf + DistanciaPixeles1 / SX) - (xi + DistanciaPixeles1 / SX),cVariables.CifrasDeciLongBarra) == longitudRecta)
-                   {
-                        xi += DistanciaPixeles1 / SX;
-                        xf += DistanciaPixeles1 / SX;
-                        TendenciaOrigen.AsignarNivelABarras();
-                    }
+                    float DistanciaPixeles = PointF.X - C_F_Izquierda.Escaladas.First().X;
+                    float DeltaDistancia = DistanciaPixeles / SX;
+                    //DeltaDistancia = cFunctionsProgram.PrecisarNumero(DeltaDistancia, deltaAlargamiento, cVariables.CifrasDeciLongBarra);
+                    XI += DeltaDistancia;
+                    C_F_Izquierda.Escaladas = new List<PointF>() { PointF };
                 }
-                C_F_Central.Escaladas = new List<PointF>() { PointF };
+                if (C_F_Derecha.IsSelect && C_Barra.IsSelect)
+                {
+                    float DistanciaPixeles = PointF.X - C_F_Derecha.Escaladas.First().X;
+                    float DeltaDistancia = DistanciaPixeles / SX;
+                    //DeltaDistancia = cFunctionsProgram.PrecisarNumero(DeltaDistancia, deltaAlargamiento, cVariables.CifrasDeciLongBarra);
+                    XF += DeltaDistancia;
+                    C_F_Derecha.Escaladas = new List<PointF>() { PointF };
+
+                }
+                if (C_F_Central.IsSelect && C_Barra.IsSelect)
+                {
+                    float DistanciaPixeles1 = PointF.X - C_F_Central.Escaladas.First().X;
+                    if (xi + DistanciaPixeles1 / SX >= LimiteIzquierdo && xf + DistanciaPixeles1 / SX <= LimiteDerecho)
+                    {
+                        if ((float)Math.Round((xf + DistanciaPixeles1 / SX) - (xi + DistanciaPixeles1 / SX), cVariables.CifrasDeciLongBarra) == longitudRecta)
+                        {
+                            xi += DistanciaPixeles1 / SX;
+                            xf += DistanciaPixeles1 / SX;
+                            TendenciaOrigen.AsignarNivelABarras();
+                        }
+                    }
+                    C_F_Central.Escaladas = new List<PointF>() { PointF };
+                }
             }
 
         }

@@ -203,7 +203,7 @@ namespace FC_Diseño_de_Nervios
         }
 
 
-        private bool XiPerteneceaX0X1(float X0, float X1, float Xi)
+        public static bool XiPerteneceaX0X1(float X0, float X1, float Xi)
         {
             if (X1 >= Xi && X0 <= Xi)
             {
@@ -213,7 +213,7 @@ namespace FC_Diseño_de_Nervios
             return false;
         }
 
-        private float DeterminarLongBarraRecta(float Xo,float Xi)
+        public static float DeterminarLongBarraRecta(float Xo,float Xi)
         {
             return Xi - Xo;
         }

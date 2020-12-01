@@ -121,7 +121,7 @@ namespace FC_Diseño_de_Nervios
 
                 for (int i = 0; i < TendenciasInferior.Count; i++)
                 {
-                    tendencia_Estribos.Add(new cTendencia_Estribo(i, this));
+                    tendencia_Estribos.Add(new cTendencia_Estribo(i+1, this));
                 }
             }
         }

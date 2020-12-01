@@ -33,7 +33,6 @@
             this.TC_ModificadorBarras = new System.Windows.Forms.TabControl();
             this.TP_ModificarBarra = new System.Windows.Forms.TabPage();
             this.GB_1 = new System.Windows.Forms.GroupBox();
-            this.TB_Longitud = new FC_Diseño_de_Nervios.Controles.TextBoxCustom();
             this.TB_Precision = new System.Windows.Forms.TextBox();
             this.TB_D = new System.Windows.Forms.TextBox();
             this.BT_DD = new FontAwesome.Sharp.IconButton();
@@ -53,45 +52,50 @@
             this.LB_7 = new System.Windows.Forms.Label();
             this.LB_2 = new System.Windows.Forms.Label();
             this.TB_C = new System.Windows.Forms.TextBox();
-            this.RB_0D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
-            this.RB_90D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
-            this.Barra_1 = new FC_Diseño_de_Nervios.Controles.Control_Barra();
-            this.RB_180D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.LB_13 = new System.Windows.Forms.Label();
             this.LB_8 = new System.Windows.Forms.Label();
-            this.RB_180I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.LB_9 = new System.Windows.Forms.Label();
             this.LB_6 = new System.Windows.Forms.Label();
             this.LB_10 = new System.Windows.Forms.Label();
             this.LB_5 = new System.Windows.Forms.Label();
-            this.RB_0I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.LB_4 = new System.Windows.Forms.Label();
-            this.RB_90I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.TP_ModificarEstribos = new System.Windows.Forms.TabPage();
             this.GB_2 = new System.Windows.Forms.GroupBox();
+            this.LB_36 = new System.Windows.Forms.Label();
+            this.LB_35 = new System.Windows.Forms.Label();
             this.BT_AñadirACaraApoyo = new System.Windows.Forms.Button();
             this.BT_MoverALaMitadTramo = new System.Windows.Forms.Button();
             this.LB_31 = new System.Windows.Forms.Label();
-            this.TB_Separacion = new FC_Diseño_de_Nervios.Controles.TextBoxCustom();
             this.LB_30 = new System.Windows.Forms.Label();
             this.LB_26 = new System.Windows.Forms.Label();
             this.LB_21 = new System.Windows.Forms.Label();
             this.LB_20 = new System.Windows.Forms.Label();
-            this.RB_Derecha = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
-            this.RB_Izquierda = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
             this.NUD_NoRamas = new System.Windows.Forms.NumericUpDown();
             this.NUD_CantidadEstribos = new System.Windows.Forms.NumericUpDown();
             this.LB_24 = new System.Windows.Forms.Label();
             this.LB_23 = new System.Windows.Forms.Label();
-            this.TB_AbcisaX = new FC_Diseño_de_Nervios.Controles.TextBoxCustom();
             this.TB_M = new System.Windows.Forms.TextBox();
             this.BT_Dr = new FontAwesome.Sharp.IconButton();
             this.CB_NoBarra2 = new System.Windows.Forms.ComboBox();
             this.BT_Izq = new FontAwesome.Sharp.IconButton();
             this.LB_22 = new System.Windows.Forms.Label();
             this.LB_25 = new System.Windows.Forms.Label();
-            this.LB_35 = new System.Windows.Forms.Label();
-            this.LB_36 = new System.Windows.Forms.Label();
+            this.RB_Izq = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.RB_Dr = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.RB_Centro = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.TB_Longitud = new FC_Diseño_de_Nervios.Controles.TextBoxCustom();
+            this.RB_0D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.RB_90D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.Barra_1 = new FC_Diseño_de_Nervios.Controles.Control_Barra();
+            this.RB_180D = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.RB_180I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.RB_0I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.RB_90I = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.TB_Separacion = new FC_Diseño_de_Nervios.Controles.TextBoxCustom();
+            this.RB_Derecha = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.RB_Izquierda = new FC_Diseño_de_Nervios.Controles.AdvancedRadioButton();
+            this.TB_AbcisaX = new FC_Diseño_de_Nervios.Controles.TextBoxCustom();
+            this.P_4 = new System.Windows.Forms.Panel();
             this.P_1.SuspendLayout();
             this.TC_ModificadorBarras.SuspendLayout();
             this.TP_ModificarBarra.SuspendLayout();
@@ -101,6 +105,7 @@
             this.GB_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_NoRamas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_CantidadEstribos)).BeginInit();
+            this.P_4.SuspendLayout();
             this.SuspendLayout();
             // 
             // P_1
@@ -143,6 +148,7 @@
             // GB_1
             // 
             this.GB_1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.GB_1.Controls.Add(this.P_4);
             this.GB_1.Controls.Add(this.TB_Longitud);
             this.GB_1.Controls.Add(this.TB_Precision);
             this.GB_1.Controls.Add(this.TB_D);
@@ -178,21 +184,11 @@
             this.GB_1.Controls.Add(this.LB_4);
             this.GB_1.Controls.Add(this.RB_90I);
             this.GB_1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.GB_1.Location = new System.Drawing.Point(12, 6);
+            this.GB_1.Location = new System.Drawing.Point(8, 6);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(358, 251);
+            this.GB_1.Size = new System.Drawing.Size(364, 251);
             this.GB_1.TabIndex = 47;
             this.GB_1.TabStop = false;
-            // 
-            // TB_Longitud
-            // 
-            this.TB_Longitud.Location = new System.Drawing.Point(183, 17);
-            this.TB_Longitud.Name = "TB_Longitud";
-            this.TB_Longitud.Size = new System.Drawing.Size(50, 20);
-            this.TB_Longitud.TabIndex = 63;
-            this.TB_Longitud.TextChangedProperty = true;
-            this.TB_Longitud.TextChanged += new System.EventHandler(this.TB_Longitud_TextChanged);
-            this.TB_Longitud.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_Longitud_KeyPress);
             // 
             // TB_Precision
             // 
@@ -398,67 +394,11 @@
             this.TB_C.TabIndex = 8;
             this.TB_C.Text = "0.10";
             // 
-            // RB_0D
-            // 
-            this.RB_0D.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_0D.GroupName = "1";
-            this.RB_0D.Image = ((System.Drawing.Image)(resources.GetObject("RB_0D.Image")));
-            this.RB_0D.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_0D.Location = new System.Drawing.Point(291, 171);
-            this.RB_0D.Name = "RB_0D";
-            this.RB_0D.Size = new System.Drawing.Size(30, 17);
-            this.RB_0D.TabIndex = 54;
-            this.RB_0D.UseVisualStyleBackColor = true;
-            this.RB_0D.CheckedChanged += new System.EventHandler(this.RB_0D_CheckedChanged);
-            // 
-            // RB_90D
-            // 
-            this.RB_90D.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_90D.GroupName = "1";
-            this.RB_90D.Image = ((System.Drawing.Image)(resources.GetObject("RB_90D.Image")));
-            this.RB_90D.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_90D.Location = new System.Drawing.Point(252, 171);
-            this.RB_90D.Name = "RB_90D";
-            this.RB_90D.Size = new System.Drawing.Size(30, 17);
-            this.RB_90D.TabIndex = 53;
-            this.RB_90D.UseVisualStyleBackColor = true;
-            this.RB_90D.CheckedChanged += new System.EventHandler(this.RB_90D_CheckedChanged);
-            // 
-            // Barra_1
-            // 
-            this.Barra_1.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.Barra_1.Espesor = 5;
-            this.Barra_1.ForeColor = System.Drawing.Color.DimGray;
-            this.Barra_1.Location = new System.Drawing.Point(55, 34);
-            this.Barra_1.Name = "Barra_1";
-            this.Barra_1.NoBarra = FC_Diseño_de_Nervios.eNoBarra.B3;
-            this.Barra_1.Size = new System.Drawing.Size(239, 64);
-            this.Barra_1.TabIndex = 0;
-            this.Barra_1.TipoGancho_Derecho = FC_Diseño_de_Nervios.eTipoGancho.G180;
-            this.Barra_1.TipoGancho_Izquierdo = FC_Diseño_de_Nervios.eTipoGancho.G180;
-            this.Barra_1.UbicacionRefuerzo = FC_Diseño_de_Nervios.eUbicacionRefuerzo.Inferior;
-            this.Barra_1.ChangeBarra += new FC_Diseño_de_Nervios.Controles.DelegateChangeNoBarra(this.Barra_1_ChangeBarra);
-            this.Barra_1.ChangeGanchoIzquierdo += new FC_Diseño_de_Nervios.Controles.DelegateChangeGancho(this.Barra_1_ChangeGanchoIzquierdo);
-            this.Barra_1.ChangeGanchoDerecho += new FC_Diseño_de_Nervios.Controles.DelegateChangeGancho(this.Barra_1_ChangeGanchoDerecho);
-            // 
-            // RB_180D
-            // 
-            this.RB_180D.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_180D.GroupName = "1";
-            this.RB_180D.Image = ((System.Drawing.Image)(resources.GetObject("RB_180D.Image")));
-            this.RB_180D.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_180D.Location = new System.Drawing.Point(215, 171);
-            this.RB_180D.Name = "RB_180D";
-            this.RB_180D.Size = new System.Drawing.Size(30, 17);
-            this.RB_180D.TabIndex = 52;
-            this.RB_180D.UseVisualStyleBackColor = true;
-            this.RB_180D.CheckedChanged += new System.EventHandler(this.RB_180D_CheckedChanged);
-            // 
             // LB_13
             // 
             this.LB_13.AutoSize = true;
             this.LB_13.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_13.Location = new System.Drawing.Point(98, 20);
+            this.LB_13.Location = new System.Drawing.Point(48, 19);
             this.LB_13.Name = "LB_13";
             this.LB_13.Size = new System.Drawing.Size(83, 14);
             this.LB_13.TabIndex = 41;
@@ -473,20 +413,6 @@
             this.LB_8.Size = new System.Drawing.Size(29, 14);
             this.LB_8.TabIndex = 49;
             this.LB_8.Text = "180°";
-            // 
-            // RB_180I
-            // 
-            this.RB_180I.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_180I.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
-            this.RB_180I.GroupName = "0";
-            this.RB_180I.Image = ((System.Drawing.Image)(resources.GetObject("RB_180I.Image")));
-            this.RB_180I.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_180I.Location = new System.Drawing.Point(25, 171);
-            this.RB_180I.Name = "RB_180I";
-            this.RB_180I.Size = new System.Drawing.Size(30, 17);
-            this.RB_180I.TabIndex = 46;
-            this.RB_180I.UseVisualStyleBackColor = true;
-            this.RB_180I.CheckedChanged += new System.EventHandler(this.RB_180I_CheckedChanged);
             // 
             // LB_9
             // 
@@ -528,19 +454,6 @@
             this.LB_5.TabIndex = 21;
             this.LB_5.Text = "90°";
             // 
-            // RB_0I
-            // 
-            this.RB_0I.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_0I.GroupName = "0";
-            this.RB_0I.Image = ((System.Drawing.Image)(resources.GetObject("RB_0I.Image")));
-            this.RB_0I.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_0I.Location = new System.Drawing.Point(101, 171);
-            this.RB_0I.Name = "RB_0I";
-            this.RB_0I.Size = new System.Drawing.Size(30, 17);
-            this.RB_0I.TabIndex = 48;
-            this.RB_0I.UseVisualStyleBackColor = true;
-            this.RB_0I.CheckedChanged += new System.EventHandler(this.RB_0I_CheckedChanged);
-            // 
             // LB_4
             // 
             this.LB_4.AutoSize = true;
@@ -550,19 +463,6 @@
             this.LB_4.Size = new System.Drawing.Size(29, 14);
             this.LB_4.TabIndex = 20;
             this.LB_4.Text = "180°";
-            // 
-            // RB_90I
-            // 
-            this.RB_90I.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_90I.GroupName = "0";
-            this.RB_90I.Image = ((System.Drawing.Image)(resources.GetObject("RB_90I.Image")));
-            this.RB_90I.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_90I.Location = new System.Drawing.Point(62, 171);
-            this.RB_90I.Name = "RB_90I";
-            this.RB_90I.Size = new System.Drawing.Size(30, 17);
-            this.RB_90I.TabIndex = 47;
-            this.RB_90I.UseVisualStyleBackColor = true;
-            this.RB_90I.CheckedChanged += new System.EventHandler(this.RB_90I_CheckedChanged);
             // 
             // TP_ModificarEstribos
             // 
@@ -608,6 +508,26 @@
             this.GB_2.TabIndex = 71;
             this.GB_2.TabStop = false;
             // 
+            // LB_36
+            // 
+            this.LB_36.AutoSize = true;
+            this.LB_36.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_36.Location = new System.Drawing.Point(183, 227);
+            this.LB_36.Name = "LB_36";
+            this.LB_36.Size = new System.Drawing.Size(43, 14);
+            this.LB_36.TabIndex = 83;
+            this.LB_36.Text = "Centrar";
+            // 
+            // LB_35
+            // 
+            this.LB_35.AutoSize = true;
+            this.LB_35.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LB_35.Location = new System.Drawing.Point(81, 227);
+            this.LB_35.Name = "LB_35";
+            this.LB_35.Size = new System.Drawing.Size(38, 14);
+            this.LB_35.TabIndex = 82;
+            this.LB_35.Text = "Anclar";
+            // 
             // BT_AñadirACaraApoyo
             // 
             this.BT_AñadirACaraApoyo.Image = ((System.Drawing.Image)(resources.GetObject("BT_AñadirACaraApoyo.Image")));
@@ -638,15 +558,6 @@
             this.LB_31.Size = new System.Drawing.Size(22, 14);
             this.LB_31.TabIndex = 77;
             this.LB_31.Text = "cm";
-            // 
-            // TB_Separacion
-            // 
-            this.TB_Separacion.Location = new System.Drawing.Point(186, 159);
-            this.TB_Separacion.Name = "TB_Separacion";
-            this.TB_Separacion.Size = new System.Drawing.Size(50, 20);
-            this.TB_Separacion.TabIndex = 76;
-            this.TB_Separacion.TextChangedProperty = true;
-            this.TB_Separacion.TextChanged += new System.EventHandler(this.TB_Separacion_TextChanged);
             // 
             // LB_30
             // 
@@ -687,32 +598,6 @@
             this.LB_20.Size = new System.Drawing.Size(52, 14);
             this.LB_20.TabIndex = 72;
             this.LB_20.Text = "Izquierda";
-            // 
-            // RB_Derecha
-            // 
-            this.RB_Derecha.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_Derecha.GroupName = "0";
-            this.RB_Derecha.Image = ((System.Drawing.Image)(resources.GetObject("RB_Derecha.Image")));
-            this.RB_Derecha.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_Derecha.Location = new System.Drawing.Point(189, 32);
-            this.RB_Derecha.Name = "RB_Derecha";
-            this.RB_Derecha.Size = new System.Drawing.Size(39, 20);
-            this.RB_Derecha.TabIndex = 71;
-            this.RB_Derecha.UseVisualStyleBackColor = true;
-            this.RB_Derecha.CheckStateChanged += new System.EventHandler(this.RB_Derecha_CheckStateChanged);
-            // 
-            // RB_Izquierda
-            // 
-            this.RB_Izquierda.Appearance = System.Windows.Forms.Appearance.Button;
-            this.RB_Izquierda.GroupName = "0";
-            this.RB_Izquierda.Image = ((System.Drawing.Image)(resources.GetObject("RB_Izquierda.Image")));
-            this.RB_Izquierda.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RB_Izquierda.Location = new System.Drawing.Point(121, 32);
-            this.RB_Izquierda.Name = "RB_Izquierda";
-            this.RB_Izquierda.Size = new System.Drawing.Size(39, 20);
-            this.RB_Izquierda.TabIndex = 70;
-            this.RB_Izquierda.UseVisualStyleBackColor = true;
-            this.RB_Izquierda.CheckStateChanged += new System.EventHandler(this.RB_Izquierda_CheckStateChanged);
             // 
             // NUD_NoRamas
             // 
@@ -774,16 +659,6 @@
             this.LB_23.Size = new System.Drawing.Size(53, 14);
             this.LB_23.TabIndex = 64;
             this.LB_23.Text = "# Ramas:";
-            // 
-            // TB_AbcisaX
-            // 
-            this.TB_AbcisaX.Location = new System.Drawing.Point(148, 189);
-            this.TB_AbcisaX.Name = "TB_AbcisaX";
-            this.TB_AbcisaX.Size = new System.Drawing.Size(50, 20);
-            this.TB_AbcisaX.TabIndex = 63;
-            this.TB_AbcisaX.TextChangedProperty = true;
-            this.TB_AbcisaX.TextChanged += new System.EventHandler(this.TB_AbcisaX_TextChanged);
-            this.TB_AbcisaX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_AbcisaX_KeyPress);
             // 
             // TB_M
             // 
@@ -855,25 +730,203 @@
             this.LB_25.TabIndex = 41;
             this.LB_25.Text = "Abscisa en X:";
             // 
-            // LB_35
+            // RB_Izq
             // 
-            this.LB_35.AutoSize = true;
-            this.LB_35.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_35.Location = new System.Drawing.Point(81, 227);
-            this.LB_35.Name = "LB_35";
-            this.LB_35.Size = new System.Drawing.Size(38, 14);
-            this.LB_35.TabIndex = 82;
-            this.LB_35.Text = "Anclar";
+            this.RB_Izq.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_Izq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
+            this.RB_Izq.GroupName = "2";
+            this.RB_Izq.Image = ((System.Drawing.Image)(resources.GetObject("RB_Izq.Image")));
+            this.RB_Izq.Location = new System.Drawing.Point(3, 1);
+            this.RB_Izq.Name = "RB_Izq";
+            this.RB_Izq.Size = new System.Drawing.Size(35, 18);
+            this.RB_Izq.TabIndex = 64;
+            this.RB_Izq.UseVisualStyleBackColor = true;
             // 
-            // LB_36
+            // RB_Dr
             // 
-            this.LB_36.AutoSize = true;
-            this.LB_36.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LB_36.Location = new System.Drawing.Point(183, 227);
-            this.LB_36.Name = "LB_36";
-            this.LB_36.Size = new System.Drawing.Size(43, 14);
-            this.LB_36.TabIndex = 83;
-            this.LB_36.Text = "Centrar";
+            this.RB_Dr.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_Dr.Checked = true;
+            this.RB_Dr.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.RB_Dr.GroupName = "2";
+            this.RB_Dr.Image = ((System.Drawing.Image)(resources.GetObject("RB_Dr.Image")));
+            this.RB_Dr.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_Dr.Location = new System.Drawing.Point(81, 1);
+            this.RB_Dr.Name = "RB_Dr";
+            this.RB_Dr.Size = new System.Drawing.Size(35, 18);
+            this.RB_Dr.TabIndex = 66;
+            this.RB_Dr.UseVisualStyleBackColor = true;
+            // 
+            // RB_Centro
+            // 
+            this.RB_Centro.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_Centro.GroupName = "2";
+            this.RB_Centro.Image = ((System.Drawing.Image)(resources.GetObject("RB_Centro.Image")));
+            this.RB_Centro.Location = new System.Drawing.Point(42, 1);
+            this.RB_Centro.Name = "RB_Centro";
+            this.RB_Centro.Size = new System.Drawing.Size(35, 18);
+            this.RB_Centro.TabIndex = 65;
+            this.RB_Centro.UseVisualStyleBackColor = true;
+            // 
+            // TB_Longitud
+            // 
+            this.TB_Longitud.Location = new System.Drawing.Point(133, 16);
+            this.TB_Longitud.Name = "TB_Longitud";
+            this.TB_Longitud.Size = new System.Drawing.Size(50, 20);
+            this.TB_Longitud.TabIndex = 63;
+            this.TB_Longitud.TextChangedProperty = true;
+            this.TB_Longitud.TextChanged += new System.EventHandler(this.TB_Longitud_TextChanged);
+            this.TB_Longitud.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_Longitud_KeyPress);
+            // 
+            // RB_0D
+            // 
+            this.RB_0D.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_0D.GroupName = "1";
+            this.RB_0D.Image = ((System.Drawing.Image)(resources.GetObject("RB_0D.Image")));
+            this.RB_0D.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_0D.Location = new System.Drawing.Point(291, 171);
+            this.RB_0D.Name = "RB_0D";
+            this.RB_0D.Size = new System.Drawing.Size(30, 17);
+            this.RB_0D.TabIndex = 54;
+            this.RB_0D.UseVisualStyleBackColor = true;
+            this.RB_0D.CheckedChanged += new System.EventHandler(this.RB_0D_CheckedChanged);
+            // 
+            // RB_90D
+            // 
+            this.RB_90D.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_90D.GroupName = "1";
+            this.RB_90D.Image = ((System.Drawing.Image)(resources.GetObject("RB_90D.Image")));
+            this.RB_90D.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_90D.Location = new System.Drawing.Point(252, 171);
+            this.RB_90D.Name = "RB_90D";
+            this.RB_90D.Size = new System.Drawing.Size(30, 17);
+            this.RB_90D.TabIndex = 53;
+            this.RB_90D.UseVisualStyleBackColor = true;
+            this.RB_90D.CheckedChanged += new System.EventHandler(this.RB_90D_CheckedChanged);
+            // 
+            // Barra_1
+            // 
+            this.Barra_1.Cursor = System.Windows.Forms.Cursors.Arrow;
+            this.Barra_1.Espesor = 5;
+            this.Barra_1.ForeColor = System.Drawing.Color.DimGray;
+            this.Barra_1.Location = new System.Drawing.Point(55, 34);
+            this.Barra_1.Name = "Barra_1";
+            this.Barra_1.NoBarra = FC_Diseño_de_Nervios.eNoBarra.B3;
+            this.Barra_1.Size = new System.Drawing.Size(239, 64);
+            this.Barra_1.TabIndex = 0;
+            this.Barra_1.TipoGancho_Derecho = FC_Diseño_de_Nervios.eTipoGancho.G180;
+            this.Barra_1.TipoGancho_Izquierdo = FC_Diseño_de_Nervios.eTipoGancho.G180;
+            this.Barra_1.UbicacionRefuerzo = FC_Diseño_de_Nervios.eUbicacionRefuerzo.Inferior;
+            this.Barra_1.ChangeBarra += new FC_Diseño_de_Nervios.Controles.DelegateChangeNoBarra(this.Barra_1_ChangeBarra);
+            this.Barra_1.ChangeGanchoIzquierdo += new FC_Diseño_de_Nervios.Controles.DelegateChangeGancho(this.Barra_1_ChangeGanchoIzquierdo);
+            this.Barra_1.ChangeGanchoDerecho += new FC_Diseño_de_Nervios.Controles.DelegateChangeGancho(this.Barra_1_ChangeGanchoDerecho);
+            // 
+            // RB_180D
+            // 
+            this.RB_180D.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_180D.GroupName = "1";
+            this.RB_180D.Image = ((System.Drawing.Image)(resources.GetObject("RB_180D.Image")));
+            this.RB_180D.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_180D.Location = new System.Drawing.Point(215, 171);
+            this.RB_180D.Name = "RB_180D";
+            this.RB_180D.Size = new System.Drawing.Size(30, 17);
+            this.RB_180D.TabIndex = 52;
+            this.RB_180D.UseVisualStyleBackColor = true;
+            this.RB_180D.CheckedChanged += new System.EventHandler(this.RB_180D_CheckedChanged);
+            // 
+            // RB_180I
+            // 
+            this.RB_180I.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_180I.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(215)))), ((int)(((byte)(111)))), ((int)(((byte)(0)))));
+            this.RB_180I.GroupName = "0";
+            this.RB_180I.Image = ((System.Drawing.Image)(resources.GetObject("RB_180I.Image")));
+            this.RB_180I.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_180I.Location = new System.Drawing.Point(25, 171);
+            this.RB_180I.Name = "RB_180I";
+            this.RB_180I.Size = new System.Drawing.Size(30, 17);
+            this.RB_180I.TabIndex = 46;
+            this.RB_180I.UseVisualStyleBackColor = true;
+            this.RB_180I.CheckedChanged += new System.EventHandler(this.RB_180I_CheckedChanged);
+            // 
+            // RB_0I
+            // 
+            this.RB_0I.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_0I.GroupName = "0";
+            this.RB_0I.Image = ((System.Drawing.Image)(resources.GetObject("RB_0I.Image")));
+            this.RB_0I.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_0I.Location = new System.Drawing.Point(101, 171);
+            this.RB_0I.Name = "RB_0I";
+            this.RB_0I.Size = new System.Drawing.Size(30, 17);
+            this.RB_0I.TabIndex = 48;
+            this.RB_0I.UseVisualStyleBackColor = true;
+            this.RB_0I.CheckedChanged += new System.EventHandler(this.RB_0I_CheckedChanged);
+            // 
+            // RB_90I
+            // 
+            this.RB_90I.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_90I.GroupName = "0";
+            this.RB_90I.Image = ((System.Drawing.Image)(resources.GetObject("RB_90I.Image")));
+            this.RB_90I.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_90I.Location = new System.Drawing.Point(62, 171);
+            this.RB_90I.Name = "RB_90I";
+            this.RB_90I.Size = new System.Drawing.Size(30, 17);
+            this.RB_90I.TabIndex = 47;
+            this.RB_90I.UseVisualStyleBackColor = true;
+            this.RB_90I.CheckedChanged += new System.EventHandler(this.RB_90I_CheckedChanged);
+            // 
+            // TB_Separacion
+            // 
+            this.TB_Separacion.Location = new System.Drawing.Point(186, 159);
+            this.TB_Separacion.Name = "TB_Separacion";
+            this.TB_Separacion.Size = new System.Drawing.Size(50, 20);
+            this.TB_Separacion.TabIndex = 76;
+            this.TB_Separacion.TextChangedProperty = true;
+            this.TB_Separacion.TextChanged += new System.EventHandler(this.TB_Separacion_TextChanged);
+            // 
+            // RB_Derecha
+            // 
+            this.RB_Derecha.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_Derecha.GroupName = "0";
+            this.RB_Derecha.Image = ((System.Drawing.Image)(resources.GetObject("RB_Derecha.Image")));
+            this.RB_Derecha.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_Derecha.Location = new System.Drawing.Point(189, 33);
+            this.RB_Derecha.Name = "RB_Derecha";
+            this.RB_Derecha.Size = new System.Drawing.Size(39, 18);
+            this.RB_Derecha.TabIndex = 71;
+            this.RB_Derecha.UseVisualStyleBackColor = true;
+            this.RB_Derecha.CheckStateChanged += new System.EventHandler(this.RB_Derecha_CheckStateChanged);
+            // 
+            // RB_Izquierda
+            // 
+            this.RB_Izquierda.Appearance = System.Windows.Forms.Appearance.Button;
+            this.RB_Izquierda.GroupName = "0";
+            this.RB_Izquierda.Image = ((System.Drawing.Image)(resources.GetObject("RB_Izquierda.Image")));
+            this.RB_Izquierda.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RB_Izquierda.Location = new System.Drawing.Point(121, 33);
+            this.RB_Izquierda.Name = "RB_Izquierda";
+            this.RB_Izquierda.Size = new System.Drawing.Size(39, 18);
+            this.RB_Izquierda.TabIndex = 70;
+            this.RB_Izquierda.UseVisualStyleBackColor = true;
+            this.RB_Izquierda.CheckStateChanged += new System.EventHandler(this.RB_Izquierda_CheckStateChanged);
+            // 
+            // TB_AbcisaX
+            // 
+            this.TB_AbcisaX.Location = new System.Drawing.Point(148, 189);
+            this.TB_AbcisaX.Name = "TB_AbcisaX";
+            this.TB_AbcisaX.Size = new System.Drawing.Size(50, 20);
+            this.TB_AbcisaX.TabIndex = 63;
+            this.TB_AbcisaX.TextChangedProperty = true;
+            this.TB_AbcisaX.TextChanged += new System.EventHandler(this.TB_AbcisaX_TextChanged);
+            this.TB_AbcisaX.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TB_AbcisaX_KeyPress);
+            // 
+            // P_4
+            // 
+            this.P_4.Controls.Add(this.RB_Izq);
+            this.P_4.Controls.Add(this.RB_Centro);
+            this.P_4.Controls.Add(this.RB_Dr);
+            this.P_4.Location = new System.Drawing.Point(187, 16);
+            this.P_4.Name = "P_4";
+            this.P_4.Size = new System.Drawing.Size(120, 20);
+            this.P_4.TabIndex = 67;
             // 
             // F_ModificadorDeRefuerzos
             // 
@@ -900,6 +953,7 @@
             this.GB_2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_NoRamas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUD_CantidadEstribos)).EndInit();
+            this.P_4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -969,5 +1023,9 @@
         private System.Windows.Forms.Button BT_AñadirACaraApoyo;
         private System.Windows.Forms.Label LB_36;
         private System.Windows.Forms.Label LB_35;
+        private Controles.AdvancedRadioButton RB_Izq;
+        private Controles.AdvancedRadioButton RB_Dr;
+        private Controles.AdvancedRadioButton RB_Centro;
+        private System.Windows.Forms.Panel P_4;
     }
 }

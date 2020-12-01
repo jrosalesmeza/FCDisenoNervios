@@ -65,6 +65,12 @@
             this.DGV_RBS1 = new System.Windows.Forms.DataGridView();
             this.C_NoBarraBS = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.C_SeleccionarBS = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.LB_Un3 = new System.Windows.Forms.Label();
+            this.TB_LMinimaS = new System.Windows.Forms.TextBox();
+            this.LB_LMS = new System.Windows.Forms.Label();
+            this.LB_Un4 = new System.Windows.Forms.Label();
+            this.TB_LMinimaI = new System.Windows.Forms.TextBox();
+            this.LB_LI = new System.Windows.Forms.Label();
             this.P_2.SuspendLayout();
             this.P_1.SuspendLayout();
             this.TBC_Tendencias.SuspendLayout();
@@ -195,6 +201,9 @@
             // GB_I1
             // 
             this.GB_I1.BackColor = System.Drawing.Color.LightGray;
+            this.GB_I1.Controls.Add(this.LB_Un4);
+            this.GB_I1.Controls.Add(this.TB_LMinimaI);
+            this.GB_I1.Controls.Add(this.LB_LI);
             this.GB_I1.Controls.Add(this.LB_PminI);
             this.GB_I1.Controls.Add(this.GB_1I);
             this.GB_I1.Controls.Add(this.TB_PminI);
@@ -213,7 +222,7 @@
             // LB_PminI
             // 
             this.LB_PminI.AutoSize = true;
-            this.LB_PminI.Location = new System.Drawing.Point(477, 115);
+            this.LB_PminI.Location = new System.Drawing.Point(477, 128);
             this.LB_PminI.Name = "LB_PminI";
             this.LB_PminI.Size = new System.Drawing.Size(32, 13);
             this.LB_PminI.TabIndex = 18;
@@ -264,7 +273,7 @@
             // 
             // TB_PminI
             // 
-            this.TB_PminI.Location = new System.Drawing.Point(515, 112);
+            this.TB_PminI.Location = new System.Drawing.Point(515, 125);
             this.TB_PminI.Name = "TB_PminI";
             this.TB_PminI.Size = new System.Drawing.Size(45, 20);
             this.TB_PminI.TabIndex = 17;
@@ -316,7 +325,7 @@
             // LB_Un1I
             // 
             this.LB_Un1I.AutoSize = true;
-            this.LB_Un1I.Location = new System.Drawing.Point(565, 75);
+            this.LB_Un1I.Location = new System.Drawing.Point(565, 96);
             this.LB_Un1I.Name = "LB_Un1I";
             this.LB_Un1I.Size = new System.Drawing.Size(15, 13);
             this.LB_Un1I.TabIndex = 16;
@@ -325,7 +334,7 @@
             // LB_1I
             // 
             this.LB_1I.AutoSize = true;
-            this.LB_1I.Location = new System.Drawing.Point(458, 72);
+            this.LB_1I.Location = new System.Drawing.Point(458, 93);
             this.LB_1I.Name = "LB_1I";
             this.LB_1I.Size = new System.Drawing.Size(55, 26);
             this.LB_1I.TabIndex = 14;
@@ -333,7 +342,7 @@
             // 
             // TB_LMaximaI
             // 
-            this.TB_LMaximaI.Location = new System.Drawing.Point(515, 72);
+            this.TB_LMaximaI.Location = new System.Drawing.Point(515, 93);
             this.TB_LMaximaI.Name = "TB_LMaximaI";
             this.TB_LMaximaI.Size = new System.Drawing.Size(45, 20);
             this.TB_LMaximaI.TabIndex = 15;
@@ -342,6 +351,9 @@
             // GB_S1
             // 
             this.GB_S1.BackColor = System.Drawing.Color.LightGray;
+            this.GB_S1.Controls.Add(this.LB_Un3);
+            this.GB_S1.Controls.Add(this.TB_LMinimaS);
+            this.GB_S1.Controls.Add(this.LB_LMS);
             this.GB_S1.Controls.Add(this.LB_PminS);
             this.GB_S1.Controls.Add(this.TB_PminS);
             this.GB_S1.Controls.Add(this.LB_Un1);
@@ -361,7 +373,7 @@
             // LB_PminS
             // 
             this.LB_PminS.AutoSize = true;
-            this.LB_PminS.Location = new System.Drawing.Point(471, 109);
+            this.LB_PminS.Location = new System.Drawing.Point(471, 120);
             this.LB_PminS.Name = "LB_PminS";
             this.LB_PminS.Size = new System.Drawing.Size(32, 13);
             this.LB_PminS.TabIndex = 11;
@@ -369,7 +381,7 @@
             // 
             // TB_PminS
             // 
-            this.TB_PminS.Location = new System.Drawing.Point(509, 106);
+            this.TB_PminS.Location = new System.Drawing.Point(509, 117);
             this.TB_PminS.Name = "TB_PminS";
             this.TB_PminS.Size = new System.Drawing.Size(45, 20);
             this.TB_PminS.TabIndex = 10;
@@ -378,7 +390,7 @@
             // LB_Un1
             // 
             this.LB_Un1.AutoSize = true;
-            this.LB_Un1.Location = new System.Drawing.Point(561, 69);
+            this.LB_Un1.Location = new System.Drawing.Point(562, 89);
             this.LB_Un1.Name = "LB_Un1";
             this.LB_Un1.Size = new System.Drawing.Size(15, 13);
             this.LB_Un1.TabIndex = 8;
@@ -386,7 +398,7 @@
             // 
             // TB_LMaximaS
             // 
-            this.TB_LMaximaS.Location = new System.Drawing.Point(509, 66);
+            this.TB_LMaximaS.Location = new System.Drawing.Point(511, 86);
             this.TB_LMaximaS.Name = "TB_LMaximaS";
             this.TB_LMaximaS.Size = new System.Drawing.Size(45, 20);
             this.TB_LMaximaS.TabIndex = 7;
@@ -395,7 +407,7 @@
             // LB_1S
             // 
             this.LB_1S.AutoSize = true;
-            this.LB_1S.Location = new System.Drawing.Point(452, 66);
+            this.LB_1S.Location = new System.Drawing.Point(454, 86);
             this.LB_1S.Name = "LB_1S";
             this.LB_1S.Size = new System.Drawing.Size(55, 26);
             this.LB_1S.TabIndex = 6;
@@ -487,6 +499,58 @@
             this.C_SeleccionarBS.Name = "C_SeleccionarBS";
             this.C_SeleccionarBS.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
+            // LB_Un3
+            // 
+            this.LB_Un3.AutoSize = true;
+            this.LB_Un3.Location = new System.Drawing.Point(561, 54);
+            this.LB_Un3.Name = "LB_Un3";
+            this.LB_Un3.Size = new System.Drawing.Size(15, 13);
+            this.LB_Un3.TabIndex = 14;
+            this.LB_Un3.Text = "m";
+            // 
+            // TB_LMinimaS
+            // 
+            this.TB_LMinimaS.Location = new System.Drawing.Point(509, 51);
+            this.TB_LMinimaS.Name = "TB_LMinimaS";
+            this.TB_LMinimaS.Size = new System.Drawing.Size(45, 20);
+            this.TB_LMinimaS.TabIndex = 13;
+            this.TB_LMinimaS.Text = "1.80";
+            // 
+            // LB_LMS
+            // 
+            this.LB_LMS.AutoSize = true;
+            this.LB_LMS.Location = new System.Drawing.Point(452, 50);
+            this.LB_LMS.Name = "LB_LMS";
+            this.LB_LMS.Size = new System.Drawing.Size(52, 26);
+            this.LB_LMS.TabIndex = 12;
+            this.LB_LMS.Text = "Longitud\r\n   Minima:";
+            // 
+            // LB_Un4
+            // 
+            this.LB_Un4.AutoSize = true;
+            this.LB_Un4.Location = new System.Drawing.Point(566, 61);
+            this.LB_Un4.Name = "LB_Un4";
+            this.LB_Un4.Size = new System.Drawing.Size(15, 13);
+            this.LB_Un4.TabIndex = 21;
+            this.LB_Un4.Text = "m";
+            // 
+            // TB_LMinimaI
+            // 
+            this.TB_LMinimaI.Location = new System.Drawing.Point(515, 58);
+            this.TB_LMinimaI.Name = "TB_LMinimaI";
+            this.TB_LMinimaI.Size = new System.Drawing.Size(45, 20);
+            this.TB_LMinimaI.TabIndex = 20;
+            this.TB_LMinimaI.Text = "1.80";
+            // 
+            // LB_LI
+            // 
+            this.LB_LI.AutoSize = true;
+            this.LB_LI.Location = new System.Drawing.Point(458, 57);
+            this.LB_LI.Name = "LB_LI";
+            this.LB_LI.Size = new System.Drawing.Size(52, 26);
+            this.LB_LI.TabIndex = 19;
+            this.LB_LI.Text = "Longitud\r\n   Minima:";
+            // 
             // F_Tendencia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -558,5 +622,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn C_NoBarraBS;
         private System.Windows.Forms.DataGridViewCheckBoxColumn C_SeleccionarBS;
         private System.Windows.Forms.Button BT_Cancelar;
+        private System.Windows.Forms.Label LB_Un4;
+        private System.Windows.Forms.TextBox TB_LMinimaI;
+        private System.Windows.Forms.Label LB_LI;
+        private System.Windows.Forms.Label LB_Un3;
+        private System.Windows.Forms.TextBox TB_LMinimaS;
+        private System.Windows.Forms.Label LB_LMS;
     }
 }

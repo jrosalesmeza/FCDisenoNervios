@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_22FCB4AED85D45BEFDBEDE4DB85B69AD"
+        "OwnerKey" = "8:_A0130D2253C17E200CA3F044BECD1F00"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3602F2E952E544BFA73476C54AA03B67"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -53,6 +59,12 @@
         {
         "MsmKey" = "8:_4EFED48DD34B38224005929A9F393248"
         "OwnerKey" = "8:_867FDE0219D844719AC62BEBDDD6E0F2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_52EA31A59494458195DB8759F80FE746"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -111,6 +123,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A0130D2253C17E200CA3F044BECD1F00"
+        "OwnerKey" = "8:_867FDE0219D844719AC62BEBDDD6E0F2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_B55E60B8E4CB4519B5B4AFCEB3A7AFD3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -141,6 +159,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_CB0B9073A29CAF25EF24EF045EFA3846"
+        "OwnerKey" = "8:_867FDE0219D844719AC62BEBDDD6E0F2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_CE63555A59B8438A951A29D0E4D1205F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -154,6 +178,12 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A0130D2253C17E200CA3F044BECD1F00"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_BFCDABBAA78828856DB8DF0349B1E0E2"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -161,6 +191,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_94D3FEF1C00285FB8139C0F4CC19CED6"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_CB0B9073A29CAF25EF24EF045EFA3846"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -530,6 +566,26 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_52EA31A59494458195DB8759F80FE746"
+            {
+            "SourcePath" = "8:..\\FC Diseño de Nervios\\bin\\Debug\\ConfigVentanaSelectNervios.config"
+            "TargetName" = "8:ConfigVentanaSelectNervios.config"
+            "Tag" = "8:"
+            "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_544118B97D89439DA2A8DC4F822ED759"
             {
             "AssemblyRegister" = "3:1"
@@ -725,6 +781,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A0130D2253C17E200CA3F044BECD1F00"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:FCB_Etabs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A0130D2253C17E200CA3F044BECD1F00"
+                    {
+                    "Name" = "8:FCB_Etabs.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:FCB_Etabs.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B55E60B8E4CB4519B5B4AFCEB3A7AFD3"
             {
             "SourcePath" = "8:..\\ICONOS\\Para Nervios\\IconosFinales\\documento.ico"
@@ -810,6 +897,37 @@
                     }
                 }
             "SourcePath" = "8:OpenTK.GLControl.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_CB0B9073A29CAF25EF24EF045EFA3846"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:MathNet.Numerics, Version=4.12.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_CB0B9073A29CAF25EF24EF045EFA3846"
+                    {
+                    "Name" = "8:MathNet.Numerics.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:MathNet.Numerics.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_E981C926DD23401DBD09D834B76C8E1F"
@@ -937,15 +1055,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Diseño de Nervios"
-        "ProductCode" = "8:{34694985-5CCA-4BC9-B885-EF076BEEB489}"
-        "PackageCode" = "8:{C5997DA4-D11D-45C8-989D-4AEAD60705BF}"
+        "ProductCode" = "8:{2CCEA5B5-2685-41CB-A50B-D8DE1A13FB64}"
+        "PackageCode" = "8:{8FCE2580-04B7-43B3-8BC4-10155C837C6B}"
         "UpgradeCode" = "8:{7BF29E38-2837-4FA4-9851-77463B213532}"
         "AspNetVersion" = "8:2.0.50727.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.6"
+        "ProductVersion" = "8:1.1.0"
         "Manufacturer" = "8:efe Prima Ce"
         "ARPHELPTELEPHONE" = "8:3006498240"
         "ARPHELPLINK" = "8:jrosales@efeprimace.co"

@@ -56,6 +56,8 @@
             this.TLS_9 = new System.Windows.Forms.ToolStripSeparator();
             this.TLSMI_CopiarGeometria = new System.Windows.Forms.ToolStripMenuItem();
             this.TLSMI_PegarGeometria = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.TSMI_ActualizarEstribos = new System.Windows.Forms.ToolStripMenuItem();
             this.verToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selecciónDeNerviosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.esquemaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,11 +132,13 @@
             this.TLSB_GraficarNervioActual = new System.Windows.Forms.ToolStripButton();
             this.TLSB_GraficarNerviosAutoCAD = new System.Windows.Forms.ToolStripButton();
             this.TLSB_GraficarAllNervios = new System.Windows.Forms.ToolStripButton();
+            this.TSB_DibujarPlanta = new System.Windows.Forms.ToolStripButton();
             this.TLS_S3 = new System.Windows.Forms.ToolStripSeparator();
             this.TLS_RevisarProyecto = new System.Windows.Forms.ToolStripButton();
             this.TLSB_PesoTotal = new System.Windows.Forms.ToolStripButton();
             this.TLSB_ExportarPDF = new System.Windows.Forms.ToolStripButton();
             this.TLS_7 = new System.Windows.Forms.ToolStripSeparator();
+            this.ITSB_VerSolicitaciones = new System.Windows.Forms.ToolStripButton();
             this.P_Menu = new System.Windows.Forms.Panel();
             this.BT_Minimize = new System.Windows.Forms.Button();
             this.LB_NombreProyecto = new System.Windows.Forms.Label();
@@ -145,8 +149,6 @@
             this.T_Timer = new System.Windows.Forms.Timer(this.components);
             this.T_AutoGuardado = new System.Windows.Forms.Timer(this.components);
             this.DP_ContenedorPrincipal = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.TSMI_ActualizarEstribos = new System.Windows.Forms.ToolStripMenuItem();
             this.Notificador = new System.Windows.Forms.NotifyIcon(this.components);
             this.MS_BarraPrincipal.SuspendLayout();
             this.ST_Base.SuspendLayout();
@@ -170,7 +172,7 @@
             this.ayudaToolStripMenuItem});
             this.MS_BarraPrincipal.Location = new System.Drawing.Point(25, 0);
             this.MS_BarraPrincipal.Name = "MS_BarraPrincipal";
-            this.MS_BarraPrincipal.Size = new System.Drawing.Size(459, 24);
+            this.MS_BarraPrincipal.Size = new System.Drawing.Size(339, 24);
             this.MS_BarraPrincipal.TabIndex = 0;
             this.MS_BarraPrincipal.Text = "Barra Principal";
             this.MS_BarraPrincipal.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MS_BarraPrincipal_MouseDown);
@@ -415,6 +417,19 @@
             this.TLSMI_PegarGeometria.Text = "Pegar Geometría";
             this.TLSMI_PegarGeometria.Click += new System.EventHandler(this.TLSMI_PegarGeometria_Click);
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(267, 6);
+            // 
+            // TSMI_ActualizarEstribos
+            // 
+            this.TSMI_ActualizarEstribos.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.TSMI_ActualizarEstribos.Name = "TSMI_ActualizarEstribos";
+            this.TSMI_ActualizarEstribos.Size = new System.Drawing.Size(270, 22);
+            this.TSMI_ActualizarEstribos.Text = "Actualizar Estribos";
+            this.TSMI_ActualizarEstribos.Click += new System.EventHandler(this.TSMI_ActualizarEstribos_Click);
+            // 
             // verToolStripMenuItem
             // 
             this.verToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -454,7 +469,7 @@
             this.geometríaToolStripMenuItem,
             this.refuerzoToolStripMenuItem});
             this.longitudinalToolStripMenuItem.Name = "longitudinalToolStripMenuItem";
-            this.longitudinalToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.longitudinalToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.longitudinalToolStripMenuItem.Text = "Longitudinal";
             // 
             // geometríaToolStripMenuItem
@@ -476,7 +491,7 @@
             // plantaToolStripMenuItem
             // 
             this.plantaToolStripMenuItem.Name = "plantaToolStripMenuItem";
-            this.plantaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.plantaToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.plantaToolStripMenuItem.Text = "Planta";
             this.plantaToolStripMenuItem.Visible = false;
             // 
@@ -497,7 +512,7 @@
             this.diagramaDeMomentosToolStripMenuItem,
             this.diagramaDeÁreasToolStripMenuItem});
             this.momentosToolStripMenuItem.Name = "momentosToolStripMenuItem";
-            this.momentosToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.momentosToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.momentosToolStripMenuItem.Text = "Momentos";
             // 
             // diagramaDeMomentosToolStripMenuItem
@@ -521,7 +536,7 @@
             this.diagramaCortanteToolStripMenuItem,
             this.diagramaDeAreasCortanteToolStripMenuItem});
             this.cortanteToolStripMenuItem.Name = "cortanteToolStripMenuItem";
-            this.cortanteToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cortanteToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.cortanteToolStripMenuItem.Text = "Cortante";
             // 
             // diagramaCortanteToolStripMenuItem
@@ -679,7 +694,7 @@
             this.propiedadesToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.propiedadesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("propiedadesToolStripMenuItem.Image")));
             this.propiedadesToolStripMenuItem.Name = "propiedadesToolStripMenuItem";
-            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.propiedadesToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.propiedadesToolStripMenuItem.Text = "Propiedades";
             this.propiedadesToolStripMenuItem.Click += new System.EventHandler(this.propiedadesToolStripMenuItem_Click);
             // 
@@ -768,11 +783,13 @@
             this.TLSB_GraficarNervioActual,
             this.TLSB_GraficarNerviosAutoCAD,
             this.TLSB_GraficarAllNervios,
+            this.TSB_DibujarPlanta,
             this.TLS_S3,
             this.TLS_RevisarProyecto,
             this.TLSB_PesoTotal,
             this.TLSB_ExportarPDF,
-            this.TLS_7});
+            this.TLS_7,
+            this.ITSB_VerSolicitaciones});
             this.TS_Barra1.Location = new System.Drawing.Point(0, 24);
             this.TS_Barra1.Name = "TS_Barra1";
             this.TS_Barra1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -1124,6 +1141,17 @@
             this.TLSB_GraficarAllNervios.Text = "Graficar Todos los Nervios en AutoCAD (Ctrl + F8)";
             this.TLSB_GraficarAllNervios.Click += new System.EventHandler(this.TLSB_GraficarAllNervios_Click);
             // 
+            // TSB_DibujarPlanta
+            // 
+            this.TSB_DibujarPlanta.AutoSize = false;
+            this.TSB_DibujarPlanta.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_DibujarPlanta.Image = ((System.Drawing.Image)(resources.GetObject("TSB_DibujarPlanta.Image")));
+            this.TSB_DibujarPlanta.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_DibujarPlanta.Name = "TSB_DibujarPlanta";
+            this.TSB_DibujarPlanta.Size = new System.Drawing.Size(23, 25);
+            this.TSB_DibujarPlanta.Text = "Graficar Planta de Nervios.";
+            this.TSB_DibujarPlanta.Click += new System.EventHandler(this.TSB_DibujarPlanta_Click);
+            // 
             // TLS_S3
             // 
             this.TLS_S3.Name = "TLS_S3";
@@ -1163,6 +1191,18 @@
             // 
             this.TLS_7.Name = "TLS_7";
             this.TLS_7.Size = new System.Drawing.Size(6, 28);
+            // 
+            // ITSB_VerSolicitaciones
+            // 
+            this.ITSB_VerSolicitaciones.CheckOnClick = true;
+            this.ITSB_VerSolicitaciones.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ITSB_VerSolicitaciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.ITSB_VerSolicitaciones.Image = ((System.Drawing.Image)(resources.GetObject("ITSB_VerSolicitaciones.Image")));
+            this.ITSB_VerSolicitaciones.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ITSB_VerSolicitaciones.Name = "ITSB_VerSolicitaciones";
+            this.ITSB_VerSolicitaciones.Size = new System.Drawing.Size(23, 25);
+            this.ITSB_VerSolicitaciones.ToolTipText = "Ver Solicitaciones";
+            this.ITSB_VerSolicitaciones.CheckedChanged += new System.EventHandler(this.ITSB_VerSolicitaciones_CheckedChanged);
             // 
             // P_Menu
             // 
@@ -1281,19 +1321,6 @@
             this.DP_ContenedorPrincipal.Name = "DP_ContenedorPrincipal";
             this.DP_ContenedorPrincipal.Size = new System.Drawing.Size(1179, 609);
             this.DP_ContenedorPrincipal.TabIndex = 4;
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(267, 6);
-            // 
-            // TSMI_ActualizarEstribos
-            // 
-            this.TSMI_ActualizarEstribos.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.TSMI_ActualizarEstribos.Name = "TSMI_ActualizarEstribos";
-            this.TSMI_ActualizarEstribos.Size = new System.Drawing.Size(270, 22);
-            this.TSMI_ActualizarEstribos.Text = "Actualizar Estribos";
-            this.TSMI_ActualizarEstribos.Click += new System.EventHandler(this.TSMI_ActualizarEstribos_Click);
             // 
             // Notificador
             // 
@@ -1462,5 +1489,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem TSMI_ActualizarEstribos;
         private System.Windows.Forms.NotifyIcon Notificador;
+        private System.Windows.Forms.ToolStripButton TSB_DibujarPlanta;
+        private System.Windows.Forms.ToolStripButton ITSB_VerSolicitaciones;
     }
 }

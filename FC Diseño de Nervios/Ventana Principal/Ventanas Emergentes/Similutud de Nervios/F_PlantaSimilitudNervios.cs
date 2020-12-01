@@ -37,7 +37,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_
             GL_Control1.MouseDown += GL_Control1_MouseDown2;
             GL_Control1.MouseWheel += GL_Control1_MouseWheel;
 
-            Pisos = Edificio.Lista_Pisos;
+            Pisos = Edificio.Lista_Pisos.FindAll(y=>y.Nervios!=null && y.Nervios.Count>0);
             Grids = Edificio.Lista_Grids;
             LB_Nervio.Text = "";
             LoadLV(LV_Stories);
@@ -78,10 +78,6 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_
             List<PointF> PointsSinEscalar = new List<PointF>();
             PisoSelect.Nervios.ForEach(x => x.Lista_Objetos.ForEach(y => PointsSinEscalar.AddRange(y.Line.Planta_Real)));
             PisoSelect.Lista_Lines.ForEach(y => PointsSinEscalar.AddRange(y.Planta_Real));
-
-
-
-
 
             GL.Viewport(0, 0, Width, Height);
 

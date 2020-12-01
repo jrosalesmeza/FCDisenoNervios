@@ -141,6 +141,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_
                 ? NerviosaAgrupar.OrderBy(y => !y.SimilitudNervioGeometria.IsMaestro).ToList()
                 : NerviosaAgrupar.OrderBy(y => !y.SimilitudNervioCompleto.IsMaestro).ToList();
             NerviosOrganizados.ForEach(y => y.CrearEnvolvente());
+            NerviosOrganizados.ForEach(y => y.BloquearNervio = y.SimilitudNervioCompleto.BoolSoySimiarA);
 
             RB_Alerta.Clear();
             RB_Alerta.Lines = MensajeAlerta.ToArray();

@@ -12,6 +12,28 @@ namespace FC_Diseño_de_Nervios
     [Serializable]
     public class cNervio
     {
+
+        
+        public static Pen PenBloquearNervio=  new Pen(Color.Gray, 3);
+        private bool bloquearNevio = false;
+        public bool BloquearNervio
+        {
+
+            get
+            {
+                return bloquearNevio;
+            }
+            set
+            {
+                if (bloquearNevio != value)
+                {
+                    bloquearNevio = value;
+                }
+            }
+        }
+
+        public bool NombrarNervioDiferente { get; set; } = false;
+
         public float EscalaMayorenX;
         public float EscalaMayorenY;
         public int ID { get; set; }
@@ -358,11 +380,19 @@ namespace FC_Diseño_de_Nervios
                 {
 
                     Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = Longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+
+                }
+
+            }
+            if (Longitud < Tendencia_Refuerzos.TSupeSelect.MaximaLongitud)
+            {
+                if (Longitud + 2 * cDiccionarios.G90[eNoBarra.B6] < Tendencia_Refuerzos.TSupeSelect.MaximaLongitud)
+                {
+
                     Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = Longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
                 }
 
             }
-
         }
 
 
@@ -1999,7 +2029,21 @@ namespace FC_Diseño_de_Nervios
 
             //Agregar Nombre de Nervio y Dimensiones 
 
-            string TituloNervio_AutoCAD = @"{\L" + Nombre + "}";
+            List<string> NombresNervios= SimilitudNervioCompleto.NerviosSimilares.Select(y => y.Nombre).ToList();
+            NombresNervios.Insert(0,Nombre);
+            NombresNervios = NombresNervios.OrderBy(y => y).ToList();
+            string TituloNervio_AutoCAD=string.Empty;
+            string Espacio = string.Empty;
+            if (NombresNervios.Count > 1)
+                Espacio = @", \P";
+            int c = 0;
+            NombresNervios.ForEach(N => {
+                TituloNervio_AutoCAD += @"{\L" + N + "}" + Espacio ;
+                c++;
+                if (c == NombresNervios.Count - 1)
+                    Espacio = string.Empty;
+            });
+
             float MinY = Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales.First().Y;
             float MaxY = Lista_Elementos.First().Vistas.Perfil_AutoCAD.Reales[1].Y;
             float LargoTexto = TituloNervio_AutoCAD.Length * cVariables.W_LetraAutoCADTextRefuerzo;

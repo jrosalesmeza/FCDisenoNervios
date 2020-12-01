@@ -14,6 +14,7 @@ namespace FC_Diseño_de_Nervios
         public int Index { get; }
         public string Nombre { get; set; }
 
+        private float longAnterior = 0f;
         private float longitud;
         public float Longitud
         {
@@ -23,6 +24,7 @@ namespace FC_Diseño_de_Nervios
                 if (longitud != value && longitud!=0)
                 {
                     //F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
+                    longAnterior = longitud;
                     longitud = value;
                     ReasignarEstaciones();
                     TramoOrigen.CalcularLongitud();
@@ -113,13 +115,17 @@ namespace FC_Diseño_de_Nervios
         }
         private void ReasignarEstaciones()
         {
-            float Delta = 0;
-            float LongitudRedistribuir = Longitud / (Estaciones.Count - 1);
+
+            float Porcentaje1 = longitud / longAnterior;
             Estaciones.ForEach(Estacion =>
             {
-                Estacion.CoordX = Delta;
-                Delta += LongitudRedistribuir;
+                float LongElementoNueva= Estacion.LineaOrigen.ConfigLinea.LongitudPonderacion*Porcentaje1;
+                float Porcentaje2 = LongElementoNueva / Estacion.LineaOrigen.ConfigLinea.LongitudPonderacion;
+                Estacion.CoordX = Estacion.CoordX * Porcentaje2;
             });
+
+            var LinesOrigen = Estaciones.Select(y => y.LineaOrigen).Distinct().ToList();
+            LinesOrigen.ForEach(y => y.ConfigLinea.LongitudPonderacion = y.ConfigLinea.LongitudPonderacion * Porcentaje1);
 
         }
 

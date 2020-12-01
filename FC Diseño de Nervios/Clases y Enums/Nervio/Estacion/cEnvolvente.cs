@@ -82,10 +82,12 @@ namespace FC_Diseño_de_Nervios
             }
             else if(NervioOrigen.SimilitudNervioCompleto.BoolSoySimiarA)
             {
-               cNervio NervioQueEs= NervioOrigen.SimilitudNervioCompleto.SoySimiarA.FindNervio();
+                cNervio NervioQueEs= NervioOrigen.SimilitudNervioCompleto.SoySimiarA.FindNervio();
                 cSubTramo SubTramo = (cSubTramo)NervioQueEs.Lista_Elementos.Find(y => y.Indice == CalculosOrigen.SubtramoOrigen.Indice);
                 cEstacion EstacionFind = EstacionOrigen.EstacionMasCercana(SubTramo.Estaciones);
-                Lista_Solici2.AddRange(EstacionFind.Lista_Solicitaciones);
+                cSolicitacion cSolicitacion1 = new cSolicitacion("ENV", 0,- EstacionFind.Calculos.Envolvente.V2[0], 0, 0, EstacionFind.Calculos.Envolvente.M3[0], 0);
+                cSolicitacion cSolicitacion2 = new cSolicitacion("ENV2", 0,- EstacionFind.Calculos.Envolvente.V2[1], 0, 0, EstacionFind.Calculos.Envolvente.M3[1], 0);
+                Lista_Solici2.Add(cSolicitacion1); Lista_Solici2.Add(cSolicitacion2);
             }
 
             float M3MaxPositivo = Lista_Solici2.FindAll(x => x.SelectEnvolvente).Max(x => x.M3);
@@ -93,13 +95,13 @@ namespace FC_Diseño_de_Nervios
             float V2MaxPositivo = Lista_Solici2.FindAll(x => x.SelectEnvolvente).Max(x => x.V2);
             float V2MaxNegativo = Lista_Solici2.FindAll(x => x.SelectEnvolvente).Min(x => x.V2);
 
+
             if (M3MaxPositivo < 0) { M3MaxPositivo = 0; }
             if (M3MaxNegativo > 0) { M3MaxNegativo = 0; }
             if (V2MaxPositivo < 0) { V2MaxPositivo = 0; }
             if (V2MaxNegativo > 0) { V2MaxNegativo = 0; }
             M3 = new float[] { M3MaxPositivo, M3MaxNegativo };
             V2 = new float[] { -V2MaxPositivo, -V2MaxNegativo };
-
             Envolvente_CambioCrearEnvolvente();
         }
 
@@ -129,6 +131,14 @@ namespace FC_Diseño_de_Nervios
 
             FI_Vc = cVariables.fi_Cortante * 0.53f * (float)Math.Sqrt(fc) * B * (H - d1)*cConversiones.Fuerza_kgf_to_Ton ;  //Ton
             FI_Vc2=cVariables.fi_Cortante * 0.53f * (float)Math.Sqrt(fc) * B * (H - d1) * cConversiones.Fuerza_kgf_to_Ton/2f;
+
+
+            float Fi_Vs1 = (Math.Abs(V2[0]) - FI_Vc) < 0 ? 0 : (float)Math.Abs(V2[0]) - FI_Vc;
+            float Fi_Vs2 = (Math.Abs(V2[1]) - FI_Vc) < 0 ? 0 : (float)Math.Abs(V2[1]) - FI_Vc;
+            Fi_Vs = new float[] { Fi_Vs1, Fi_Vs2 };
+            Fi_VsMax = (float)(2.2f * Math.Sqrt(fc) * B * (H - d1) * cConversiones.Fuerza_kgf_to_Ton); //C.11.4.7.9
+
+            MMax = AreaAporteInferior[4] * cConversiones.Momento__kgf_cm_to_Ton_m;
         }
 
 
@@ -142,6 +152,10 @@ namespace FC_Diseño_de_Nervios
 
         public float FI_Vc { get; set; }
         public float FI_Vc2 { get; set; }
+        public float Fi_VsMax { get; set; }
+        public float[] Fi_Vs { get; set; }
+
+        public float MMax { get; set; }
 
 
     }

@@ -39,6 +39,7 @@ namespace FC_Diseño_de_Nervios
         private F_NuevoProyecto F_NuevoProyecto = new F_NuevoProyecto();
         public static F_EnumeracionPortico F_EnumeracionPortico = new F_EnumeracionPortico();
         public static F_ModificarSeccion F_ModificarSeccion = new F_ModificarSeccion();
+        public static F_VerSolicitacionesPorTramo F_VerSolicitacionesPorTramo = new F_VerSolicitacionesPorTramo();
         public static F_SeleccionBarras F_SeleccionBarras = new F_SeleccionBarras();
         public static F_SelectCombinaciones F_SelectCombinaciones = new F_SelectCombinaciones();
         public static F_PropiedadesProyecto F_PropiedadesProyecto = new F_PropiedadesProyecto();
@@ -76,6 +77,7 @@ namespace FC_Diseño_de_Nervios
             ST_Base.SizingGrip = false;
             F_Base_ = this;
             NotificadorVersiones();
+            TS_Barra1.Renderer = new MyRenderer();
         }
 
         #region Programa 
@@ -158,6 +160,14 @@ namespace FC_Diseño_de_Nervios
         public void VentanaEmergente(ref F_ModificarSeccion Form)
         {
             if (!Form.Created) { Form = new F_ModificarSeccion(); }
+            Form.StartPosition = FormStartPosition.CenterScreen;
+            Form.Focus();
+            Form.Show();
+        }
+
+        public void VentanaEmergente(ref F_VerSolicitacionesPorTramo Form)
+        {
+            if (!Form.Created) { Form = new F_VerSolicitacionesPorTramo(); }
             Form.StartPosition = FormStartPosition.CenterScreen;
             Form.Focus();
             Form.Show();
@@ -587,12 +597,10 @@ namespace FC_Diseño_de_Nervios
                     if (Proyecto.Edificio.PisoSelect.NervioSelect != null)
                     {
                         ActivarDesactivarBotonesNervioSelect(true);
-
                         TLSN_ApoyoInicio.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.First() is cSubTramo;
                         TLSN_ApoyoFinal.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.Last() is cSubTramo;
                         TLSN_ApoyoInicioE.Enabled = !(Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.First() is cSubTramo);
                         TLSN_ApoyoFinalE.Enabled = !(Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.Last() is cSubTramo);
-
                     }
                     else
                     {
@@ -635,6 +643,8 @@ namespace FC_Diseño_de_Nervios
             TSB_ReasignarEjesNervios.Enabled = Bool;
             exportarDLNETNIMBUSToolStripMenuItem.Enabled = Bool;
             TLSB_RenombrarNervios.Enabled = Bool;
+            ITSB_VerSolicitaciones.Enabled = Bool;
+            TSB_DibujarPlanta.Enabled = Bool;
         }
 
         private void ActivarDesactivarBotonesNervioSelect(bool Bool)
@@ -684,11 +694,27 @@ namespace FC_Diseño_de_Nervios
 
             if (Bool)
             {
-                TLSB_AgregarApoyo.Enabled = !Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
-                TLSB_EliminarApoyo.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.PoderEliminarApoyos();
-                TLSMI_EliminarRefuerzo.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
-                TLSMI_PegarRefuerzo.Enabled = cFuncion_CopiaryPegarRefuerzos.Refuerzos.Count > 0;
-                TLSMI_PegarGeometria.Enabled = cFuncion_CopiaryPegarGeometria.Elementos.Count > 0 && TLSB_AgregarApoyo.Enabled;
+                if (!Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio)
+                {
+                    TLSB_AgregarApoyo.Enabled = !Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
+                    TLSB_EliminarApoyo.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.PoderEliminarApoyos();
+                    TLSMI_EliminarRefuerzo.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
+                    TLSMI_PegarRefuerzo.Enabled = cFuncion_CopiaryPegarRefuerzos.Refuerzos.Count > 0 || cFuncion_CopiaryPegarRefuerzos.Estribos.Count>0;
+                    TLSMI_PegarGeometria.Enabled = cFuncion_CopiaryPegarGeometria.Elementos.Count > 0 && TLSB_AgregarApoyo.Enabled;
+                    nervioToolStripMenuItem.Enabled = true; nervioToolStripMenuItem1.Enabled = true;
+                }
+                else
+                {
+                    TLSB_AgregarApoyo.Enabled = false;
+                    TLSB_EliminarApoyo.Enabled = false;
+                    TLSMI_EliminarRefuerzo.Enabled = false;
+                    TLSMI_PegarRefuerzo.Enabled = false;
+                    TLSMI_PegarGeometria.Enabled = false;
+                    TSB_DiseñarNervio.Enabled = false;
+                    TLSB_GraficarNervioActual.Enabled = false;
+                    nervioToolStripMenuItem.Enabled = false;
+                    nervioToolStripMenuItem1.Enabled = false;
+                }
             }
             TLSMI_CopiarRefuerzo.Enabled = TLSMI_EliminarRefuerzo.Enabled;
         }
@@ -1117,13 +1143,15 @@ namespace FC_Diseño_de_Nervios
         }
         private void TLSMI_CopiarRefuerzo_Click(object sender, EventArgs e)
         {
-            cFuncion_CopiaryPegarRefuerzos.Copiar(Proyecto.Edificio.PisoSelect.NervioSelect);
+            cFuncion_CopiaryPegarRefuerzos.CopiarBarras(Proyecto.Edificio.PisoSelect.NervioSelect);
+            cFuncion_CopiaryPegarRefuerzos.CopiarEstribos(Proyecto.Edificio.PisoSelect.NervioSelect);
         }
 
         private void TLSMI_PegarRefuerzo_Click(object sender, EventArgs e)
         {
             EnviarEstado_Nervio(Proyecto.Edificio.PisoSelect.NervioSelect);
-            cFuncion_CopiaryPegarRefuerzos.Pegar(Proyecto.Edificio.PisoSelect.NervioSelect);
+            cFuncion_CopiaryPegarRefuerzos.PegarRefuerzos(Proyecto.Edificio.PisoSelect.NervioSelect);
+            cFuncion_CopiaryPegarRefuerzos.PegarEstribos(Proyecto.Edificio.PisoSelect.NervioSelect);
             ActualizarVentanaF_NervioEnPerfilLongitudinal();
         }
         private void TLSMI_CopiarGeometria_Click(object sender, EventArgs e)
@@ -1159,6 +1187,10 @@ namespace FC_Diseño_de_Nervios
             {
                 cFunctionsProgram.Serializar(Proyecto.Ruta.Replace(cFunctionsProgram.Ext, cFunctionsProgram.Ext_BackupNervios), Proyecto);
             }
+        }
+        private void TSB_DibujarPlanta_Click(object sender, EventArgs e)
+        {
+            cFunctionsProgram.GraficarPlantaAutoCAD(Proyecto);
         }
         #endregion Eventos de MenuStrip y ToolStrip
 
@@ -1224,5 +1256,33 @@ namespace FC_Diseño_de_Nervios
             cFunctionsProgram.ActualizarEstribosVersionesAnteriores(Proyecto);
             ActualizarTodosLasVentanas();
         }
+
+        private void ITSB_VerSolicitaciones_CheckedChanged(object sender, EventArgs e)
+        {
+            Proyecto.VerSolicitaciones = ITSB_VerSolicitaciones.Checked;
+            ITSB_VerSolicitaciones.ForeColor = ITSB_VerSolicitaciones.Checked ? Color.White : Color.FromArgb(255, 128, 0);
+        }
+
+        private class MyRenderer : ToolStripProfessionalRenderer
+        {
+            
+            protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e)
+            {
+                //var btn = e.Item as ToolStripButton;
+                //if (btn != null && btn.CheckOnClick && btn.Checked)
+                //{
+                //    Point point = new Point(0, 2);
+                //    Size size = new Size(e.Item.Width, 22); 
+                //    Rectangle bounds = new Rectangle(point, btn.Size);
+                //    Color c = Color.Gray; //Your custom color here
+                //    var brush = new SolidBrush(c);
+                //    e.Graphics.FillRectangle(brush, bounds);
+                //}
+                //else base.OnRenderButtonBackground(e);
+                base.OnRenderButtonBackground(e);
+            }
+        }
+
+
     }
 }

@@ -25,7 +25,7 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
-        public cSimilar SoySimiarA { get; set; } = new cSimilar();
+        public cSimilar SoySimiarA { get;  set; } = new cSimilar();
 
         private bool boolSoySimilarA = false;
         public bool BoolSoySimiarA {

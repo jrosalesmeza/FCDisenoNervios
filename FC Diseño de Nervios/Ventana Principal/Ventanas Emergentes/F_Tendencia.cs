@@ -56,9 +56,9 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
 
         private void F_Tendencia_Load(object sender, EventArgs e)
         {
-            TendenciasCreadasI = cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasInferior);
-            TendenciasCreadasS= cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasSuperior);
-            Tendencia_Estribos = cFunctionsProgram.DeepClone(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasEstribos);
+            TendenciasCreadasI = cFunctionsProgram.DeepCloneFast(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasInferior);
+            TendenciasCreadasS= cFunctionsProgram.DeepCloneFast(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasSuperior);
+            Tendencia_Estribos = cFunctionsProgram.DeepCloneFast(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasEstribos);
             TendenciasCreadasI.ForEach(x => x.LimpiarTendencia()); TendenciasCreadasS.ForEach(x => x.LimpiarTendencia());
             Tendencia_Estribos.ForEach(x => x.LimpiarTendencia());
             CrearObjetosTendenciasLoad();
@@ -68,13 +68,13 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
         {
             TBC_Tendencias.Controls.Clear();
             int Contador = 1;
-            List<List<cTendencia>> TSAll = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Select(x => x.Tendencia_Refuerzos.TendenciasSuperior).ToList();
-            List<List<cTendencia>> TIAll = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Select(x => x.Tendencia_Refuerzos.TendenciasInferior).ToList();
+            List<cTendencia> TSAll = F_Base.Proyecto.Edificio.PisoSelect.Nervios.SelectMany(x => x.Tendencia_Refuerzos.TendenciasSuperior).ToList();
+            List<cTendencia> TIAll = F_Base.Proyecto.Edificio.PisoSelect.Nervios.SelectMany(x => x.Tendencia_Refuerzos.TendenciasInferior).ToList();
             foreach (cTendencia Tendencia in TendenciasCreadasI)
             {
                 
-                float LmaxS = TSAll.Select(x => x.Find(y => y.Nombre == Tendencia.Nombre)).Max(z => z.MaximaLongitud);
-                float LmaxI = TIAll.Select(x => x.Find(y => y.Nombre == Tendencia.Nombre)).Max(z => z.MaximaLongitud);
+                float LmaxS = TSAll.FindAll(y=>y.Nombre== Tendencia.Nombre).Max(z => z.MaximaLongitud);
+                float LmaxI = TIAll.FindAll(y => y.Nombre == Tendencia.Nombre).Max(z => z.MaximaLongitud);
                 Tendencia.MaximaLongitud = LmaxI;
                 TendenciasCreadasS[Contador - 1].MaximaLongitud = LmaxS;
                 cTendencia TS = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TendenciasSuperior[Contador-1];
@@ -128,6 +128,12 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             DataGridViewCheckBoxColumn C_SeleccionarBS = new DataGridViewCheckBoxColumn();
             GroupBox GB_1S = new GroupBox();
             DataGridView DGV_RBS1 = new DataGridView();
+            Label LB_Un3 = new Label();
+            TextBox TB_LMinimaS = new TextBox();
+            Label LB_LMS = new Label();
+            Label LB_Un4 = new Label();
+            TextBox TB_LMinimaI = new TextBox();
+            Label LB_LI = new Label();
 
             TB_PageT1.BackColor = Color.DarkGray;
             TB_PageT1.Controls.Add(GB_I1);
@@ -136,7 +142,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             TB_PageT1.Name = "TB_PageT" + Tendencia;
             TB_PageT1.Padding = new Padding(3);
             TB_PageT1.Size = new Size(592, 410);
-            TB_PageT1.TabIndex = Tendencia;
+            TB_PageT1.TabIndex = 0;
             TB_PageT1.Text = "Tendencia "+Tendencia;
             // 
             // GB_I1
@@ -149,6 +155,9 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             GB_I1.Controls.Add(LB_Un1I);
             GB_I1.Controls.Add(LB_1I);
             GB_I1.Controls.Add(TB_LMaximaI);
+            GB_I1.Controls.Add(LB_LI);
+            GB_I1.Controls.Add(TB_LMinimaI);
+            GB_I1.Controls.Add(LB_Un4);
             GB_I1.Font = new Font("Microsoft Sans Serif", 8.25F);
             GB_I1.Location = new Point(6, 202);
             GB_I1.Name = "GB_I"+Tendencia;
@@ -160,7 +169,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // LB_PminI
             // 
             LB_PminI.AutoSize = true;
-            LB_PminI.Location = new Point(477, 115);
+            LB_PminI.Location = new Point(477, 128);
             LB_PminI.Name = "LB_PminI" + Tendencia;
             LB_PminI.Size = new Size(32, 13);
             LB_PminI.TabIndex = 18;
@@ -211,7 +220,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // 
             // TB_PminI
             // 
-            TB_PminI.Location = new Point(515, 112);
+            TB_PminI.Location = new Point(515, 125);
             TB_PminI.Name = "TB_PminI"+Tendencia;
             TB_PminI.Size = new Size(45, 20);
             TB_PminI.TabIndex = 17;
@@ -263,7 +272,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // LB_Un1I
             // 
             LB_Un1I.AutoSize = true;
-            LB_Un1I.Location = new Point(565, 75);
+            LB_Un1I.Location = new Point(565, 96);
             LB_Un1I.Name = "LB_Un1I" + Tendencia;
             LB_Un1I.Size = new Size(15, 13);
             LB_Un1I.TabIndex = 16;
@@ -272,7 +281,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // LB_1I
             // 
             LB_1I.AutoSize = true;
-            LB_1I.Location = new Point(458, 72);
+            LB_1I.Location = new Point(458, 93);
             LB_1I.Name = "LB_1I" + Tendencia;
             LB_1I.Size = new Size(55, 26);
             LB_1I.TabIndex = 14;
@@ -280,7 +289,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // 
             // TB_LMaximaI
             // 
-            TB_LMaximaI.Location = new Point(515, 72);
+            TB_LMaximaI.Location = new Point(515, 93);
             TB_LMaximaI.Name = "TB_LMaximaI" + Tendencia;
             TB_LMaximaI.Size = new Size(45, 20);
             TB_LMaximaI.TabIndex = 15;
@@ -296,6 +305,9 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             GB_S1.Controls.Add(LB_1S);
             GB_S1.Controls.Add(GB_2S);
             GB_S1.Controls.Add(GB_1S);
+            GB_S1.Controls.Add(LB_LMS);
+            GB_S1.Controls.Add(TB_LMinimaS);
+            GB_S1.Controls.Add(LB_Un3);
             GB_S1.Font = new Font("Microsoft Sans Serif", 8.25F);
             GB_S1.ForeColor = Color.Black;
             GB_S1.Location = new Point(6, 6);
@@ -308,7 +320,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // LB_PminS
             // 
             LB_PminS.AutoSize = true;
-            LB_PminS.Location = new Point(471, 109);
+            LB_PminS.Location = new Point(471, 120);
             LB_PminS.Name = "LB_PminS" + Tendencia;
             LB_PminS.Size = new Size(32, 13);
             LB_PminS.TabIndex = 11;
@@ -316,7 +328,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // 
             // TB_PminS
             // 
-            TB_PminS.Location = new Point(509, 106);
+            TB_PminS.Location = new Point(509, 117);
             TB_PminS.Name = "TB_PminS" + Tendencia;
             TB_PminS.Size = new Size(45, 20);
             TB_PminS.TabIndex = 10;
@@ -325,7 +337,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // LB_Un1
             // 
             LB_Un1.AutoSize = true;
-            LB_Un1.Location = new Point(561, 69);
+            LB_Un1.Location = new Point(562, 89);
             LB_Un1.Name = "LB_Un1" + Tendencia;
             LB_Un1.Size = new Size(15, 13);
             LB_Un1.TabIndex = 8;
@@ -333,7 +345,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // 
             // TB_LMaximaS
             // 
-            TB_LMaximaS.Location = new Point(509, 66);
+            TB_LMaximaS.Location = new Point(511, 86);
             TB_LMaximaS.Name = "TB_LMaximaS" + Tendencia;
             TB_LMaximaS.Size = new Size(45, 20);
             TB_LMaximaS.TabIndex = 7;
@@ -342,7 +354,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             // LB_1S
             // 
             LB_1S.AutoSize = true;
-            LB_1S.Location = new Point(452, 66);
+            LB_1S.Location = new Point(454, 86);
             LB_1S.Name = "LB_1S" + Tendencia;
             LB_1S.Size = new Size(55, 26);
             LB_1S.TabIndex = 6;
@@ -433,7 +445,58 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             C_SeleccionarBS.HeaderText = "Seleccionar";
             C_SeleccionarBS.Name = "C_SeleccionarBS" + Tendencia;
             C_SeleccionarBS.Resizable = DataGridViewTriState.True;
-
+            // 
+            // LB_Un3
+            // 
+            LB_Un3.AutoSize = true;
+            LB_Un3.Location = new Point(561, 54);
+            LB_Un3.Name = "LB_Un3" +Tendencia;
+            LB_Un3.Size = new Size(15, 13);
+            LB_Un3.TabIndex = 14;
+            LB_Un3.Text = "m";
+            // 
+            // TB_LMinimaS
+            // 
+            TB_LMinimaS.Location = new Point(509, 51);
+            TB_LMinimaS.Name = "TB_LMinimaS"+Tendencia;
+            TB_LMinimaS.Size = new Size(45, 20);
+            TB_LMinimaS.TabIndex = 13;
+            TB_LMinimaS.Text = string.Format("{0:0.00}",TS.MinimaLongitud);
+            // 
+            // LB_LMS
+            // 
+            LB_LMS.AutoSize = true;
+            LB_LMS.Location = new Point(452, 50);
+            LB_LMS.Name = "LB_LMS" +Tendencia;
+            LB_LMS.Size = new Size(52, 26);
+            LB_LMS.TabIndex = 12;
+            LB_LMS.Text = "Longitud\r\n   Minima:";
+            // 
+            // LB_Un4
+            // 
+            LB_Un4.AutoSize = true;
+            LB_Un4.Location = new Point(566, 61);
+            LB_Un4.Name = "LB_Un4" +Tendencia;
+            LB_Un4.Size = new Size(15, 13);
+            LB_Un4.TabIndex = 21;
+            LB_Un4.Text = "m";
+            // 
+            // TB_LMinimaI
+            // 
+            TB_LMinimaI.Location = new Point(515, 58);
+            TB_LMinimaI.Name = "TB_LMinimaI" +Tendencia;
+            TB_LMinimaI.Size = new Size(45, 20);
+            TB_LMinimaI.TabIndex = 20;
+            TB_LMinimaI.Text = string.Format("{0:0.00}", TI.MinimaLongitud); ;
+            // 
+            // LB_LI
+            // 
+            LB_LI.AutoSize = true;
+            LB_LI.Location = new Point(458, 57);
+            LB_LI.Name = "LB_LI" +Tendencia;
+            LB_LI.Size = new Size(52, 26);
+            LB_LI.TabIndex = 19;
+            LB_LI.Text = "Longitud\r\n   Minima:";
             TB_PageT1.SuspendLayout();
             GB_I1.SuspendLayout();
             GB_1I.SuspendLayout();
@@ -445,7 +508,6 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             ((ISupportInitialize)DGV_RAS1).BeginInit();
             GB_1S.SuspendLayout();
             ((ISupportInitialize)DGV_RBS1).BeginInit();
-
             CrearDataGridView(DGV_RBI1, TI.BarrasAEmplearBase);
             CrearDataGridView(DGV_RAI1, TI.BarrasAEmplearAdicional);
             CrearDataGridView(DGV_RBS1, TS.BarrasAEmplearBase);
@@ -460,6 +522,8 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             TB_LMaximaS.TextChanged += TB_LMaximaI_TextChanged;
             TB_PminS.TextChanged += TB_LMaximaI_TextChanged;
             TB_PminI.TextChanged += TB_LMaximaI_TextChanged;
+            TB_LMinimaI.TextChanged += TB_LMaximaI_TextChanged;
+            TB_LMinimaS.TextChanged += TB_LMaximaI_TextChanged;
 
             TB_LMaximaS.Text = string.Format("{0:0.00}", LmaxS);
             TB_LMaximaI.Text = string.Format("{0:0.00}", LmaxI);
@@ -496,6 +560,16 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
                     {
                         TS.CuantiaMinima = Value;
                     }
+
+                    if(TextBox.Name.Contains("TB_LMinimaS" + TS.ID.ToString()))
+                    {
+                        TS.MinimaLongitud = Value;
+                    }else if (TextBox.Name.Contains("TB_LMinimaI" + TI.ID.ToString()))
+                    {
+                        TI.MinimaLongitud = Value;
+                    }
+
+
                     C += 1;
                 } 
             }
@@ -586,7 +660,11 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
             int ID = TendenciasCreadasI.Max(x => x.ID);
             cTendencia TI = cFunctionsProgram.DeepClone(TendenciasCreadasI.Find(x => x.ID == ID));
             cTendencia TS = cFunctionsProgram.DeepClone(TendenciasCreadasS.Find(x => x.ID == ID));
-            cTendencia_Estribo TE = cFunctionsProgram.DeepClone(Tendencia_Estribos.Find(x => x.ID == ID));
+            var te = Tendencia_Estribos.Find(x => x.ID == ID);
+            if (te == null)
+                te = Tendencia_Estribos.Find(x => x.ID == ID - 1);
+            cTendencia_Estribo TE = cFunctionsProgram.DeepClone(te);
+
             TI.ID += 1; TI.Nombre = "Tendencia " + (ID+1);
             TS.ID += 1; TS.Nombre = "Tendencia " + (ID+1);
             TE.ID += 1; TE.Nombre = "Tendencia " + (ID + 1);
@@ -617,27 +695,29 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
                     if (TIN!=null)
                     {
                         TIN.MaximaLongitud = TI.MaximaLongitud;
-                        TIN.BarrasAEmplearAdicional = cFunctionsProgram.DeepClone(TI.BarrasAEmplearAdicional);
-                        TIN.BarrasAEmplearBase = cFunctionsProgram.DeepClone(TI.BarrasAEmplearBase);
+                        TIN.MinimaLongitud = TI.MinimaLongitud;
+                        TIN.BarrasAEmplearAdicional = cFunctionsProgram.DeepCloneFast(TI.BarrasAEmplearAdicional);
+                        TIN.BarrasAEmplearBase = cFunctionsProgram.DeepCloneFast(TI.BarrasAEmplearBase);
                     }
                     else
                     {
-                        Nervio.Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.DeepClone(TI));
+                        Nervio.Tendencia_Refuerzos.TendenciasInferior.Add(cFunctionsProgram.DeepCloneFast(TI));
                     }
                     if (TSN!=null)
                     {
+                        TSN.MinimaLongitud = TS.MinimaLongitud;
                         TSN.MaximaLongitud = TS.MaximaLongitud;
-                        TSN.BarrasAEmplearAdicional = cFunctionsProgram.DeepClone(TS.BarrasAEmplearAdicional);
-                        TSN.BarrasAEmplearBase = cFunctionsProgram.DeepClone(TS.BarrasAEmplearBase);
+                        TSN.BarrasAEmplearAdicional = cFunctionsProgram.DeepCloneFast(TS.BarrasAEmplearAdicional);
+                        TSN.BarrasAEmplearBase = cFunctionsProgram.DeepCloneFast(TS.BarrasAEmplearBase);
                     }
                     else
                     {
-                        Nervio.Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.DeepClone(TS));
+                        Nervio.Tendencia_Refuerzos.TendenciasSuperior.Add(cFunctionsProgram.DeepCloneFast(TS));
                     }
 
                     if (TEN== null)
                     {
-                        Nervio.Tendencia_Refuerzos.TendenciasEstribos.Add(cFunctionsProgram.DeepClone(TE));
+                        Nervio.Tendencia_Refuerzos.TendenciasEstribos.Add(cFunctionsProgram.DeepCloneFast(TE));
                     }
 
                     Nervio.AsignarMaximaLongitudTendencias();

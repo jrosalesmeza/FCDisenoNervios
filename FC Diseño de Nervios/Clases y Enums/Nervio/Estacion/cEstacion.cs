@@ -12,6 +12,24 @@ namespace FC_Diseño_de_Nervios
         public string StoryLinea { get; set; }
         public string Nombre { get; set; }
         public float Localizacion { get; set; }
+
+        private float localizacionAPonderar=0f;
+        public float LocalizacionAPoderar
+        {
+            get
+            {
+                if (localizacionAPonderar == 0f)
+                    localizacionAPonderar = CoordX;
+                return localizacionAPonderar;
+            }
+            set
+            {
+                if(value!= localizacionAPonderar)
+                {
+                    localizacionAPonderar = value;
+                }
+            }
+        }
         public float CoordX { get; set; }
         public cLine LineaOrigen { get; set; }
 

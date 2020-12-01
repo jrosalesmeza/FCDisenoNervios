@@ -65,6 +65,9 @@
     <Reference Include="DeepCloner, Version=0.10.0.0, Culture=neutral, PublicKeyToken=dc0b95cf99bf4e99, processorArchitecture=MSIL">
       <HintPath>packages\DeepCloner.0.10.2\lib\net40\DeepCloner.dll</HintPath>
     </Reference>
+    <Reference Include="FCB_Etabs">
+      <HintPath>D:\Jrosales\Personal\Codigos Personales\Biblioteca\FCB_Etabs\BibliotecaEtabs\FCB_Etabs\bin\Debug\FCB_Etabs.dll</HintPath>
+    </Reference>
     <Reference Include="FontAwesome.Sharp, Version=5.12.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\FontAwesome.Sharp.5.12.1\lib\net45\FontAwesome.Sharp.dll</HintPath>
     </Reference>
@@ -73,6 +76,9 @@
     </Reference>
     <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="MathNet.Numerics, Version=4.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MathNet.Numerics.4.12.0\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -87,6 +93,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="Microsoft.CSharp" />
@@ -106,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clases y Enums\Herramientas\cDiccionarios.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cFuncionesVerSolciitacionesPorTramo.cs" />
     <Compile Include="Clases y Enums\Herramientas\cFuncion_CopiaryPegarGeometria.cs" />
     <Compile Include="Clases y Enums\Herramientas\cFuncion_CopiaryPegarRefuerzos.cs" />
     <Compile Include="Clases y Enums\Herramientas\cFuncion_CargarSolcitaciones.cs" />

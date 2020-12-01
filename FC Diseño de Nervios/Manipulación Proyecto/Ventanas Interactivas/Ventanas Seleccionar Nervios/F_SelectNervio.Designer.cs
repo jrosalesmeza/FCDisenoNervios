@@ -352,11 +352,6 @@
             this.CB_Direccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CB_Direccion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CB_Direccion.FormattingEnabled = true;
-            this.CB_Direccion.Items.AddRange(new object[] {
-            "Todos",
-            "Horizontal",
-            "Vertical",
-            "Diagonal"});
             this.CB_Direccion.Location = new System.Drawing.Point(68, 42);
             this.CB_Direccion.Name = "CB_Direccion";
             this.CB_Direccion.Size = new System.Drawing.Size(87, 22);

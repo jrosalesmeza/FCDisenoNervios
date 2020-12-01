@@ -39,7 +39,7 @@ namespace FC_Diseño_de_Nervios
 
 
         #region Variables de Barras
-        public const float MinimaLongitud = 0.50f;
+        public const float MinimaLongitud = 1.80f;
         public const float MaximaLongitud = 12f;
         public const float DeltaAlargamitoBarras = 0.05f;
         public const float TraslapoNervio = 0.40f;
@@ -106,7 +106,10 @@ namespace FC_Diseño_de_Nervios
         public const string C_Texto1 = "FC_R-175";
         public const string Estilo_Texto = "FC_TEXT";
         public const string Estilo_Cotas = "FC_TEXT1";
+        public const string C_Texto2= "FC_R-60";
         public const string C_Estribos = "FC_R-60";
+        public const string C_Nervios = "FC_NERVIOS";
+        public const string C_Vigas = "FC_VIGAS";
 
 
         public const float H_TextoTituloViga = 0.255f;

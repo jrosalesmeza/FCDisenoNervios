@@ -32,6 +32,28 @@ namespace FC_Diseño_de_Nervios
             this.BubbleSize = BubbleSize;
         }
 
+        public cGrid(string Nombre, float Xi,float Xf, float Yi,float Yf, float BubbleSize)
+        {
+            float xi = (float)Math.Round(Xi, 2);
+            float xf = (float)Math.Round(Xf, 2);
+            float yi = (float)Math.Round(Yi, 2);
+            float yf = (float)Math.Round(Yf, 2);
+            eDireccionGrid Direccion; float CoordenadaInicial;
+            if (yi== yf)
+            {
+                CoordenadaInicial = yi;
+                Direccion = eDireccionGrid.Y;
+            }else 
+            {
+                Direccion = eDireccionGrid.X;
+                CoordenadaInicial = xi;
+            }
+            this.Nombre = Nombre;
+            this.CoordenadaInicial = CoordenadaInicial;
+            this.Direccion = Direccion;
+            this.BubbleSize = BubbleSize;
+        }
+
         public void CrearRecta(float Xmax, float Ymax,float Xmin,float Ymin)
         {
             Recta_Real = new List<PointF>();

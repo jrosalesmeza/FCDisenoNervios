@@ -30,10 +30,19 @@ namespace FC_Diseño_de_Nervios
             PB_VistaPerfilLongitudinalDiseno.MouseMove += PB_VistaPerfilLongitdunalDiseno_MouseMove3;
             PB_VistaPerfilLongitudinalDiseno.MouseMove += PB_VistaPerfilLongitudinalDiseno_MouseMove4;
             LostFocus += F_VentanaDiseno_LostFocus;
+            Timer timer = new Timer();
+            timer.Tick += Timer_Tick;timer.Start();
 
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (F_Base.Proyecto != null && F_Base.Proyecto.Edificio != null && F_Base.Proyecto.Edificio.PisoSelect != null && F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null) 
+            {
+                TS_1.Enabled = !F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio;
 
+            }
+        }
 
         private void F_VentanaDiseno_LostFocus(object sender, EventArgs e)
         {

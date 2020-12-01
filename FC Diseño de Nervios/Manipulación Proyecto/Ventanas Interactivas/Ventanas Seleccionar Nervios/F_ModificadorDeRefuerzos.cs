@@ -28,13 +28,24 @@ namespace FC_Diseño_de_Nervios
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            GB_1.Enabled = barraSelect != null;
-            GB_2.Enabled = bloqueEstribosSelect != null;
-            if (bloqueEstribosSelect != null)
-            {
-                BT_AñadirACaraApoyo.Image = bloqueEstribosSelect.DireccionEstribo == eLadoDeZona.Izquierda ? Properties.Resources.Align_ends_Left2 : Properties.Resources.Align_Ends_Right2;
-            }
 
+            if (F_Base.Proyecto != null && F_Base.Proyecto.Edificio != null && F_Base.Proyecto.Edificio.PisoSelect != null && F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+            {
+                if (!F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio)
+                {
+                    Enabled = true;
+                    GB_1.Enabled = barraSelect != null;
+                    GB_2.Enabled = bloqueEstribosSelect != null;
+                    if (bloqueEstribosSelect != null)
+                    {
+                        BT_AñadirACaraApoyo.Image = bloqueEstribosSelect.DireccionEstribo == eLadoDeZona.Izquierda ? Properties.Resources.Align_ends_Left2 : Properties.Resources.Align_Ends_Right2;
+                    }
+                }
+                else
+                {
+                    Enabled = !F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio;
+                }
+            }
         }
         #region Modificador de Barra Longitudinal
         private cBarra barraSelect;
@@ -106,7 +117,20 @@ namespace FC_Diseño_de_Nervios
             float.TryParse(TB_Longitud.Text, out float Long);
             float Longitud2 = barraSelect.XF - barraSelect.XI;
             float Delta = Long - Longitud2;
-            BarraSelect.XF += Delta;
+            if (RB_Dr.Checked)
+            {
+                BarraSelect.XF += Delta;
+            }
+            else if (RB_Izq.Checked)
+            {
+                BarraSelect.XI -= Delta;
+            }
+            else if (RB_Centro.Checked)
+            {
+                BarraSelect.XI -= Delta/2F;
+                BarraSelect.XF += Delta / 2F;
+            }
+
             barraSelect.DeltaAlargamiento = Prec;
             F_Base.ActualizarVentanaF_VentanaDiseno();
         }

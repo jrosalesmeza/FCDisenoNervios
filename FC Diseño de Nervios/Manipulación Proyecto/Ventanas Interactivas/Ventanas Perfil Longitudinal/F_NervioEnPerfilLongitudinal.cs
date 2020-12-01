@@ -93,10 +93,22 @@ namespace FC_Diseño_de_Nervios
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.FindAll(x => x != ElementoSeleccionado).ForEach(x => x.Vistas.SelectPerfilLongitudinal = false);
                     if (ElementoSeleccionado != null)
                     {
-                        F_Base.F_Base_.VentanaEmergente(ref F_Base.F_ModificarSeccion);
-                        F_Base.F_ModificarSeccion.ElementoSeleccionado = ElementoSeleccionado;
+                        if (ElementoSeleccionado is cSubTramo && F_Base.Proyecto.VerSolicitaciones)
+                        {
+                            F_Base.F_Base_.VentanaEmergente(ref F_Base.F_VerSolicitacionesPorTramo);
+                            F_Base.F_VerSolicitacionesPorTramo.SubTramoSelect = ElementoSeleccionado as cSubTramo;
+                        }
+                        else if(!F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio)
+                        {
+                            F_Base.F_Base_.VentanaEmergente(ref F_Base.F_ModificarSeccion);
+                            F_Base.F_ModificarSeccion.ElementoSeleccionado = ElementoSeleccionado;
+                        }
+                        else if(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio)
+                        {
+                            ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
+                        }
                     }
-                    else { F_Base.F_ModificarSeccion.Close(); }
+                    else { F_Base.F_ModificarSeccion.Close(); F_Base.F_VerSolicitacionesPorTramo.Close(); }
                 }
                 PB_VistaPerfilLongitudinal.Invalidate();
             }

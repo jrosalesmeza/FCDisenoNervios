@@ -57,14 +57,15 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal
 
         private void CrearDataGridViewLabelsActualizar(DataGridView data)
         {
-            float PesoPisoL = 0;float PesoPisoTv = 0; float PesoTotal = PisoSelect.Nervios.Sum(x => x.PesoTotalRefuerzoTransversal) + PisoSelect.Nervios.Sum(x => x.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo) + PisoSelect.Nervios.Sum(x => x.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo);
+            float PesoPisoL = 0;float PesoPisoTv = 0; float PesoTotal = PisoSelect.Nervios.Sum(x => x.Tendencia_Refuerzos.TEstriboSelect.Peso) + PisoSelect.Nervios.Sum(x => x.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo) + PisoSelect.Nervios.Sum(x => x.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo);
             data.Rows.Clear();
+            PisoSelect.Nervios = cFunctionsProgram.OrdenarNervios(PisoSelect.Nervios);
             PisoSelect.Nervios.ForEach(Nervio => {
                 data.Rows.Add();
                 data.Rows[data.Rows.Count - 1].Cells[C_NombreNervio.Index].Value = Nervio.Nombre;
                 data.Rows[data.Rows.Count - 1].Cells[C_RL.Index].Value = string.Format("{0:0.00}", Nervio.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo+ Nervio.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo);
-                data.Rows[data.Rows.Count - 1].Cells[C_Transversal.Index].Value = string.Format("{0:0.00}",Nervio.PesoTotalRefuerzoTransversal);
-                float Total = Nervio.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo + Nervio.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo + Nervio.PesoTotalRefuerzoTransversal;
+                data.Rows[data.Rows.Count - 1].Cells[C_Transversal.Index].Value = string.Format("{0:0.00}",Nervio.Tendencia_Refuerzos.TEstriboSelect.Peso);
+                float Total = Nervio.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo + Nervio.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo + Nervio.Tendencia_Refuerzos.TEstriboSelect.Peso;
                 data.Rows[data.Rows.Count - 1].Cells[C_Total.Index].Value = string.Format("{0:0.00}", Total);
                 data.Rows[data.Rows.Count - 1].Cells[C_PorcRef.Index].Value = string.Format("{0:0.00}", Total/PesoTotal*100);
                 PesoPisoL += Nervio.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo + Nervio.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo;

@@ -21,6 +21,36 @@ namespace FC_Diseño_de_Nervios
             InstaciamientoVentanasAcoplables();
             CustomizedToolTip ToolTipPerzonalizado = new CustomizedToolTip(); ToolTipPerzonalizado.AutoSize = false; ToolTipPerzonalizado.Size = new Size(150,150);
             ToolTipPerzonalizado.SetToolTip(PB_Info, $" "); PB_Info.Tag = Properties.Resources.Nervio_EsquemaR;
+            Timer timer = new Timer();
+            timer.Tick += Timer_Tick;
+            timer.Start();
+            if (F_Base.Proyecto != null)
+            {
+                DireccionAnterior = F_Base.Proyecto.FiltroDireccionNervios;
+            }
+            CB_Direccion.DataSource = cFunctionsProgram.Direcciones.ToArray();
+            CB_Direccion.SelectedItem = DireccionAnterior;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (F_Base.Proyecto != null && F_Base.Proyecto.Edificio != null && F_Base.Proyecto.Edificio.PisoSelect != null && F_Base.Proyecto.Edificio.PisoSelect.NervioSelect != null)
+            {
+                TB_r1.Enabled = !F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio;
+                TB_r2.Enabled = !F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio;
+                HabilitarMaestroSimilarA();
+
+                if (!F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.BloquearNervio)
+                {
+                    CB_SeccionAltura.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAltura;
+                    CB_SeccionAncho.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAncho;
+                }
+                else
+                {
+                    CB_SeccionAltura.Enabled = false;
+                    CB_SeccionAncho.Enabled = false;
+                }
+            }
         }
 
         private void CargarListViewStories()
@@ -44,7 +74,7 @@ namespace FC_Diseño_de_Nervios
             {
                 LV_Stories.Items[LV_Stories.Items.Count - 1].Selected = true;
             }
-            CargarListViewNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios);
+            NerviosACargar();
         }
         private void CargarListViewNervios(List<cNervio> NerviosSelects)
         {
@@ -70,7 +100,6 @@ namespace FC_Diseño_de_Nervios
                     LV_Nervios.Items[LV_Nervios.Items.Count - 1].Selected = true;
                 }
                 SelectNervioChanged(new Point(0, 0), false);
-
             }
 
         }
@@ -78,7 +107,7 @@ namespace FC_Diseño_de_Nervios
         private void F_SelectNervio_Load(object sender, EventArgs e)
         {
             CargarListViewStories();
-            CB_Direccion.SelectedItem = eDireccion.Todos.ToString();
+            CB_Direccion.SelectedItem = F_Base.Proyecto.FiltroDireccionNervios;
             DP_PanelContenedor.LoadFromXml(F_Base.Ruta_ConfiVentanasSelectNervioUsuario, DeserializeDockContent);
             cFunctionsProgram.CambiarSkins(DP_PanelContenedor);
         }
@@ -115,7 +144,7 @@ namespace FC_Diseño_de_Nervios
                 F_Base.Proyecto.Edificio.PisoSelect = PisoSelect;
 
                 CargarListViewNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios);
-                NerviosACargar();
+                NerviosACargar(); ;
                 SelectNervioChanged(new Point(), false);
             }
         }
@@ -201,14 +230,12 @@ namespace FC_Diseño_de_Nervios
       
                 GB_Propiedades.Text = $" {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.Edificio.PisoSelect.Nombre}";
                 Text = $"Selección de Nervios | {F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Nombre} | {F_Base.Proyecto.Edificio.PisoSelect.Nombre} ";
-                CB_SeccionAltura.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAltura;
-                CB_SeccionAncho.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAncho;
                 ChangeComboBox();
                 CB_SeccionAltura.SelectedItem = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAltura.ToString();
                 CB_SeccionAncho.SelectedItem = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAncho.ToString();
                 TB_r1.Text =string.Format("{0:0.00}",F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.r1);
                 TB_r2.Text = string.Format("{0:0.00}", F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.r2);
-                Habilitar_DeshabilitarNevioBorde(); HabilitarMaestroSimilarA();
+                Habilitar_DeshabilitarNevioBorde(); 
             }
             else
             {
@@ -260,15 +287,25 @@ namespace FC_Diseño_de_Nervios
 
         }
 
+        eDireccion DireccionAnterior;
         private void CB_Direccion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            NerviosACargar();
+            if (F_Base.Proyecto != null)
+            {
+                DireccionAnterior = F_Base.Proyecto.FiltroDireccionNervios;
+                F_Base.Proyecto.FiltroDireccionNervios = (eDireccion)CB_Direccion.SelectedItem;
+                if (DireccionAnterior != F_Base.Proyecto.FiltroDireccionNervios)
+                {
+                    NerviosACargar();
+                }
+            }
         }
         private void NerviosACargar()
         {
-            eDireccion Direccion = cFunctionsProgram.ConvertirStringtoeDireccion(CB_Direccion.Text);
             List<cNervio> NerviosSelects;
-            if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null && F_Base.Proyecto.Edificio.PisoSelect.Nervios.Count > 0)
+
+            var Direccion = F_Base.Proyecto.FiltroDireccionNervios;
+            if (F_Base.Proyecto.Edificio!=null && F_Base.Proyecto.Edificio.PisoSelect !=null&&  F_Base.Proyecto.Edificio.PisoSelect.Nervios != null && F_Base.Proyecto.Edificio.PisoSelect.Nervios.Count > 0)
             {
                 if (Direccion == eDireccion.Todos)
                 {
@@ -290,12 +327,12 @@ namespace FC_Diseño_de_Nervios
 
                 CargarListViewNervios(NerviosSelects);
             }
+
         }
 
         private void F_SelectNervio_Paint(object sender, PaintEventArgs e)
         {
             CargarListViewStories();
-            CB_Direccion.SelectedItem = eDireccion.Todos.ToString();
         }
 
         private void TB_d1_TextChanged(object sender, EventArgs e)

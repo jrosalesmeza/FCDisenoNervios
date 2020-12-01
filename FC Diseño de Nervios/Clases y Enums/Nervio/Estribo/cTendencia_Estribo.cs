@@ -100,7 +100,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
         public cTendencia_Estribo(int ID,cTendencia_Refuerzo Tendencia_Refuerzo_Origen)
         {
             this.ID = ID;
-            Nombre = $"Tendencia {ID+1}";
+            Nombre = $"Tendencia {ID}";
             this.Tendencia_Refuerzo_Origen = Tendencia_Refuerzo_Origen;
         }
 
