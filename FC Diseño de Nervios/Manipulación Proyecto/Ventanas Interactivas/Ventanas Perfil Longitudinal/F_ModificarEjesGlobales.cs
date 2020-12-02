@@ -117,7 +117,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto.Ventanas_Interactivas.Ven
                     {
                         Enteros.Add(cell.RowIndex);
                     }
-                    Enteros = Enteros.Distinct().ToList();
+                    Enteros = Enteros.Distinct().OrderByDescending(y=>y).ToList();
                     Enteros.ForEach(x => data.Rows.Remove(data.Rows[x]));
                 }
                 else

@@ -254,6 +254,7 @@ namespace FC_Diseño_de_Nervios
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.CambioenAltura = cFunctionsProgram.ConvertirStringtoeCambioAlto(CB_SeccionAltura.Text);
                 F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
             }
+
         }
 
         private void CB_SeccionAncho_SelectedIndexChanged(object sender, EventArgs e)
@@ -268,7 +269,7 @@ namespace FC_Diseño_de_Nervios
         {
             CB_SeccionAltura.Items.Clear();
             CB_SeccionAncho.Items.Clear();
-            if (CB_SeccionAncho.Enabled)
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAncho)
             {
                 CB_SeccionAncho.Items.AddRange(new string[] { "Superior", "Central", "Inferior" });
             }
@@ -276,7 +277,7 @@ namespace FC_Diseño_de_Nervios
             {
                 CB_SeccionAncho.Items.Add("Ninguno");
             }
-            if (CB_SeccionAltura.Enabled)
+            if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Bool_CambioAltura)
             {
                 CB_SeccionAltura.Items.AddRange(new string[] { "Superior", "Central", "Inferior" });
             }
