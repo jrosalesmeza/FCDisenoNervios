@@ -150,6 +150,13 @@ namespace FC_Diseño_de_Nervios
                 BarraClonada.ID += 1;
                 BarraClonada.TendenciaOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.Last().TendenciaOrigen;
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.AgregarBarra(BarraClonada);
+
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioCompleto.NerviosSimilares.ForEach(N =>
+                {
+                    cBarra BarraClonada1 = cFunctionsProgram.DeepCloneFast(BarraClonada);
+                    BarraClonada1.TendenciaOrigen = N.Tendencia_Refuerzos.TSupeSelect;
+                    N.Tendencia_Refuerzos.TSupeSelect.AgregarBarra(BarraClonada1);
+                });
             }
             PB_VistaPerfilLongitudinalDiseno.Invalidate();
         }
@@ -167,6 +174,12 @@ namespace FC_Diseño_de_Nervios
                 BarraClonada.ID += 1;
                 BarraClonada.TendenciaOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Last().TendenciaOrigen;
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.AgregarBarra(BarraClonada);
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioCompleto.NerviosSimilares.ForEach(N =>
+                {
+                    cBarra BarraClonada1 = cFunctionsProgram.DeepCloneFast(BarraClonada);
+                    BarraClonada1.TendenciaOrigen = N.Tendencia_Refuerzos.TInfeSelect;
+                    N.Tendencia_Refuerzos.TInfeSelect.AgregarBarra(BarraClonada1);
+                });
             }
             PB_VistaPerfilLongitudinalDiseno.Invalidate();
         }
@@ -184,6 +197,24 @@ namespace FC_Diseño_de_Nervios
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.EliminarBarra(BarraSelect);
                 else
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.EliminarBarra(BarraSelect);
+
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioCompleto.NerviosSimilares.ForEach(N =>
+                {
+                    cBarra BarraEliminar;
+                    BarraEliminar = BarraSelect.UbicacionRefuerzo == eUbicacionRefuerzo.Inferior ?
+                        N.Tendencia_Refuerzos.TInfeSelect.Barras.Find(y => y.ID == BarraSelect.ID) :
+                        N.Tendencia_Refuerzos.TSupeSelect.Barras.Find(y => y.ID == BarraSelect.ID);
+                    if(BarraEliminar!=null)
+                    {
+                        if (BarraEliminar.UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
+                            N.Tendencia_Refuerzos.TInfeSelect.EliminarBarra(BarraEliminar);
+                        else
+                            N.Tendencia_Refuerzos.TSupeSelect.EliminarBarra(BarraEliminar);
+                    }
+
+                });
+
+
                 PB_VistaPerfilLongitudinalDiseno.Invalidate();
             }
 
@@ -205,6 +236,16 @@ namespace FC_Diseño_de_Nervios
                     BarraClonada.ID = IDMax + 1;
                     BarraClonada.TendenciaOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Last().TendenciaOrigen;
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.AgregarBarra(BarraClonada);
+
+
+                    F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioCompleto.NerviosSimilares.ForEach(N =>
+                    {
+                        cBarra BarraClonar2 = cFunctionsProgram.DeepCloneFast(BarraClonada);
+                        BarraClonar2.TendenciaOrigen = N.Tendencia_Refuerzos.TInfeSelect;
+                        N.Tendencia_Refuerzos.TInfeSelect.AgregarBarra(BarraClonar2);
+                    });
+
+
                 }
                 else
                 {
@@ -213,6 +254,12 @@ namespace FC_Diseño_de_Nervios
                     BarraClonada.TendenciaOrigen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.Barras.Last().TendenciaOrigen;
                     F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TSupeSelect.AgregarBarra(BarraClonada);
                 }
+
+
+
+
+
+
                 PB_VistaPerfilLongitudinalDiseno.Invalidate();
             }
         }
@@ -231,6 +278,15 @@ namespace FC_Diseño_de_Nervios
                 bloqueEstribo.ID += 1;
                 bloqueEstribo.Tendencia_Estribo_Origen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Last(y => y.ID == IDMax).Tendencia_Estribo_Origen;
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.AgregarBloqueEstribos(bloqueEstribo,false);
+
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioCompleto.NerviosSimilares.ForEach(N =>
+                {
+                    cBloqueEstribos bloqueEstribosClonar = cFunctionsProgram.DeepCloneFast(bloqueEstribo);
+                    bloqueEstribosClonar.Tendencia_Estribo_Origen = N.Tendencia_Refuerzos.TEstriboSelect;
+                    N.Tendencia_Refuerzos.TEstriboSelect.AgregarBloqueEstribos(bloqueEstribosClonar,false);
+                });
+
+
             }
             PB_VistaPerfilLongitudinalDiseno.Invalidate();
         }
@@ -243,7 +299,20 @@ namespace FC_Diseño_de_Nervios
             {
                 F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.ElminarBloqueEstribos(bloqueSelect);
+
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioCompleto.NerviosSimilares.ForEach(N =>
+                {
+                    cBloqueEstribos bloqueEstribos2 = N.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Find(y => y.ID == bloqueSelect.ID);
+                    if (bloqueEstribos2 != null)
+                    {
+                        bloqueEstribos2.Tendencia_Estribo_Origen = N.Tendencia_Refuerzos.TEstriboSelect;
+                        N.Tendencia_Refuerzos.TEstriboSelect.ElminarBloqueEstribos(bloqueEstribos2);
+                    }
+                });
+
                 PB_VistaPerfilLongitudinalDiseno.Invalidate();
+
+
 
             }
         }
@@ -258,6 +327,16 @@ namespace FC_Diseño_de_Nervios
                 bloqueEstribo.ID = IDMax+1;
                 bloqueEstribo.Tendencia_Estribo_Origen = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Last(y => y.ID == IDMax).Tendencia_Estribo_Origen;
                 F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TEstriboSelect.AgregarBloqueEstribos(bloqueEstribo,false);
+
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.SimilitudNervioCompleto.NerviosSimilares.ForEach(N =>
+                {
+                    cBloqueEstribos bloqueEstriboClonada = cFunctionsProgram.DeepCloneFast(bloqueEstribo);
+                    bloqueEstriboClonada.Tendencia_Estribo_Origen = N.Tendencia_Refuerzos.TEstriboSelect;
+                    N.Tendencia_Refuerzos.TEstriboSelect.AgregarBloqueEstribos(bloqueEstriboClonada,false);
+                });
+
+
+
                 PB_VistaPerfilLongitudinalDiseno.Invalidate();
             }
         }

@@ -12,7 +12,7 @@ namespace FC_Diseño_de_Nervios
     static class Program
     {
         public const string _GOOGLEDRIVE = "Google Drive File Stream";
-        public const float Version = 1.10f;
+        public const float Version = 1.12f;
 
         [STAThread]
         static void Main()

@@ -1259,6 +1259,7 @@ namespace FC_Diseño_de_Nervios
 
         private void ITSB_VerSolicitaciones_CheckedChanged(object sender, EventArgs e)
         {
+
             Proyecto.VerSolicitaciones = ITSB_VerSolicitaciones.Checked;
             ITSB_VerSolicitaciones.ForeColor = ITSB_VerSolicitaciones.Checked ? Color.White : Color.FromArgb(255, 128, 0);
         }

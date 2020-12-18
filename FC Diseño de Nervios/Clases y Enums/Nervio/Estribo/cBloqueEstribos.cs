@@ -99,6 +99,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                     coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
+                    Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBloqueEstribos BloqueEstribosFind = y.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Find(B => B.ID == ID);
+                        if (BloqueEstribosFind != null)
+                            BloqueEstribosFind.DireccionEstribo = direccionEstribo;
+                    });
                 }
             }
         }
@@ -118,6 +124,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                     coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
+                    Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBloqueEstribos BloqueEstribosFind = y.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Find(B => B.ID == ID);
+                        if (BloqueEstribosFind != null)
+                            BloqueEstribosFind.NoBarra = noBarra;
+                    });
                 }
             }
         }
@@ -134,6 +146,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                     coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
+                    Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBloqueEstribos BloqueEstribosFind = y.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Find(B => B.ID == ID);
+                        if (BloqueEstribosFind != null)
+                            BloqueEstribosFind.NoRamas = noRamas;
+                    });
                 }
             }
         }
@@ -155,6 +173,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                     coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
+                    Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBloqueEstribos BloqueEstribosFind = y.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Find(B => B.ID == ID);
+                        if (BloqueEstribosFind != null)
+                            BloqueEstribosFind.Separacion = separacion;
+                    });
                 }
 
             }
@@ -175,6 +199,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                     coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
+                    Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBloqueEstribos BloqueEstribosFind = y.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Find(B => B.ID == ID);
+                        if (BloqueEstribosFind != null)
+                            BloqueEstribosFind.Cantidad = cantidad;
+                    });
                 }
 
             }
@@ -198,6 +228,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                     coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
+                    Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBloqueEstribos BloqueEstribosFind = y.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Find(B => B.ID == ID);
+                        if (BloqueEstribosFind != null)
+                            BloqueEstribosFind.XI = xi;
+                    });
                 }
             }
         }
@@ -222,6 +258,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
                     coordXEstriboEstriboFinal = cVariables.ValueNull;
                     CrearCoordenadasReales();
                     ChangeProperty?.Invoke(this);
+                    Tendencia_Estribo_Origen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBloqueEstribos BloqueEstribosFind = y.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Find(B => B.ID == ID);
+                        if (BloqueEstribosFind != null)
+                            BloqueEstribosFind.XF = xf;
+                    });
                 }
             }
         }

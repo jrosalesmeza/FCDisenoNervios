@@ -13,13 +13,15 @@ namespace FC_Diseño_de_Nervios
     {
         public string Nombre { get; set; } = "Tendencias";
 
-        [NonSerialized]
         private cNervio nervioOrigen;
         public cNervio NervioOrigen
         {
             get
             {
-                AsignarNervioOrigen();
+                if(nervioOrigen== null)
+                {
+                    AsignarNervioOrigen();
+                }
                 return nervioOrigen;
             }
             set

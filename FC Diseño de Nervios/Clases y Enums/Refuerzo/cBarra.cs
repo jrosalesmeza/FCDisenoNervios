@@ -38,7 +38,15 @@ namespace FC_Diseño_de_Nervios
                     traslapo = cDiccionarios.FindLdBarra(NoBarra, TendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.Lista_Elementos.Find(x => x is cSubTramo).Seccion.Material.fc, true);
                     AreaTotalBarra(); CalcularPeso();
                     tendenciaOrigen.AsignarNivelABarras();
-                
+                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBarra BarraFind = UbicacionRefuerzo == eUbicacionRefuerzo.Inferior
+                            ? y.Tendencia_Refuerzos.TInfeSelect.Barras.Find(B => B.ID == id)
+                            : y.Tendencia_Refuerzos.TSupeSelect.Barras.Find(B => B.ID == id);
+                        if (BarraFind != null)
+                            BarraFind.NoBarra = noBarra;
+                    });
+
                 }
 
             }
@@ -54,6 +62,14 @@ namespace FC_Diseño_de_Nervios
                     cantBarra = value;
                     AreaTotalBarra();CalcularPeso();
                     tendenciaOrigen.AsignarNivelABarras();
+                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBarra BarraFind = UbicacionRefuerzo == eUbicacionRefuerzo.Inferior
+                            ? y.Tendencia_Refuerzos.TInfeSelect.Barras.Find(B => B.ID == id)
+                            : y.Tendencia_Refuerzos.TSupeSelect.Barras.Find(B => B.ID == id);
+                        if (BarraFind != null)
+                            BarraFind.CantBarra = cantBarra;
+                    });
 
                 }
             }
@@ -113,6 +129,15 @@ namespace FC_Diseño_de_Nervios
                     xi = value;
                     longitudRecta = (float)Math.Round(xf - xi,cVariables.CifrasDeciLongBarra);
                     TendenciaOrigen.AsignarNivelABarras();
+
+                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBarra BarraFind = UbicacionRefuerzo == eUbicacionRefuerzo.Inferior
+                            ? y.Tendencia_Refuerzos.TInfeSelect.Barras.Find(B => B.ID == id)
+                            : y.Tendencia_Refuerzos.TSupeSelect.Barras.Find(B => B.ID == id);
+                        if (BarraFind != null)
+                            BarraFind.XI = xi;
+                    });
                 }
             }
         }
@@ -128,6 +153,15 @@ namespace FC_Diseño_de_Nervios
                     xf = value;
                     longitudRecta = (float)Math.Round(xf - xi, cVariables.CifrasDeciLongBarra);
                     TendenciaOrigen.AsignarNivelABarras();
+
+                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBarra BarraFind = UbicacionRefuerzo == eUbicacionRefuerzo.Inferior
+                            ? y.Tendencia_Refuerzos.TInfeSelect.Barras.Find(B => B.ID == id)
+                            : y.Tendencia_Refuerzos.TSupeSelect.Barras.Find(B => B.ID == id);
+                        if (BarraFind != null)
+                            BarraFind.XF = xf;
+                    });
                 }
             }
         }
@@ -198,6 +232,14 @@ namespace FC_Diseño_de_Nervios
                     ganchoIzquierdo = value;
                     CrearCoordenadasReales();
                     tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.CrearAceroAsignadoRefuerzoLongitudinal();
+                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBarra BarraFind = UbicacionRefuerzo == eUbicacionRefuerzo.Inferior
+                            ? y.Tendencia_Refuerzos.TInfeSelect.Barras.Find(B => B.ID == id)
+                            : y.Tendencia_Refuerzos.TSupeSelect.Barras.Find(B => B.ID == id);
+                        if (BarraFind != null)
+                            BarraFind.GanchoIzquierda = ganchoIzquierdo;
+                    });
                 }
             }
         }
@@ -213,6 +255,14 @@ namespace FC_Diseño_de_Nervios
                     ganchoDerecha = value;
                     CrearCoordenadasReales();
                     tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.CrearAceroAsignadoRefuerzoLongitudinal();
+                    tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.SimilitudNervioCompleto.NerviosSimilares.ForEach(y =>
+                    {
+                        cBarra BarraFind = UbicacionRefuerzo == eUbicacionRefuerzo.Inferior
+                            ? y.Tendencia_Refuerzos.TInfeSelect.Barras.Find(B => B.ID == id)
+                            : y.Tendencia_Refuerzos.TSupeSelect.Barras.Find(B => B.ID == id);
+                        if (BarraFind != null)
+                            BarraFind.GanchoDerecha = ganchoDerecha;
+                    });
                 }
             }
         }
@@ -571,7 +621,6 @@ namespace FC_Diseño_de_Nervios
             C_Barra.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, C_Barra.Reales, out float SY, HeigthWindow, SX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
             C_F_Derecha.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, C_F_Derecha.Reales, out float SY1, HeigthWindow, SX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
             C_F_Izquierda.Escaladas = B_EscalaCoordenadas.cEscalaCoordenadas.EscalarPuntosConEscalasDependientes(PuntosTodosObjetos, C_F_Izquierda.Reales, out float SY2, HeigthWindow, SX, Zoom, Dx, Dy, XI, FactorReduccion: 1.3f);
-            
         }
 
 
@@ -719,7 +768,7 @@ namespace FC_Diseño_de_Nervios
                 C_Barra.IsSelect = false;
                 C_Barra.IsSelectArrastre = false;
             }
-            
+
         }
         public void MouseDownDoubleClick(PointF Point)
         {
@@ -729,43 +778,12 @@ namespace FC_Diseño_de_Nervios
                 C_F_Derecha.IsSelect = false;
                 C_F_Izquierda.IsSelect = false;
                 C_F_Central.Escaladas = new List<PointF>() { Point };
-
             }
             else
             {
                 C_F_Central.IsSelect = false;
             }
-            
         }
-
-        private bool isMouseOverNoArrastre(PointF PointPerte)
-        {
-            bool Booleano =IsVisibleCoordenadas(C_Barra,PointPerte);
-            if(!Booleano)
-                Booleano= IsVisibleCoordenadas(C_F_Derecha, PointPerte);
-            if(!Booleano)
-                Booleano=IsVisibleCoordenadas(C_F_Izquierda, PointPerte);
-            return Booleano;
-        }
-
-
-        private bool IsVisibleCoordenadas(cCoordenadas coordenadas, PointF PointPerte)
-        {
-            float DistanciaMinima = cVariables.ToleranciaVentanaDiseno;
-            for (int i = 0; i < coordenadas.Reales.Count; i++)
-            {
-                if (i + 1 < coordenadas.Reales.Count)
-                {
-                    float Distancia = cFunctionsProgram.Dist(coordenadas.Escaladas[i], coordenadas.Escaladas[i + 1], PointPerte);
-                    if (Distancia <= DistanciaMinima && coordenadas.Escaladas[i].X <= PointPerte.X && PointPerte.X <= coordenadas.Escaladas[i + 1].X)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
         public void MouseMove(PointF PointF)
         {
             if (!tendenciaOrigen.Tendencia_Refuerzo_Origen.NervioOrigen.BloquearNervio)
@@ -794,15 +812,14 @@ namespace FC_Diseño_de_Nervios
                     {
                         if ((float)Math.Round((xf + DistanciaPixeles1 / SX) - (xi + DistanciaPixeles1 / SX), cVariables.CifrasDeciLongBarra) == longitudRecta)
                         {
-                            xi += DistanciaPixeles1 / SX;
-                            xf += DistanciaPixeles1 / SX;
+                            XI += DistanciaPixeles1 / SX;
+                            XF += DistanciaPixeles1 / SX;
                             TendenciaOrigen.AsignarNivelABarras();
                         }
                     }
                     C_F_Central.Escaladas = new List<PointF>() { PointF };
                 }
             }
-
         }
         public void MouseDownEsferas(PointF PointPer)
         {
@@ -829,7 +846,36 @@ namespace FC_Diseño_de_Nervios
                 C_F_Derecha.IsSelect = false;
             }
             C_F_Central.IsSelect = false;
+
+
         }
+        private bool isMouseOverNoArrastre(PointF PointPerte)
+        {
+            bool Booleano =IsVisibleCoordenadas(C_Barra,PointPerte);
+            if(!Booleano)
+                Booleano= IsVisibleCoordenadas(C_F_Derecha, PointPerte);
+            if(!Booleano)
+                Booleano=IsVisibleCoordenadas(C_F_Izquierda, PointPerte);
+            return Booleano;
+        }
+        private bool IsVisibleCoordenadas(cCoordenadas coordenadas, PointF PointPerte)
+        {
+            float DistanciaMinima = cVariables.ToleranciaVentanaDiseno;
+            for (int i = 0; i < coordenadas.Reales.Count; i++)
+            {
+                if (i + 1 < coordenadas.Reales.Count)
+                {
+                    float Distancia = cFunctionsProgram.Dist(coordenadas.Escaladas[i], coordenadas.Escaladas[i + 1], PointPerte);
+                    if (Distancia <= DistanciaMinima && coordenadas.Escaladas[i].X <= PointPerte.X && PointPerte.X <= coordenadas.Escaladas[i + 1].X)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
 
         #endregion
 

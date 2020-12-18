@@ -742,6 +742,8 @@ namespace FC_Diseño_de_Nervios
             T temp = Force.DeepCloner.DeepClonerExtensions.DeepClone(obj);
             if (temp is cBarra)
                 CambiarPropBarraClonada((cBarra)Convert.ChangeType(temp, typeof(cBarra)));
+            if (temp is cBloqueEstribos)
+                CambiarPropBloqueEstribos((cBloqueEstribos)Convert.ChangeType(temp, typeof(cBloqueEstribos)));
             return temp;
         }
 
@@ -750,6 +752,10 @@ namespace FC_Diseño_de_Nervios
         {
             Barra.C_Barra.IsSelect = false;
             Barra.C_Barra.IsSelectArrastre = false;
+        }
+        private static void CambiarPropBloqueEstribos(cBloqueEstribos bloque)
+        {
+            bloque.Recuadro_ModoEdicion.IsSelect = false;
         }
         #region Funciones de Selección
         public static void SeleccionInteligente(cLine LineMadre, List<cLine> Lista_Lines, int IndiceSeleccion, bool CondicionSelect)
@@ -1469,6 +1475,8 @@ namespace FC_Diseño_de_Nervios
                 cProyecto proyecto = Objeto as cProyecto;
                 if (proyecto != null && proyecto.VersionPrograma < 1.05f)
                     ActualizarEstribosVersionesAnteriores(proyecto);
+                if(proyecto!=null && proyecto.VersionPrograma<= 1.1f)
+                    ActualizarTendenciasEnNervios(proyecto);
                 streamReader.Close();
             }
             catch (Exception ex) { EventoVentanaEmergente?.Invoke(ex.Message, MessageBoxIcon.Exclamation); }
@@ -2806,7 +2814,7 @@ namespace FC_Diseño_de_Nervios
                                     if (ListaCoordX.Count > 1)
                                     {
                                         eTipoGancho GI2 = eTipoGancho.None; eTipoGancho GD2 = eTipoGancho.None;
-                                        CoordenadasBarraAdicional(ref ListaCoordX, BarraMinima, PI1.SubTramo, Nervio, ref GI2, ref GD2,tendencia);
+                                        CoordenadasBarraAdicional(ref ListaCoordX, BarraMaxima, PI1.SubTramo, Nervio, ref GI2, ref GD2,tendencia);
                                         CrearBarra2(BarraMinima, eUbicacionRefuerzo.Superior, 1, ListaCoordX.First(), ListaCoordX.Last(), ref tendencia, GI2, GD2);
                                     }
                                 }
@@ -4243,10 +4251,18 @@ namespace FC_Diseño_de_Nervios
         public static List<cNervio> OrdenarNervios(List<cNervio> nervios)
         {
             List<cNervio> NerviosOrdenados = new List<cNervio>();
-            List<cNervio> DiagonalesHorizontales = nervios.FindAll(y => y.Direccion == eDireccion.Horizontal || y.Direccion == eDireccion.Diagonal && !y.NombrarNervioDiferente);
+            List<cNervio> DiagonalesHorizontales = nervios.FindAll(y => (y.Direccion == eDireccion.Horizontal || y.Direccion == eDireccion.Diagonal) && !y.NombrarNervioDiferente);
             List<cNervio> DiagonalesVerticales = nervios.FindAll(y => y.Direccion == eDireccion.Vertical && !y.NombrarNervioDiferente);
+
+            List<cNervio> DiagonalesHorizontales2 = nervios.FindAll(y => (y.Direccion == eDireccion.Horizontal || y.Direccion == eDireccion.Diagonal) && y.NombrarNervioDiferente);
+            List<cNervio> DiagonalesVerticales2 = nervios.FindAll(y => y.Direccion == eDireccion.Vertical && y.NombrarNervioDiferente);
+
+
             OdernarNervios(ref DiagonalesHorizontales); OdernarNervios(ref DiagonalesVerticales);
+
             NerviosOrdenados.AddRange(DiagonalesHorizontales); NerviosOrdenados.AddRange(DiagonalesVerticales);
+            NerviosOrdenados.AddRange(DiagonalesHorizontales2); NerviosOrdenados.AddRange(DiagonalesVerticales2);
+
             return NerviosOrdenados;
         }
 
@@ -4431,6 +4447,20 @@ namespace FC_Diseño_de_Nervios
             }
 
 
+        }
+
+        private static void ActualizarTendenciasEnNervios(cProyecto proyecto)
+        {
+            cPiso PisoSelect = proyecto.Edificio.PisoSelect;
+            cNervio NervioSelect = proyecto.Edificio.PisoSelect.NervioSelect;
+            proyecto.Edificio.Lista_Pisos.ForEach(P =>
+            {
+                proyecto.Edificio.PisoSelect = P;
+                P.Nervios.ForEach(N => N.Tendencia_Refuerzos.NervioOrigen = N);
+            });
+            proyecto.Edificio.PisoSelect = PisoSelect;
+            proyecto.Edificio.PisoSelect.NervioSelect = NervioSelect;
+            proyecto.VersionPrograma = Program.Version;
         }
 
         public static void ActualizarEstribosVersionesAnteriores(cProyecto proyecto)

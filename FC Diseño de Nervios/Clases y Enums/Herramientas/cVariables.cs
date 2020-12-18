@@ -58,7 +58,7 @@ namespace FC_Diseño_de_Nervios
         #endregion
 
         #region Variables de Diseño a Flexión Automatico
-        public const float ToleranciaFlexion =5f;
+        public const float ToleranciaFlexion = 5f;
         public const float ToleranciaFlexionPInflexion = 3f;
         public const float ToleranciaFlexionBarras = 3f;
         public const float DeltaUnionCercanas = 0.5f;
@@ -106,7 +106,7 @@ namespace FC_Diseño_de_Nervios
         public const string C_Texto1 = "FC_R-175";
         public const string Estilo_Texto = "FC_TEXT";
         public const string Estilo_Cotas = "FC_TEXT1";
-        public const string C_Texto2= "FC_R-60";
+        public const string C_Texto2 = "FC_R-60";
         public const string C_Estribos = "FC_R-60";
         public const string C_Nervios = "FC_NERVIOS";
         public const string C_Vigas = "FC_VIGAS";
@@ -129,7 +129,7 @@ namespace FC_Diseño_de_Nervios
 
         public const float Dimension_InfoNervio = 2.90f;
         public const float W_LetraAutoCADTitle = 0.08f;
-        public const float W_LetraAutoCADEstribos= 0.1f;
+        public const float W_LetraAutoCADEstribos = 0.1f;
         public const float W_LetraAutoCADTextRefuerzo = 0.30f;
         #endregion
 
