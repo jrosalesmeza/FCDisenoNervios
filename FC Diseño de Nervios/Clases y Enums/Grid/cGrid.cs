@@ -110,7 +110,6 @@ namespace FC_Diseño_de_Nervios
             e.FillEllipse(BrushCirculo, BubleSize_Objeto_Escalado);
             e.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
             e.DrawString(NombreAMostrar, Font1, Brush_String, PointString);
-            
         }
 
 

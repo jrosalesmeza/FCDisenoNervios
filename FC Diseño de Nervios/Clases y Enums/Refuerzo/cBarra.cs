@@ -599,8 +599,12 @@ namespace FC_Diseño_de_Nervios
             });
             ElementosContenedores = Nervio.Lista_Elementos.GetRange(Enteros.First(), Enteros.Last()- Enteros.First()+1);
 
+
+
             if (UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
             {
+                
+
                 return ElementosContenedores.Select(x => x.Vistas.Perfil_AutoCAD.Reales.Min(y => y.Y)).Max() + cVariables.DeltaNivel * nivel + subNivel * cVariables.DeltaSubNivel;
             }
             else

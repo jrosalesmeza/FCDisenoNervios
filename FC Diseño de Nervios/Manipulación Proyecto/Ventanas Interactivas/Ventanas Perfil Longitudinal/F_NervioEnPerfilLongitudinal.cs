@@ -180,8 +180,9 @@ namespace FC_Diseño_de_Nervios
             PB_VistaPerfilLongitudinal.Invalidate();
         }
 
-        private void CambiosConteMenuStrip()
+        public void CambiosConteMenuStrip()
         {
+            CTMS_1.Enabled = true;
             TLSN_ApoyoInicio.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.First() is cSubTramo;
             TLSN_ApoyoFinal.Enabled = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.Last() is cSubTramo;
             TLSN_ApoyoInicioE.Enabled = !(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Lista_Elementos.First() is cSubTramo);

@@ -696,6 +696,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
                     {
                         TIN.MaximaLongitud = TI.MaximaLongitud;
                         TIN.MinimaLongitud = TI.MinimaLongitud;
+                        TIN.CuantiaMinima = TI.CuantiaMinima;
                         TIN.BarrasAEmplearAdicional = cFunctionsProgram.DeepCloneFast(TI.BarrasAEmplearAdicional);
                         TIN.BarrasAEmplearBase = cFunctionsProgram.DeepCloneFast(TI.BarrasAEmplearBase);
                     }
@@ -707,6 +708,7 @@ namespace FC_Diseño_de_Nervios.Manipulación_Proyecto
                     {
                         TSN.MinimaLongitud = TS.MinimaLongitud;
                         TSN.MaximaLongitud = TS.MaximaLongitud;
+                        TSN.CuantiaMinima = TS.CuantiaMinima;
                         TSN.BarrasAEmplearAdicional = cFunctionsProgram.DeepCloneFast(TS.BarrasAEmplearAdicional);
                         TSN.BarrasAEmplearBase = cFunctionsProgram.DeepCloneFast(TS.BarrasAEmplearBase);
                     }

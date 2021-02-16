@@ -35,17 +35,17 @@
             this.BT_AgregarY = new FontAwesome.Sharp.IconButton();
             this.GB_2 = new System.Windows.Forms.GroupBox();
             this.DGV_Y = new System.Windows.Forms.DataGridView();
+            this.C_NEjeY = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.C_LocalizaciónY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GB_1 = new System.Windows.Forms.GroupBox();
             this.DGV_X = new System.Windows.Forms.DataGridView();
+            this.C_NombreEje = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.C_Localizacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.P_1 = new System.Windows.Forms.Panel();
             this.LB_ModEjes = new FontAwesome.Sharp.IconButton();
             this.BT_AgregarX = new FontAwesome.Sharp.IconButton();
             this.BT_1 = new System.Windows.Forms.Button();
             this.BT_2 = new System.Windows.Forms.Button();
-            this.C_NombreEje = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.C_Localizacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.C_NEjeY = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.C_LocalizaciónY = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.P_2.SuspendLayout();
             this.GB_2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Y)).BeginInit();
@@ -151,6 +151,21 @@
             this.DGV_Y.Size = new System.Drawing.Size(313, 175);
             this.DGV_Y.TabIndex = 2;
             // 
+            // C_NEjeY
+            // 
+            this.C_NEjeY.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.C_NEjeY.FillWeight = 60F;
+            this.C_NEjeY.HeaderText = "Nombre Eje";
+            this.C_NEjeY.Name = "C_NEjeY";
+            this.C_NEjeY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // C_LocalizaciónY
+            // 
+            this.C_LocalizaciónY.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.C_LocalizaciónY.HeaderText = "Localización (m)";
+            this.C_LocalizaciónY.Name = "C_LocalizaciónY";
+            this.C_LocalizaciónY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // GB_1
             // 
             this.GB_1.Controls.Add(this.DGV_X);
@@ -175,6 +190,21 @@
             this.DGV_X.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DGV_X.Size = new System.Drawing.Size(315, 175);
             this.DGV_X.TabIndex = 2;
+            // 
+            // C_NombreEje
+            // 
+            this.C_NombreEje.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.C_NombreEje.FillWeight = 60F;
+            this.C_NombreEje.HeaderText = "Nombre Eje";
+            this.C_NombreEje.Name = "C_NombreEje";
+            this.C_NombreEje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // C_Localizacion
+            // 
+            this.C_Localizacion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.C_Localizacion.HeaderText = "Localización (m)";
+            this.C_Localizacion.Name = "C_Localizacion";
+            this.C_Localizacion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // P_1
             // 
@@ -246,36 +276,6 @@
             this.BT_2.Text = "Cancelar";
             this.BT_2.UseVisualStyleBackColor = true;
             this.BT_2.Click += new System.EventHandler(this.BT_2_Click);
-            // 
-            // C_NombreEje
-            // 
-            this.C_NombreEje.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.C_NombreEje.FillWeight = 60F;
-            this.C_NombreEje.HeaderText = "Nombre Eje";
-            this.C_NombreEje.Name = "C_NombreEje";
-            this.C_NombreEje.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // C_Localizacion
-            // 
-            this.C_Localizacion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.C_Localizacion.HeaderText = "Localización (m)";
-            this.C_Localizacion.Name = "C_Localizacion";
-            this.C_Localizacion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // C_NEjeY
-            // 
-            this.C_NEjeY.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.C_NEjeY.FillWeight = 60F;
-            this.C_NEjeY.HeaderText = "Nombre Eje";
-            this.C_NEjeY.Name = "C_NEjeY";
-            this.C_NEjeY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // C_LocalizaciónY
-            // 
-            this.C_LocalizaciónY.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.C_LocalizaciónY.HeaderText = "Localización (m)";
-            this.C_LocalizaciónY.Name = "C_LocalizaciónY";
-            this.C_LocalizaciónY.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // F_ModificarEjesGlobales
             // 

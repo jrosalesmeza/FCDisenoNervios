@@ -175,7 +175,6 @@
 
         private System.Windows.Forms.Panel P_1;
         private System.Windows.Forms.PictureBox PB_VistaPerfilLongitudinal;
-        private System.Windows.Forms.ContextMenuStrip CTMS_1;
         private System.Windows.Forms.ToolStripMenuItem MostrarReglaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editarEjesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem agregarApoyosToolStripMenuItem;
@@ -184,5 +183,6 @@
         private System.Windows.Forms.ToolStripMenuItem eliminarApoyosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoInicioE;
         private System.Windows.Forms.ToolStripMenuItem TLSN_ApoyoFinalE;
+        internal System.Windows.Forms.ContextMenuStrip CTMS_1;
     }
 }

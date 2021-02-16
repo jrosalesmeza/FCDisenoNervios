@@ -1418,9 +1418,6 @@ namespace FC_Diseño_de_Nervios
 
             SolidBrush BrushFiVc = new SolidBrush(Color.FromArgb(60, Color.FromArgb(0, 0, 0)));
             SolidBrush BrushFiVc2 = new SolidBrush(Color.FromArgb(30, Color.FromArgb(10, 10, 10)));
-
-
-
             Lista_Elementos.ForEach(Elemento =>
             {
                 if (Elemento is cSubTramo)
@@ -2340,7 +2337,7 @@ namespace FC_Diseño_de_Nervios
                     Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; });
                     CrearCoordenadasPerfilLongitudinalReales();
                     CrearCoordenadasPerfilLongitudinalAutoCAD();
-                    CrearEnvolvente();
+                    //CrearEnvolvente();
                     CrearAceroAsignadoRefuerzoLongitudinal();
                     CrearAceroAsignadoRefuerzoTransversal();
                     Tendencia_Refuerzos.NervioOrigen = this; Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = cVariables.MaximaLongitud;
@@ -2358,7 +2355,7 @@ namespace FC_Diseño_de_Nervios
                     Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; });
                     CrearCoordenadasPerfilLongitudinalReales();
                     CrearCoordenadasPerfilLongitudinalAutoCAD();
-                    CrearEnvolvente();
+                    //CrearEnvolvente();
                     CrearAceroAsignadoRefuerzoLongitudinal();
                     CrearAceroAsignadoRefuerzoTransversal();
                     Tendencia_Refuerzos.NervioOrigen = this; Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = cVariables.MaximaLongitud;
@@ -2369,6 +2366,8 @@ namespace FC_Diseño_de_Nervios
             cSimilitudNervio Similitud = (SimilitudNervioGeometria.BoolSoySimiarA | SimilitudNervioGeometria.IsMaestro) ?
              SimilitudNervioGeometria : SimilitudNervioCompleto;
             Similitud.NerviosSimilares.ForEach(y => y.CrearApoyosAExtremos(ApoyoInicio, ApoyoFinal));
+            CrearEnvolvente();
+            Similitud.NerviosSimilares.ForEach(y => y.CrearEnvolvente());
         }
 
         public void EliminarApoyosAExtremos(bool ApoyoInicio = false, bool ApoyoFinal = false)
@@ -2382,7 +2381,7 @@ namespace FC_Diseño_de_Nervios
                     Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; });
                     CrearCoordenadasPerfilLongitudinalReales();
                     CrearCoordenadasPerfilLongitudinalAutoCAD();
-                    CrearEnvolvente();
+                    //CrearEnvolvente();
                     CrearAceroAsignadoRefuerzoLongitudinal();
                     CrearAceroAsignadoRefuerzoTransversal();
                     Tendencia_Refuerzos.NervioOrigen = this; Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = cVariables.MaximaLongitud;
@@ -2400,7 +2399,7 @@ namespace FC_Diseño_de_Nervios
                     Lista_Elementos.ForEach(x => { x.Indice = Contador; Contador++; });
                     CrearCoordenadasPerfilLongitudinalReales();
                     CrearCoordenadasPerfilLongitudinalAutoCAD();
-                    CrearEnvolvente();
+                    //CrearEnvolvente();
                     CrearAceroAsignadoRefuerzoLongitudinal();
                     CrearAceroAsignadoRefuerzoTransversal();
                     Tendencia_Refuerzos.NervioOrigen = this; Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = cVariables.MaximaLongitud;
@@ -2411,6 +2410,8 @@ namespace FC_Diseño_de_Nervios
             cSimilitudNervio Similitud = (SimilitudNervioGeometria.BoolSoySimiarA | SimilitudNervioGeometria.IsMaestro) ?
             SimilitudNervioGeometria : SimilitudNervioCompleto;
             Similitud.NerviosSimilares.ForEach(y => y.EliminarApoyosAExtremos(ApoyoInicio, ApoyoFinal));
+            CrearEnvolvente();
+            Similitud.NerviosSimilares.ForEach(y => y.CrearEnvolvente());
         }
 
         public bool PoderEliminarApoyos()
@@ -2437,21 +2438,21 @@ namespace FC_Diseño_de_Nervios
                 if (tendencia.Barras.Count == 0)
                     Habilitar = false;
                 else
-                    Habilitar = true;
+                    return true;
             }
             foreach (cTendencia tendencia in Tendencia_Refuerzos.TendenciasInferior)
             {
                 if (tendencia.Barras.Count == 0)
                     Habilitar = false;
                 else
-                    Habilitar = true;
+                    return true;
             }
             foreach(Clases_y_Enums.Nervio.Estribo.cTendencia_Estribo TE in Tendencia_Refuerzos.TendenciasEstribos)
             {
                 if (TE.BloqueEstribos.Count == 0)
                     Habilitar = false;
                 else
-                    Habilitar = true;
+                    return true;
             }
             return Habilitar;
         }

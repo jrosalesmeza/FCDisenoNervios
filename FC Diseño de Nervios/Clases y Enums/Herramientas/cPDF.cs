@@ -298,18 +298,72 @@ namespace FC_Diseño_de_Nervios
                     Tabla2.AddCell(Vcell($"V-={string.Format("{0:0.00}", DatosResumidos3[2][0][1])}", 0, 1, 0, 0));
 
 
-                    Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 0, 0, 1));
-                    Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
-                    Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 0, 0, 0, 1));
+                    //Primer Tramo
 
-                    Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][0]}", 1, 0, 0, 1));
-                    Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
-                    Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][1]}", 0, 0, 0, 1));
+                    if (DatosResumidos1[2][1][0].ToString() != string.Empty && DatosResumidos1[2][1][1].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 0, 0, 1));
+                        Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
+                        Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 0, 0, 0, 1));
+                    }
+                    else if (DatosResumidos1[2][1][0].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 0, 0, 1, 3));
+                    }
+                    else if (DatosResumidos1[2][1][1].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 1, 0, 0, 1, 3));
+                    }
+                    else
+                    {
+                        Tabla2.AddCell(Vcell($"  ", 1, 0, 0, 1, 3));
+                    }
 
-                    Tabla2.AddCell(Vcell($"{DatosResumidos3[2][1][0]}", 1, 0, 0, 1));
-                    Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
-                    Tabla2.AddCell(Vcell($"{DatosResumidos3[2][1][1]}", 0, 1, 0, 1));
+                    //Segundo Tramo
 
+                    if (DatosResumidos2[2][1][0].ToString() != string.Empty && DatosResumidos2[2][1][1].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][0]}", 1, 0, 0, 1));
+                        Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
+                        Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][1]}", 0, 0, 0, 1));
+                    }
+                    else if (DatosResumidos2[2][1][0].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][0]}", 1, 0, 0, 1, 3));
+                    }
+                    else if (DatosResumidos2[2][1][0].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][0]}", 1, 0, 0, 1, 3));
+                    }
+                    else if (DatosResumidos2[2][1][1].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][1]}", 1, 0, 0, 1, 3));
+                    }
+                    else
+                    {
+                        Tabla2.AddCell(Vcell($"  ", 1, 0, 0, 1, 3));
+                    }
+
+                    //Tercera Tramo
+                    if (DatosResumidos3[2][1][0].ToString() != string.Empty && DatosResumidos3[2][1][1].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos3[2][1][0]}", 1, 0, 0, 1));
+                        Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
+                        Tabla2.AddCell(Vcell($"{DatosResumidos3[2][1][1]}", 0, 1, 0, 1));
+                    }
+                    else if (DatosResumidos3[2][1][0].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos3[2][1][0]}", 1, 1, 0, 1,3));
+                    }
+                    else if (DatosResumidos3[2][1][1].ToString() != string.Empty)
+                    {
+                        Tabla2.AddCell(Vcell($"{DatosResumidos3[2][1][1]}", 1, 1, 0, 1, 3));
+                    }
+                    else
+                    {
+                        Tabla2.AddCell(Vcell($"  ", 1, 1, 0, 1, 3));
+                    }
+               
                     Tabla2.AddCell(Vcell($" ", 0, 0, 0, 0, 9));
                     Tablas.Add(Tabla2);
                     #endregion
@@ -447,14 +501,42 @@ namespace FC_Diseño_de_Nervios
             Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 0));
             Tabla2.AddCell(Vcell($"V-={string.Format("{0:0.00}", DatosResumidos2[2][0][1])}", 0, 1, 0, 0));
 
-      
-            Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 0, 0, 1));
-            Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
-            Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 0, 0, 0, 1));
+            if (DatosResumidos1[2][1][0].ToString()!="" && DatosResumidos1[2][1][1].ToString() != "")
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 0, 0, 1));
+                Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
+                Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 0, 0, 0, 1));
+            }else if (DatosResumidos1[2][1][0].ToString() != "")
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 0, 0, 1, 3));
+            }
+            else if (DatosResumidos1[2][1][1].ToString() != "")
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 1, 0, 0, 1, 3));
+            }
+            else 
+            {
+                Tabla2.AddCell(Vcell($"  ", 1, 0, 0, 1, 3));
+            }
 
-            Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][0]}", 1, 0, 0, 1));
-            Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
-            Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][1]}", 0, 1, 0, 1));
+            if (DatosResumidos2[2][1][0].ToString() != "" && DatosResumidos2[2][1][1].ToString() != "")
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][0]}", 1, 0, 0, 1));
+                Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
+                Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][1]}", 0, 1, 0, 1));
+            }
+            else if (DatosResumidos2[2][1][0].ToString() != "")
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][0]}", 1, 1, 0, 1, 3));
+            }
+            else if (DatosResumidos2[2][1][1].ToString() != "")
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos2[2][1][1]}", 1, 1, 0, 1, 3));
+            }
+            else
+            {
+                Tabla2.AddCell(Vcell($"  ", 1,1, 0, 1, 3));
+            }
 
 
             Tabla2.AddCell(Vcell($" ", 0, 0, 0, 0,9));
@@ -517,10 +599,26 @@ namespace FC_Diseño_de_Nervios
             Tabla2.AddCell(Vcell($"V-={string.Format("{0:0.00}", DatosResumidos1[2][0][1])}", 0, 1, 0, 0));
 
 
-            Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 0, 0, 1));
-            Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
-            Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 0, 1, 0, 1));
+            //Primer Tramo
 
+            if (DatosResumidos1[2][1][0].ToString() != string.Empty && DatosResumidos1[2][1][1].ToString() != string.Empty)
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 0, 0, 1));
+                Tabla2.AddCell(Vcell($"  ", 0, 0, 0, 1));
+                Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 0, 1, 0, 1));
+            }
+            else if (DatosResumidos1[2][1][0].ToString() != string.Empty)
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][0]}", 1, 1, 0, 1, 3));
+            }
+            else if (DatosResumidos1[2][1][1].ToString() != string.Empty)
+            {
+                Tabla2.AddCell(Vcell($"{DatosResumidos1[2][1][1]}", 1, 1, 0, 1, 3));
+            }
+            else
+            {
+                Tabla2.AddCell(Vcell($"  ", 1, 1, 0, 1, 3));
+            }
 
             Tabla2.AddCell(Vcell($" ", 0, 0, 0, 0, 9));
             Tablas.Add(Tabla2);

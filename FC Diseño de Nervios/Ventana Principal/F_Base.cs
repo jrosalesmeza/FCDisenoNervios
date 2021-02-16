@@ -245,7 +245,8 @@ namespace FC_Diseño_de_Nervios
             
             void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
             {
-                cPDF.CrearPDF(Ruta_MemoriaCalculo, SaveFileDialog.FileName, Proyecto.Edificio.PisoSelect.Nervios);
+                var Nervios = Proyecto.Edificio.Lista_Pisos.SelectMany(y => y.Nervios).ToList();
+                cPDF.CrearPDF(Ruta_MemoriaCalculo, SaveFileDialog.FileName, Nervios);
             }
 
         }
@@ -698,10 +699,15 @@ namespace FC_Diseño_de_Nervios
                 {
                     TLSB_AgregarApoyo.Enabled = !Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
                     TLSB_EliminarApoyo.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.PoderEliminarApoyos();
+
                     TLSMI_EliminarRefuerzo.Enabled = Proyecto.Edificio.PisoSelect.NervioSelect.SinRefuerzos_();
                     TLSMI_PegarRefuerzo.Enabled = cFuncion_CopiaryPegarRefuerzos.Refuerzos.Count > 0 || cFuncion_CopiaryPegarRefuerzos.Estribos.Count>0;
                     TLSMI_PegarGeometria.Enabled = cFuncion_CopiaryPegarGeometria.Elementos.Count > 0 && TLSB_AgregarApoyo.Enabled;
                     nervioToolStripMenuItem.Enabled = true; nervioToolStripMenuItem1.Enabled = true;
+                    if (F_NervioEnPerfilLongitudinal != null)
+                    {
+                        F_NervioEnPerfilLongitudinal.CambiosConteMenuStrip();
+                    }
                 }
                 else
                 {
@@ -714,6 +720,10 @@ namespace FC_Diseño_de_Nervios
                     TLSB_GraficarNervioActual.Enabled = false;
                     nervioToolStripMenuItem.Enabled = false;
                     nervioToolStripMenuItem1.Enabled = false;
+                    if (F_NervioEnPerfilLongitudinal != null)
+                    {
+                        F_NervioEnPerfilLongitudinal.CTMS_1.Enabled = false;
+                    }
                 }
             }
             TLSMI_CopiarRefuerzo.Enabled = TLSMI_EliminarRefuerzo.Enabled;

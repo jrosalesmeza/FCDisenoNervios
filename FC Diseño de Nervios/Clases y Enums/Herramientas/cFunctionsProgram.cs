@@ -46,8 +46,8 @@ namespace FC_Diseño_de_Nervios
         public static PerformanceCounter cpuCounter =new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
 
-        public static float ToleranciaHorizontal = 25f;
-        public static float ToleranciaVertical = 75f;
+        public static float ToleranciaHorizontal = 10f;
+        public static float ToleranciaVertical = 80f;
 
         public const string Empresa = "efe Prima Ce";
         public const string Ext = ".nrv";
@@ -1766,7 +1766,7 @@ namespace FC_Diseño_de_Nervios
             }));
             float Asmin = AsminSubTramo.Min(); //Barra del Refuerzo Base Inferior
 
-            var ListaElementos = CrearListaElementos(Nervio, RCondicion2: true, RCondicion3: true, RCondicion4: true);
+            var ListaElementos = CrearListaElementos(Nervio,RCondicion2: true, RCondicion3: true, RCondicion4: true);
 
 
             eNoBarra BarraPropuesta = ProponerUnaBarra(Asmin, Nervio.Tendencia_Refuerzos.TInfeSelect.BarrasAEmplearBase, Nervio);
@@ -1775,7 +1775,7 @@ namespace FC_Diseño_de_Nervios
             {
                 foreach (List<IElemento> elementos in ListaElementos)
                 {
-                    if (elementos.First(x => x is cSubTramo).Seccion.B > 12 && Nervio.CambioenAltura == eCambioenAltura.Inferior || Nervio.NervioBorde)
+                    if (elementos.FindAll(x => x is cSubTramo &&  x.Seccion.B<12).Count ==0 && Nervio.CambioenAltura == eCambioenAltura.Inferior || Nervio.NervioBorde)
                     {
                         float AminAux = elementos.First(y => y is cSubTramo).Seccion.B * elementos.First(y => y is cSubTramo).Seccion.H * Nervio.Tendencia_Refuerzos.TInfeSelect.CuantiaMinima;
                         eNoBarra BarraP2 = ProponerUnaBarra(AminAux / 2f, Nervio.Tendencia_Refuerzos.TInfeSelect.BarrasAEmplearBase, Nervio);
@@ -1795,9 +1795,11 @@ namespace FC_Diseño_de_Nervios
                 if (elementos.First(x => x is cSubTramo).Seccion.B > 12f || Nervio.NervioBorde)
                 {
                     cBarra BarraEncontrada = Nervio.Tendencia_Refuerzos.TInfeSelect.Barras.Find(x => x.IsVisible(elementos.First(y => y is cSubTramo)));
-
+                    var elementos2=  Nervio.Lista_Elementos.FindAll(y => y is cSubTramo);
                     if (BarraEncontrada != null && BarraEncontrada.CantBarra == 1)
                     {
+                        bool BarraEnOtrosTramosMenores12CM =elementos2.FindAll(y => BarraEncontrada.IsVisible(y) && y is cSubTramo).Find(y => y.Seccion.B < 12) != null;
+                        
                         float AminAx = elementos.First(y => y is cSubTramo).Seccion.B * elementos.First(y => y is cSubTramo).Seccion.H * Nervio.Tendencia_Refuerzos.TInfeSelect.CuantiaMinima;
                         float AsFaltante = AminAx - BarraEncontrada.AreaTotal;
                         eNoBarra BarraFinal = BarraPropuesta;
@@ -1813,7 +1815,7 @@ namespace FC_Diseño_de_Nervios
                                 BarraEncontrada.NoBarra = Nervio.Tendencia_Refuerzos.TInfeSelect.BarrasAEmplearBase.Min();
                                 float AceroPor2 = BarraEncontrada.AreaTotal * 2f;
                                 float Porcentaje = (AceroPor2 - AminAx) / AceroPor2 * 100f;
-                                if (AceroPor2 >= AminAx | Math.Abs(Porcentaje) <= cVariables.ToleranciaFlexionBarras)
+                                if (AceroPor2 >= AminAx | Math.Abs(Porcentaje) <= cVariables.ToleranciaFlexionBarras && !BarraEnOtrosTramosMenores12CM)
                                 {
                                     BarraEncontrada.CantBarra = 2;
                                     break;
@@ -1827,7 +1829,7 @@ namespace FC_Diseño_de_Nervios
 
                             }
                         }
-                        if (BarraPropuesta == BarraFinal && Nervio.CambioenAltura == eCambioenAltura.Inferior)
+                        if (BarraPropuesta == BarraFinal && Nervio.CambioenAltura == eCambioenAltura.Inferior && !BarraEnOtrosTramosMenores12CM)
                         {
                             BarraEncontrada.CantBarra = 2;
                         }
@@ -4070,7 +4072,7 @@ namespace FC_Diseño_de_Nervios
             cNervio NervioInicial = F_Base.Proyecto.Edificio.PisoSelect.NervioSelect;
             Nervios.ForEach(Nervio => { Nervio.Resultados.Diseñado = true; Nervio.Resultados.Errores.Clear(); });
 
-            Nervios= Nervios.FindAll(y => !y.SimilitudNervioGeometria.BoolSoySimiarA);
+            Nervios= Nervios.FindAll(y => !y.SimilitudNervioCompleto.BoolSoySimiarA);
 
             Nervios.AddRange(Nervios.SelectMany(y => y.SimilitudNervioCompleto.NerviosSimilares).ToList());
 

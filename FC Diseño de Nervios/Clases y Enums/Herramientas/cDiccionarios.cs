@@ -195,7 +195,7 @@ namespace FC_Diseño_de_Nervios
         }
         public static float FindLdBarra(eNoBarra NoBarra, float FC, bool isNervio)
         {
-            if (isNervio) { return cVariables.TraslapoNervio; }
+            if (isNervio) { return cVariables.TraslapoNervio; } 
             if (FC == 210f) { return Ld_210[NoBarra]; }
             if (FC == 280f) { return Ld_280[NoBarra]; }
             if (FC == 350f) { return Ld_350[NoBarra]; }

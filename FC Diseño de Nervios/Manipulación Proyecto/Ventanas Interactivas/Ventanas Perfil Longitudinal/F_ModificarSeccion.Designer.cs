@@ -71,7 +71,7 @@
             this.BT_Cerrar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Cerrar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BT_Cerrar.Image = global::FC_Diseño_de_Nervios.Properties.Resources.x16Blanca;
-            this.BT_Cerrar.Location = new System.Drawing.Point(258, 3);
+            this.BT_Cerrar.Location = new System.Drawing.Point(257, 3);
             this.BT_Cerrar.Name = "BT_Cerrar";
             this.BT_Cerrar.Size = new System.Drawing.Size(40, 17);
             this.BT_Cerrar.TabIndex = 28;
@@ -87,7 +87,7 @@
             this.P_1.Dock = System.Windows.Forms.DockStyle.Top;
             this.P_1.Location = new System.Drawing.Point(0, 0);
             this.P_1.Name = "P_1";
-            this.P_1.Size = new System.Drawing.Size(302, 25);
+            this.P_1.Size = new System.Drawing.Size(301, 25);
             this.P_1.TabIndex = 29;
             this.P_1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.P_1_MouseDown);
             // 
@@ -109,7 +109,7 @@
             this.GB_1.ForeColor = System.Drawing.Color.White;
             this.GB_1.Location = new System.Drawing.Point(9, 102);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(284, 134);
+            this.GB_1.Size = new System.Drawing.Size(284, 136);
             this.GB_1.TabIndex = 30;
             this.GB_1.TabStop = false;
             this.GB_1.Text = "Propiedades del Elemento";
@@ -132,7 +132,7 @@
             this.P_2.ForeColor = System.Drawing.Color.White;
             this.P_2.Location = new System.Drawing.Point(3, 16);
             this.P_2.Name = "P_2";
-            this.P_2.Size = new System.Drawing.Size(278, 115);
+            this.P_2.Size = new System.Drawing.Size(278, 117);
             this.P_2.TabIndex = 0;
             // 
             // LB_m3
@@ -172,7 +172,7 @@
             // 
             this.BT_Aplicar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Aplicar.ForeColor = System.Drawing.Color.Black;
-            this.BT_Aplicar.Location = new System.Drawing.Point(202, 89);
+            this.BT_Aplicar.Location = new System.Drawing.Point(212, 87);
             this.BT_Aplicar.Name = "BT_Aplicar";
             this.BT_Aplicar.Size = new System.Drawing.Size(59, 23);
             this.BT_Aplicar.TabIndex = 10;
@@ -184,7 +184,7 @@
             // 
             this.BT_Cancelar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BT_Cancelar.ForeColor = System.Drawing.Color.Black;
-            this.BT_Cancelar.Location = new System.Drawing.Point(136, 89);
+            this.BT_Cancelar.Location = new System.Drawing.Point(147, 88);
             this.BT_Cancelar.Name = "BT_Cancelar";
             this.BT_Cancelar.Size = new System.Drawing.Size(59, 23);
             this.BT_Cancelar.TabIndex = 9;
@@ -338,7 +338,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(302, 239);
+            this.ClientSize = new System.Drawing.Size(301, 242);
             this.Controls.Add(this.GB_2);
             this.Controls.Add(this.GB_1);
             this.Controls.Add(this.P_1);
