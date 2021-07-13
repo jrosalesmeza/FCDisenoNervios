@@ -475,13 +475,12 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             if (Recuadro_ModoEdicion.IsSelect)
             {
                 e.DrawPolygon(PenBordeSeleccionado, Recuadro_ModoEdicion.Escaladas.ToArray());
+               
                 e.DrawPolygon(PenRecuadroMoverEstribos, Recuadro_MoverBloqueEstribos.Escaladas.ToArray());
                 e.FillPolygon(BrushMoverEstribos, Recuadro_MoverBloqueEstribos.Escaladas.ToArray());
 
-
                 e.DrawPolygon(PenRecuadroMoverEstribos, Recuadro_CambiarDireccionBloqueEstribos.Escaladas.ToArray());
                 e.FillPolygon(BrushRecuadroMoverEstribos, Recuadro_CambiarDireccionBloqueEstribos.Escaladas.ToArray());
-
             }
 
             ListaEstribos.ForEach(E =>
@@ -701,7 +700,11 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Nervio.Estribo
             return $"{Cantidad}E{cFunctionsProgram.ConvertireNoBarraToString(NoBarra)}@{string.Format("{0:0.00}",Math.Round(Separacion, cVariables.CifrasDeciLongBarra))}";
         }
 
-
+        public cBloqueEstribos Clone()
+        {
+            float x = direccionEstribo == eLadoDeZona.Derecha ? xi : xf;
+            return new cBloqueEstribos(ID, noBarra, cantidad, separacion, noRamas, x, DireccionEstribo, Tendencia_Estribo_Origen);
+        }
 
     }
 }

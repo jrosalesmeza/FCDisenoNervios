@@ -34,7 +34,7 @@ namespace FC_Diseño_de_Nervios
         {
             if (SelectMouseMove && isSelect)
             {
-                string NombreAMostrar = $"{Nombre} | {Seccion.Nombre}";
+                string NombreAMostrar = $"{Nombre} | {Seccion.Nombre} | {ConfigLinea.Direccion}";
                 Font Font1 = new Font("Calibri", 9, FontStyle.Bold);
                 PointF PointString = new PointF(WidthWindow/2 -e.MeasureString(NombreAMostrar, Font1).Width/2 , HeigthWindow / 2 - Font1.Height / 2);
                 e.DrawString(NombreAMostrar, Font1, Brushes.Black, PointString);

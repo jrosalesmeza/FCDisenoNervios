@@ -68,5 +68,17 @@ namespace FC_Diseño_de_Nervios
             return $"{Nombre} | {B}cmx{H}cm | Material: {Material.Nombre}";
         }
 
+        //public static bool operator ==(cSeccion seccion1, cSeccion seccion2)
+        //{
+        //    if (seccion1 is null || seccion2 is null)
+        //        return false;
+        //    return (seccion1 is null && seccion2 is null) || seccion1.B == seccion2.B && seccion1.H == seccion2.H && seccion1.Material.fc == seccion2.Material.fc && seccion1.Material.fy == seccion2.Material.fy;
+        //}
+        //public static bool operator !=(cSeccion seccion1, cSeccion seccion2)
+        //{
+        //    return seccion1 is null || seccion2 is null || seccion1.B != seccion2.B || seccion1.H != seccion2.H || seccion1.Material.fc != seccion2.Material.fc || seccion1.Material.fy != seccion2.Material.fy;
+
+        //}
+
     }
 }

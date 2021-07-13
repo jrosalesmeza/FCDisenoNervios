@@ -104,7 +104,7 @@ namespace FC_Diseño_de_Nervios
                 }
                 else
                 {
-                    if (Objeto.Line.Seccion == Lista_Iniciales.Last().Seccion)
+                    if (SonIguales(Objeto.Line.Seccion , Lista_Iniciales.Last().Seccion))
                     {
                         Lista_Iniciales.Add(Objeto.Line);
                     }
@@ -139,7 +139,10 @@ namespace FC_Diseño_de_Nervios
 
 
 
-
+        private bool SonIguales(cSeccion seccion1, cSeccion seccion2)
+        {
+            return (seccion1 is null && seccion2 is null) || seccion1.B == seccion2.B && seccion1.H == seccion2.H && seccion1.Material.fc == seccion2.Material.fc && seccion1.Material.fy == seccion2.Material.fy;
+        }
 
         public bool IsVoladizoIzquierda()
         {

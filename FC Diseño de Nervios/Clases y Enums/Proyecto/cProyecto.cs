@@ -47,6 +47,55 @@ namespace FC_Diseño_de_Nervios
         public eNomenclatura Nomenclatura_Hztal { get; set; } = eNomenclatura.Alfabética;
         public eNomenclatura Nomenclatura_Vert { get; set; } = eNomenclatura.Numérica;
 
+
+        private eNomenclatura nomenclaturaDiagonalNegativa{ get; set; } = eNomenclatura.Alfabética;
+        private eNomenclatura nomenclaturaDiagonalPositiva { get; set; } = eNomenclatura.Numérica;
+
+        private bool nomenclaturaDiagonal=false;
+        public bool NomenclaturaDiagonal
+        {
+            get
+            {
+                return nomenclaturaDiagonal;
+            }
+            set
+            {
+                if (value != nomenclaturaDiagonal)
+                {
+                    nomenclaturaDiagonal = value;
+                }
+            }
+        }
+        public eNomenclatura NomenclaturaDiagonalNegativa
+        {
+            get
+            {
+                return nomenclaturaDiagonalNegativa;
+            }
+            set
+            {
+                if (value != nomenclaturaDiagonalNegativa)
+                {
+                    nomenclaturaDiagonalNegativa = value;
+                }
+            }
+        }
+        public eNomenclatura NomenclaturaDiagonalPositiva
+        {
+            get
+            {
+                return nomenclaturaDiagonalPositiva;
+            }
+            set
+            {
+                if (value != nomenclaturaDiagonalPositiva)
+                {
+                    nomenclaturaDiagonalPositiva = value;
+                }
+            }
+        }
+
+
         #region Funciones Proyecto
 
 

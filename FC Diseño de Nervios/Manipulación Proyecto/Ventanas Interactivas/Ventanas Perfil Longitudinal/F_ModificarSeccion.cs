@@ -131,7 +131,9 @@ namespace FC_Diseño_de_Nervios
 
                 }
                 ElementoSeleccionado.Vistas.SelectPerfilLongitudinal = false;
-                F_Base.ActualizarTodosLasVentanas();
+                F_Base.ActualizarVentanaF_NervioEnPerfilLongitudinal();
+                F_Base.F_SelectNervio.ChangeComboBox(); 
+                //F_Base.ActualizarTodosLasVentanas();
                 Close();
 
             }

@@ -32,6 +32,7 @@
             this.P_1 = new System.Windows.Forms.Panel();
             this.DP_PanelContenedor = new WeifenLuo.WinFormsUI.Docking.DockPanel();
             this.GB_Propiedades = new System.Windows.Forms.GroupBox();
+            this.BT_EditarNombre = new FontAwesome.Sharp.IconButton();
             this.GB_Similitud = new System.Windows.Forms.GroupBox();
             this.CKB_Maestro = new System.Windows.Forms.CheckBox();
             this.LB_NervioSimilarA = new System.Windows.Forms.Label();
@@ -102,6 +103,7 @@
             // 
             this.GB_Propiedades.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.GB_Propiedades.BackColor = System.Drawing.Color.LightGray;
+            this.GB_Propiedades.Controls.Add(this.BT_EditarNombre);
             this.GB_Propiedades.Controls.Add(this.GB_Similitud);
             this.GB_Propiedades.Controls.Add(this.CKB_NervioBorde);
             this.GB_Propiedades.Controls.Add(this.PB_Info);
@@ -121,6 +123,20 @@
             this.GB_Propiedades.TabIndex = 10;
             this.GB_Propiedades.TabStop = false;
             this.GB_Propiedades.Text = "N - X | Piso X ";
+            // 
+            // BT_EditarNombre
+            // 
+            this.BT_EditarNombre.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.BT_EditarNombre.IconChar = FontAwesome.Sharp.IconChar.Edit;
+            this.BT_EditarNombre.IconColor = System.Drawing.Color.Black;
+            this.BT_EditarNombre.IconSize = 16;
+            this.BT_EditarNombre.Location = new System.Drawing.Point(137, 0);
+            this.BT_EditarNombre.Name = "BT_EditarNombre";
+            this.BT_EditarNombre.Rotation = 0D;
+            this.BT_EditarNombre.Size = new System.Drawing.Size(19, 17);
+            this.BT_EditarNombre.TabIndex = 23;
+            this.BT_EditarNombre.UseVisualStyleBackColor = true;
+            this.BT_EditarNombre.Click += new System.EventHandler(this.BT_EditarNombre_Click);
             // 
             // GB_Similitud
             // 
@@ -456,7 +472,6 @@
             this.Name = "F_SelectNervio";
             this.Text = "Seleccionar Nervio";
             this.Load += new System.EventHandler(this.F_SelectNervio_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.F_SelectNervio_Paint);
             this.P_1.ResumeLayout(false);
             this.GB_Propiedades.ResumeLayout(false);
             this.GB_Propiedades.PerformLayout();
@@ -508,5 +523,6 @@
         private System.Windows.Forms.CheckBox CKB_Maestro;
         private System.Windows.Forms.Label LB_NervioSimilarA;
         private WeifenLuo.WinFormsUI.Docking.DockPanel DP_PanelContenedor;
+        private FontAwesome.Sharp.IconButton BT_EditarNombre;
     }
 }

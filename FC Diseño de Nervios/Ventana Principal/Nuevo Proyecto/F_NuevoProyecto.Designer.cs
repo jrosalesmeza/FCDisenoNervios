@@ -141,9 +141,9 @@
             this.LB_e2k.ForeColor = System.Drawing.Color.Black;
             this.LB_e2k.Location = new System.Drawing.Point(33, 25);
             this.LB_e2k.Name = "LB_e2k";
-            this.LB_e2k.Size = new System.Drawing.Size(148, 14);
+            this.LB_e2k.Size = new System.Drawing.Size(227, 14);
             this.LB_e2k.TabIndex = 10;
-            this.LB_e2k.Text = "Archivo ETABS e2k, $et V.9.5";
+            this.LB_e2k.Text = "Archivo ETABS e2k, $et v.9.5, v.2016 - v.2018";
             // 
             // TB_Ruta2
             // 

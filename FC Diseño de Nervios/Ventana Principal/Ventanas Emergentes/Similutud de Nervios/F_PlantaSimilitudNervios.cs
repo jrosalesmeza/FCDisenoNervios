@@ -260,7 +260,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal.Ventanas_Emergentes.Similutud_
                 GrupoNervios.AddRange(Piso.Nervios.FindAll(y => y.SelectSimilar));
             });
             GrupoNervios.RemoveAll(y => y == null);
-            if (GrupoNervios.Count > 0)
+            if (GrupoNervios.Count > 1)
             {
                 F_AgrupacionSimilitudNervios f_AgrupacionSimilitud = new F_AgrupacionSimilitudNervios(GrupoNervios);
                 f_AgrupacionSimilitud.ShowDialog();

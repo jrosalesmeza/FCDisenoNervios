@@ -38,11 +38,6 @@
             this.CMS_EditarPisos = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.GB_1 = new System.Windows.Forms.GroupBox();
-            this.GB_Nomenclatura = new System.Windows.Forms.GroupBox();
-            this.CB_Nomenclatura_Vertical = new System.Windows.Forms.ComboBox();
-            this.LB_2 = new System.Windows.Forms.Label();
-            this.LB_1 = new System.Windows.Forms.Label();
-            this.CB_Nomenclatura_Hztal = new System.Windows.Forms.ComboBox();
             this.GB_3 = new System.Windows.Forms.GroupBox();
             this.PB_InfoElementos_Enumerados = new System.Windows.Forms.PictureBox();
             this.PB_ElementosEnumerados = new System.Windows.Forms.PictureBox();
@@ -54,6 +49,15 @@
             this.limpirarSeleccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LB_Pisos = new System.Windows.Forms.Label();
             this.GB_Controles = new System.Windows.Forms.GroupBox();
+            this.LB_5 = new System.Windows.Forms.Label();
+            this.TB_Nombre = new System.Windows.Forms.TextBox();
+            this.GB_Nomenclatura = new System.Windows.Forms.GroupBox();
+            this.BT_Editar = new System.Windows.Forms.Button();
+            this.CBX_NomenclaturaDiagonal = new System.Windows.Forms.CheckBox();
+            this.CB_Nomenclatura_Vertical = new System.Windows.Forms.ComboBox();
+            this.LB_2 = new System.Windows.Forms.Label();
+            this.LB_1 = new System.Windows.Forms.Label();
+            this.CB_Nomenclatura_Hztal = new System.Windows.Forms.ComboBox();
             this.GB_Enumerar = new System.Windows.Forms.GroupBox();
             this.BT_Regresar = new System.Windows.Forms.Button();
             this.BT_Enumerar = new System.Windows.Forms.Button();
@@ -72,13 +76,11 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.TLB_EditarPiso = new System.Windows.Forms.ToolStripButton();
             this.TLSB_LimpiarSeleccion = new System.Windows.Forms.ToolStripButton();
-            this.LB_5 = new System.Windows.Forms.Label();
-            this.TB_Nombre = new System.Windows.Forms.TextBox();
+            this.TSB_UnirNervio = new System.Windows.Forms.ToolStripButton();
             this.P_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_EnumeracionElementos)).BeginInit();
             this.CMS_EditarPisos.SuspendLayout();
             this.GB_1.SuspendLayout();
-            this.GB_Nomenclatura.SuspendLayout();
             this.GB_3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementos_Enumerados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).BeginInit();
@@ -87,6 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosNoEnumerados)).BeginInit();
             this.CMS_1.SuspendLayout();
             this.GB_Controles.SuspendLayout();
+            this.GB_Nomenclatura.SuspendLayout();
             this.GB_Enumerar.SuspendLayout();
             this.CMS_Undo_Redo.SuspendLayout();
             this.P_Contenedor.SuspendLayout();
@@ -184,71 +187,9 @@
             this.GB_1.Controls.Add(this.LV_Stories);
             this.GB_1.Location = new System.Drawing.Point(10, 51);
             this.GB_1.Name = "GB_1";
-            this.GB_1.Size = new System.Drawing.Size(1298, 640);
+            this.GB_1.Size = new System.Drawing.Size(1298, 655);
             this.GB_1.TabIndex = 3;
             this.GB_1.TabStop = false;
-            // 
-            // GB_Nomenclatura
-            // 
-            this.GB_Nomenclatura.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.GB_Nomenclatura.Controls.Add(this.CB_Nomenclatura_Vertical);
-            this.GB_Nomenclatura.Controls.Add(this.LB_2);
-            this.GB_Nomenclatura.Controls.Add(this.LB_1);
-            this.GB_Nomenclatura.Controls.Add(this.CB_Nomenclatura_Hztal);
-            this.GB_Nomenclatura.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GB_Nomenclatura.ForeColor = System.Drawing.Color.DarkRed;
-            this.GB_Nomenclatura.Location = new System.Drawing.Point(4, 122);
-            this.GB_Nomenclatura.Name = "GB_Nomenclatura";
-            this.GB_Nomenclatura.Size = new System.Drawing.Size(150, 79);
-            this.GB_Nomenclatura.TabIndex = 10;
-            this.GB_Nomenclatura.TabStop = false;
-            this.GB_Nomenclatura.Text = "Nomenclatura";
-            // 
-            // CB_Nomenclatura_Vertical
-            // 
-            this.CB_Nomenclatura_Vertical.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_Nomenclatura_Vertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CB_Nomenclatura_Vertical.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CB_Nomenclatura_Vertical.FormattingEnabled = true;
-            this.CB_Nomenclatura_Vertical.Location = new System.Drawing.Point(71, 48);
-            this.CB_Nomenclatura_Vertical.Name = "CB_Nomenclatura_Vertical";
-            this.CB_Nomenclatura_Vertical.Size = new System.Drawing.Size(75, 21);
-            this.CB_Nomenclatura_Vertical.TabIndex = 4;
-            this.CB_Nomenclatura_Vertical.SelectedIndexChanged += new System.EventHandler(this.CB_Nomenclatura_Vertical_SelectedIndexChanged);
-            // 
-            // LB_2
-            // 
-            this.LB_2.AutoSize = true;
-            this.LB_2.Font = new System.Drawing.Font("Calibri", 9F);
-            this.LB_2.ForeColor = System.Drawing.Color.Black;
-            this.LB_2.Location = new System.Drawing.Point(5, 51);
-            this.LB_2.Name = "LB_2";
-            this.LB_2.Size = new System.Drawing.Size(50, 14);
-            this.LB_2.TabIndex = 3;
-            this.LB_2.Text = "Vertical:";
-            // 
-            // LB_1
-            // 
-            this.LB_1.AutoSize = true;
-            this.LB_1.Font = new System.Drawing.Font("Calibri", 9F);
-            this.LB_1.ForeColor = System.Drawing.Color.Black;
-            this.LB_1.Location = new System.Drawing.Point(5, 22);
-            this.LB_1.Name = "LB_1";
-            this.LB_1.Size = new System.Drawing.Size(67, 14);
-            this.LB_1.TabIndex = 3;
-            this.LB_1.Text = "Horizontal:";
-            // 
-            // CB_Nomenclatura_Hztal
-            // 
-            this.CB_Nomenclatura_Hztal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CB_Nomenclatura_Hztal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CB_Nomenclatura_Hztal.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CB_Nomenclatura_Hztal.FormattingEnabled = true;
-            this.CB_Nomenclatura_Hztal.Location = new System.Drawing.Point(71, 18);
-            this.CB_Nomenclatura_Hztal.Name = "CB_Nomenclatura_Hztal";
-            this.CB_Nomenclatura_Hztal.Size = new System.Drawing.Size(75, 21);
-            this.CB_Nomenclatura_Hztal.TabIndex = 0;
-            this.CB_Nomenclatura_Hztal.SelectedIndexChanged += new System.EventHandler(this.CB_Nomenclatura_Hztal_SelectedIndexChanged);
             // 
             // GB_3
             // 
@@ -258,14 +199,14 @@
             this.GB_3.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_3.Location = new System.Drawing.Point(732, 13);
             this.GB_3.Name = "GB_3";
-            this.GB_3.Size = new System.Drawing.Size(558, 623);
+            this.GB_3.Size = new System.Drawing.Size(558, 636);
             this.GB_3.TabIndex = 8;
             this.GB_3.TabStop = false;
             this.GB_3.Text = "Elementos Enumerados";
             // 
             // PB_InfoElementos_Enumerados
             // 
-            this.PB_InfoElementos_Enumerados.Location = new System.Drawing.Point(23, 583);
+            this.PB_InfoElementos_Enumerados.Location = new System.Drawing.Point(11, 603);
             this.PB_InfoElementos_Enumerados.Name = "PB_InfoElementos_Enumerados";
             this.PB_InfoElementos_Enumerados.Size = new System.Drawing.Size(76, 27);
             this.PB_InfoElementos_Enumerados.TabIndex = 5;
@@ -277,7 +218,7 @@
             this.PB_ElementosEnumerados.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PB_ElementosEnumerados.Location = new System.Drawing.Point(6, 18);
             this.PB_ElementosEnumerados.Name = "PB_ElementosEnumerados";
-            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(545, 599);
+            this.PB_ElementosEnumerados.Size = new System.Drawing.Size(545, 615);
             this.PB_ElementosEnumerados.TabIndex = 4;
             this.PB_ElementosEnumerados.TabStop = false;
             this.PB_ElementosEnumerados.MouseDown += new System.Windows.Forms.MouseEventHandler(this.PB_ElementosEnumerados_MouseDown);
@@ -291,16 +232,16 @@
             this.GB_2.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_2.Location = new System.Drawing.Point(172, 13);
             this.GB_2.Name = "GB_2";
-            this.GB_2.Size = new System.Drawing.Size(554, 623);
+            this.GB_2.Size = new System.Drawing.Size(554, 642);
             this.GB_2.TabIndex = 7;
             this.GB_2.TabStop = false;
             this.GB_2.Text = "Elementos sin Enumerar";
             // 
             // PB_InfoElementosNoEnumerados
             // 
-            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(17, 583);
+            this.PB_InfoElementosNoEnumerados.Location = new System.Drawing.Point(6, 601);
             this.PB_InfoElementosNoEnumerados.Name = "PB_InfoElementosNoEnumerados";
-            this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(126, 29);
+            this.PB_InfoElementosNoEnumerados.Size = new System.Drawing.Size(216, 29);
             this.PB_InfoElementosNoEnumerados.TabIndex = 4;
             this.PB_InfoElementosNoEnumerados.TabStop = false;
             this.PB_InfoElementosNoEnumerados.Visible = false;
@@ -313,7 +254,7 @@
             this.PB_ElementosNoEnumerados.ContextMenuStrip = this.CMS_1;
             this.PB_ElementosNoEnumerados.Location = new System.Drawing.Point(4, 18);
             this.PB_ElementosNoEnumerados.Name = "PB_ElementosNoEnumerados";
-            this.PB_ElementosNoEnumerados.Size = new System.Drawing.Size(545, 600);
+            this.PB_ElementosNoEnumerados.Size = new System.Drawing.Size(545, 618);
             this.PB_ElementosNoEnumerados.TabIndex = 3;
             this.PB_ElementosNoEnumerados.TabStop = false;
             this.PB_ElementosNoEnumerados.Paint += new System.Windows.Forms.PaintEventHandler(this.PB_ElementosNoEnumerados_Paint);
@@ -371,10 +312,121 @@
             this.GB_Controles.ForeColor = System.Drawing.Color.DarkRed;
             this.GB_Controles.Location = new System.Drawing.Point(6, 288);
             this.GB_Controles.Name = "GB_Controles";
-            this.GB_Controles.Size = new System.Drawing.Size(160, 343);
+            this.GB_Controles.Size = new System.Drawing.Size(160, 358);
             this.GB_Controles.TabIndex = 5;
             this.GB_Controles.TabStop = false;
             this.GB_Controles.Text = "Controles";
+            // 
+            // LB_5
+            // 
+            this.LB_5.AutoSize = true;
+            this.LB_5.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_5.ForeColor = System.Drawing.Color.Black;
+            this.LB_5.Location = new System.Drawing.Point(14, 91);
+            this.LB_5.Name = "LB_5";
+            this.LB_5.Size = new System.Drawing.Size(56, 14);
+            this.LB_5.TabIndex = 12;
+            this.LB_5.Text = "Nombre: ";
+            // 
+            // TB_Nombre
+            // 
+            this.TB_Nombre.Enabled = false;
+            this.TB_Nombre.Location = new System.Drawing.Point(75, 88);
+            this.TB_Nombre.Name = "TB_Nombre";
+            this.TB_Nombre.Size = new System.Drawing.Size(61, 22);
+            this.TB_Nombre.TabIndex = 11;
+            // 
+            // GB_Nomenclatura
+            // 
+            this.GB_Nomenclatura.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.GB_Nomenclatura.Controls.Add(this.BT_Editar);
+            this.GB_Nomenclatura.Controls.Add(this.CBX_NomenclaturaDiagonal);
+            this.GB_Nomenclatura.Controls.Add(this.CB_Nomenclatura_Vertical);
+            this.GB_Nomenclatura.Controls.Add(this.LB_2);
+            this.GB_Nomenclatura.Controls.Add(this.LB_1);
+            this.GB_Nomenclatura.Controls.Add(this.CB_Nomenclatura_Hztal);
+            this.GB_Nomenclatura.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GB_Nomenclatura.ForeColor = System.Drawing.Color.DarkRed;
+            this.GB_Nomenclatura.Location = new System.Drawing.Point(4, 122);
+            this.GB_Nomenclatura.Name = "GB_Nomenclatura";
+            this.GB_Nomenclatura.Size = new System.Drawing.Size(150, 104);
+            this.GB_Nomenclatura.TabIndex = 10;
+            this.GB_Nomenclatura.TabStop = false;
+            this.GB_Nomenclatura.Text = "Nomenclatura";
+            // 
+            // BT_Editar
+            // 
+            this.BT_Editar.FlatAppearance.BorderColor = System.Drawing.Color.Silver;
+            this.BT_Editar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BT_Editar.Font = new System.Drawing.Font("Calibri", 9F);
+            this.BT_Editar.ForeColor = System.Drawing.Color.Black;
+            this.BT_Editar.Location = new System.Drawing.Point(85, 73);
+            this.BT_Editar.Name = "BT_Editar";
+            this.BT_Editar.Size = new System.Drawing.Size(59, 22);
+            this.BT_Editar.TabIndex = 6;
+            this.BT_Editar.Text = "Editar";
+            this.BT_Editar.UseVisualStyleBackColor = true;
+            this.BT_Editar.Click += new System.EventHandler(this.BT_Editar_Click);
+            // 
+            // CBX_NomenclaturaDiagonal
+            // 
+            this.CBX_NomenclaturaDiagonal.AutoSize = true;
+            this.CBX_NomenclaturaDiagonal.Font = new System.Drawing.Font("Calibri", 9F);
+            this.CBX_NomenclaturaDiagonal.ForeColor = System.Drawing.Color.Black;
+            this.CBX_NomenclaturaDiagonal.Location = new System.Drawing.Point(6, 75);
+            this.CBX_NomenclaturaDiagonal.Name = "CBX_NomenclaturaDiagonal";
+            this.CBX_NomenclaturaDiagonal.Size = new System.Drawing.Size(76, 18);
+            this.CBX_NomenclaturaDiagonal.TabIndex = 13;
+            this.CBX_NomenclaturaDiagonal.Text = "Diagonal";
+            this.CBX_NomenclaturaDiagonal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CBX_NomenclaturaDiagonal.UseVisualStyleBackColor = true;
+            this.CBX_NomenclaturaDiagonal.CheckedChanged += new System.EventHandler(this.CBX_NomenclaturaDiagonal_CheckedChanged);
+            // 
+            // CB_Nomenclatura_Vertical
+            // 
+            this.CB_Nomenclatura_Vertical.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_Nomenclatura_Vertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CB_Nomenclatura_Vertical.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CB_Nomenclatura_Vertical.FormattingEnabled = true;
+            this.CB_Nomenclatura_Vertical.Location = new System.Drawing.Point(71, 48);
+            this.CB_Nomenclatura_Vertical.Name = "CB_Nomenclatura_Vertical";
+            this.CB_Nomenclatura_Vertical.Size = new System.Drawing.Size(75, 21);
+            this.CB_Nomenclatura_Vertical.TabIndex = 4;
+            this.CB_Nomenclatura_Vertical.SelectedIndexChanged += new System.EventHandler(this.CB_Nomenclatura_Vertical_SelectedIndexChanged);
+            // 
+            // LB_2
+            // 
+            this.LB_2.AutoSize = true;
+            this.LB_2.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_2.ForeColor = System.Drawing.Color.Black;
+            this.LB_2.Location = new System.Drawing.Point(5, 51);
+            this.LB_2.Name = "LB_2";
+            this.LB_2.Size = new System.Drawing.Size(50, 14);
+            this.LB_2.TabIndex = 3;
+            this.LB_2.Text = "Vertical:";
+            // 
+            // LB_1
+            // 
+            this.LB_1.AutoSize = true;
+            this.LB_1.Font = new System.Drawing.Font("Calibri", 9F);
+            this.LB_1.ForeColor = System.Drawing.Color.Black;
+            this.LB_1.Location = new System.Drawing.Point(5, 22);
+            this.LB_1.Name = "LB_1";
+            this.LB_1.Size = new System.Drawing.Size(67, 14);
+            this.LB_1.TabIndex = 3;
+            this.LB_1.Text = "Horizontal:";
+            // 
+            // CB_Nomenclatura_Hztal
+            // 
+            this.CB_Nomenclatura_Hztal.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CB_Nomenclatura_Hztal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CB_Nomenclatura_Hztal.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CB_Nomenclatura_Hztal.FormattingEnabled = true;
+            this.CB_Nomenclatura_Hztal.Location = new System.Drawing.Point(71, 18);
+            this.CB_Nomenclatura_Hztal.Name = "CB_Nomenclatura_Hztal";
+            this.CB_Nomenclatura_Hztal.Size = new System.Drawing.Size(75, 21);
+            this.CB_Nomenclatura_Hztal.TabIndex = 0;
+            this.CB_Nomenclatura_Hztal.SelectedIndexChanged += new System.EventHandler(this.CB_Nomenclatura_Hztal_SelectedIndexChanged);
             // 
             // GB_Enumerar
             // 
@@ -384,9 +436,9 @@
             this.GB_Enumerar.Controls.Add(this.BT_CrtierioFC);
             this.GB_Enumerar.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GB_Enumerar.ForeColor = System.Drawing.Color.DarkRed;
-            this.GB_Enumerar.Location = new System.Drawing.Point(4, 207);
+            this.GB_Enumerar.Location = new System.Drawing.Point(4, 244);
             this.GB_Enumerar.Name = "GB_Enumerar";
-            this.GB_Enumerar.Size = new System.Drawing.Size(150, 130);
+            this.GB_Enumerar.Size = new System.Drawing.Size(150, 111);
             this.GB_Enumerar.TabIndex = 9;
             this.GB_Enumerar.TabStop = false;
             this.GB_Enumerar.Text = "Enumerar";
@@ -396,7 +448,7 @@
             this.BT_Regresar.FlatAppearance.BorderSize = 0;
             this.BT_Regresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_Regresar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Regresar.Image")));
-            this.BT_Regresar.Location = new System.Drawing.Point(37, 22);
+            this.BT_Regresar.Location = new System.Drawing.Point(37, 21);
             this.BT_Regresar.Name = "BT_Regresar";
             this.BT_Regresar.Size = new System.Drawing.Size(35, 28);
             this.BT_Regresar.TabIndex = 4;
@@ -408,7 +460,7 @@
             this.BT_Enumerar.FlatAppearance.BorderSize = 0;
             this.BT_Enumerar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BT_Enumerar.Image = ((System.Drawing.Image)(resources.GetObject("BT_Enumerar.Image")));
-            this.BT_Enumerar.Location = new System.Drawing.Point(80, 22);
+            this.BT_Enumerar.Location = new System.Drawing.Point(73, 21);
             this.BT_Enumerar.Name = "BT_Enumerar";
             this.BT_Enumerar.Size = new System.Drawing.Size(38, 28);
             this.BT_Enumerar.TabIndex = 0;
@@ -423,7 +475,7 @@
             this.BT_CrtierioFC.ForeColor = System.Drawing.Color.Black;
             this.BT_CrtierioFC.Image = ((System.Drawing.Image)(resources.GetObject("BT_CrtierioFC.Image")));
             this.BT_CrtierioFC.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BT_CrtierioFC.Location = new System.Drawing.Point(15, 58);
+            this.BT_CrtierioFC.Location = new System.Drawing.Point(18, 55);
             this.BT_CrtierioFC.Name = "BT_CrtierioFC";
             this.BT_CrtierioFC.Size = new System.Drawing.Size(120, 47);
             this.BT_CrtierioFC.TabIndex = 5;
@@ -501,7 +553,7 @@
             this.P_Contenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.P_Contenedor.Location = new System.Drawing.Point(0, 23);
             this.P_Contenedor.Name = "P_Contenedor";
-            this.P_Contenedor.Size = new System.Drawing.Size(1317, 677);
+            this.P_Contenedor.Size = new System.Drawing.Size(1317, 687);
             this.P_Contenedor.TabIndex = 4;
             // 
             // TLS_1
@@ -511,7 +563,8 @@
             this.TLSB_Rehacer,
             this.toolStripSeparator1,
             this.TLB_EditarPiso,
-            this.TLSB_LimpiarSeleccion});
+            this.TLSB_LimpiarSeleccion,
+            this.TSB_UnirNervio});
             this.TLS_1.Location = new System.Drawing.Point(0, 0);
             this.TLS_1.Name = "TLS_1";
             this.TLS_1.Size = new System.Drawing.Size(1315, 28);
@@ -567,31 +620,22 @@
             this.TLSB_LimpiarSeleccion.Text = "Limpiar Selección";
             this.TLSB_LimpiarSeleccion.Click += new System.EventHandler(this.limpirarSeleccionToolStripMenuItem_Click);
             // 
-            // LB_5
+            // TSB_UnirNervio
             // 
-            this.LB_5.AutoSize = true;
-            this.LB_5.Font = new System.Drawing.Font("Calibri", 9F);
-            this.LB_5.ForeColor = System.Drawing.Color.Black;
-            this.LB_5.Location = new System.Drawing.Point(14, 91);
-            this.LB_5.Name = "LB_5";
-            this.LB_5.Size = new System.Drawing.Size(56, 14);
-            this.LB_5.TabIndex = 12;
-            this.LB_5.Text = "Nombre: ";
-            // 
-            // TB_Nombre
-            // 
-            this.TB_Nombre.Enabled = false;
-            this.TB_Nombre.Location = new System.Drawing.Point(75, 88);
-            this.TB_Nombre.Name = "TB_Nombre";
-            this.TB_Nombre.Size = new System.Drawing.Size(61, 22);
-            this.TB_Nombre.TabIndex = 11;
+            this.TSB_UnirNervio.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.TSB_UnirNervio.Image = ((System.Drawing.Image)(resources.GetObject("TSB_UnirNervio.Image")));
+            this.TSB_UnirNervio.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TSB_UnirNervio.Name = "TSB_UnirNervio";
+            this.TSB_UnirNervio.Size = new System.Drawing.Size(23, 25);
+            this.TSB_UnirNervio.Text = "Unir Nervios";
+            this.TSB_UnirNervio.Click += new System.EventHandler(this.TSB_UnirNervio_Click);
             // 
             // F_EnumeracionPortico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.ClientSize = new System.Drawing.Size(1317, 700);
+            this.ClientSize = new System.Drawing.Size(1317, 710);
             this.ContextMenuStrip = this.CMS_Undo_Redo;
             this.Controls.Add(this.GB_1);
             this.Controls.Add(this.P_Contenedor);
@@ -599,7 +643,8 @@
             this.Font = new System.Drawing.Font("Calibri", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(1317, 700);
+            this.MaximumSize = new System.Drawing.Size(1317, 710);
+            this.MinimumSize = new System.Drawing.Size(1317, 710);
             this.Name = "F_EnumeracionPortico";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nuevo Proyecto";
@@ -612,8 +657,6 @@
             this.CMS_EditarPisos.ResumeLayout(false);
             this.GB_1.ResumeLayout(false);
             this.GB_1.PerformLayout();
-            this.GB_Nomenclatura.ResumeLayout(false);
-            this.GB_Nomenclatura.PerformLayout();
             this.GB_3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PB_InfoElementos_Enumerados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.PB_ElementosEnumerados)).EndInit();
@@ -623,6 +666,8 @@
             this.CMS_1.ResumeLayout(false);
             this.GB_Controles.ResumeLayout(false);
             this.GB_Controles.PerformLayout();
+            this.GB_Nomenclatura.ResumeLayout(false);
+            this.GB_Nomenclatura.PerformLayout();
             this.GB_Enumerar.ResumeLayout(false);
             this.CMS_Undo_Redo.ResumeLayout(false);
             this.P_Contenedor.ResumeLayout(false);
@@ -680,5 +725,8 @@
         private System.Windows.Forms.ToolStripButton TLSB_LimpiarSeleccion;
         private System.Windows.Forms.Label LB_5;
         private System.Windows.Forms.TextBox TB_Nombre;
+        private System.Windows.Forms.Button BT_Editar;
+        private System.Windows.Forms.CheckBox CBX_NomenclaturaDiagonal;
+        private System.Windows.Forms.ToolStripButton TSB_UnirNervio;
     }
 }

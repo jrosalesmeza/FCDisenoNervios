@@ -576,8 +576,12 @@ namespace FC_Diseño_de_Nervios
 
 
         private bool AplicarCambiosXFiXI(float Long){
-            float LongiMaximaConGancho = TendenciaOrigen.MaximaLongitud - cDiccionarios.LDGancho(NoBarra, ganchoDerecha) - cDiccionarios.LDGancho(NoBarra, ganchoIzquierdo);
-            return (Long >= TendenciaOrigen.MinimaLongitud && Long <= LongiMaximaConGancho);
+
+
+            float LongGanchos = cDiccionarios.LDGancho(NoBarra, ganchoDerecha) + cDiccionarios.LDGancho(NoBarra, ganchoIzquierdo);
+            float LongiMaximaConGancho = tendenciaOrigen.MaximaLongitud - LongGanchos;
+            bool return1 = (Math.Round(Long + LongGanchos, 2) >= Math.Round(tendenciaOrigen.MinimaLongitud, 2)) && (Math.Round(Long, 2) <= Math.Round(LongiMaximaConGancho, 2));
+            return return1;
 
         }
 
@@ -934,7 +938,24 @@ namespace FC_Diseño_de_Nervios
             return Puntos180;
 
         }
-
+        public cBarra Clone()
+        {
+            var temp = new cBarra(ID, tendenciaOrigen, NoBarra, UbicacionRefuerzo, CantBarra, XI, XF)
+            {
+                AreaTotal = AreaTotal,
+                SubNivel = SubNivel,
+                nivel = nivel,
+                traslapoDerecha = traslapoDerecha,
+                traslapoIzquieda = traslapoIzquieda,
+                Peso = Peso,
+                cantBarra = cantBarra,
+                LimiteDerecho = LimiteDerecho,
+                LimiteIzquierdo = LimiteIzquierdo,
+                ganchoDerecha = ganchoDerecha,
+                ganchoIzquierdo = ganchoIzquierdo,
+            };
+            return temp;
+        }
 
     }
 }

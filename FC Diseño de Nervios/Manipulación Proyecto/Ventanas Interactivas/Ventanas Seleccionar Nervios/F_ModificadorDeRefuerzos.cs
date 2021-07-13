@@ -70,7 +70,7 @@ namespace FC_Diseño_de_Nervios
                 }
             }
         }
-         private void LoadWindow()
+        private void LoadWindow()
         {
             CB_NoBarra.Items.Clear();
             cFunctionsProgram.NoBarras.Remove(eNoBarra.BNone);
@@ -376,7 +376,6 @@ namespace FC_Diseño_de_Nervios
             NUD_NoRamas.Value = bloqueEstribosSelect.NoRamas;
             TB_Separacion.Text = string.Format("{0:0.00}",bloqueEstribosSelect.Separacion * cConversiones.Dimension_m_to_cm);
             ActualizarValores();
-
         }
 
         private void CB_NoBarra2_SelectedIndexChanged(object sender, EventArgs e)

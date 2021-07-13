@@ -88,7 +88,7 @@ namespace FC_Diseño_de_Nervios
             Barras.ForEach(x => { x.Nivel = 1; x.TraslapoIzquierda = false; x.TraslpaoDerecha = false; x.SubNivel = 0; });
             Barras = Barras.OrderByDescending(x => x.LongitudRecta).ToList();
 
-            //Asigna Niveles
+            //Asignar Niveles
             Barras.ForEach(Barra0 => { CompararBarras(Barra0, Barras); });
 
             //Ordenar barras de izquierda a derecha asignadon valores numericos

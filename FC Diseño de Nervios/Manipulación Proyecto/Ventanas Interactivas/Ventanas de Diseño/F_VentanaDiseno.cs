@@ -165,7 +165,8 @@ namespace FC_Diseño_de_Nervios
             F_Base.EnviarEstado_Nervio(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect);
             if (F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.Barras.Count == 0)
             {
-                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.AgregarBarra(cFunctionsProgram.CrearBarraDefault(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect, eUbicacionRefuerzo.Inferior));
+                F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect.
+                    AgregarBarra(cFunctionsProgram.CrearBarraDefault(F_Base.Proyecto.Edificio.PisoSelect.NervioSelect.Tendencia_Refuerzos.TInfeSelect, eUbicacionRefuerzo.Inferior));
             }
             else
             {

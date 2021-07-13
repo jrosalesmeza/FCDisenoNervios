@@ -111,7 +111,8 @@ namespace FC_Diseño_de_Nervios
         private void Envolvente_CambioCrearEnvolvente()
         {
             float B = CalculosOrigen.SubtramoOrigen.Seccion.B; float H = CalculosOrigen.SubtramoOrigen.Seccion.H; float fc = CalculosOrigen.SubtramoOrigen.Seccion.Material.fc;
-            float d1 = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen.r1+ cDiccionarios.DiametrosBarras[eNoBarra.B3]/2f + cVariables.DiametroEstriboPredeterminado; float d2 = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen.r2+ cDiccionarios.DiametrosBarras[eNoBarra.B3] / 2f + cVariables.DiametroEstriboPredeterminado;
+            float d1 = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen.r1+ cDiccionarios.DiametrosBarras[eNoBarra.B3]/2f + cVariables.DiametroEstriboPredeterminado; 
+            float d2 = CalculosOrigen.SubtramoOrigen.TramoOrigen.NervioOrigen.r2+ cDiccionarios.DiametrosBarras[eNoBarra.B3] / 2f + cVariables.DiametroEstriboPredeterminado;
             float fy = CalculosOrigen.SubtramoOrigen.Seccion.Material.fy;float M3_0 = Math.Abs(M3[0]);float M3_1 = Math.Abs(M3[1]);
             if (M3_0 == 0)
                 M3_0 = 0.001f;
@@ -121,7 +122,7 @@ namespace FC_Diseño_de_Nervios
             float[] AreaAporteSuperior = DiseñoYRevisonVigasRectangulares.Diseñar(B, H, d1, d2, fc, fy, M3_1 * cConversiones.Momento_Ton_m_to_kgf_cm, DiseñoYRevisonVigasRectangulares.eTipoViga.NoAplica);
             float ASuperior = AreaAporteSuperior[0];
 
-            if (B > 12) { if (ASuperior < 0.0009f * B * H) { ASuperior = 0.0009f * B * H; } } //Criterios de F'C
+            if (B > cVariables.BNervioBorde) { if (ASuperior < 0.0009f * B * H) { ASuperior = 0.0009f * B * H; } } //Criterios de F'C
 
 
             CalculosOrigen.Solicitacion_Asignado_Momentos.SolicitacionesInferior.Area_Momento = AreaAporteInferior[0];

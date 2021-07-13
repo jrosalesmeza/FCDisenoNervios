@@ -80,9 +80,13 @@
     <Reference Include="MathNet.Numerics, Version=4.12.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MathNet.Numerics.4.12.0\lib\net461\MathNet.Numerics.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
       <HintPath>packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
     </Reference>
@@ -94,12 +98,24 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Text.Encodings.Web.5.0.1\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WebTools, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -117,6 +133,7 @@
     <Compile Include="Clases y Enums\Herramientas\cFuncion_CopiaryPegarGeometria.cs" />
     <Compile Include="Clases y Enums\Herramientas\cFuncion_CopiaryPegarRefuerzos.cs" />
     <Compile Include="Clases y Enums\Herramientas\cFuncion_CargarSolcitaciones.cs" />
+    <Compile Include="Clases y Enums\Herramientas\cNuevasFunciones.cs" />
     <Compile Include="Clases y Enums\Herramientas\cPDF.cs" />
     <Compile Include="Clases y Enums\Herramientas\cSafe.cs" />
     <Compile Include="Clases y Enums\Herramientas\Extensiones.cs" />
@@ -236,6 +253,12 @@
     </Compile>
     <Compile Include="Ventana Principal\Ventanas Emergentes\F_CopiarPegarDisenar.Designer.cs">
       <DependentUpon>F_CopiarPegarDisenar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ventana Principal\Ventanas Emergentes\F_NomenclaturaDiagonal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ventana Principal\Ventanas Emergentes\F_NomenclaturaDiagonal.Designer.cs">
+      <DependentUpon>F_NomenclaturaDiagonal.cs</DependentUpon>
     </Compile>
     <Compile Include="Ventana Principal\Ventanas Emergentes\F_PesoTotal.cs">
       <SubType>Form</SubType>
@@ -405,6 +428,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventana Principal\Ventanas Emergentes\F_CopiarPegarDisenar.resx">
       <DependentUpon>F_CopiarPegarDisenar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ventana Principal\Ventanas Emergentes\F_NomenclaturaDiagonal.resx">
+      <DependentUpon>F_NomenclaturaDiagonal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventana Principal\Ventanas Emergentes\F_PesoTotal.resx">
       <DependentUpon>F_PesoTotal.cs</DependentUpon>

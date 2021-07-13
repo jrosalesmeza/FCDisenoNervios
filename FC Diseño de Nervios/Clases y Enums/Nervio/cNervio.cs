@@ -13,6 +13,10 @@ namespace FC_Diseño_de_Nervios
     public class cNervio
     {
 
+        public float Pendiente()
+        {
+            return (Lista_Elementos.Find(y => y.Soporte == eSoporte.Vano) as cSubTramo).Lista_Lineas.First().ConfigLinea.Pendiente();
+        }
         
         public static Pen PenBloquearNervio=  new Pen(Color.Gray, 3);
         private bool bloquearNevio = false;
@@ -32,12 +36,14 @@ namespace FC_Diseño_de_Nervios
             }
         }
 
+        public string NombreAnterior { get; set; }
         public bool NombrarNervioDiferente { get; set; } = false;
 
         public float EscalaMayorenX;
         public float EscalaMayorenY;
         public int ID { get; set; }
         public string Nombre { get; set; }
+        public string NombreSinPrefijo { get; set; }
         public string Prefijo { get; set; } = "N-";
         public int CantApoyos { get; set; } = 0;
 
@@ -195,7 +201,8 @@ namespace FC_Diseño_de_Nervios
         public void Cambio_Nombre(string Nombre_)
         {
             Nombre = Prefijo + Nombre_;
-            Tendencia_Refuerzos.NombreNervioOrigen = Nombre;
+            NombreSinPrefijo = Nombre_;
+            //Tendencia_Refuerzos.NombreNervioOrigen = Nombre;
         }
 
         private void ModificarGridsCoordenadasReales(float BubbleSize = 0.25f)
@@ -272,8 +279,8 @@ namespace FC_Diseño_de_Nervios
                 IElemento ObjetoActual = Lista_Elementos[i];
                 if (ObjetoActual is cSubTramo)
                 {
-                    Hs.Add(ObjetoActual.Seccion.H);
-                    Bs.Add(ObjetoActual.Seccion.B);
+                    Hs.Add((float)Math.Round(ObjetoActual.Seccion.H,3));
+                    Bs.Add((float)Math.Round(ObjetoActual.Seccion.B,3));
                 }
             }
             if (Bs.Distinct().ToList().Count > 1)
@@ -374,25 +381,25 @@ namespace FC_Diseño_de_Nervios
         public void AsignarMaximaLongitudTendencias()
         {
 
-            if (Longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
-            {
-                if (Longitud + 2 * cDiccionarios.G90[eNoBarra.B6] < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
-                {
+            //if (Longitud < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+            //{
+            //    if (Longitud + 2 * cDiccionarios.G90[eNoBarra.B6] < Tendencia_Refuerzos.TInfeSelect.MaximaLongitud)
+            //    {
 
-                    Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = Longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+            //        Tendencia_Refuerzos.TInfeSelect.MaximaLongitud = Longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
 
-                }
+            //    }
 
-            }
-            if (Longitud < Tendencia_Refuerzos.TSupeSelect.MaximaLongitud)
-            {
-                if (Longitud + 2 * cDiccionarios.G90[eNoBarra.B6] < Tendencia_Refuerzos.TSupeSelect.MaximaLongitud)
-                {
+            //}
+            //if (Longitud < Tendencia_Refuerzos.TSupeSelect.MaximaLongitud)
+            //{
+            //    if (Longitud + 2 * cDiccionarios.G90[eNoBarra.B6] < Tendencia_Refuerzos.TSupeSelect.MaximaLongitud)
+            //    {
 
-                    Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = Longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
-                }
+            //        Tendencia_Refuerzos.TSupeSelect.MaximaLongitud = Longitud + 2 * cDiccionarios.G90[eNoBarra.B6];
+            //    }
 
-            }
+            //}
         }
 
 
@@ -956,7 +963,6 @@ namespace FC_Diseño_de_Nervios
         #region Refuerzo Transveral
         public void CrearAceroAsignadoRefuerzoTransversal()
         {
-
             Lista_Elementos.ForEach(Elemento =>
             {
                 if (Elemento is cSubTramo)
@@ -967,7 +973,6 @@ namespace FC_Diseño_de_Nervios
                     {
                         Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoInferior.Area_S = 0f;
                         Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoSuperior.Area_S = 0f;
-
                         Estacion.Calculos.Solicitacion_Asignado_Cortante.AsignadoSuperior.Area_S = Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Sum(y => y.AporteRelacion_As_S_aEstacion(Estacion,Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos));
                     });
                 }
@@ -1206,7 +1211,7 @@ namespace FC_Diseño_de_Nervios
             {
                 Font Font1 = new Font("Calibri", 9, FontStyle.Bold);
                 PointF PointString = new PointF(WidthWindow / 2 - e.MeasureString(Nombre, Font1).Width / 2, HeigthWindow / 2 - Font1.Height / 2);
-                e.DrawString(Nombre.ToString(), Font1, Brushes.Black, PointString);
+                e.DrawString(Nombre, Font1, Brushes.Black, PointString);
             }
         }
 
@@ -2187,8 +2192,6 @@ namespace FC_Diseño_de_Nervios
 
         private void GraficarAutoCADEstribos(float X, float Y)
         {
-
-
             Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.ForEach(y => {
 
                 y.PaintAutoCAD(X, Y);

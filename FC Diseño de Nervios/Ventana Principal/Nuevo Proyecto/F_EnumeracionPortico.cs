@@ -93,7 +93,9 @@ namespace FC_Diseño_de_Nervios
                     }
                     int IDaRenombrar = 1;
                     F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(y => { y.ID = IDaRenombrar; IDaRenombrar += 1;});
-                    cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, F_Base.Proyecto.Nomenclatura_Vert);
+                    cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, 
+                        F_Base.Proyecto.Nomenclatura_Vert, F_Base.Proyecto.NomenclaturaDiagonalPositiva, 
+                        F_Base.Proyecto.NomenclaturaDiagonalNegativa,true, F_Base.Proyecto.NomenclaturaDiagonal);
                 }
             }
         }
@@ -107,6 +109,7 @@ namespace FC_Diseño_de_Nervios
 
             if (ContainsFocus)
             {
+                BT_Editar.Enabled = F_Base.Proyecto.NomenclaturaDiagonal;
                 Text = $"Enumeración de Elementos | {F_Base.Proyecto.DatosEtabs.PisoSelect.Nombre}";
                 cLine ElementSelect = F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines.Find(x => x.Select == true);
                 if (ElementSelect != null)
@@ -124,7 +127,8 @@ namespace FC_Diseño_de_Nervios
                 if (F_Base.Proyecto.Edificio.PisoSelect.Nervios != null)
                 {
                     cNervio NervioSelect = F_Base.Proyecto.Edificio.PisoSelect.Nervios.Find(x => x.SelectPlantaEnumeracion == true);
-
+                    var NervioSelects = F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(x => x.SelectPlantaEnumeracion == true);
+                    TSB_UnirNervio.Enabled = NervioSelects.Count > 1;
                     if (NervioSelect != null)
                     {
                         BT_Regresar.Enabled = true;
@@ -405,7 +409,9 @@ namespace FC_Diseño_de_Nervios
                 }
                 else
                 {
-                    cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, F_Base.Proyecto.Nomenclatura_Vert);
+                    cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, 
+                        F_Base.Proyecto.Nomenclatura_Vert, F_Base.Proyecto.NomenclaturaDiagonalPositiva, F_Base.Proyecto.NomenclaturaDiagonalNegativa,
+                         true, F_Base.Proyecto.NomenclaturaDiagonal);
                 }
             }
             else
@@ -496,7 +502,9 @@ namespace FC_Diseño_de_Nervios
                     }
                     int IDaRenombrar = 1;
                     F_Base.Proyecto.Edificio.PisoSelect.Nervios.ForEach(y => { y.ID = IDaRenombrar; IDaRenombrar += 1; });
-                    cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, F_Base.Proyecto.Nomenclatura_Vert);
+                    cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, F_Base.Proyecto.Nomenclatura_Vert, 
+                        F_Base.Proyecto.NomenclaturaDiagonalPositiva, F_Base.Proyecto.NomenclaturaDiagonalNegativa,
+                       true, F_Base.Proyecto.NomenclaturaDiagonal);
                 }
             }
             PB_ElementosNoEnumerados.Invalidate();
@@ -522,17 +530,37 @@ namespace FC_Diseño_de_Nervios
             CB_Nomenclatura_Vertical.SelectedItem = F_Base.Proyecto.Nomenclatura_Hztal.ToString();
             F_Base.Proyecto.Nomenclatura_Hztal = cFunctionsProgram.ConvertirStringtoeNomenclatura(CB_Nomenclatura_Hztal.Text);
         }
-
         private void CB_Nomenclatura_Vertical_SelectedIndexChanged(object sender, EventArgs e)
         {
             CB_Nomenclatura_Hztal.SelectedItem = F_Base.Proyecto.Nomenclatura_Vert.ToString();
             F_Base.Proyecto.Nomenclatura_Vert = cFunctionsProgram.ConvertirStringtoeNomenclatura(CB_Nomenclatura_Vertical.Text);
         }
-
+        private void CBX_NomenclaturaDiagonal_CheckedChanged(object sender, EventArgs e)
+        {
+            F_Base.Proyecto.NomenclaturaDiagonal = CBX_NomenclaturaDiagonal.Checked;
+        }
+        private void BT_Editar_Click(object sender, EventArgs e)
+        {
+            var nomenclaturaDiagonal = new Ventana_Principal.Ventanas_Emergentes.F_NomenclaturaDiagonal();
+            nomenclaturaDiagonal.ShowDialog();
+        }
         private void editarToolStripMenuItem_Click(object sender, EventArgs e)
         {
             F_EditarPisos f_EditarPisos = new F_EditarPisos(F_Base.Proyecto.Edificio.Lista_Pisos);
             f_EditarPisos.ShowDialog();
+        }
+
+        private void TSB_UnirNervio_Click(object sender, EventArgs e)
+        {
+            F_Base.EnviarEstadoVacio();
+            var nervios = F_Base.Proyecto.Edificio.PisoSelect.Nervios.FindAll(y => y.SelectPlantaEnumeracion);
+            List<cNervio> nervios1 = F_Base.Proyecto.Edificio.PisoSelect.Nervios;
+            cFunctionsProgram.UnirNervios(nervios, ref nervios1, F_Base.Proyecto.DatosEtabs.PisoSelect.Lista_Lines, F_Base.Proyecto.Edificio.Lista_Grids, F_Base.Proyecto.DatosEtabs.PisoSelect, WidthPB_NOENUMERADOS, Height_NOENUMERADOS);
+            F_Base.Proyecto.Edificio.PisoSelect.Nervios = nervios1;
+            cFunctionsProgram.RenombrarNervios(F_Base.Proyecto.Edificio.PisoSelect.Nervios, F_Base.Proyecto.Nomenclatura_Hztal, 
+                F_Base.Proyecto.Nomenclatura_Vert, F_Base.Proyecto.NomenclaturaDiagonalPositiva, 
+                F_Base.Proyecto.NomenclaturaDiagonalNegativa, true, F_Base.Proyecto.NomenclaturaDiagonal);
+            PB_ElementosEnumerados.Invalidate();
         }
     }
 }

@@ -13,6 +13,9 @@ namespace FC_Diseño_de_Nervios
             CalcularLongitud();
         }
 
+
+
+
         private void ClasificacionDireccionElemento()
         {
             if (Point1P.X == Point2P.X)
@@ -25,15 +28,14 @@ namespace FC_Diseño_de_Nervios
             }
             else
             {
-                //Direccion = eDireccion.Diagonal;
                 float DistX = Math.Abs(Point1P.X - Point2P.X);
                 float DistY = Math.Abs(Point1P.Y - Point2P.Y);
                 float Pendiente_Grados = (float)Math.Atan(DistY / DistX) * cConversiones.Angulo_Rad_to_Grad;
-                if (Pendiente_Grados >= cFunctionsProgram.ToleranciaVertical)
+                if (Pendiente_Grados >= cVariables.ToleranciaVertical)
                 {
                     Direccion = eDireccion.Vertical;
                 }
-                else if (Pendiente_Grados <= cFunctionsProgram.ToleranciaHorizontal)
+                else if (Pendiente_Grados <= cVariables.ToleranciaHorizontal)
                 {
                     Direccion = eDireccion.Horizontal;
                 }
@@ -41,9 +43,48 @@ namespace FC_Diseño_de_Nervios
                 {
                     Direccion = eDireccion.Diagonal;
                 }
-
             }
         }
+
+        public bool ComprarPendientes(cLine line, float tolerancia)
+        {
+            float DistX1 = Point1P.X - Point2P.X;
+            float DistY1 = Point1P.Y - Point2P.Y;
+            float m1 = (float)Math.Round(Math.Atan(DistY1 / DistX1) * cConversiones.Angulo_Rad_to_Grad, cVariables.CifrasDeciLongBarra);
+            float DistX2 = line.ConfigLinea.Point1P.X - line.ConfigLinea.Point2P.X;
+            float DistY2 = line.ConfigLinea.Point1P.Y - line.ConfigLinea.Point2P.Y;
+            float m2 = (float)Math.Round(Math.Atan(DistY2 / DistX2) * cConversiones.Angulo_Rad_to_Grad, cVariables.CifrasDeciLongBarra);
+
+            float tolerancia2 = tolerancia * 90f;
+            bool comparacion1= m1 == m2 || (m2 > m1 && m2 - m1 <= tolerancia2) || (m1 > m2 && m1 - m2 <= tolerancia2);
+
+            if (!comparacion1)
+            {
+                if (Math.Abs(m1) == 90f || Math.Abs(m1)==270f)
+                {
+                    m1 = Math.Abs(m1);
+                }
+                if (Math.Abs(m2)== 90f || Math.Abs(m2)==270f)
+                {
+                    m2 = Math.Abs(m2);
+                }
+                tolerancia2 = tolerancia * 90f;
+                comparacion1 = m1 == m2 || (m2 > m1 && m2 - m1 <= tolerancia2) || (m1 > m2 && m1 - m2 <= tolerancia2);
+            }
+
+            return comparacion1;
+
+        
+        }
+
+        public float Pendiente()
+        {
+            float DistX1 = Point1P.X - Point2P.X;
+            float DistY1 = Point1P.Y - Point2P.Y;
+            float m1 = (float)Math.Round(Math.Atan(DistY1 / DistX1) * cConversiones.Angulo_Rad_to_Grad, cVariables.CifrasDeciLongBarra);
+            return m1;
+        }
+          
 
         public bool Activar_Cambio_Ejes { get; set; } = false;
         public eDireccion Direccion { get; set; }
@@ -55,6 +96,7 @@ namespace FC_Diseño_de_Nervios
         public float Longitud { get; set; }
 
         private float longitudPonderacion = 0f;
+
         public float LongitudPonderacion
         {
             get

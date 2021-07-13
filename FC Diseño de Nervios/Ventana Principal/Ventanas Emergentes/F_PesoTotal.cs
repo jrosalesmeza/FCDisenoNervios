@@ -62,7 +62,7 @@ namespace FC_Diseño_de_Nervios.Ventana_Principal
                 PisoSelect.Nervios.Sum(x => x.Tendencia_Refuerzos.TInfeSelect.PesoRefuerzo) + 
                 PisoSelect.Nervios.Sum(x => x.Tendencia_Refuerzos.TSupeSelect.PesoRefuerzo);
             data.Rows.Clear();
-            PisoSelect.Nervios = cFunctionsProgram.OrdenarNervios(PisoSelect.Nervios);
+            PisoSelect.Nervios = cFunctionsProgram.OrdenarNerviosPorNomenclatura(PisoSelect.Nervios, F_Base.Proyecto.NomenclaturaDiagonal);
             PisoSelect.Nervios.ForEach(Nervio => {
                 data.Rows.Add();
                 data.Rows[data.Rows.Count - 1].Cells[C_NombreNervio.Index].Value = Nervio.Nombre;

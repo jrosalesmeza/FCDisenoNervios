@@ -36,7 +36,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas
         {
             Refuerzos.ForEach(BC => {
 
-                cBarra BarraClonada = cFunctionsProgram.DeepCloneFast(BC);
+                cBarra BarraClonada = BC.Clone();
                 if (SaberSiEstaPorFueraLaBarra(BarraClonada, Nervio))
                 {
                     if (BarraClonada.UbicacionRefuerzo == eUbicacionRefuerzo.Inferior)
@@ -79,7 +79,7 @@ namespace FC_Diseño_de_Nervios.Clases_y_Enums.Herramientas
                 if (SaberSiBloqueEstribosEstaPorFuera(E, nervio))
                 {
                     int IDF = 0;
-                    var BloquEstribosClone = cFunctionsProgram.DeepCloneFast(E);
+                    var BloquEstribosClone = E.Clone();
                     if (nervio.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Count > 0)
                         IDF = nervio.Tendencia_Refuerzos.TEstriboSelect.BloqueEstribos.Max(y => y.ID) + 1;
                     BloquEstribosClone.ID = IDF;

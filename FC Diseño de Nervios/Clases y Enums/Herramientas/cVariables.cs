@@ -15,6 +15,9 @@ namespace FC_Diseño_de_Nervios
         public const float ToleranciaVentanaDiseno = 5f;
 
 
+        public const float ToleranciaHorizontal = 10f;
+        public const float ToleranciaVertical = 80f;
+        public const float ToleranciaPendientes = 0.10f;
 
         public const float BNervioBorde = 12f;
         /// <summary>

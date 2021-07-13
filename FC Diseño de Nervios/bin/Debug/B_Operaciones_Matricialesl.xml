@@ -138,5 +138,88 @@
             <param name="Pto2">Segundo punto perteneciente al eje de reflexión</param> 
             <returns></returns>
         </member>
+        <member name="T:B_Operaciones_Matricialesl.OperacionesFuncionesWPF">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.Traslacion(System.Windows.Point,System.Single,System.Single)">
+            <summary>
+            Traslación de un punto [System.Drawing.PointF] dado su desplazamiento en X y Y. 
+            </summary>
+            <param name="Punto">Punto a trasladar.</param>
+            <param name="DX">Desplazamiento en X.</param>
+            <param name="DY">Desplzamineto en Y.</param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.ConvertirPointToCmatriz(System.Collections.Generic.List{System.Windows.Point})">
+            <summary>
+            Convierte listas de puntos[X,y,1] en listas de matrices[1x3]
+            </summary>
+            <param name="Puntos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.ConvertirMatrizToPoint(System.Collections.Generic.List{B_Operaciones_Matricialesl.cMatriz})">
+            <summary>
+            Convierte listas de matrices[1x3] en listas de puntos
+            </summary>
+            <param name="PuntosMatriz"></param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.ConvertirMatrizToPoint(B_Operaciones_Matricialesl.cMatriz)">
+            <summary>
+            Convierte  matriz[1x3] en punto
+            </summary>
+            <param name="PuntoMatriz"></param>
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.Rotacion2(System.Windows.Point,System.Windows.Point,System.Single,System.Boolean)">
+            <summary>
+            Rotacion de un punto respecto a un punto especificado
+            </summary>
+            <param name="Punto"></param>  Punto (Point) a rotar  
+            <param name="PuntoRef"></param>  Punto respecto al que se deseea rotar
+            <param name="Angulo"></param>  Angulo de rotacion 
+            <param name="Grados"></param>  Grados = true, radianes = false
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.Rotacion2(System.Collections.Generic.List{System.Windows.Point},System.Windows.Point,System.Single,System.Boolean)">
+            <summary>
+            Genera Rotacion respecto a un punto especificado
+            </summary>
+            <param name="LPuntos"></param>  Lista de puntos(float[]) a rotar  
+            <param name="PuntoRef"></param>  Punto respecto al que se deseea rotar
+            <param name="Angulo"></param>  Angulo de rotacion 
+            <param name="Grados"></param>  Grados = true, radianes = false
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.Rotacion2(System.Collections.Generic.List{System.Windows.Point},System.Single,System.Boolean)">
+            <summary>
+            Rotacion respecto al origen
+            </summary>
+            <param name="LPuntos"></param> Lista de Puntos a rotar
+            <param name="Angulo"></param> Angulo o giro
+            <param name="Grados"></param> Grados = true, Radianes = False
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.Escala(System.Collections.Generic.List{System.Windows.Point},System.Windows.Point,System.Single,System.Single)">
+            <summary>
+            Funcion que permite escalar una figura compuesta de puntos
+            </summary>
+            <param name="Puntos"></param> lista de puntos
+            <param name="PuntoRef"></param> Punto respecto al que se desea escalar, preferiblemente el inferior izquierdo de la figura
+            <param name="EscalaX"></param> Alargamiento en direccion X
+            <param name="EscalaY"></param> Alargamiento en direccion Y
+            <returns></returns>
+        </member>
+        <member name="M:B_Operaciones_Matricialesl.OperacionesFuncionesWPF.Reflejar(System.Collections.Generic.List{System.Windows.Point},System.Windows.Point,System.Windows.Point)">
+            <summary>
+            Refleja una figura respecto a una linea de eje especificada a traves de dos puntos
+            </summary>
+            <param name="Puntos"></param> lista de puntos a reflejar
+            <param name="Pto1"></param> Primer punto perteneciente al eje de reflexión
+            <param name="Pto2"></param> Segundo punto perteneciente al eje de reflexión
+            <returns></returns>
+        </member>
     </members>
 </doc>
